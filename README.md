@@ -30,6 +30,9 @@ Dynamische Daten
 Bilddatenbank
 - site: http://www.deutschlands-bahnhoefe.org/
 
+Die Auslandsbahnhöfe
+- site: http://www.alsgefahn.de/bfmapausland/ausland.html
+
 Schweizer Seite
 - site: https://schweizer-bahnhoefe.ch/
 
