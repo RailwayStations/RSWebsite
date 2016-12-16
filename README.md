@@ -27,5 +27,12 @@ Dynamische Daten
 - site: http://fotouebersicht.deutschlands-bahnhöfe.de/bahnhoefe-withoutPhoto.txt
 - repository: https://github.com/pstorch/bahnhoefe.gpx
 
+Bilddatenbank
+- site: http://www.deutschlands-bahnhoefe.org/
+
 Schweizer Seite
 - site: https://schweizer-bahnhoefe.ch/
+
+Aktuell reservierte URLs
+- site: http://www.railway-stations.org/
+- site: http://alexa.railway-stations.org/
