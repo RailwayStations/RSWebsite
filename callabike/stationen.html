@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="de-DE"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="de-DE"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="de-DE"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="de-DE"> <!--<![endif]-->
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Call a Bike Stationen</title>
+	<link rel="stylesheet" type="text/css" href="map.css"/>
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
+	<link href="../css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="../css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
+	<!--<link rel="stylesheet" href="sidr/stylesheets/jquery.sidr.dark.css">-->
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+	<link rel="stylesheet" href="../css/MarkerCluster.css" />
+	<link rel="stylesheet" href="../css/MarkerCluster.Default.css">
+	
+	<!--<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="js/main_bike.js"></script>
+    <script src="../js/spin.js"></script>
+    <script src="../js/leaflet.spin.js"></script>
+	<script src="../js/leaflet.markercluster.js"></script>-->
+	
+
+	<script type="text/javascript" src="../js/modernizr-custom.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="js/main_bike.js"></script>
+    <script src="../js/spin.js"></script>
+    <script src="../js/leaflet.spin.js"></script>
+	<script src="../js/leaflet.markercluster.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	
+	<!--<script src="sidr/jquery.sidr.min.js"></script>-->
+	<script type="text/javascript" src="../js/smoothscroll.js"></script>
+	
+	</head>
+<body>
+    <header id="top" class="header" role="banner">
+        <div class="container clearfix">
+    		<div class="logo-menu">
+        		<div class="logo">
+                    <h1><img src="../images/logo.jpg"><a href="../index.html">Deutschlands<strong>Bahnh&ouml;fe</strong></a></h1>
+				</div>
+ 				<div class="suche">
+					<form id="search" method="get" action="../suchen.php">
+					<label  for="suche"><span class="screen-reader-text">Suche</span></label>							
+					<input id="suche" name="suche" placeholder="Finde deinen Bahnhof" >
+					</form>
+				</div>
+				<!-- id="nav" wird per custom.js angesprochen, das die mobile Navigation steuert -->
+				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
+					<ul class="nav-menu">
+                        
+                        <li><a href="callabike/stationen.html" target="_blank">RAD</a></li>
+                        <li><a href="http://www.alsgefahn.de/bfmap/bhfueb.html" target="_blank">Fotos</a></li>
+                        <li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">Impressum</a></li>
+					</ul>
+				</nav>
+    
+        	</div>
+
+
+
+		</div>
+    </header>
+    <section id="main">
+	<div class="container karte clearfix">
+    
+    <!--<div id="map" style="width: 1920px; height: 1080px"></div>-->
+		<div id="map" style="width: 100%; height: 100%"></div>
+    </div>
+</section>
+
+<script src="../js/custom.js"></script>
+</body>
+</html>
