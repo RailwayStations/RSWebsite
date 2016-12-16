@@ -3,7 +3,7 @@ $( document ).ready(function() {
   var basemap = L.tileLayer(
     'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     { maxZoom: 18,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ' }
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' }
     );
 
  var map = L.map('map').setView([50.9730622,10.9603269], 6);
