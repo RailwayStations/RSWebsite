@@ -95,51 +95,23 @@ function showMarkerImages() {
 	if (markers) {
 		map.removeLayer(markers);
 	}
-	markers = L.tileLayer();
+	markers = L.layerGroup();
 
 	var bahnhoefe = L.featureGroup()
 		.on('click', function (event) {
 			showPopup(event.layer.options, this);
 		}),
 		i,
-//		customIcon = L.icon({
-//			iconUrl: './images/pointer.png',
-//			iconSize: [32, 46],
-//			iconAnchor: [16, 46],
-//			popupAnchor: [0, -28]
-//		}),
 		marker;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], 1, {color:'blue', fillColor:'#bbf', fillOpacity:.5, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
+		var color = (dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e')
+		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor:color, fillOpacity:1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
 	markers.addLayer(bahnhoefe); // add it to the cluster group
 	map.addLayer(markers);		// add it to the map
-	map.fitBounds(markers.getBounds()); //set view on the cluster extend
-
-/*	var pois1 = new OpenLayers.Layer.Text( "mit Foto",
-                    { location:"./fertig.txt",
-                      projection: map.displayProjection
-                    });
-    map.addLayer(pois1);
-    var pois2 = new OpenLayers.Layer.Text( "ohne Foto",
-	                    { location:"./offen.txt",
-	                      projection: map.displayProjection
-	                    });
-    map.addLayer(pois2);
- // create layer switcher widget in top right corner of map.
-    var layer_switcher= new OpenLayers.Control.LayerSwitcher({});
-    map.addControl(layer_switcher);
-    //Set start centrepoint and zoom
-    var lonLat = new OpenLayers.LonLat( 10.34454, 51.76577 )
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-          );
-    var zoom=6;
-    map.setCenter (lonLat, zoom);
-*/
+//	map.fitBounds(markers.getBounds()); //set view on the cluster extend
 }
 
 $(document).ready(function () {
