@@ -5,7 +5,17 @@ var dataBahnhoefe = null,
 function showPopup(feature, layer) {
 	'use strict';
 
-	layer.bindPopup('<a href="detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a><br />Fotograf: ' + feature.properties.photographer);
+	var str = '';
+	if (null !== feature.properties.photographer) {
+		str += '<a href="detail.php?bahnhofNr=' + feature.properties.id + '"><img src="http://www.deutschlands-bahnhoefe.de/images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
+		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
+		str += '<h1 style="text-align:center;"><a href="detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
+	} else {
+		str += '<h1 style="text-align:center;">' + feature.properties.title + '</h1>';
+		str += '<div>Hier fehlt noch ein Foto.</div>';
+	}
+
+	layer.bindPopup(str);
 }
 
 function showMarkerAllClustered() {
