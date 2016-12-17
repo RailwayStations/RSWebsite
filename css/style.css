@@ -794,13 +794,13 @@ svg.circle {
 }
 
 svg.circle .pie {
-	fill: #9F0C35;
-	stroke: #0000f4;
+	fill: #B70E3D;
+	stroke: #0E3DB7;
 	stroke-width: 30;
 }
 
 .showCluster .marker-cluster-large {
-	background: #9F0C35 !important;
+	background: #B70E3D !important;
 }
 
 .marker-cluster span:nth-child(1) {
