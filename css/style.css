@@ -799,7 +799,7 @@ svg.circle .pie {
 	stroke-width: 30;
 }
 
-.marker-cluster-large {
+.showCluster .marker-cluster-large {
 	background: #9F0C35 !important;
 }
 

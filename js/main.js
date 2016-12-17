@@ -11,6 +11,7 @@ function showPopup(feature, layer) {
 function showMarkerAllClustered() {
 	'use strict';
 
+	$('body').removeClass('showCluster');
 	if (markers) {
 		map.removeLayer(markers);
 	}
@@ -41,6 +42,7 @@ function showMarkerAllClustered() {
 function showMarkerImagesClustered() {
 	'use strict';
 
+	$('body').addClass('showCluster');
 	if (markers) {
 		map.removeLayer(markers);
 	}
