@@ -54,8 +54,8 @@ function showMarkerImagesClustered() {
 				max = markers.length,
 				i;
 			for (i = 0; i < max; ++i) {
-				red += markers[i].options.icon.options.iconUrl.indexOf('train') > 0 ? 1 : 0;
-				blue += markers[i].options.icon.options.iconUrl.indexOf('photo') > 0 ? 1 : 0;
+				red += markers[i].options.icon.options.iconUrl.indexOf('red') > 0 ? 1 : 0;
+				blue += markers[i].options.icon.options.iconUrl.indexOf('green') > 0 ? 1 : 0;
 			}
 			return new L.DivIcon({ html:
 				'<svg width="40" height="40" class="circle"><circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:' + parseInt(blue / max * 100, 10) + ', 1000;"/></svg>' +
@@ -76,7 +76,7 @@ function showMarkerImagesClustered() {
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
 		customIcon = L.icon({
-			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'train' : 'photo') + '.png',
+			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : 'green') + '.png',
 			iconSize: [50, 50],
 			iconAnchor: [25, 50],
 			popupAnchor: [0, -28]
@@ -89,15 +89,36 @@ function showMarkerImagesClustered() {
 	map.fitBounds(markers.getBounds()); //set view on the cluster extend
 }
 
-/*function showMarkerImages() {
+function showMarkerImages() {
 	'use strict';
 
 	if (markers) {
 		map.removeLayer(markers);
 	}
-	markers = L.markerClusterGroup();
+	markers = L.tileLayer();
 
-    var pois1 = new OpenLayers.Layer.Text( "mit Foto",
+	var bahnhoefe = L.featureGroup()
+		.on('click', function (event) {
+			showPopup(event.layer.options, this);
+		}),
+		i,
+//		customIcon = L.icon({
+//			iconUrl: './images/pointer.png',
+//			iconSize: [32, 46],
+//			iconAnchor: [16, 46],
+//			popupAnchor: [0, -28]
+//		}),
+		marker;
+
+	for (i = 0; i < dataBahnhoefe.length; ++i) {
+		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], 1, {color:'blue', fillColor:'#bbf', fillOpacity:.5, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
+	}
+
+	markers.addLayer(bahnhoefe); // add it to the cluster group
+	map.addLayer(markers);		// add it to the map
+	map.fitBounds(markers.getBounds()); //set view on the cluster extend
+
+/*	var pois1 = new OpenLayers.Layer.Text( "mit Foto",
                     { location:"./fertig.txt",
                       projection: map.displayProjection
                     });
@@ -118,8 +139,8 @@ function showMarkerImagesClustered() {
           );
     var zoom=6;
     map.setCenter (lonLat, zoom);
-
-}*/
+*/
+}
 
 $(document).ready(function () {
 	'use strict';
