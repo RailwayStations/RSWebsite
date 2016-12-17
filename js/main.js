@@ -89,7 +89,7 @@ function showMarkerImagesClustered() {
 	map.fitBounds(markers.getBounds()); //set view on the cluster extend
 }
 
-function showMarkerImages() {
+function showCircleAllClustered(colored) {
 	'use strict';
 
 	if (markers) {
@@ -105,13 +105,49 @@ function showMarkerImages() {
 		marker;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		var color = (dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e')
+		var color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e')
 		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor:color, fillOpacity:1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
 	markers.addLayer(bahnhoefe); // add it to the cluster group
 	map.addLayer(markers);		// add it to the map
 //	map.fitBounds(markers.getBounds()); //set view on the cluster extend
+}
+
+function updateMarker(showPoints, colored) {
+	'use strict';
+
+	if (showPoints) {
+		showCircleAllClustered(colored);
+	} else {
+		if (colored) {
+			showMarkerAllClustered();
+		} else {
+			showMarkerImagesClustered();
+		}
+	}
+}
+
+function clickPoints() {
+	'use strict';
+
+	var showPoints = $('#togglePoints').hasClass('fa-toggle-on');
+	$('#togglePoints').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+
+	var colored = !$('#toggleColor').hasClass('fa-toggle-on');
+
+	updateMarker(showPoints, colored);
+}
+
+function clickColor() {
+	'use strict';
+
+	var showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+
+	var colored = $('#toggleColor').hasClass('fa-toggle-on');
+	$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+
+	updateMarker(showPoints, colored);
 }
 
 $(document).ready(function () {
@@ -131,7 +167,8 @@ $(document).ready(function () {
 
 	$.getJSON('http://fotouebersicht.deutschlands-bahnhöfe.de/de/bahnhoefe', function (featureCollection) {
 		dataBahnhoefe = featureCollection;
-		showMarkerImagesClustered();
+
+		updateMarker(false, false);
 	}).done(function () {
 		// alert( "second success" );
 		map.spin(false);

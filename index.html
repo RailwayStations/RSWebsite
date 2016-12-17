@@ -11,7 +11,7 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
-	<link href="css/font-awesome.min.css" rel="stylesheet" media="screen">
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
 	<!--<link rel="stylesheet" href="sidr/stylesheets/jquery.sidr.dark.css">-->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
@@ -48,7 +48,7 @@
 					<ul class="nav-menu">
                         
                         <li><a href="callabike/stationen.html" target="_blank">RAD</a></li>
-                        <li><a href="http://www.alsgefahn.de/bfmap/bhfueb.html" target="_blank">Fotos</a></li>
+                        <li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>
                         <li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">Impressum</a></li>
 					</ul>
 				</nav>
@@ -67,8 +67,8 @@
                 <li>
                     <h4>Ansichten</h4>
 
-                    <p class="name"><a href="#" onclick="showMarkerImages()">Punkte</a></p>
-                    <p class="name"><a href="#" onclick="showMarkerImagesClustered()">Torten</a></p>
+					<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Punkte</span><i id="togglePoints" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Marker</span></a></p>
+					<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">einfarbig</span><i id="toggleColor" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">farbig</span></a></p>
                     <p class="name"><a href="#" onclick="showMarkerAllClustered()">Alle</a></p>
 
                  </li>
