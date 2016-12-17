@@ -782,3 +782,41 @@ aside {
 	width: 90%;
 	margin: 0 auto;
 }
+
+/*================================================================================================*/
+
+svg.circle {
+	border-radius: 50%;
+	transform: rotate(-90deg);
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+svg.circle .pie {
+	fill: #9F0C35;
+	stroke: #0000f4;
+	stroke-width: 30;
+}
+
+.marker-cluster-large {
+	background: #9F0C35 !important;
+}
+
+.marker-cluster span:nth-child(1) {
+	position: absolute;
+	left: 0px;
+	width: 40px;
+	line-height: 25px;
+}
+
+.marker-cluster span:nth-child(2) {
+	line-height: 10px;
+	font-size: 9px;
+	position: absolute;
+	left: 0px;
+	width: 40px;
+	text-align: center;
+	top: 24px;
+	color: #bbb;
+}
