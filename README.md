@@ -25,6 +25,7 @@ Elastic Search API
 Dynamische Daten
 - site: http://fotouebersicht.deutschlands-bahnhöfe.de/bahnhoefe-withPhoto.txt
 - site: http://fotouebersicht.deutschlands-bahnhöfe.de/bahnhoefe-withoutPhoto.txt
+- site: http://fotouebersicht.deutschlands-bahnhöfe.de/de/bahnhoefe?hasPhoto=false
 - repository: https://github.com/pstorch/bahnhoefe.gpx
 
 Bilddatenbank
