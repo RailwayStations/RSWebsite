@@ -150,6 +150,22 @@ function clickColor() {
 	updateMarker(showPoints, colored);
 }
 
+function clickDE() {
+	'use strict';
+
+	var showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+	var colored = !$('#toggleColor').hasClass('fa-toggle-on');
+
+	var lang = $('#toggleDE').hasClass('fa-toggle-on') ? 'de' : 'ch';
+	$('#toggleDE').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+
+	$.getJSON('http://fotouebersicht.deutschlands-bahnhöfe.de/' + lang + '/bahnhoefe', function (featureCollection) {
+		dataBahnhoefe = featureCollection;
+
+		updateMarker(showPoints, colored);
+	});
+}
+
 $(document).ready(function () {
 	'use strict';
 
