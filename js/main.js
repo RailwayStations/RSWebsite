@@ -14,7 +14,7 @@ $( document ).ready(function() {
   
  
   var customIcon = L.icon({
-        iconUrl: '../images/pointer.png',
+        iconUrl: './images/pointer.png',
         iconSize: [32, 46],
         iconAnchor: [16, 46],
         popupAnchor: [0, -28]
