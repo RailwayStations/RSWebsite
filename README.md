@@ -27,6 +27,7 @@ Elastic Search API (URL mit ö)
 
 Bilddatenbank (URL mit .org)
 - [deutschlands-bahnhoefe.org](http://www.deutschlands-bahnhoefe.org/)
+- [Liste aller Fotos eines Fotografen](http://www.deutschlands-bahnhoefe.org/alle-fotos-eines-fotografen)
 
 Schweizer Seite (URL mit .ch)
 - [schweizer-bahnhoefe.ch](https://schweizer-bahnhoefe.ch/)
