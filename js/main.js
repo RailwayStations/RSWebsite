@@ -1,6 +1,7 @@
 var dataBahnhoefe = null,
 	map = null,
-	markers = null;
+	markers = null,
+	popup = null;
 
 function showPopup(feature, layer) {
 	'use strict';
@@ -15,7 +16,13 @@ function showPopup(feature, layer) {
 		str += '<div>Hier fehlt noch ein Foto.</div>';
 	}
 
-	layer.bindPopup(str);
+	if (null === popup) {
+		popup = L.popup();
+	}
+
+	popup.setLatLng([feature.properties.lat, feature.properties.lon])
+		.setContent(str)
+		.openOn(map);
 }
 
 function showMarkerAllClustered() {
@@ -112,11 +119,12 @@ function showCircleAllClustered(colored) {
 			showPopup(event.layer.options, this);
 		}),
 		i,
-		marker;
+		marker,
+		color;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		var color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e')
-		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor:color, fillOpacity:1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
+		color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e');
+		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor: color, fillOpacity: 1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
 	markers.addLayer(bahnhoefe); // add it to the cluster group
@@ -141,10 +149,12 @@ function updateMarker(showPoints, colored) {
 function clickPoints() {
 	'use strict';
 
-	var showPoints = $('#togglePoints').hasClass('fa-toggle-on');
+	var showPoints, colored;
+
+	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
 	$('#togglePoints').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 
-	var colored = !$('#toggleColor').hasClass('fa-toggle-on');
+	colored = !$('#toggleColor').hasClass('fa-toggle-on');
 
 	updateMarker(showPoints, colored);
 }
@@ -152,9 +162,11 @@ function clickPoints() {
 function clickColor() {
 	'use strict';
 
-	var showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+	var showPoints, colored;
 
-	var colored = $('#toggleColor').hasClass('fa-toggle-on');
+	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+
+	colored = $('#toggleColor').hasClass('fa-toggle-on');
 	$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 
 	updateMarker(showPoints, colored);
@@ -163,10 +175,12 @@ function clickColor() {
 function clickDE() {
 	'use strict';
 
-	var showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
-	var colored = !$('#toggleColor').hasClass('fa-toggle-on');
+	var showPoints, colored, lang;
 
-	var lang = $('#toggleDE').hasClass('fa-toggle-on') ? 'de' : 'ch';
+	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+	colored = !$('#toggleColor').hasClass('fa-toggle-on');
+
+	lang = $('#toggleDE').hasClass('fa-toggle-on') ? 'de' : 'ch';
 	$('#toggleDE').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 
 	$.getJSON('http://fotouebersicht.deutschlands-bahnhöfe.de/' + lang + '/bahnhoefe', function (featureCollection) {
