@@ -183,7 +183,7 @@ function clickDE() {
 	lang = $('#toggleDE').hasClass('fa-toggle-on') ? 'de' : 'ch';
 	$('#toggleDE').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 
-	$.getJSON('http://fotouebersicht.deutschlands-bahnhöfe.de/' + lang + '/bahnhoefe', function (featureCollection) {
+	$.getJSON('https://api.railway-stations.org/' + lang + '/stations', function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints, colored);
@@ -199,13 +199,14 @@ $(document).ready(function () {
 			maxZoom: 18,
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}
-	);
+	),
+		lang = 'de';
 	map = L.map('map').setView([50.9730622, 10.9603269], 6);
 
 	basemap.addTo(map);
 	map.spin(true);
 
-	$.getJSON('http://fotouebersicht.deutschlands-bahnhöfe.de/de/bahnhoefe', function (featureCollection) {
+	$.getJSON('https://api.railway-stations.org/' + lang + '/stations', function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(false, false);
