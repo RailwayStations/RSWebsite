@@ -21,9 +21,9 @@ Hauptseite (URL mit oe)
 - [deutschlands-bahnhoefe.de](http://www.deutschlands-bahnhoefe.de/) + [github](https://github.com/androidoma/deutschlands-bahnhoefe.de)
 
 Elastic Search API (URL mit ö)
-- [deutschlands-bahnhöfe.de](http://www.deutschlands-bahnhöfe.de/) + [github](https://github.com/pstorch/bahnhoefe.gpx)
-- Beispielabfrage: [/de/bahnhoefe?hasPhoto=false](http://fotouebersicht.deutschlands-bahnhöfe.de/de/bahnhoefe?hasPhoto=false)
-- Beispielabfrage: [/ch/bahnhoefe?hasPhoto=true](http://fotouebersicht.deutschlands-bahnhöfe.de/ch/bahnhoefe?hasPhoto=true)
+- [deutschlands-bahnhöfe.de](http://www.deutschlands-bahnhöfe.de/) + [github](https://github.com/RailwayStations/RSAPI)
+- Beispielabfrage: [/de/stations?hasPhoto=false](http://fotouebersicht.deutschlands-bahnhöfe.de/de/stations?hasPhoto=false)
+- Beispielabfrage: [/ch/stations?hasPhoto=true](http://fotouebersicht.deutschlands-bahnhöfe.de/ch/stations?hasPhoto=true)
 
 Bilddatenbank (URL mit .org)
 - [deutschlands-bahnhoefe.org](http://www.deutschlands-bahnhoefe.org/)
@@ -43,8 +43,8 @@ Karte aller Auslandsbahnhöfe mit Fotos
 Die Funktionen dieser Seiten sind bereits zur Hauptseite migriert worden und werden demnächst gelöscht:
 - [alsgefahn.de/bfmap/bhfueb.html](http://www.alsgefahn.de/bfmap/bhfueb.html)
 - [alsgefahn.de/bfmapfoto/bhfueb.html](http://www.alsgefahn.de/bfmapfoto/bhfueb.html)
-- [bahnhoefe-withPhoto.txt](http://fotouebersicht.deutschlands-bahnhöfe.de/bahnhoefe-withPhoto.txt)
-- [bahnhoefe-withoutPhoto.txt](http://fotouebersicht.deutschlands-bahnhöfe.de/bahnhoefe-withoutPhoto.txt)
+- [stations.txt?hasPhoto=true](http://fotouebersicht.deutschlands-bahnhöfe.de/de/stations.txt?hasPhoto=true)
+- [bahnhoefe.txt?hasPhoto=false](http://fotouebersicht.deutschlands-bahnhöfe.de/de/stations.txt?hasPhoto=false)
 
 Für zukünftige Entwicklungen sind weitere URLs reserviert:
 - [railway-stations.org](http://www.railway-stations.org/)
