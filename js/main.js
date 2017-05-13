@@ -97,7 +97,7 @@ function initLayout() {
 		document.title = '日本の駅';
 		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">日本<strong>の駅</strong></a></h1>');
 		$('#top.header #suche')[0].placeholder = '駅名検索';
-		$('aside .info:nth-child(1) h4').html('Ansichten');
+		$('aside .info:nth-child(1) h4').html('表示設定');
 		$('aside .info:nth-child(1) p:nth-child(2) span:nth-child(1)').html('全駅表示');
 		$('aside .info:nth-child(1) p:nth-child(2) span:nth-child(3)').html('まとめ表示');
 		$('aside .info:nth-child(1) p:nth-child(3) span:nth-child(1)').html('駅数のみ');
@@ -304,14 +304,20 @@ function clickColor() {
 function clickLangIcon() {
 	'use strict';
 
-	var showPoints, colored;
+	var showPoints, colored, uri;
 
 	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	colored = !$('#toggleColor').hasClass('fa-toggle-on');
 
 	initLayout();
 
-	$.getJSON(getAPIURI() + 'stations', function (featureCollection) {
+	if ('jp' === getLanguage()) {
+		uri = 'http://www.deutschlands-bahnhoefe.de/bahnhoefe_japan.json';
+	} else {
+		uri = getAPIURI() + 'stations';
+	}
+
+	$.getJSON(uri, function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints, colored);
