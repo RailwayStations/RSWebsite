@@ -553,7 +553,11 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 {
 	width: 100%;
 	height: auto;
-	border-bottom: 7px solid #CBCBCB
+	border-bottom: 7px solid #CBCBCB;
+	background: #fff;
+	position: absolute;
+	top: 0;
+	z-index: 1001;
 }
 .logo {
 	width: 100%;
@@ -694,11 +698,13 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 
 /* fullscreen (Karte + Detail) */
 .karte, .detail {
-    height: 1000px;
+    height: 100%;
     margin: 0;
-	padding: 0 !important;
+	padding: 87px 0 0 0 !important;
     max-width: 100%;
     width: 100%;
+	position: absolute;
+	top: 0;
 }
 
 aside {
