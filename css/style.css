@@ -497,7 +497,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	background-color: #de114a;
 }
 
-*:-moz-placeholder, *::-webkit-input-placeholder, *:-ms-input-placeholder  {
+::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder, :-moz-placeholder {
     color: #444;
     opacity: 1;
 }
@@ -772,6 +772,16 @@ aside {
 .icon4
 {
 	background-position: -199px -1px;
+}
+.iconMail
+{
+	background:url(../images/icon-mail.svg) no-repeat;
+	background-size: 60px;
+}
+.iconPhoto
+{
+	background:url(../images/icon-addphoto.svg) no-repeat;
+	background-size: 60px;
 }
 .city {
 	position: absolute;
