@@ -6,12 +6,13 @@
 var dataBahnhoefe = null,
 	map = null,
 	markers = null,
-	popup = null;
+	popup = null,
+	gLanguage = 'de';
 
 function getLanguage() {
 	'use strict';
 
-	return $('#toggleDE').hasClass('fa-toggle-on') ? 'ch' : 'de';
+	return gLanguage;
 }
 
 function getBaseURI() {
@@ -51,6 +52,46 @@ function showPopup(feature, layer) {
 	popup.setLatLng([feature.properties.lat, feature.properties.lon])
 		.setContent(str)
 		.openOn(map);
+}
+
+function initLayout() {
+	'use strict';
+
+	var lang = getLanguage(),
+		menu = '';
+
+	$('body').removeClass('countryde');
+	$('body').removeClass('countrych');
+	$('body').removeClass('countryjp');
+	$('body').addClass('country' + lang);
+
+	$('#flagDE').css({opacity: 'de' !== lang ? 1 : 0.25});
+	$('#flagCH').css({opacity: 'ch' !== lang ? 1 : 0.25});
+	$('#flagJP').css({opacity: 'jp' !== lang ? 1 : 0.25});
+
+	if ('ch' === lang) {
+		document.title = 'Schweizer Bahnhöfe';
+		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Schweizer<strong>Bahnh&ouml;fe</strong></a></h1>');
+		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
+
+		menu += '<li><a href="https://martinrechsteiner.ch/category/news/bahn/" target="_blank" title="Blog">Blog</a></li>';
+		menu += '<li><a href="https://twitter.com/bahnhoefeCH" target="_blank" title="Twitter">Twitter</a></li>';
+		menu += '<li><a href="https://www.facebook.com/SchweizerBahnhoefe" target="_blank" title="Facebook">FB</a></li>';
+		menu += '<li><a href="https://www.instagram.com/bahnhoefeCH/" target="_blank" title="Instagram"><img src="images/glyph-logo_May2016.png" style="height:24px;"></a></li>';
+	} else {
+		document.title = 'Deutschlands Bahnhöfe';
+		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Deutschlands<strong>Bahnh&ouml;fe</strong></a></h1>');
+		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
+
+		menu += '<li><a href="http://deutschlands-bahnhoefe.org/bahnhofsfotos-suchen" target="_blank">Download</a></li>';
+		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+//		menu += '<li><a href="https://www.facebook.com/hashtag/bahnhofsfoto" target="_blank" title="Facebook">FB</a></li>';
+//		menu += '<li><a href="https://db-planet.deutschebahn.com/workspaces/bahnhofsfotos/apps/timeline/timeline" target="_blank" title="DB Planet">DB Planet</a></li>';
+//		menu += '<li><a href="#" target="_blank" title="#">App</a></li>';
+		menu += '<li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">Impressum</a></li>';
+	}
+
+	$('#top.header .nav-menu').html(menu);
 }
 
 function showMarkerAllClustered() {
@@ -200,7 +241,7 @@ function clickColor() {
 	updateMarker(showPoints, colored);
 }
 
-function clickDE() {
+function clickLangIcon() {
 	'use strict';
 
 	var showPoints, colored;
@@ -208,13 +249,34 @@ function clickDE() {
 	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	colored = !$('#toggleColor').hasClass('fa-toggle-on');
 
-	$('#toggleDE').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+	initLayout();
 
 	$.getJSON(getAPIURI() + 'stations', function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints, colored);
 	});
+}
+
+function clickDE() {
+	'use strict';
+
+	gLanguage = 'de';
+	clickLangIcon();
+}
+
+function clickCH() {
+	'use strict';
+
+	gLanguage = 'ch';
+	clickLangIcon();
+}
+
+function clickJP() {
+	'use strict';
+
+	gLanguage = 'jp';
+	clickLangIcon();
 }
 
 $(document).ready(function () {
@@ -232,6 +294,8 @@ $(document).ready(function () {
 
 	basemap.addTo(map);
 	map.spin(true);
+
+	initLayout();
 
 	$.getJSON('https://api.railway-stations.org/' + lang + '/stations', function (featureCollection) {
 		dataBahnhoefe = featureCollection;

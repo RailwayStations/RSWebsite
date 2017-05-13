@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Deutschlands Bahnh&ouml;fe</title>
+	<title>Railway Stations</title>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
@@ -33,16 +33,18 @@
 	<!--<link rel="stylesheet" href="sidr/stylesheets/jquery.sidr.dark.css">-->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+	<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />-->
 	<link rel="stylesheet" href="css/MarkerCluster.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.Default.css">
 
 	<script type="text/javascript" src="js/modernizr-custom.js"></script>
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="js/main.js"></script>
     <script src="js/spin.js"></script>
     <script src="js/leaflet.spin.js"></script>
-	<script src="js/jquery.min.js"></script>
+	<!--<script src="js/jquery.min.js"></script>-->
 	<!--<script src="sidr/jquery.sidr.min.js"></script>-->
 	<script type="text/javascript" src="js/smoothscroll.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
@@ -51,29 +53,28 @@
     <header id="top" class="header" role="banner">
         <div class="container clearfix">
     		<div class="logo-menu">
-        		<div class="logo">
-                    <h1><img src="images/logo.jpg"><a href="index.html">Deutschlands<strong>Bahnh&ouml;fe</strong></a></h1>
-				</div>
+        		<div class="logo"></div>
  				<div class="suche">
 					<form id="search" method="get" action="suchen.php">
-					<label  for="suche"><span class="screen-reader-text">Suche</span></label>							
-					<input id="suche" name="suche" placeholder="Finde deinen Bahnhof" >
+						<label for="suche"><span class="screen-reader-text"></span></label>							
+						<input id="suche" name="suche">
 					</form>
 				</div>
 				<!-- id="nav" wird per custom.js angesprochen, das die mobile Navigation steuert -->
 				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
-					<ul class="nav-menu">
-                        
-                        <li><a href="callabike/stationen.html" target="_blank">RAD</a></li>
-                        <li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>
-                        <li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">Impressum</a></li>
-					</ul>
+					<ul class="nav-menu"></ul>
 				</nav>
-    
-        	</div>
-
-
-
+<!--<a href="#popupMenu" data-rel="popup" data-transition="slideup" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-gear ui-btn-icon-left ui-btn-a">Actions...</a>
+<div data-role="popup" id="popupMenu" data-theme="b">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Choose an action</li>
+            <li><a href="#">View details</a></li>
+            <li><a href="#">Edit</a></li>
+            <li><a href="#">Disable</a></li>
+            <li><a href="#">Delete</a></li>
+        </ul>
+</div>-->
+			</div>
 		</div>
     </header>
     <section id="main">
@@ -86,7 +87,11 @@
 
 					<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Punkte</span><i id="togglePoints" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Marker</span></a></p>
 					<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">einfarbig</span><i id="toggleColor" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">farbig</span></a></p>
-					<p class="name"><a href="#" onclick="clickDE()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Deutschland</span><i id="toggleDE" class="fa fa-toggle-off" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Schweiz</span></a></p>
+					<p class="name"><a href="#" onclick="clickDE()"><span style="padding:0 .5em 0 0;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagDE.png" id="flagDE" style="height:2.5em;" alt="Deutschland"></a>
+						<a href="#" onclick="clickCH()"><span style="padding:0 .5em;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagCH.png" id="flagCH" style="height:2.5em;" alt="Schweiz"></a>
+						<a href="#" onclick="clickJP()"><span style="padding:0 0 0 .5em;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagJP.png" id="flagJP" style="height:2.5em;" alt="Japan"></im></span></a>
+						<!-- https://www.iconfinder.com/iconsets/flags_gosquared -->
+					</p>
 
                  </li>
             </ul>
