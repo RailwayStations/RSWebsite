@@ -38,7 +38,7 @@ function showPopup(feature, layer) {
 	var str = '';
 	if (null !== feature.properties.photographer) {
 		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + getBaseURI() + 'images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
-		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
+		str += '<div style="text-align:right;">' + ('jp' === getLanguage() ? '撮影' : 'Fotograf:') + ' ' + feature.properties.photographer + '</div>';
 		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
 	} else {
 		str += '<h1 style="text-align:center;">' + feature.properties.title + '</h1>';
@@ -312,6 +312,7 @@ function clickLangIcon() {
 	initLayout();
 
 	if ('jp' === getLanguage()) {
+		// this is a hack!!!
 		uri = 'http://www.deutschlands-bahnhoefe.de/bahnhoefe_japan.json';
 	} else {
 		uri = getAPIURI() + 'stations';
