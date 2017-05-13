@@ -1,16 +1,44 @@
+/*jslint browser: true*/
+/*global $,L*/
+
+//-----------------------------------------------------------------------
+
 var dataBahnhoefe = null,
 	map = null,
 	markers = null,
 	popup = null;
+
+function getLanguage() {
+	'use strict';
+
+	return $('#toggleDE').hasClass('fa-toggle-on') ? 'ch' : 'de';
+}
+
+function getBaseURI() {
+	'use strict';
+
+	var lang = getLanguage();
+	if ('ch' === lang) {
+		return 'https://schweizer-bahnhoefe.ch/';
+	}
+
+	return 'http://www.deutschlands-bahnhoefe.de/';
+}
+
+function getAPIURI() {
+	'use strict';
+
+	return 'https://api.railway-stations.org/' + getLanguage() + '/';
+}
 
 function showPopup(feature, layer) {
 	'use strict';
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
-		str += '<a href="detail.php?bahnhofNr=' + feature.properties.id + '"><img src="http://www.deutschlands-bahnhoefe.de/images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
+		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + getBaseURI() + 'images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
 		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
-		str += '<h1 style="text-align:center;"><a href="detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
+		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
 	} else {
 		str += '<h1 style="text-align:center;">' + feature.properties.title + '</h1>';
 		str += '<div>Hier fehlt noch ein Foto.</div>';
@@ -175,15 +203,14 @@ function clickColor() {
 function clickDE() {
 	'use strict';
 
-	var showPoints, colored, lang;
+	var showPoints, colored;
 
 	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	colored = !$('#toggleColor').hasClass('fa-toggle-on');
 
-	lang = $('#toggleDE').hasClass('fa-toggle-on') ? 'de' : 'ch';
 	$('#toggleDE').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 
-	$.getJSON('https://api.railway-stations.org/' + lang + '/stations', function (featureCollection) {
+	$.getJSON(getAPIURI() + 'stations', function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints, colored);
