@@ -98,7 +98,7 @@ function initLayout() {
 		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">日本<strong>の駅</strong></a></h1>');
 		$('#top.header #suche')[0].placeholder = '駅名検索';
 		$('aside .info:nth-child(1) h4').html('ご協力したい方');
-		$('aside .info:nth-child(1) .name').html('駅の写真を投稿する方法については<a href="http://www.deutschlands-bahnhoefe.org/faq" target="_blank"><strong>こちら</strong></a>');
+		$('aside .info:nth-child(1) .name').html('駅の写真を投稿する方法については<a href="https://railway-stations.org/faq" target="_blank"><strong>こちら</strong></a>');
 		$('aside .info:nth-child(2) h4').html('表示設定');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('全駅表示');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('まとめ表示');
@@ -120,15 +120,15 @@ App	アプリ
 iOS	iOS
 Android	Android
 */
-		menu += '<li><a href="http://deutschlands-bahnhoefe.org/bahnhofsfotos-suchen" target="_blank">ダウンロード</a></li>';
+		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen" target="_blank">ダウンロード</a></li>';
 		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="ツイッター"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-		menu += '<li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">本サイトについて</a></li>';
+		menu += '<li><a href="https://railway-stations.org/node/22" target="_blank">本サイトについて</a></li>';
 	} else {
 		document.title = 'Deutschlands Bahnhöfe';
 		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Deutschlands<strong>Bahnh&ouml;fe</strong></a></h1>');
 		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 		$('aside .info:nth-child(1) h4').html('Unterstütze uns');
-		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="http://www.deutschlands-bahnhoefe.org/faq" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
+		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
 		$('aside .info:nth-child(2) h4').html('Ansichten');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Punkte');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Marker');
@@ -148,7 +148,7 @@ Android	Android
 //		menu += '<li><a href="https://www.facebook.com/hashtag/bahnhofsfoto" target="_blank" title="Facebook">FB</a></li>';
 //		menu += '<li><a href="https://db-planet.deutschebahn.com/workspaces/bahnhofsfotos/apps/timeline/timeline" target="_blank" title="DB Planet">DB Planet</a></li>';
 //		menu += '<li><a href="#" target="_blank" title="#">App</a></li>';
-		menu += '<li><a href="http://www.deutschlands-bahnhoefe.org/node/22" target="_blank">Impressum</a></li>';
+		menu += '<li><a href="https://railway-stations.org/node/22" target="_blank">Impressum</a></li>';
 	}
 
 	$('#top.header .nav-menu').html(menu);
