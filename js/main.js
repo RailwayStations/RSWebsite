@@ -143,7 +143,7 @@ Android	Android
 		$('#flagJP').attr('title', 'Japan');
 		$('#flagJP').attr('alt', 'Japan');
 
-		menu += '<li><a href="http://deutschlands-bahnhoefe.org/bahnhofsfotos-suchen" target="_blank">Download</a></li>';
+		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen" target="_blank">Download</a></li>';
 		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 //		menu += '<li><a href="https://www.facebook.com/hashtag/bahnhofsfoto" target="_blank" title="Facebook">FB</a></li>';
 //		menu += '<li><a href="https://db-planet.deutschebahn.com/workspaces/bahnhofsfotos/apps/timeline/timeline" target="_blank" title="DB Planet">DB Planet</a></li>';
