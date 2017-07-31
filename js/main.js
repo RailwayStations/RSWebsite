@@ -32,12 +32,26 @@ function getAPIURI() {
 	return 'https://api.railway-stations.org/' + getLanguage() + '/';
 }
 
+/**
+ * Uses the Google Image Proxy to return a scaled version of the image
+ *
+ * @param {string} src The URL to the original image
+ * @param {number} width
+ * @return {string} The URL to the scaled image
+ */
+function scaleImage(src, width) {
+	return 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=' + width + '&url=' + encodeURIComponent(src)
+}
+
 function showPopup(feature, layer) {
 	'use strict';
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
-		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + getBaseURI() + 'images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
+		var photoURL = scaleImage(getBaseURI() + 'images/' + feature.properties.id + '.jpg', 301)
+		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '" style="display: block; max-height: 200px; overflow: hidden;">';
+		str += '<img src="' + photoURL + '" style="width:301px;" height="400">'
+		str += '</a><br>';
 		str += '<div style="text-align:right;">' + ('jp' === getLanguage() ? '撮影' : 'Fotograf:') + ' ' + feature.properties.photographer + '</div>';
 		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
 	} else {
