@@ -1,127 +1,70 @@
-$(function() {
+$(function () {
+	'use strict';
 
-    $(".fahrstuhl").on('click',function() {
+    $(".fahrstuhl").on('click', function () {
+		var vars = [],
+            hash,
+			i,
+            q = document.URL.split('?')[1];
 
-
-        var vars = [],
-
-            hash;
-
-        var q = document.URL.split('?')[1];
-
-        if (q != undefined) {
-
+        if (q !== undefined) {
             q = q.split('&');
 
-            for (var i = 0; i < q.length; i++) {
-
+            for (i = 0; i < q.length; i++) {
                 hash = q[i].split('=');
-
                 vars.push(hash[1]);
-
                 vars[hash[0]] = hash[1];
-
             }
-
         }
 
-        /* alert(vars['bahnhofNr']); */
-        
         var bahnhofName = document.getElementById('bahnhofsname').innerHTML;
-
-        var stationNr = vars['bahnhofNr'];
-
+        var stationNr = vars.bahnhofNr;
         var n = stationNr.search('#');
 
-        /*alert(n);*/
-
-
-
-        if (n != -1) {
-
+        if (n !== -1) {
             stationNr = stationNr.substr(0, stationNr.length - 1);
-
         }
 
+		// curl -X GET --header "Accept: application/json" --header "Authorization: Bearer 2b344cb863ad6086779ba76dd628f9fd" "https://api.deutschebahn.com/fasta-beta/2.0/facilities"
+		$.ajax({
+			url: 'https://api.deutschebahn.com/fasta-beta/2.0/stations/' + stationNr,
+			type: 'GET',
+			dataType: 'json',
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader('Authorization', 'Bearer 2b344cb863ad6086779ba76dd628f9fd');
+			},
+			error: function () {
+				console.log('loading fasta failed');
+			},
+			success: function (obj) {
+				var jsonOutput = '';
+				$.each(obj.facilities, function (key, value) {
+					if (value.stationnumber == stationNr) {
+						if (value.description) {
+							jsonOutput = jsonOutput + "<p class='fahrstuhl'> " + value.description + "<br /> Status: <strong>" + value.state + "</strong></p>";
+						} else {
+							jsonOutput = jsonOutput + "<p class='fahrstuhl'> Status: <strong>" + value.state + "</strong></p>";
+						}
+					}
 
+					swal({
+						title: "<h4 class='h4fahrstuhl'>Fahrstuhlstatus</h4>" + bahnhofName,
+						text: jsonOutput,
+						confirmButtonColor: "#9f0c35",
+						html: true
+					});
+				});
 
-
-
-        /*debugger;
-
-        alert($('button').text());*/
-
-
-
-        $.getJSON("http://adam.noncd.db.de/api/v1.0/facilities", function(obj) {
-
-            var jsonOutput = '';
-
-            $.each(obj, function(key, value) {
-
-                if (value.stationnumber == stationNr) {
-
-                    if (value.description) {
-
-                        jsonOutput = jsonOutput + "<p class='fahrstuhl'> " + value.description + "<br /> Status: <strong>" + value.state + "</strong></p>"
-
-
-
-                    } else {
-
-                        jsonOutput = jsonOutput + "<p class='fahrstuhl'> Status: <strong>" + value.state + "</strong></p>"
-
-                    }
-
-                }
-
-
-
-                swal({
-
-                    title: "<h4 class='h4fahrstuhl'>Fahrstuhlstatus</h4>" + bahnhofName,
-
-                    text: jsonOutput,
-
-                    confirmButtonColor: "#9f0c35",
-
-                    html: true
-
-                });
-
-
-
-            });
-
-
-
-            /* debugger;
-
-             alert(jsonOutput); */
-
-            if (!jsonOutput) {
-
-
-
-                swal({
-
-                    title: "<h4 class='h4fahrstuhl'>Fahrstuhlstatus</h4>",
-
-                    text: "<p class='fahrstuhl'>F&uuml;r diesen Bahnhof sind leider noch keine Aufzugsdaten vorhanden</p>",
-
-                    confirmButtonColor: "#9f0c35",
-
-                    html: true
-
-                });
-
-            }
-
-
-
-
-
-        });
+				if (!jsonOutput) {
+					swal({
+						title: "<h4 class='h4fahrstuhl'>Fahrstuhlstatus</h4>",
+						text: "<p class='fahrstuhl'>F&uuml;r diesen Bahnhof sind leider noch keine Aufzugsdaten vorhanden</p>",
+						confirmButtonColor: "#9f0c35",
+						html: true
+					});
+				}
+			}
+		});
 
     });
 
