@@ -56,7 +56,7 @@
         		<div class="logo"></div>
  				<div class="suche">
 					<form id="search" method="get" action="http://www.deutschlands-bahnhoefe.de/suchen.php">
-						<label for="suche"><span class="screen-reader-text"></span></label>							
+						<label for="suche"><span class="screen-reader-text"></span></label>
 						<input id="suche" name="suche">
 					</form>
 				</div>
@@ -97,10 +97,11 @@
 
 					<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"></span><i id="togglePoints" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"></span></a></p>
 					<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"></span><i id="toggleColor" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"></span></a></p>
-					<p class="name"><a href="#" onclick="clickDE()"><span style="padding:0 .5em 0 0;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagDE.png" id="flagDE" style="height:2.5em;"></a>
-						<a href="#" onclick="clickCH()"><span style="padding:0 .5em;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagCH.png" id="flagCH" style="height:2.5em;"></a>
-						<a href="#" onclick="clickJP()"><span style="padding:0 0 0 .5em;text-align:right;width:7em;text-decoration-line:none;"><img src="images/flagJP.png" id="flagJP" style="height:2.5em;"></im></span></a>
-						<!-- https://www.iconfinder.com/iconsets/flags_gosquared -->
+
+					<p>
+						<label for="country" class="select">Land: </label>
+						<select id="country" onchange="switchCountry()">
+						</select>
 					</p>
 
                  </li>
@@ -115,7 +116,7 @@
                  </li>
             </ul>
         </div>
-       
+
 <!--        <div class="info-alert">Fahrst&uuml;hle [z.Zt. erst 130 implementiert]</div> -->
 <!--        <div class="info-alert">Rolltreppen [Noch nicht implementiert]</div> -->
     </aside>
@@ -124,7 +125,7 @@
     </div>
 </section>
     <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
-    <script type="text/javascript">		
+    <script type="text/javascript">
 /*    	 $(document).ready(function() {
     		$('#simple-menu').sidr({
     		side: 'right'
