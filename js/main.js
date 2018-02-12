@@ -6,8 +6,9 @@
 var dataBahnhoefe = null,
 	map = null,
 	markers = null,
-	popup = null;
-	countries = null;
+	popup = null,
+	countries = null,
+	nickname;
 
 function setLanguage(lang) {
 	'use strict';
@@ -77,9 +78,9 @@ function initLayout() {
 		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 		$('aside .info:nth-child(1) h4').html('Unterstütze uns');
 		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Schweizer Bahnhof? <a href="https://schweizer-bahnhoefe.ch/faq-schweiz.php" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
-		$('aside .info:nth-child(2) h4').html('Ansichten');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Punkte');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Marker');
+		$('aside .info:nth-child(2) h4').html('Einstellungen');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Marker');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Punkte');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(1)').html('einfarbig');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('farbig');
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
@@ -95,9 +96,9 @@ function initLayout() {
 		$('#top.header #suche')[0].placeholder = '駅名検索';
 		$('aside .info:nth-child(1) h4').html('ご協力したい方');
 		$('aside .info:nth-child(1) .name').html('駅の写真を投稿する方法については<a href="https://railway-stations.org/faq" target="_blank"><strong>こちら</strong></a>');
-		$('aside .info:nth-child(2) h4').html('表示設定');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('全駅表示');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('まとめ表示');
+		$('aside .info:nth-child(2) h4').html('Settings');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('まとめ表示');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('全駅表示');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(1)').html('駅数のみ');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('完成度');
 		$('aside .info:nth-child(3) h4').html('ご意見・ご提案');
@@ -119,9 +120,9 @@ Android	Android
 		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 		$('aside .info:nth-child(1) h4').html('Unterstütze uns');
 		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
-		$('aside .info:nth-child(2) h4').html('Ansichten');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Punkte');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Marker');
+		$('aside .info:nth-child(2) h4').html('Einstellungen');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Marker');
+		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Punkte');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(1)').html('einfarbig');
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('farbig');
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
@@ -203,7 +204,7 @@ function showMarkerImagesClustered() {
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
 		customIcon = L.icon({
-			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : 'green') + '.png',
+			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : 'green')) + '.png',
 			iconSize: [50, 50],
 			iconAnchor: [25, 50],
 			popupAnchor: [0, -28]
@@ -233,7 +234,7 @@ function showCircleAllClustered(colored) {
 		color;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e');
+		color = (colored ? dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : '#3db70e') : '#B70E3D');
 		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor: color, fillOpacity: 1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
@@ -249,9 +250,9 @@ function updateMarker(showPoints, colored) {
 		showCircleAllClustered(colored);
 	} else {
 		if (colored) {
-			showMarkerAllClustered();
-		} else {
 			showMarkerImagesClustered();
+		} else {
+			showMarkerAllClustered();
 		}
 	}
 }
@@ -261,10 +262,11 @@ function clickPoints() {
 
 	var showPoints, colored;
 
-	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
+	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	$('#togglePoints').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+	localStorage.setItem("showPoints", showPoints ? "true" : "false");
 
-	colored = !$('#toggleColor').hasClass('fa-toggle-on');
+	colored = $('#toggleColor').hasClass('fa-toggle-on');
 
 	updateMarker(showPoints, colored);
 }
@@ -274,10 +276,12 @@ function clickColor() {
 
 	var showPoints, colored;
 
-	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
+	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
 
-	colored = $('#toggleColor').hasClass('fa-toggle-on');
+	colored = !$('#toggleColor').hasClass('fa-toggle-on');
 	$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+
+	localStorage.setItem("colored", colored ? "true" : "false");
 
 	updateMarker(showPoints, colored);
 }
@@ -293,13 +297,27 @@ function getStationsURL() {
 	}
 }
 
+function setNickname() {
+	'use strict';
+
+	var showPoints, colored;
+
+	nickname = $('#nickname').val();
+	localStorage.setItem("nickname", nickname);
+
+	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
+	colored = $('#toggleColor').hasClass('fa-toggle-on');
+
+	updateMarker(showPoints, colored);
+}
+
 function switchCountry() {
 	'use strict';
 
 	var showPoints, colored, uri;
 
-	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
-	colored = !$('#toggleColor').hasClass('fa-toggle-on');
+	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
+	colored = $('#toggleColor').hasClass('fa-toggle-on');
 	setLanguage($('#country').val());
 
 	initLayout();
@@ -309,6 +327,18 @@ function switchCountry() {
 
 		updateMarker(showPoints, colored);
 	});
+}
+
+function getBoolFromLocalStorage(pre, defaultVal) {
+	'use strict'
+
+	var value = localStorage.getItem(pre);
+
+	if (value == null) {
+		return defaultVal;
+	}
+
+  return localStorage.getItem(pre) == 'true' ? true : false;
 }
 
 $(document).ready(function () {
@@ -327,6 +357,20 @@ $(document).ready(function () {
 	basemap.addTo(map);
 	map.spin(true);
 
+	nickname = localStorage.getItem("nickname");
+	$('#nickname').val(nickname);
+
+	var showPoints = getBoolFromLocalStorage("showPoints", false);
+	if (showPoints) {
+		$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+	}
+
+	var colored = getBoolFromLocalStorage("colored", true);
+	if (!colored) {
+		$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
+	}
+
+
 	initLayout();
 
 	$('#country').selectmenu();
@@ -344,7 +388,7 @@ $(document).ready(function () {
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
-		updateMarker(false, false);
+		updateMarker(showPoints, colored);
 	}).done(function () {
 		// alert( "second success" );
 		map.spin(false);
