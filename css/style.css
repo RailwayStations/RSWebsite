@@ -12,6 +12,8 @@ table {
 	border-spacing: 0;
 }
 
+#country-button span { display: none; }
+
 .banner
 {
     position: relative;
@@ -64,7 +66,7 @@ table {
 }
 .top-button
 {
-	
+
 	text-decoration: none;
 	border-radius: 5px;
 	font-family: 'Open Sans', sans-serif;
@@ -141,7 +143,7 @@ p.box-desc
 	margin: 0 auto;
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
-	
+
 }
 a.fahrstuhl, a.rolltreppen, a.parkplaetze {
     color: #000;
@@ -153,15 +155,15 @@ a.ankunft, a.abfahrt, a.countdown {
     text-decoration: none;
 }
 
-a.ankunft:link, 
-a.ankunft:hover, 
-a.ankunft:focus, 
-a.ankunft:active, 
+a.ankunft:link,
+a.ankunft:hover,
+a.ankunft:focus,
+a.ankunft:active,
 a.ankunft:visited,
-.abfahrt:link, 
-.abfahrt:hover, 
-.abfahrt:focus, 
-.abfahrt:active, 
+.abfahrt:link,
+.abfahrt:hover,
+.abfahrt:focus,
+.abfahrt:active,
 .abfahrt:visited{
   text-decoration: none;
   color: #fff !important;
@@ -170,7 +172,7 @@ a.ankunft:visited,
 .features-section ul li p strong
 {
 	font-weight: 700;
-	
+
 }
 
 button.submit
@@ -433,10 +435,10 @@ a:active {
 
 
 /* ------------------------------------------------------
- *    Standardwerte 
+ *    Standardwerte
  * -----------------------------------------------------*/
 
-body { 
+body {
 	font-family: 'Open Sans', arial, helvetica, sans-serif;
 }
 h1 {
@@ -480,11 +482,11 @@ strong {
 input, textarea {
     border: 1px solid rgba(0, 0, 0, 0.1);
     color: #2B2B2B;
-	font-size: 15px; 
+	font-size: 15px;
 	line-height: 2;
     padding: 6px 10px 5px;
 }
-textarea { 
+textarea {
 	font-family: 'Open Sans', arial, helvetica, sans-serif;
 }
 input[type="submit"] {
@@ -529,7 +531,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 /* Basics - Wrapper */
 .container {
 	position: relative;
-	width: 100%; 
+	width: 100%;
 	max-width: 1080px;
 	margin: 0 auto;
   *zoom: 1;
@@ -561,7 +563,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 }
 .logo {
 	width: 100%;
-	
+
 }
 .logo h1{
     font-size: 20px;
@@ -583,7 +585,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     color: #fff;
     padding: 10px;
     overflow: hidden;
-	
+
 }
 .suche label {
 	background: url(../images/search.png) no-repeat center;
@@ -608,7 +610,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 
 
 
-/* Navigation */ 
+/* Navigation */
 .mobile-menu {
   display: none;
 }
@@ -617,7 +619,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 }
 .nav-menu li {
 	display: inline-block;
-	
+
 }
 .nav-menu li a {
     color: #4e4f4f;

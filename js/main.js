@@ -6,11 +6,27 @@
 var dataBahnhoefe = null,
 	map = null,
 	markers = null,
-	popup = null,
-	gLanguage = 'de';
+	popup = null;
+	countries = null;
+
+var nickname = localStorage.getItem("nickname");
+if(nickname == null) {
+  nickname = '@storchp'; // for testing only: make it configurable
+}
+
+function setLanguage(lang) {
+	'use strict';
+
+	localStorage.setItem("gLanguage", lang);
+}
 
 function getLanguage() {
 	'use strict';
+
+	var gLanguage = localStorage.getItem("gLanguage");
+	if(gLanguage == null) {
+	  gLanguage = 'de';
+	}
 
 	return gLanguage;
 }
@@ -29,7 +45,7 @@ function getBaseURI() {
 function getAPIURI() {
 	'use strict';
 
-	return 'https://api.railway-stations.org/' + getLanguage() + '/';
+	return 'https://api.railway-stations.org/';
 }
 
 function showPopup(feature, layer) {
@@ -60,15 +76,6 @@ function initLayout() {
 	var lang = getLanguage(),
 		menu = '';
 
-	$('body').removeClass('countryde');
-	$('body').removeClass('countrych');
-	$('body').removeClass('countryjp');
-	$('body').addClass('country' + lang);
-
-	$('#flagDE').css({opacity: 'de' !== lang ? 1 : 0.25});
-	$('#flagCH').css({opacity: 'ch' !== lang ? 1 : 0.25});
-	$('#flagJP').css({opacity: 'jp' !== lang ? 1 : 0.25});
-
 	if ('ch' === lang) {
 		document.title = 'Schweizer Bahnhöfe';
 		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Schweizer<strong>Bahnh&ouml;fe</strong></a></h1>');
@@ -82,12 +89,6 @@ function initLayout() {
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('farbig');
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:feedback@schweizer-bahnhoefe.ch">melde dich</a>');
-		$('#flagDE').attr('title', 'Deutschland');
-		$('#flagDE').attr('alt', 'Deutschland');
-		$('#flagCH').attr('title', 'Schweiz');
-		$('#flagCH').attr('alt', 'Schweiz');
-		$('#flagJP').attr('title', 'Japan');
-		$('#flagJP').attr('alt', 'Japan');
 
 		menu += '<li><a href="https://martinrechsteiner.ch/category/news/bahn/" target="_blank" title="Blog">Blog</a></li>';
 		menu += '<li><a href="https://twitter.com/bahnhoefeCH" target="_blank" title="Twitter">Twitter</a></li>';
@@ -106,12 +107,6 @@ function initLayout() {
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('完成度');
 		$('aside .info:nth-child(3) h4').html('ご意見・ご提案');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">ご意見をご教示ください。</a>');
-		$('#flagDE').attr('title', 'ドイツ');
-		$('#flagDE').attr('alt', 'ドイツ');
-		$('#flagCH').attr('title', 'スイス');
-		$('#flagCH').attr('alt', 'スイス');
-		$('#flagJP').attr('title', '日本');
-		$('#flagJP').attr('alt', '日本');
 
 /*
 Facebook　フェースブック
@@ -136,18 +131,9 @@ Android	Android
 		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('farbig');
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
-		$('#flagDE').attr('title', 'Deutschland');
-		$('#flagDE').attr('alt', 'Deutschland');
-		$('#flagCH').attr('title', 'Schweiz');
-		$('#flagCH').attr('alt', 'Schweiz');
-		$('#flagJP').attr('title', 'Japan');
-		$('#flagJP').attr('alt', 'Japan');
 
 		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen" target="_blank">Download</a></li>';
 		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-//		menu += '<li><a href="https://www.facebook.com/hashtag/bahnhofsfoto" target="_blank" title="Facebook">FB</a></li>';
-//		menu += '<li><a href="https://db-planet.deutschebahn.com/workspaces/bahnhofsfotos/apps/timeline/timeline" target="_blank" title="DB Planet">DB Planet</a></li>';
-//		menu += '<li><a href="#" target="_blank" title="#">App</a></li>';
 		menu += '<li><a href="https://railway-stations.org/node/22" target="_blank">Impressum</a></li>';
 	}
 
@@ -222,7 +208,7 @@ function showMarkerImagesClustered() {
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
 		customIcon = L.icon({
-			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : 'green') + '.png',
+			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : 'green')) + '.png',
 			iconSize: [50, 50],
 			iconAnchor: [25, 50],
 			popupAnchor: [0, -28]
@@ -252,7 +238,7 @@ function showCircleAllClustered(colored) {
 		color;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : '#3db70e');
+		color = (colored ? '#B70E3D' : dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : '#3db70e'));
 		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor: color, fillOpacity: 1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
@@ -301,49 +287,33 @@ function clickColor() {
 	updateMarker(showPoints, colored);
 }
 
-function clickLangIcon() {
+function getStationsURL() {
+	'use strict';
+
+	if ('jp' === getLanguage()) {
+		// this is a hack!!!
+		return 'http://www.deutschlands-bahnhoefe.de/bahnhoefe_japan.json';
+	} else {
+		return getAPIURI() + getLanguage() + '/stations';
+	}
+}
+
+function switchCountry() {
 	'use strict';
 
 	var showPoints, colored, uri;
 
 	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	colored = !$('#toggleColor').hasClass('fa-toggle-on');
+	setLanguage($('#country').val());
 
 	initLayout();
 
-	if ('jp' === getLanguage()) {
-		// this is a hack!!!
-		uri = 'http://www.deutschlands-bahnhoefe.de/bahnhoefe_japan.json';
-	} else {
-		uri = getAPIURI() + 'stations';
-	}
-
-	$.getJSON(uri, function (featureCollection) {
+	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints, colored);
 	});
-}
-
-function clickDE() {
-	'use strict';
-
-	gLanguage = 'de';
-	clickLangIcon();
-}
-
-function clickCH() {
-	'use strict';
-
-	gLanguage = 'ch';
-	clickLangIcon();
-}
-
-function clickJP() {
-	'use strict';
-
-	gLanguage = 'jp';
-	clickLangIcon();
 }
 
 $(document).ready(function () {
@@ -356,7 +326,7 @@ $(document).ready(function () {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}
 	),
-		lang = 'de';
+	lang = getLanguage();
 	map = L.map('map').setView([50.9730622, 10.9603269], 6);
 
 	basemap.addTo(map);
@@ -364,7 +334,19 @@ $(document).ready(function () {
 
 	initLayout();
 
-	$.getJSON('https://api.railway-stations.org/' + lang + '/stations', function (featureCollection) {
+	$('#country').selectmenu();
+	$.getJSON(getAPIURI() + 'countries', function (countries) {
+		var select = $('#country');
+		for (var i = 0; i < countries.length; ++i) {
+			select.append($('<option>', {
+			    value: countries[i].code,
+			    text: countries[i].name
+			}));
+		}
+		select.val(getLanguage());
+	});
+
+	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(false, false);
