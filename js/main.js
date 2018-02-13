@@ -183,7 +183,7 @@ function showMarkerImagesClustered() {
 				i;
 			for (i = 0; i < max; ++i) {
 				red += markers[i].options.icon.options.iconUrl.indexOf('red') > 0 ? 1 : 0;
-				blue += markers[i].options.icon.options.iconUrl.indexOf('green') > 0 ? 1 : 0;
+				blue += (markers[i].options.icon.options.iconUrl.indexOf('green') > 0 || markers[i].options.icon.options.iconUrl.indexOf('blue') > 0) ? 1 : 0;
 			}
 			return new L.DivIcon({ html:
 				'<svg width="40" height="40" class="circle"><circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:' + parseInt(blue / max * 100, 10) + ', 1000;"/></svg>' +
