@@ -178,18 +178,18 @@ function showMarkerImagesClustered() {
 		iconCreateFunction: function (cluster) {
 			var markers = cluster.getAllChildMarkers(),
 				red = 0,
-				blue = 0,
+				green = 0,
 				max = markers.length,
 				i;
 			for (i = 0; i < max; ++i) {
 				red += markers[i].options.icon.options.iconUrl.indexOf('red') > 0 ? 1 : 0;
-				blue += (markers[i].options.icon.options.iconUrl.indexOf('green') > 0 || markers[i].options.icon.options.iconUrl.indexOf('blue') > 0) ? 1 : 0;
+				green += (markers[i].options.icon.options.iconUrl.indexOf('green') > 0 || markers[i].options.icon.options.iconUrl.indexOf('violet') > 0) ? 1 : 0;
 			}
 			return new L.DivIcon({ html:
-				'<svg width="40" height="40" class="circle"><circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:' + parseInt(blue / max * 100, 10) + ', 1000;"/></svg>' +
+				'<svg width="40" height="40" class="circle"><circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:' + parseInt(green / max * 100, 10) + ', 1000;"/></svg>' +
 				'<div>' +
 				'<span>' + max + '</span>' +
-				'<span>' + parseInt(blue / max * 100, 10) + '%</span>' +
+				'<span>' + parseInt(green / max * 100, 10) + '%</span>' +
 				'</div>', className: 'marker-cluster marker-cluster-large', iconSize: new L.Point(40, 40) });
 		}
 	});
@@ -204,7 +204,7 @@ function showMarkerImagesClustered() {
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
 		customIcon = L.icon({
-			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : 'green')) + '.png',
+			iconUrl: './images/pointer-' + (dataBahnhoefe[i].photographer === null ? 'red' : (dataBahnhoefe[i].photographer === nickname ? 'violet' : 'green')) + '.png',
 			iconSize: [50, 50],
 			iconAnchor: [25, 50],
 			popupAnchor: [0, -28]
@@ -234,7 +234,7 @@ function showCircleAllClustered(colored) {
 		color;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		color = (colored ? dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? 'blue' : '#3db70e') : '#B70E3D');
+		color = (colored ? dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? '#8000FF' : '#3db70e') : '#B70E3D');
 		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor: color, fillOpacity: 1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
