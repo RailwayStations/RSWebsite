@@ -49,8 +49,8 @@ function showPopup(feature, layer) {
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
-		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + getBaseURI() + 'images/' + feature.properties.id + '.jpg" style="width:301px;"></a><br>';
-		str += '<div style="text-align:right;">' + ('jp' === getLanguage() ? '撮影' : 'Fotograf:') + ' ' + feature.properties.photographer + '</div>';
+		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + feature.properties.photoUrl + '" style="width:301px;"></a><br>';
+		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
 		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
 	} else {
 		str += '<h1 style="text-align:center;">' + feature.properties.title + '</h1>';
@@ -74,10 +74,10 @@ function initLayout() {
 
 	if ('ch' === lang) {
 		document.title = 'Schweizer Bahnhöfe';
-		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Schweizer<strong>Bahnh&ouml;fe</strong></a></h1>');
+		$('#top.header .logo').html('<h1><img src="images/logo.jpg">Schweizer<strong>Bahnh&ouml;fe</strong></h1>');
 		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 		$('aside .info:nth-child(1) h4').html('Unterstütze uns');
-		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Schweizer Bahnhof? <a href="https://schweizer-bahnhoefe.ch/faq-schweiz.php" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
+		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Schweizer Bahnhof? <a href="https://schweizer-bahnhoefe.ch/faq-schweiz.php"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
 		$('aside .info:nth-child(2) h4').html('Einstellungen');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Marker');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Punkte');
@@ -86,40 +86,22 @@ function initLayout() {
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:feedback@schweizer-bahnhoefe.ch">melde dich</a>');
 
-		menu += '<li><a href="https://martinrechsteiner.ch/category/news/bahn/" target="_blank" title="Blog">Blog</a></li>';
-		menu += '<li><a href="https://twitter.com/bahnhoefeCH" target="_blank" title="Twitter">Twitter</a></li>';
-		menu += '<li><a href="https://www.facebook.com/SchweizerBahnhoefe" target="_blank" title="Facebook">FB</a></li>';
-		menu += '<li><a href="https://www.instagram.com/bahnhoefeCH/" target="_blank" title="Instagram"><img src="images/glyph-logo_May2016.png" style="height:24px;"></a></li>';
-	} else if ('jp' === lang) {
-		document.title = '日本の駅';
-		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">日本<strong>の駅</strong></a></h1>');
-		$('#top.header #suche')[0].placeholder = '駅名検索';
-		$('aside .info:nth-child(1) h4').html('ご協力したい方');
-		$('aside .info:nth-child(1) .name').html('駅の写真を投稿する方法については<a href="https://railway-stations.org/faq" target="_blank"><strong>こちら</strong></a>');
-		$('aside .info:nth-child(2) h4').html('Settings');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('まとめ表示');
-		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('全駅表示');
-		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(1)').html('駅数のみ');
-		$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('完成度');
-		$('aside .info:nth-child(3) h4').html('ご意見・ご提案');
-		$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">ご意見をご教示ください。</a>');
-
-/*
-Facebook　フェースブック
-DB Planet	　DB Planet
-App	アプリ
-iOS	iOS
-Android	Android
-*/
-		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen" target="_blank">ダウンロード</a></li>';
-		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="ツイッター"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-		menu += '<li><a href="https://railway-stations.org/node/22" target="_blank">本サイトについて</a></li>';
+		menu += '<li><a href="https://martinrechsteiner.ch/category/news/bahn/" title="Blog">Blog</a></li>';
+		menu += '<li><a href="https://twitter.com/bahnhoefeCH" title="Twitter">Twitter</a></li>';
+		menu += '<li><a href="https://www.facebook.com/SchweizerBahnhoefe" title="Facebook">FB</a></li>';
+		menu += '<li><a href="https://www.instagram.com/bahnhoefeCH/" title="Instagram"><img src="images/glyph-logo_May2016.png" style="height:24px;"></a></li>';
 	} else {
-		document.title = 'Deutschlands Bahnhöfe';
-		$('#top.header .logo').html('<h1><img src="images/logo.jpg"><a href="index.html">Deutschlands<strong>Bahnh&ouml;fe</strong></a></h1>');
+		if ('de' === lang) {
+			document.title = 'Deutschlands Bahnhöfe';
+			$('#top.header .logo').html('<h1><img src="images/logo.jpg">Deutschlands<strong>Bahnh&ouml;fe</strong></h1>');
+	  } else {
+			document.title = 'Railway Stations';
+			$('#top.header .logo').html('<h1><img src="images/logo.jpg"><strong>Railway Stations</strong></h1>');
+		}
+
 		$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 		$('aside .info:nth-child(1) h4').html('Unterstütze uns');
-		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq" target="_blank"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
+		$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
 		$('aside .info:nth-child(2) h4').html('Einstellungen');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Marker');
 		$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Punkte');
@@ -128,9 +110,9 @@ Android	Android
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
 
-		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen" target="_blank">Download</a></li>';
-		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" target="_blank" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-		menu += '<li><a href="https://railway-stations.org/node/22" target="_blank">Impressum</a></li>';
+		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen">Download</a></li>';
+		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+		menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 	}
 
 	$('#top.header .nav-menu').html(menu);
@@ -289,12 +271,7 @@ function clickColor() {
 function getStationsURL() {
 	'use strict';
 
-	if ('jp' === getLanguage()) {
-		// this is a hack!!!
-		return 'http://www.deutschlands-bahnhoefe.de/bahnhoefe_japan.json';
-	} else {
-		return getAPIURI() + getLanguage() + '/stations';
-	}
+  return getAPIURI() + getLanguage() + '/stations';
 }
 
 function setNickname() {
