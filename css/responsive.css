@@ -20,12 +20,12 @@
 		word-wrap: normal !important;
 	}
 
-	
+
 /* Suche */
 	.suche {
 		width: 35%;
 		float: left;
-	} 
+	}
 
 /* Navigation */
 	.mobile-menu {
@@ -47,7 +47,7 @@
 		display: inline-block;
 		padding-left: 1.5em;
 	}
-	  
+
 /* Inhalt (.container) */
 
 	#main .container {
@@ -68,7 +68,11 @@
 	.box:nth-child(2n+1) {
 		margin-left: 0;
 		clear: both;
-	}	  
+	}
+
+	aside {
+		display: block;
+	}
 
 }
 
@@ -95,7 +99,7 @@
 	.suche {
 		width: 30%;
 		float: left;
-	} 
+	}
 
 /* Inhalt (.container) */
 
@@ -106,11 +110,11 @@
 	.box:nth-child(2n+1) {
 		margin-left: 5%;
 		clear: none;
-	}	  
+	}
 	.box:nth-child(3n+1) {
 		margin-left: 0;
 		clear: both;
-	}	  
+	}
 
 	.info {
 		width: 100%;
@@ -118,7 +122,7 @@
 		margin: 0 0 30px;
 		padding: 25px;
 		text-align: center;
-		
+
 	}
 	.features {
 		padding: 30px 0px;
@@ -140,21 +144,24 @@
 		margin-left: 0;
 	}
 
+	aside {
+		display: block;
+	}
 
 }
 
 
-/* Smaller than 768px - kleiner als iPad Portrait 
+/* Smaller than 768px - kleiner als iPad Portrait
 ===============================================================================================*/
 
 @media screen and (max-width: 768px) {
 
-	  
+
 /* Suche */
 	.suche {
 		width: 70%;
 		float: left;
-	} 
+	}
 
 /* Navigation */
 	.mobile-menu {
@@ -180,10 +187,10 @@
 		right: 0;
 		margin-top: 7px;
 		padding: 0;
-		z-index: 999;
+		z-index: 800;
 	}
 	.site-navigation ul {
-		padding: 2% 2% 2% 70px;
+		padding: 2% 2% 2% 2%;
 		margin: 0;
 		background-color: #dddddd;
 	}
@@ -192,9 +199,9 @@
 	}
 	.site-navigation li a {
 		display: block;
-	
+
 	}
-	
+
 /* Inhalt */
 	#main .container {
 		width: 90%;
@@ -202,9 +209,10 @@
 	/* fullscreen (Karte + Detail) */
 	#main .karte, #main .detail {
 		width: 100%;
-	}	
+	}
 	.box, .info {
 		margin: 0 0 10px 5%;
+		padding: 2px;
 	}
 	.features-section {
 		width: 90%;
@@ -219,15 +227,9 @@
 		font-size: 32px;
 	}
 	aside {
-		clip: rect(1px, 1px, 1px, 1px);
-		height: 1px;
-		overflow: hidden;
-		position: absolute !important;
-		width: 1px;
-		word-wrap: normal !important;
-		
+		display: none;
 	}
-  
+
 }
 
 
@@ -240,7 +242,7 @@
 @media screen and (max-width: 400px) {
   {
     /* Helpers for windows phone 8 */
-  
+
   }
   @-ms-viewport {
     width: device-width;

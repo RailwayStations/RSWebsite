@@ -559,7 +559,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	background: #fff;
 	position: absolute;
 	top: 0;
-	z-index: 1001;
+	z-index: 801;
 }
 .logo {
 	width: 100%;
@@ -710,11 +710,9 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 }
 
 aside {
-    position: absolute;
     right: 0;
-    top: 10%;
     width: 300px;
-    z-index: 99;
+    z-index: 999;
 }
 .info {
 	width: 100%;

@@ -18,11 +18,13 @@
 
 		$("#menu").on('click', function () {
 				$("#nav").toggle();
+				$("aside").toggle();
 		});
 
 		$(window).resize(function () {
 				if (window.innerWidth > 768) {
 						$("#nav").removeAttr("style");
+						$("aside").removeAttr("style");
 				}
 		});
 })(this);
@@ -39,4 +41,3 @@
 
 
  */
-
