@@ -836,3 +836,7 @@ svg.circle .pie {
 	top: 24px;
 	color: #bbb;
 }
+
+#ui-id-1 {
+  z-index: 1100;
+}

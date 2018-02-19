@@ -34,10 +34,12 @@
 	<link rel="stylesheet" href="css/leaflet.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.css" />
 	<link rel="stylesheet" href="css/MarkerCluster.Default.css">
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
 
 	<script type="text/javascript" src="js/modernizr-custom.js"></script>
 	<script src="js/leaflet.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
 	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="js/main.js"></script>
     <script src="js/spin.js"></script>
@@ -51,10 +53,8 @@
     		<div class="logo-menu">
         		<div class="logo"></div>
  				<div class="suche">
-					<form id="search" method="get" action="http://www.deutschlands-bahnhoefe.de/suchen.php">
-						<label for="suche"><span class="screen-reader-text"></span></label>
-						<input id="suche" name="suche">
-					</form>
+					<label for="suche"><span class="screen-reader-text"></span></label>
+					<input id="suche" name="suche">
 				</div>
 				<!-- id="nav" wird per custom.js angesprochen, das die mobile Navigation steuert -->
 				<nav id="nav" class="site-navigation primary-navigation" role="navigation">

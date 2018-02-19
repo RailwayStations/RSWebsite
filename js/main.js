@@ -110,7 +110,6 @@ function initLayout() {
 		$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 		$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
 
-		menu += '<li><a href="https://railway-stations.org/bahnhofsfotos-suchen">Download</a></li>';
 		menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 		menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 	}
@@ -375,4 +374,45 @@ $(document).ready(function () {
 	}).always(function () {
 		// alert( "finished" );
 	});
+
+	$( "#suche" ).autocomplete({
+	  source: function( request, response ) {
+	          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+						var filtered = dataBahnhoefe.filter(function (bahnhof) {
+    										return matcher.test(bahnhof.title);
+						});
+	          response( $.map(filtered, function (value, key) {
+	                			return {
+	                    		label: value.title,
+	                    		value: value.id
+	                			};
+	            		})
+						);
+	  },
+		focus: function( event, ui ) {
+				 $( "#suche" ).val( ui.item.label);
+				 return false;
+		 },
+		select: function( event, ui ) {
+			$( "#suche" ).val( ui.item.label);
+			var bahnhof = dataBahnhoefe.filter(function (bahnhof) {
+							return bahnhof.id == ui.item.value;
+			});
+			map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon));
+			map.setZoom(14);
+
+			var bahnhofMarkers = markers.getLayers();
+			if (!bahnhofMarkers[0].options) {
+				bahnhofMarkers = bahnhofMarkers[0].getLayers();
+			}
+			for (var i in bahnhofMarkers) {
+				var markerID = bahnhofMarkers[i].options.properties.id;
+				if (markerID == ui.item.value) {
+					showPopup(bahnhofMarkers[i].options, this);
+				}
+			}
+			return false;
+		}
+	});
+
 });
