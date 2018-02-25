@@ -51,7 +51,11 @@
     <header id="top" class="header" role="banner">
         <div class="container clearfix">
     		<div class="logo-menu">
-        		<div class="logo"></div>
+        		<div class="logo clearfix">
+							<img src="images/logo.jpg">
+							<h1><strong>Railway-Stations</strong></h1>
+							<select id="country" onchange="switchCountry()"></select>
+						</div>
  				<div class="suche">
 					<label for="suche"><span class="screen-reader-text"></span></label>
 					<input id="suche" name="suche">
@@ -83,12 +87,6 @@
 
 					<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"></span><i id="togglePoints" class="fa fa-toggle-off" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"></span></a></p>
 					<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"></span><i id="toggleColor" class="fa fa-toggle-on" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"></span></a></p>
-
-					<p>
-						<label for="country" class="select">Land:
-							<select id="country" onchange="switchCountry()"></select>
-						</label>
-					</p>
 
 					<p class="name">
 						<label for="nickname">Nickname: <input id="nickname" onchange="setNickname()"/></label></p>

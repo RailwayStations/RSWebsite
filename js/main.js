@@ -68,7 +68,6 @@ function initLayout() {
 	menu = '';
 
 	document.title = 'Railway Stations';
-	$('#top.header .logo').html('<h1><img src="images/logo.jpg"><strong>Railway Stations</strong></h1>');
 	$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 	$('aside .info:nth-child(1) h4').html('Unterstütze uns');
 	$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq"><strong>Hier</strong></a> klicken für die Erklärung dazu.');

@@ -569,7 +569,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     font-size: 20px;
     font-weight: 100;
     letter-spacing: 2px;
-	margin: 0;
+	  margin: 10px 0 10px 0;
     padding: 0 0 0 10px;
 }
 .logo h1 a {
@@ -577,6 +577,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 }
 .logo img {
 	margin-right: 0.5em;
+  float: left;
 }
 
 /* Suche */
