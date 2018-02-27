@@ -8,23 +8,24 @@ var dataBahnhoefe = null,
 	markers = null,
 	popup = null,
 	countries = null,
-	nickname;
+	nickname,
+	geocoder;
 
-function setLanguage(lang) {
+function setCountryCode(countryCode) {
 	'use strict';
 
-	localStorage.setItem("gLanguage", lang);
+	localStorage.setItem("countryCode", countryCode);
 }
 
-function getLanguage() {
+function getCountryCode() {
 	'use strict';
 
-	var gLanguage = localStorage.getItem("gLanguage");
-	if(gLanguage == null) {
-	  gLanguage = 'de';
+	var countryCode = localStorage.getItem("countryCode");
+	if (countryCode == null) {
+	  countryCode = 'de';
 	}
 
-	return gLanguage;
+	return countryCode;
 }
 
 function getBaseURI() {
@@ -39,16 +40,71 @@ function getAPIURI() {
 	return 'https://api.railway-stations.org/';
 }
 
+function showMap() {
+	'use strict';
+
+	$('#karte').show();
+	$('#details').hide();
+}
+
+function showDetails(id) {
+	'use strict';
+
+  console.log('show: ' + id);
+	var bahnhof, i;
+	for (i = 0; i < dataBahnhoefe.length; ++i) {
+		if (dataBahnhoefe[i].id == id) {
+			bahnhof = dataBahnhoefe[i];
+			break;
+		}
+	}
+
+	$('#details').show();
+	$('#karte').hide();
+
+	console.log('show: ' + bahnhof.title);
+	$('#detail-image').attr('src', bahnhof.photoUrl);
+	$('#detail-title').html(bahnhof.title);
+
+	var latlng = new google.maps.LatLng(bahnhof.lat, bahnhof.lon);
+	geocoder.geocode({'latLng': latlng}, function(results, status) {
+		if (status == google.maps.GeocoderStatus.OK) {
+			console.log('Reverse Geocoding:');
+			console.dir(results);
+			$('#detail-address').html(results[0].formatted_address);
+		}
+	});
+
+	if (bahnhof.photographer) {
+		$('#detail-photographer').html('<a href="' + bahnhof.photographerUrl + '">' + bahnhof.photographer + '</a>');
+		$('#detail-license').html(bahnhof.license);
+	}
+
+	$('#detail-weather').attr('href', 'http://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=' + bahnhof.lat + '&lon=' + bahnhof.lon + '&zoom=12')
+
+  var country;
+	for (i = 0; i < countries.length; ++i) {
+		if (countries[i].code == getCountryCode()) {
+			country = countries[i];
+			break;
+		}
+	}
+
+	var timetableUrl = country.timetableUrlTemplate.replace('{id}', bahnhof.id).replace('{title}', bahnhof.title).replace('{DS100}', bahnhof.DS100);
+	$('#detail-timetable').attr('href', timetableUrl);
+
+}
+
 function showPopup(feature, layer) {
 	'use strict';
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
-		str += '<a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '"><img src="' + feature.properties.photoUrl + '" style="width:301px;"></a><br>';
+		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><img src="' + feature.properties.photoUrl + '" style="width:301px;"></a><br>';
 		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
 		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
 	} else {
-		str += '<h1 style="text-align:center;">' + feature.properties.title + '</h1>';
+		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><h1 style="text-align:center;">' + feature.properties.title + '</h1></a>';
 		str += '<div>Hier fehlt noch ein Foto.</div>';
 	}
 
@@ -64,9 +120,6 @@ function showPopup(feature, layer) {
 function initLayout() {
 	'use strict';
 
-	var lang = getLanguage(),
-	menu = '';
-
 	document.title = 'Railway Stations';
 	$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
 	$('aside .info:nth-child(1) h4').html('Unterstütze uns');
@@ -79,6 +132,7 @@ function initLayout() {
 	$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
 	$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
 
+	var menu = '';
 	menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 
@@ -238,7 +292,7 @@ function clickColor() {
 function getStationsURL() {
 	'use strict';
 
-  return getAPIURI() + getLanguage() + '/stations';
+  return getAPIURI() + getCountryCode() + '/stations';
 }
 
 function setNickname() {
@@ -262,7 +316,10 @@ function switchCountry() {
 
 	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
 	colored = $('#toggleColor').hasClass('fa-toggle-on');
-	setLanguage($('#country').val());
+	setCountryCode($('#country').val());
+
+	$('#details').hide();
+	$('#karte').show();
 
 	initLayout();
 
@@ -289,13 +346,13 @@ $(document).ready(function () {
 	'use strict';
 
 	var basemap = L.tileLayer(
-		'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 		{
 			maxZoom: 18,
-			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
 		}
 	),
-	lang = getLanguage();
+	countryCode = getCountryCode();
 	map = L.map('map').setView([50.9730622, 10.9603269], 6);
 
 	basemap.addTo(map);
@@ -314,11 +371,12 @@ $(document).ready(function () {
 		$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 	}
 
-
+  geocoder = new google.maps.Geocoder();
 	initLayout();
 
 	$('#country').selectmenu();
-	$.getJSON(getAPIURI() + 'countries', function (countries) {
+	$.getJSON(getAPIURI() + 'countries', function (countryData) {
+		countries = countryData;
 		var select = $('#country');
 		for (var i = 0; i < countries.length; ++i) {
 			select.append($('<option>', {
@@ -326,7 +384,7 @@ $(document).ready(function () {
 			    text: countries[i].name
 			}));
 		}
-		select.val(getLanguage());
+		select.val(getCountryCode());
 	});
 
 	$.getJSON(getStationsURL(), function (featureCollection) {

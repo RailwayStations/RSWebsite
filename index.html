@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Railway Stations</title>
+	<title>Railway-Stations</title>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
@@ -46,6 +46,8 @@
     <script src="js/leaflet.spin.js"></script>
 	<script type="text/javascript" src="js/smoothscroll.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB77MWiSJZqeYle-rFuvMwpZQSlZvac0So&v=3.exp&language=de" type="text/javascript"></script>
+
 </head>
 <body>
     <header id="top" class="header" role="banner">
@@ -53,7 +55,7 @@
     		<div class="logo-menu">
         		<div class="logo clearfix">
 							<img src="images/logo.jpg">
-							<h1><strong>Railway-Stations</strong></h1>
+							<h1><a href="javascript:showMap();"><strong>Railway-Stations</strong></a></h1>
 							<select id="country" onchange="switchCountry()"></select>
 						</div>
  				<div class="suche">
@@ -68,7 +70,7 @@
 		</div>
     </header>
     <section id="main">
-	<div class="container karte clearfix">
+	<div id="karte" class="container karte clearfix">
     <aside>
          <div class="info">
             <ul>
@@ -110,6 +112,40 @@
     </aside>
     <div id="map" style="width: 100%; height: 100%"></div>
     </div>
+
+		<div id="details" class="container detail clearfix" style="display:none">
+    <div class="city"><h2 id="detail-title"></h2></div>
+	    <img id="detail-image" src=""/>
+	    <div class="features" id="features">
+	        <div class="container">
+	            <div class="features-section">
+	                <ul>
+	                     <li>
+	                        <div class="feature-icon icon1"></div>
+	                        <h4>Adresse</h4><p id="detail-address">Derzeit ist sind keine Daten verfügbar. Bitte probieren Sie es zu einem späteren Zeitpunkt erneut.</h4>
+	                     </li>
+
+	                     <li>
+	                        <div class="feature-icon icon4"></div>
+	                        <h4>Fotograf</h4>
+	                        <p style="margin-bottom:1em;" id="detail-photographer">n.a.</p>
+													<p style="margin-bottom:1em;" id="detail-license">n.a.</p>
+													<p>&nbsp;</p>
+
+	                        <h4><a id="detail-weather" href="" target="_blank">Wetter-Infos</a></h4>
+											 </li>
+	                     <li>
+	                        <div class="feature-icon icon3"></div>
+	                        <h4>Live-Abfragen</h4>
+	                        <p><div class="link-button"><a id="detail-timetable" class="abfahrt" href="" target="_blank">Abfahrtzeiten</a></div></p>
+	                        <!--p><Button class="fahrstuhl">Fahrstühle</Button><Button class="rolltreppen">Rolltreppen</Button></p-->
+	                     </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
 </section>
     <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
     <script type="text/javascript">
