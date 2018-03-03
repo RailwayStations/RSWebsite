@@ -140,6 +140,7 @@ function initLayout() {
 	$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
 
 	var menu = '';
+	menu += '<li><a href="javascript:showHighScore();">Rangliste</a></li>';
 	menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 
@@ -335,6 +336,52 @@ function switchCountry() {
 
 		updateMarker(showPoints, colored);
 	});
+}
+
+function showHighScore() {
+	'use strict'
+
+	$.ajax({
+			url: getAPIURI() + getCountryCode() + '/photographers',
+			type: 'GET',
+			dataType: 'json',
+			error: function () {
+					console.log('loading highscore failed');
+			},
+			success: function (obj) {
+					var jsonOutput = '';
+					var rang = 0;
+					var lastPhotoCount = -1;
+					$.each(obj, function (propertyName, valueOfProperty) {
+								  if (lastPhotoCount != valueOfProperty) {
+										rang = rang + 1;
+									}
+									lastPhotoCount = valueOfProperty;
+
+									var crown = '';
+									if (rang == 1) {
+										crown = '<img src="images/crown_gold.png"/>';
+									} else if (rang == 2) {
+										crown = '<img src="images/crown_silver.png"/>';
+									} else if (rang == 3) {
+										crown = '<img src="images/crown_bronze.png"/>';
+									} else {
+										crown = rang + '.';
+									}
+
+									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + propertyName + "</td></tr>";
+							});
+
+							swal({
+									title: "<h4 class='h4rangliste'>Rangliste</h4>",
+									text: "<div style='height:60vh;overflow:auto;'><table style='width:100%;'>" + jsonOutput + "</table></div>",
+									confirmButtonColor: "#9f0c35",
+									html: true
+							});
+
+							$('.sweet-alert').scrollTop();
+					}
+			});
 }
 
 function getBoolFromLocalStorage(pre, defaultVal) {

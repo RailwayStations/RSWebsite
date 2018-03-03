@@ -9,21 +9,22 @@
 /* Logo */
 	.logo {
 		float: left;
-		width: 35%;
+		width: 300px;
+		margin-right: 10px;
 	}
 	.logo h1 a {
-		clip: rect(1px 1px 1px 1px);
-		height: 1px;
-		overflow: hidden;
-		position: absolute !important;
-		width: 1px;
+		clip: rect(auto auto auto auto);
+		height: auto;
+		overflow: visible;
+		position: relative !important;
+		width: auto;
 		word-wrap: normal !important;
 	}
 
 
 /* Suche */
 	.suche {
-		width: 35%;
+		width: 30%;
 		float: left;
 	}
 
@@ -82,9 +83,9 @@
 
 /* Logo */
 	.logo {
-		width: 35%;
+		width: 300px;
 		float: left;
-		margin-right: 5%;
+		margin-right: 10px;
 	}
 	.logo h1 a {
 		clip: rect(auto auto auto auto);

@@ -36,6 +36,7 @@ table {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 }
+
 .header-text h2
 {
 	font-size: 40px;
@@ -43,6 +44,16 @@ table {
 	font-family: 'Open Sans', sans-serif;
 	line-height: 60px;
 }
+
+.h4rangliste {
+  font-size: 0.8em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #9f0c35;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 50px;
+  margin-top: 20px;
+ }
 
 .small-text
 {
