@@ -64,7 +64,7 @@ function showDetails(id) {
 
 	console.log('show: ' + bahnhof.title);
 	$('#detail-image').attr('src', bahnhof.photoUrl);
-	$('#detail-title').html(bahnhof.title);
+	$('#detail-title').html(bahnhof.title).attr('data-id', bahnhof.id);
 
 	var latlng = new google.maps.LatLng(bahnhof.lat, bahnhof.lon);
 	geocoder.geocode({'latLng': latlng}, function(results, status) {
@@ -93,6 +93,13 @@ function showDetails(id) {
 	var timetableUrl = country.timetableUrlTemplate.replace('{id}', bahnhof.id).replace('{title}', bahnhof.title).replace('{DS100}', bahnhof.DS100);
 	$('#detail-timetable').attr('href', timetableUrl);
 
+	if (getCountryCode() == 'de') {
+		$(".rolltreppen").show();
+		$(".fahrstuhl").show();
+	} else {
+		$(".rolltreppen").hide();
+		$(".fahrstuhl").hide();
+	}
 }
 
 function showPopup(feature, layer) {

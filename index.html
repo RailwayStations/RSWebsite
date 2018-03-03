@@ -26,6 +26,7 @@
 	<meta name="theme-color" content="#ffffff">
 
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css" />
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -45,6 +46,8 @@
     <script src="js/spin.js"></script>
     <script src="js/leaflet.spin.js"></script>
 	<script type="text/javascript" src="js/smoothscroll.js"></script>
+	<script type="text/javascript" src="js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/fahrstuhl.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB77MWiSJZqeYle-rFuvMwpZQSlZvac0So&v=3.exp&language=de" type="text/javascript"></script>
 
@@ -107,8 +110,6 @@
             </ul>
         </div>
 
-<!--        <div class="info-alert">Fahrst&uuml;hle [z.Zt. erst 130 implementiert]</div> -->
-<!--        <div class="info-alert">Rolltreppen [Noch nicht implementiert]</div> -->
     </aside>
     <div id="map" style="width: 100%; height: 100%"></div>
     </div>
@@ -138,7 +139,7 @@
 	                        <div class="feature-icon icon3"></div>
 	                        <h4>Live-Abfragen</h4>
 	                        <p><div class="link-button"><a id="detail-timetable" class="abfahrt" href="" target="_blank">Abfahrtzeiten</a></div></p>
-	                        <!--p><Button class="fahrstuhl">Fahrstühle</Button><Button class="rolltreppen">Rolltreppen</Button></p-->
+	                        <p><Button class="fahrstuhl">Fahrstühle</Button><Button class="rolltreppen">Rolltreppen</Button></p>
 	                     </li>
 	                </ul>
 	            </div>
