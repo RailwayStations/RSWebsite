@@ -63,7 +63,6 @@ function showDetails(id) {
 	$('#karte').hide();
 
 	console.log('show: ' + bahnhof.title);
-	$('#detail-image').attr('src', bahnhof.photoUrl);
 	$('#detail-title').html(bahnhof.title).attr('data-id', bahnhof.id);
 
 	var latlng = new google.maps.LatLng(bahnhof.lat, bahnhof.lon);
@@ -77,8 +76,11 @@ function showDetails(id) {
 	});
 
 	if (bahnhof.photographer) {
+		$('#detail-image').attr('src', bahnhof.photoUrl);
 		$('#detail-photographer').html('<a href="' + bahnhof.photographerUrl + '">' + bahnhof.photographer + '</a>');
 		$('#detail-license').html(bahnhof.license);
+	} else {
+		$('#detail-image').attr('src', 'images/default.jpg');		
 	}
 
 	$('#detail-weather').attr('href', 'http://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=' + bahnhof.lat + '&lon=' + bahnhof.lon + '&zoom=12')
