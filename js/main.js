@@ -458,7 +458,7 @@ $(document).ready(function () {
 
 	$( "#suche" ).autocomplete({
 	  source: function( request, response ) {
-	          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+	          var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
 						var filtered = dataBahnhoefe.filter(function (bahnhof) {
     										return matcher.test(bahnhof.title) || matcher.test(bahnhof.id);
 						});
