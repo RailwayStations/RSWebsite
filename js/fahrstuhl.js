@@ -14,8 +14,13 @@ $(function () {
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader('Authorization', 'Bearer c88053dc72f037a5d56378a216c0fd76');
 			},
-			error: function () {
-				console.log('loading fasta failed');
+			error: function (xhr, textStatus, thrownError) {
+				swal({
+					title: "<h4 class='h4fahrstuhl'>Fahrstuhlstatus</h4>",
+					text: "<p class='fahrstuhl'>Fehler beim Abruf der Fahrstuhldaten: " + textStatus + "</p>",
+					confirmButtonColor: "#9f0c35",
+					html: true
+				});
 			},
 			success: function (obj) {
 				var jsonOutput = '';
@@ -60,9 +65,14 @@ $(function () {
 		            beforeSend: function (xhr) {
 		                xhr.setRequestHeader('Authorization', 'Bearer c88053dc72f037a5d56378a216c0fd76');
 		            },
-		            error: function () {
-		                console.log('loading fasta failed');
-		            },
+								error: function (xhr, textStatus, thrownError) {
+									swal({
+										title: "<h4 class='h4fahrstuhl'>Rolltreppenstatus</h4>",
+										text: "<p class='fahrstuhl'>Fehler beim Abruf der Rolltreppendaten: " + textStatus + "</p>",
+										confirmButtonColor: "#9f0c35",
+										html: true
+									});
+								},
 		            success: function (obj) {
 		                var jsonOutput = '';
 		                $.each(obj.facilities, function (key, value) {
