@@ -110,7 +110,7 @@ function showPopup(feature, layer) {
 	if (null !== feature.properties.photographer) {
 		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><img src="' + feature.properties.photoUrl + '" style="width:301px;"></a><br>';
 		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
-		str += '<h1 style="text-align:center;"><a href="' + getBaseURI() + 'detail.php?bahnhofNr=' + feature.properties.id + '">' + feature.properties.title + '</a></h1>';
+		str += '<h1 style="text-align:center;"><a href="javascript:showDetails(' + feature.properties.id + ')">' + feature.properties.title + '</a></h1>';
 	} else {
 		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><h1 style="text-align:center;">' + feature.properties.title + '</h1></a>';
 		str += '<div>Hier fehlt noch ein Foto.</div>';
