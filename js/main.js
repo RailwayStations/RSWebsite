@@ -460,7 +460,7 @@ $(document).ready(function () {
 	  source: function( request, response ) {
 	          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
 						var filtered = dataBahnhoefe.filter(function (bahnhof) {
-    										return matcher.test(bahnhof.title);
+    										return matcher.test(bahnhof.title) || matcher.test(bahnhof.id);
 						});
 	          response( $.map(filtered, function (value, key) {
 	                			return {
