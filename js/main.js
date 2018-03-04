@@ -71,7 +71,8 @@ function showDetails(id) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			console.log('Reverse Geocoding:');
 			console.dir(results);
-			$('#detail-address').html(results[0].formatted_address);
+			var regEx = new RegExp(", ", "g");
+			$('#detail-address').html(results[0].formatted_address.replace(regEx, "<br/>"));
 		}
 	});
 
@@ -369,12 +370,12 @@ function showHighScore() {
 										crown = rang + '.';
 									}
 
-									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + propertyName + "</td></tr>";
+									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td>" + propertyName + "</td></tr>";
 							});
 
 							swal({
 									title: "<h4 class='h4rangliste'>Rangliste</h4>",
-									text: "<div style='height:60vh;overflow:auto;'><table style='width:100%;'>" + jsonOutput + "</table></div>",
+									text: "<div style='height:60vh;overflow-y:scroll;'><table style='width:100%;'>" + jsonOutput + "</table></div>",
 									confirmButtonColor: "#9f0c35",
 									html: true
 							});
