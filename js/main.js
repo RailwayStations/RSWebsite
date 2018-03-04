@@ -474,6 +474,8 @@ $(document).ready(function () {
 				 return false;
 		 },
 		select: function( event, ui ) {
+			$('#details').hide();
+			$('#karte').show();
 			$( "#suche" ).val( ui.item.label);
 			var bahnhof = dataBahnhoefe.filter(function (bahnhof) {
 							return bahnhof.id == ui.item.value;
