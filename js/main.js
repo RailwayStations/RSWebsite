@@ -80,7 +80,7 @@ function showDetails(id) {
 		$('#detail-photographer').html('<a href="' + bahnhof.photographerUrl + '">' + bahnhof.photographer + '</a>');
 		$('#detail-license').html(bahnhof.license);
 	} else {
-		$('#detail-image').attr('src', 'images/default.jpg');		
+		$('#detail-image').attr('src', 'images/default.jpg');
 	}
 
 	$('#detail-weather').attr('href', 'http://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=' + bahnhof.lat + '&lon=' + bahnhof.lon + '&zoom=12')
@@ -132,19 +132,13 @@ function initLayout() {
 
 	document.title = 'Railway Stations';
 	$('#top.header #suche')[0].placeholder = 'Finde deinen Bahnhof';
-	$('aside .info:nth-child(1) h4').html('Unterstütze uns');
-	$('aside .info:nth-child(1) .name').html('Du hast eigene Bilder von einem Bahnhof? <a href="https://railway-stations.org/faq"><strong>Hier</strong></a> klicken für die Erklärung dazu.');
-	$('aside .info:nth-child(2) h4').html('Einstellungen');
-	$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(1)').html('Marker');
-	$('aside .info:nth-child(2) p:nth-child(2) span:nth-child(3)').html('Punkte');
-	$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(1)').html('einfarbig');
-	$('aside .info:nth-child(2) p:nth-child(3) span:nth-child(3)').html('farbig');
-	$('aside .info:nth-child(3) h4').html('Feedback / Ideen');
-	$('aside .info:nth-child(3) .name').html('<a href="mailto:kontakt@gaby-becker.de">melde dich</a>');
 
 	var menu = '';
-	menu += '<li><a href="javascript:showHighScore();">Rangliste</a></li>';
+	menu += '<li><a href="javascript:showSettings();" title="Einstellungen"><i class="fa fa-sliders" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="javascript:showHighScore();" title="Rangliste"><i class="fa fa-line-chart" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="https://railway-stations.org/faq" title="FAQ"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="mailto:kontakt@gaby-becker.de" title="Feedback / Ideen"><i class="fa fa-envelope" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 
 	$('#top.header .nav-menu').html(menu);
@@ -387,6 +381,23 @@ function showHighScore() {
 			});
 }
 
+function showSettings() {
+	'use strict'
+
+	var showPoints = getBoolFromLocalStorage("showPoints", false);
+	var colored = getBoolFromLocalStorage("colored", true);
+
+	swal({
+			title: "<h4 class='h4sweetalert'>Einstellungen</h4>",
+			text: '<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Marker</span><i id="togglePoints" class="fa ' + (showPoints?'fa-toggle-on':'fa-toggle-off') + '" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Punkte</span></a></p>' +
+						'<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">einfarbig</span><i id="toggleColor" class="fa ' + (colored?'fa-toggle-on':'fa-toggle-off') + '" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">farbig</span></a></p>' +
+						'<p class="name"><input id="nickname" onchange="setNickname()" value="' + nickname + '" style="display:inline-block" placeholder="Nickname"/></p>',
+			confirmButtonColor: "#9f0c35",
+			html: true
+	});
+
+}
+
 function getBoolFromLocalStorage(pre, defaultVal) {
 	'use strict'
 
@@ -416,17 +427,6 @@ $(document).ready(function () {
 	map.spin(true);
 
 	nickname = localStorage.getItem("nickname");
-	$('#nickname').val(nickname);
-
-	var showPoints = getBoolFromLocalStorage("showPoints", false);
-	if (showPoints) {
-		$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
-	}
-
-	var colored = getBoolFromLocalStorage("colored", true);
-	if (!colored) {
-		$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
-	}
 
   geocoder = new google.maps.Geocoder();
 	initLayout();
@@ -446,6 +446,9 @@ $(document).ready(function () {
 
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
+
+		var showPoints = getBoolFromLocalStorage("showPoints", false);
+		var colored = getBoolFromLocalStorage("colored", true);
 
 		updateMarker(showPoints, colored);
 	}).done(function () {

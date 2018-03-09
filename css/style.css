@@ -45,7 +45,7 @@ table {
 	line-height: 60px;
 }
 
-.h4rangliste {
+.h4sweetalert {
   font-size: 0.8em;
   text-transform: uppercase;
   font-weight: 600;
@@ -94,7 +94,7 @@ table {
 {
 	background-color: #fff;
 	padding: 17px 30px;
-	color: #4e4f4f;
+	color: #9F0C35;
 }
 .color-border
 {
@@ -543,7 +543,6 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 .container {
 	position: relative;
 	width: 100%;
-	max-width: 1080px;
 	margin: 0 auto;
   *zoom: 1;
 }
@@ -634,7 +633,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 
 }
 .nav-menu li a {
-    color: #4e4f4f;
+    color: #9F0C35;
     font-size: 14px;
     font-weight: 600;
 	padding: 10px 15px;
