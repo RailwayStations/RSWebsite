@@ -360,7 +360,11 @@ function showHighScore() {
 					var jsonOutput = '';
 					var rang = 0;
 					var lastPhotoCount = -1;
+					var countPhotographers = 0;
+					var countPhotos = 0;
 					$.each(obj, function (propertyName, valueOfProperty) {
+									countPhotographers++;
+									countPhotos += valueOfProperty;
 								  if (lastPhotoCount != valueOfProperty) {
 										rang = rang + 1;
 									}
@@ -382,7 +386,9 @@ function showHighScore() {
 
 							swal({
 									title: "<h4 class='h4rangliste'>Rangliste</h4>",
-									text: "<div style='height:60vh;overflow-y:scroll;'><table style='width:100%;'>" + jsonOutput + "</table></div>",
+									text: "<p>Anzahl Bahnhofsfotos: <strong>" + countPhotos + "</strong><br>" +
+												"Anzahl Fotografen: <strong>" + countPhotographers + "</strong></p>" +
+												"<div style='height:60vh;overflow-y:scroll;'><table style='width:100%;'>" + jsonOutput + "</table></div>",
 									confirmButtonColor: "#9f0c35",
 									html: true
 							});
