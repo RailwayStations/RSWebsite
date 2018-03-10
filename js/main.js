@@ -105,12 +105,24 @@ function showDetails(id) {
 	}
 }
 
+/**
+ * Uses the Google Image Proxy to return a scaled version of the image
+ *
+ * @param {string} src The URL to the original image
+ * @param {number} width
+ * @return {string} The URL to the scaled image
+ */
+function scaleImage(src, width) {
+	return 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=' + width + '&url=' + encodeURIComponent(src)
+}
+
 function showPopup(feature, layer) {
 	'use strict';
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
-		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><img src="' + feature.properties.photoUrl + '" style="width:301px;"></a><br>';
+		var photoURL = scaleImage(feature.properties.photoUrl, 301)
+		str += '<a href="javascript:showDetails(' + feature.properties.id + ')" style="display: block; max-height: 200px; overflow: hidden;"><img src="' + photoURL + '" style="width:301px;" height="400"></a><br>';
 		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
 		str += '<h1 style="text-align:center;"><a href="javascript:showDetails(' + feature.properties.id + ')">' + feature.properties.title + '</a></h1>';
 	} else {
