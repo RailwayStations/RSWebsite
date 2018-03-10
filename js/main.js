@@ -149,8 +149,7 @@ function initLayout() {
 	menu += '<li><a href="javascript:showSettings();" title="Einstellungen"><i class="fa fa-sliders" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="javascript:showHighScore();" title="Rangliste"><i class="fa fa-line-chart" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/faq" title="FAQ"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-	menu += '<li><a href="https://twitter.com/search?q=%23bahnhofsfoto" title="Twitter"><i class="fa fa-twitter" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-	menu += '<li><a href="mailto:kontakt@gaby-becker.de" title="Feedback / Ideen"><i class="fa fa-envelope" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="https://github.com/RailwayStations" title="Entwicklung"><i class="fa fa-github" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
 
 	$('#top.header .nav-menu').html(menu);
