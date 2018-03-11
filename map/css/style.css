@@ -694,7 +694,6 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	color: #9f0c35;
 	font-size: 17px;
 	font-weight: 600;
-	line-height: 1.2;
 	text-transform: uppercase;
 	margin-bottom: 20px;
 }
@@ -706,7 +705,51 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 }
 .box li p, .info li p {
 	margin-bottom: 0;
-	line-height: 1.2;
+}
+
+.box ul, .info ul {
+  padding-left: 1em;
+	margin: 1em  1em;
+	list-style-type: none;
+}
+
+.box p, .info p {
+	padding-bottom: 1em;
+  margin-bottom: 0;
+}
+
+.info li:before {
+	content:"\00bb   ";
+	font-weight: 600;
+	font-size: 1.2em;
+	color: #9f0c35;
+}
+
+ul.sprachumschalter {
+    list-style: none;
+    float: right;
+}
+
+ul.sprachumschalter li{
+    display:inline;
+    margin-right:1em;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    color: #4e4f4f;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    transition: color 0.3s ease-in;
+    -moz-transition: color 0.3s ease-in;
+    -o-transition: color 0.3s ease-in;
+    -webkit-transition: color 0.3s ease-in;
+    -ms-transition: color 0.3s ease-in;
+}
+
+ul.sprachumschalter li a {
+    color: #9f0c35;
+    text-decoration: none;
 }
 
 /* fullscreen (Karte + Detail) */

@@ -149,13 +149,13 @@ function initLayout() {
 	menu += '<li><a href="javascript:showSettings();" title="Einstellungen"><i class="fa fa-sliders" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="javascript:showHighScore();" title="Rangliste"><i class="fa fa-line-chart" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://chat.railway-stations.org" title="Chat" target="_blank"><i class="fa fa-comments" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-	menu += '<li><a href="https://railway-stations.org/faq" title="FAQ"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="faq.html" title="FAQ" class="localLink"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://github.com/RailwayStations" title="Entwicklung"><i class="fa fa-github" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-	menu += '<li><a href="impressum.html" id="impressumLink">Impressum</a></li>';
+	menu += '<li><a href="impressum.html" class="localLink">Impressum</a></li>';
 
 	$('#top.header .nav-menu').html(menu);
 
-	$('#impressumLink').click(function(e) {
+	$('.localLink').click(function(e) {
 	    e.preventDefault();
 			window.location.href = $(this).attr('href');
 	});
