@@ -151,9 +151,14 @@ function initLayout() {
 	menu += '<li><a href="https://chat.railway-stations.org" title="Chat" target="_blank"><i class="fa fa-comments" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/faq" title="FAQ"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://github.com/RailwayStations" title="Entwicklung"><i class="fa fa-github" aria-hidden="true" style="font-size:2em;"></i></a></li>';
-	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
+	menu += '<li><a href="impressum.html" id="impressumLink">Impressum</a></li>';
 
 	$('#top.header .nav-menu').html(menu);
+
+	$('#impressumLink').click(function(e) {
+	    e.preventDefault();
+			window.location.href = $(this).attr('href');
+	});
 }
 
 function showMarkerAllClustered() {
