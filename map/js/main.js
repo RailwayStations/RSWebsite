@@ -148,6 +148,7 @@ function initLayout() {
 	var menu = '';
 	menu += '<li><a href="javascript:showSettings();" title="Einstellungen"><i class="fa fa-sliders" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="javascript:showHighScore();" title="Rangliste"><i class="fa fa-line-chart" aria-hidden="true" style="font-size:2em;"></i></a></li>';
+	menu += '<li><a href="https://chat.railway-stations.org" title="Chat" target="_blank"><i class="fa fa-comments" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/faq" title="FAQ"><i class="fa fa-question" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://github.com/RailwayStations" title="Entwicklung"><i class="fa fa-github" aria-hidden="true" style="font-size:2em;"></i></a></li>';
 	menu += '<li><a href="https://railway-stations.org/node/22">Impressum</a></li>';
