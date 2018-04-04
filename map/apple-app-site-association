@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "CGF6G8NVJ5.org.railway-stations.ios",
+                "paths": [ "/uploadToken/*"]
+            }
+        ]
+    }
+}
