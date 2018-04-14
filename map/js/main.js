@@ -161,37 +161,6 @@ function initLayout() {
 	});
 }
 
-function showMarkerAllClustered() {
-	'use strict';
-
-	$('body').removeClass('showCluster');
-	if (markers) {
-		map.removeLayer(markers);
-	}
-	markers = L.markerClusterGroup();
-
-	var bahnhoefe = L.featureGroup()
-		.on('click', function (event) {
-			showPopup(event.layer.options, this);
-		}),
-		i,
-		customIcon = L.icon({
-			iconUrl: './images/pointer.png',
-			iconSize: [32, 46],
-			iconAnchor: [16, 46],
-			popupAnchor: [0, -28]
-		}),
-		marker;
-
-	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		marker = L.marker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {icon: customIcon, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
-	}
-
-	markers.addLayer(bahnhoefe); // add it to the cluster group
-	map.addLayer(markers);		// add it to the map
-	map.fitBounds(markers.getBounds()); //set view on the cluster extend
-}
-
 function showMarkerImagesClustered() {
 	'use strict';
 
@@ -242,7 +211,7 @@ function showMarkerImagesClustered() {
 	map.fitBounds(markers.getBounds()); //set view on the cluster extend
 }
 
-function showCircleAllClustered(colored) {
+function showCircleAllClustered() {
 	'use strict';
 
 	if (markers) {
@@ -259,7 +228,7 @@ function showCircleAllClustered(colored) {
 		color;
 
 	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		color = (colored ? dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? '#8000FF' : '#3db70e') : '#B70E3D');
+		color = (dataBahnhoefe[i].photographer === null ? '#B70E3D' : (dataBahnhoefe[i].photographer === nickname ? '#8000FF' : '#3db70e'));
 		marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {fillColor: color, fillOpacity: 1, stroke: false, properties: dataBahnhoefe[i]}).addTo(bahnhoefe);
 	}
 
@@ -268,47 +237,26 @@ function showCircleAllClustered(colored) {
 //	map.fitBounds(markers.getBounds()); //set view on the cluster extend
 }
 
-function updateMarker(showPoints, colored) {
+function updateMarker(showPoints) {
 	'use strict';
 
 	if (showPoints) {
-		showCircleAllClustered(colored);
+		showCircleAllClustered();
 	} else {
-		if (colored) {
-			showMarkerImagesClustered();
-		} else {
-			showMarkerAllClustered();
-		}
+		showMarkerImagesClustered();
 	}
 }
 
 function clickPoints() {
 	'use strict';
 
-	var showPoints, colored;
+	var showPoints;
 
 	showPoints = !$('#togglePoints').hasClass('fa-toggle-on');
 	$('#togglePoints').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
 	localStorage.setItem("showPoints", showPoints ? "true" : "false");
 
-	colored = $('#toggleColor').hasClass('fa-toggle-on');
-
-	updateMarker(showPoints, colored);
-}
-
-function clickColor() {
-	'use strict';
-
-	var showPoints, colored;
-
-	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
-
-	colored = !$('#toggleColor').hasClass('fa-toggle-on');
-	$('#toggleColor').toggleClass('fa-toggle-on').toggleClass('fa-toggle-off');
-
-	localStorage.setItem("colored", colored ? "true" : "false");
-
-	updateMarker(showPoints, colored);
+	updateMarker(showPoints);
 }
 
 function getStationsURL() {
@@ -320,24 +268,22 @@ function getStationsURL() {
 function setNickname() {
 	'use strict';
 
-	var showPoints, colored;
+	var showPoints;
 
 	nickname = $('#nickname').val();
 	localStorage.setItem("nickname", nickname);
 
 	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
-	colored = $('#toggleColor').hasClass('fa-toggle-on');
 
-	updateMarker(showPoints, colored);
+	updateMarker(showPoints);
 }
 
 function switchCountry() {
 	'use strict';
 
-	var showPoints, colored, uri;
+	var showPoints, uri;
 
 	showPoints = $('#togglePoints').hasClass('fa-toggle-on');
-	colored = $('#toggleColor').hasClass('fa-toggle-on');
 	setCountryCode($('#country').val());
 
 	$('#details').hide();
@@ -348,7 +294,7 @@ function switchCountry() {
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
-		updateMarker(showPoints, colored);
+		updateMarker(showPoints);
 	});
 }
 
@@ -408,12 +354,10 @@ function showSettings() {
 	'use strict'
 
 	var showPoints = getBoolFromLocalStorage("showPoints", false);
-	var colored = getBoolFromLocalStorage("colored", true);
 
 	swal({
 			title: "<h4 class='h4sweetalert'>Einstellungen</h4>",
 			text: '<p class="name"><a href="#" onclick="clickPoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Marker</span><i id="togglePoints" class="fa ' + (showPoints?'fa-toggle-on':'fa-toggle-off') + '" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Punkte</span></a></p>' +
-						'<p class="name"><a href="#" onclick="clickColor()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">einfarbig</span><i id="toggleColor" class="fa ' + (colored?'fa-toggle-on':'fa-toggle-off') + '" aria-hidden="true" style="font-size:2em;"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">farbig</span></a></p>' +
 						'<p class="name"><input id="nickname" onchange="setNickname()" value="' + nickname + '" style="display:inline-block" placeholder="Nickname"/></p>',
 			confirmButtonColor: "#9f0c35",
 			html: true
@@ -471,9 +415,8 @@ $(document).ready(function () {
 		dataBahnhoefe = featureCollection;
 
 		var showPoints = getBoolFromLocalStorage("showPoints", false);
-		var colored = getBoolFromLocalStorage("colored", true);
 
-		updateMarker(showPoints, colored);
+		updateMarker(showPoints);
 	}).done(function () {
 		// alert( "second success" );
 		map.spin(false);
