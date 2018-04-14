@@ -86,7 +86,6 @@
 		width: 300px;
 		float: left;
 		margin-right: 10px;
-		margin-left: 15px;
 	}
 	.logo h1 a {
 		clip: rect(auto auto auto auto);
@@ -97,13 +96,11 @@
 		word-wrap: normal !important;
 	}
 
-
-    /* suche */
+	/* Suche */
 	.suche {
-	width: 30%;
-    margin-left: 15%;
-
-    }
+		width: 30%;
+		float: left;
+	}
 
 /* Inhalt (.container) */
 
