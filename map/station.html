@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>RailwayStations</title>
+	<title>Station - RailwayStations</title>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
@@ -26,28 +26,13 @@
 	<meta name="theme-color" content="#ffffff">
 
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
-	<link rel="stylesheet" href="css/sweetalert.css" />
-	<link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/leaflet.css" />
-	<link rel="stylesheet" href="css/MarkerCluster.css" />
-	<link rel="stylesheet" href="css/MarkerCluster.Default.css">
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
-
-	<script type="text/javascript" src="js/modernizr-custom.js"></script>
-	<script src="js/leaflet.js"></script>
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="js/jquery-ui.min.js"></script>
-	<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script src="js/main.js"></script>
-    <script src="js/spin.js"></script>
-    <script src="js/leaflet.spin.js"></script>
-	<script type="text/javascript" src="js/smoothscroll.js"></script>
-	<script type="text/javascript" src="js/sweetalert.min.js"></script>
-	<script src="js/leaflet.markercluster.js"></script>
+	<script src="js/station.js"></script>
 
 </head>
 <body>
@@ -56,34 +41,23 @@
     		<div class="logo-menu">
         		<div class="logo clearfix">
 							<img src="images/logo.jpg">
-							<h1><a href="javascript:showMap();">Railway<strong>Stations</strong></a></h1>
-							<select id="country" onchange="switchCountry()"></select>
+							<h1><a href="index.html">Railway<strong>Stations</strong></a></h1>
+              <div id="station-name">Station</div>
 						</div>
- 				<div class="suche">
-					<label for="suche"><span class="screen-reader-text"></span></label>
-					<input id="suche" name="suche">
-				</div>
-				<!-- id="nav" wird per custom.js angesprochen, das die mobile Navigation steuert -->
+			  </div>
 				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
-					<ul class="nav-menu"></ul>
+					<ul class="nav-menu">
+							<li><a href="impressum.html" class="localLink">Impressum</a></li>
+					</ul>
 				</nav>
-			</div>
-		</div>
+		    </div>
     </header>
-    <section id="main">
-	<div id="karte" class="container karte clearfix">
-    <div id="map" style="width: 100%; height: 100%"></div>
-	</div>
 
-</section>
-    <script type="text/javascript" src="js/jquery.nicescroll.min.js"></script>
-    <script type="text/javascript">
-    	$(document).ready(
-	    	function() {
-	    		$("html").niceScroll({cursorborder:"0px solid #fff",cursorwidth:"5px",scrollspeed:"70"});
-	    	}
-    	);
-    </script>
-<script src="js/custom.js"></script>
-</body>
+    <section id="main" class="container detail clearfix">
+			<div>
+				<img id="station-photo" src="images/default.jpg"/>
+				<div id="photo-caption">Fotograf: <a href="" id="photographer-url"><span id="photographer"></span></a>, Lizenz: <span id="license"></span></div>
+			</div>
+    </section>
+  </body>
 </html>

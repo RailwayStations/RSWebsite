@@ -8,8 +8,7 @@ var dataBahnhoefe = null,
 	markers = null,
 	popup = null,
 	countries = null,
-	nickname,
-	geocoder;
+	nickname;
 
 function setCountryCode(countryCode) {
 	'use strict';
@@ -28,12 +27,6 @@ function getCountryCode() {
 	return countryCode;
 }
 
-function getBaseURI() {
-	'use strict';
-
-	return 'http://www.deutschlands-bahnhoefe.de/';
-}
-
 function getAPIURI() {
 	'use strict';
 
@@ -47,64 +40,6 @@ function showMap() {
 	$('#details').hide();
 }
 
-function showDetails(id) {
-	'use strict';
-
-  console.log('show: ' + id);
-	var bahnhof, i;
-	for (i = 0; i < dataBahnhoefe.length; ++i) {
-		if (dataBahnhoefe[i].id == id) {
-			bahnhof = dataBahnhoefe[i];
-			break;
-		}
-	}
-
-	$('#details').show();
-	$('#karte').hide();
-
-	console.log('show: ' + bahnhof.title);
-	$('#detail-title').html(bahnhof.title).attr('data-id', bahnhof.id);
-
-	var latlng = new google.maps.LatLng(bahnhof.lat, bahnhof.lon);
-	geocoder.geocode({'latLng': latlng}, function(results, status) {
-		if (status == google.maps.GeocoderStatus.OK) {
-			console.log('Reverse Geocoding:');
-			console.dir(results);
-			var regEx = new RegExp(", ", "g");
-			$('#detail-address').html(results[0].formatted_address.replace(regEx, "<br/>"));
-		}
-	});
-
-	if (bahnhof.photographer) {
-		$('#detail-image').attr('src', bahnhof.photoUrl);
-		$('#detail-photographer').html('<a href="' + bahnhof.photographerUrl + '">' + bahnhof.photographer + '</a>');
-		$('#detail-license').html(bahnhof.license);
-	} else {
-		$('#detail-image').attr('src', 'images/default.jpg');
-	}
-
-	$('#detail-weather').attr('href', 'http://openweathermap.org/weathermap?basemap=map&cities=true&layer=temperature&lat=' + bahnhof.lat + '&lon=' + bahnhof.lon + '&zoom=12')
-
-  var country;
-	for (i = 0; i < countries.length; ++i) {
-		if (countries[i].code == getCountryCode()) {
-			country = countries[i];
-			break;
-		}
-	}
-
-	var timetableUrl = country.timetableUrlTemplate.replace('{id}', bahnhof.id).replace('{title}', bahnhof.title).replace('{DS100}', bahnhof.DS100);
-	$('#detail-timetable').attr('href', timetableUrl);
-
-	if (getCountryCode() == 'de') {
-		$(".rolltreppen").show();
-		$(".fahrstuhl").show();
-	} else {
-		$(".rolltreppen").hide();
-		$(".fahrstuhl").hide();
-	}
-}
-
 /**
  * Uses the Google Image Proxy to return a scaled version of the image
  *
@@ -116,17 +51,23 @@ function scaleImage(src, width) {
 	return 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=' + width + '&url=' + encodeURIComponent(src)
 }
 
+function showDetails(countryCode, stationId) {
+	'use strict';
+
+	location.href = 'station.html?countryCode=' + countryCode + '&stationId=' + stationId;
+}
+
 function showPopup(feature, layer) {
 	'use strict';
 
 	var str = '';
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301)
-		str += '<a href="javascript:showDetails(' + feature.properties.id + ')" style="display: block; max-height: 200px; overflow: hidden;"><img src="' + photoURL + '" style="width:301px;" height="400"></a><br>';
-		str += '<div style="text-align:right;">Fotograf: ' + feature.properties.photographer + '</div>';
-		str += '<h1 style="text-align:center;"><a href="javascript:showDetails(' + feature.properties.id + ')">' + feature.properties.title + '</a></h1>';
+		str += '<a href="javascript:showDetails(\'' + feature.properties.country + '\', ' + feature.properties.id + ')" style="display: block; max-height: 200px; overflow: hidden;"><img src="' + photoURL + '" style="width:301px;" height="400"></a><br>';
+		str += '<div style="text-align:right;">Fotograf: <a href="' + feature.properties.photographerUrl + '">' + feature.properties.photographer + '</a>, Lizenz: ' + feature.properties.license + '</div>';
+		str += '<h1 style="text-align:center;"><a href="javascript:showDetails(\'' + feature.properties.country + '\', ' + feature.properties.id + ')">' + feature.properties.title + '</a></h1>';
 	} else {
-		str += '<a href="javascript:showDetails(' + feature.properties.id + ')"><h1 style="text-align:center;">' + feature.properties.title + '</h1></a>';
+		str += '<a href="javascript:showDetails(\'' + feature.properties.country + '\', ' + feature.properties.id + ')"><h1 style="text-align:center;">' + feature.properties.title + '</h1></a>';
 		str += '<div>Hier fehlt noch ein Foto.</div>';
 	}
 
@@ -395,7 +336,6 @@ $(document).ready(function () {
 
 	nickname = localStorage.getItem("nickname");
 
-  geocoder = new google.maps.Geocoder();
 	initLayout();
 
 	$('#country').selectmenu();
