@@ -1,5 +1,7 @@
 # Railway-Stations.org
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3d92741c7b374125bd22f8e58af898cb)](https://app.codacy.com/app/peter-storch/RSWebsite?utm_source=github.com&utm_medium=referral&utm_content=RailwayStations/RSWebsite&utm_campaign=badger)
+
 Railway-Stations.org (a.k.a Deutschlands Bahnhöfe) ist ein Community-Projekt, um Bilder zu allen Bahnhöfen zu sammeln. Entstanden ist es am 11.12.2015 auf dem DB-Hackathon in Berlin, zunächst nur mit deutschen Bahnhöfen.
 
 Sie finden die Seite unter [map.railway-stations.org](https://map.railway-stations.org/)
