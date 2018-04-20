@@ -10,7 +10,7 @@ $(document).ready(function () {
 	var vars = [];
 
   var q = document.URL.split("?")[1];
-  if (q !== undefined) {
+  if (q !== null) {
 			q = q.split("&");
 
       for (var i = 0; i < q.length; i++) {
@@ -31,7 +31,7 @@ $(document).ready(function () {
 			$("#photo-caption").html("Fehler beim Laden der Station");
 		},
 		success: function (obj) {
-			if (obj !== undefined) {
+			if (obj !== null) {
 				$("#station-name").html(obj.title);
 				if (null !== obj.photographer) {
 					$("#station-photo").attr("src", obj.photoUrl);

@@ -241,10 +241,7 @@
 ============================================================================================== */
 
 @media screen and (max-width: 400px) {
-  {
-    /* Helpers for windows phone 8 */
-
-  }
+  /* Helpers for windows phone 8 */
   @-ms-viewport {
     width: device-width;
   }
