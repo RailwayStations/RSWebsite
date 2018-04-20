@@ -10,6 +10,27 @@ var dataBahnhoefe = null,
 	countries = null,
 	nickname;
 
+function getBoolFromLocalStorage(pre, defaultVal) {
+	"use strict";
+
+	var value = localStorage.getItem(pre);
+
+	if (value == null) {
+		return defaultVal;
+	}
+
+  return localStorage.getItem(pre) == "true" ? true : false;
+}
+
+function preventLocalLink() {
+	"use strict";
+
+	$(".localLink").click(function(e) {
+		e.preventDefault();
+		window.location.href = $(this).attr("href");
+	});
+}
+
 function setCountryCode(countryCode) {
 	"use strict";
 
@@ -74,7 +95,7 @@ function showPopup(feature, layer) {
 		.setContent(str)
 		.openOn(map);
 
-	preventLocalLink();		
+	preventLocalLink();
 }
 
 function initLayout() {
@@ -93,15 +114,6 @@ function initLayout() {
 
 	$("#top.header .nav-menu").html(menu);
 	preventLocalLink();
-}
-
-function preventLocalLink() {
-	"use strict";
-
-	$(".localLink").click(function(e) {
-		e.preventDefault();
-		window.location.href = $(this).attr("href");
-	});
 }
 
 function showMarkerImagesClustered() {
@@ -242,7 +254,7 @@ function switchCountry() {
 }
 
 function showHighScore() {
-	"use strict"
+	"use strict";
 
 	$.ajax({
 			url: getAPIURI() + getCountryCode() + "/photographers",
@@ -260,17 +272,17 @@ function showHighScore() {
 					$.each(obj, function (propertyName, valueOfProperty) {
 									countPhotographers++;
 									countPhotos += valueOfProperty;
-								  if (lastPhotoCount != valueOfProperty) {
+								  if (lastPhotoCount !== valueOfProperty) {
 										rang = rang + 1;
 									}
 									lastPhotoCount = valueOfProperty;
 
 									var crown = "";
-									if (rang == 1) {
+									if (rang === 1) {
 										crown = "<img src=\"images/crown_gold.png\"/>";
-									} else if (rang == 2) {
+									} else if (rang === 2) {
 										crown = "<img src=\"images/crown_silver.png\"/>";
-									} else if (rang == 3) {
+									} else if (rang === 3) {
 										crown = "<img src=\"images/crown_bronze.png\"/>";
 									} else {
 										crown = rang + ".";
@@ -306,18 +318,6 @@ function showSettings() {
 			html: true
 	});
 
-}
-
-function getBoolFromLocalStorage(pre, defaultVal) {
-	"use strict"
-
-	var value = localStorage.getItem(pre);
-
-	if (value == null) {
-		return defaultVal;
-	}
-
-  return localStorage.getItem(pre) == "true" ? true : false;
 }
 
 $(document).ready(function () {

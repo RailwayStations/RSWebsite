@@ -14,9 +14,9 @@
 
 //Simple function to a responsive menu
 (function () {
-		$("#nav").before('<div id="menu" class="mobile-menu"><a href="#"><span class="screen-reader-text">Navigation</span></a></div>');
+		$("#nav").before("<div id=\"menu\" class=\"mobile-menu\"><a href=\"#\"><span class=\"screen-reader-text\">Navigation</span></a></div>");
 
-		$("#menu").on('click', function () {
+		$("#menu").on("click", function () {
 				$("#nav").toggle();
 				$("aside").toggle();
 		});
@@ -27,7 +27,7 @@
 						$("aside").removeAttr("style");
 				}
 		});
-})(this);
+}(this));
 //apply to any markup with nav like this:
 /*
 
