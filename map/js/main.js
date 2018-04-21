@@ -10,66 +10,11 @@ var dataBahnhoefe = null,
 	countries = null,
 	nickname;
 
-function getBoolFromLocalStorage(pre, defaultVal) {
-	"use strict";
-
-	var value = localStorage.getItem(pre);
-
-	if (value == null) {
-		return defaultVal;
-	}
-
-  return localStorage.getItem(pre) == "true" ? true : false;
-}
-
-function preventLocalLink() {
-	"use strict";
-
-	$(".localLink").click(function(e) {
-		e.preventDefault();
-		window.location.href = $(this).attr("href");
-	});
-}
-
-function setCountryCode(countryCode) {
-	"use strict";
-
-	localStorage.setItem("countryCode", countryCode);
-}
-
-function getCountryCode() {
-	"use strict";
-
-	var countryCode = localStorage.getItem("countryCode");
-	if (countryCode == null) {
-		countryCode = "de";
-	}
-
-	return countryCode;
-}
-
-function getAPIURI() {
-	"use strict";
-
-	return "https://api.railway-stations.org/";
-}
-
 function showMap() {
 	"use strict";
 
 	$("#karte").show();
 	$("#details").hide();
-}
-
-/**
- * Uses the Google Image Proxy to return a scaled version of the image
- *
- * @param {string} src The URL to the original image
- * @param {number} width
- * @return {string} The URL to the scaled image
- */
-function scaleImage(src, width) {
-	return "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=" + width + "&url=" + encodeURIComponent(src);
 }
 
 function showPopup(feature, layer) {
@@ -288,7 +233,7 @@ function showHighScore() {
 										crown = rang + ".";
 									}
 
-									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td>" + propertyName + "</td></tr>";
+									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a class=\"localLink\" href=\"photographer.html?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
 							});
 
 							swal({
@@ -301,6 +246,7 @@ function showHighScore() {
 							});
 
 							$(".sweet-alert").scrollTop();
+							preventLocalLink();
 					}
 			});
 }

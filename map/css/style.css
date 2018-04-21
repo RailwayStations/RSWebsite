@@ -12,6 +12,10 @@ table {
 	border-spacing: 0;
 }
 
+.station {
+  padding-top: 10px;
+}
+
 #country-button span { display: none; }
 
 .banner
