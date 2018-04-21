@@ -68,7 +68,7 @@ function getQueryParameter() {
 	      for (var i = 0; i < q.length; i++) {
 	          var hash = q[i].split("=");
 	          vars.push(hash[1]);
-	          vars[hash[0]] = hash[1];
+	          vars[hash[0]] = decodeURIComponent(hash[1]);
 	      }
 	  }
 
