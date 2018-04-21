@@ -1,3 +1,3 @@
 #!/bin/sh
 
-scp -r map bahnhoefe:/var/www
+scp -r map railway-stations.org:/var/www
