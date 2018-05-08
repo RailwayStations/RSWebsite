@@ -214,7 +214,21 @@ function showHighScore() {
 			type: "GET",
 			dataType: "json",
 			error: function () {
-					console.log("loading highscore failed");
+				var jsonOutput = "";
+				var countPhotographers = 0;
+				var countPhotos = 0;
+
+				swal({
+						title: "<h4 class=\"h4rangliste\">Rangliste</h4>",
+						text: "<p>Anzahl Bahnhofsfotos: <strong>" + countPhotos + "</strong><br>" +
+									"Anzahl Fotografen: <strong>" + countPhotographers + "</strong></p>" +
+									"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + jsonOutput + "</table></div>",
+						confirmButtonColor: "#9f0c35",
+						html: true
+				});
+
+				$(".sweet-alert").scrollTop();
+				preventLocalLink();
 			},
 			success: function (obj) {
 					var jsonOutput = "";
