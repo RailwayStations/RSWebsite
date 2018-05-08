@@ -619,10 +619,9 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	color: #fff;
 	border: none;
 }
-.suche :-moz-placeholder, .suche ::-webkit-input-placeholder, .suche :-ms-input-placeholder  {
+.suche ::placeholder, .suche :-moz-placeholder, .suche ::-webkit-input-placeholder, .suche :-ms-input-placeholder, .suche ::-ms-input-placeholder  {
 	color: rgba(255,255,255, 0.5);
 }
-
 
 
 /* Navigation */
@@ -640,7 +639,7 @@ input[type="submit"]:hover, input[type="submit"]:focus {
     color: #9F0C35;
     font-size: 14px;
     font-weight: 600;
-	padding: 10px 15px;
+	padding: 10px 5px;
     letter-spacing: 1px;
     text-decoration: none;
     text-transform: uppercase;
@@ -649,7 +648,9 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 .nav-menu li a:hover, .nav-menu li a:focus {
 	color: #9F0C35;
 }
-
+.nav-menu li a i {
+	vertical-align: middle;
+}
 
 /* Inhalt (.container) */
 

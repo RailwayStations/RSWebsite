@@ -9,7 +9,7 @@
 /* Logo */
 	.logo {
 		float: left;
-		width: 300px;
+		width: 32%;
 		margin-right: 10px;
 	}
 	.logo h1 a {
@@ -37,16 +37,21 @@
 	.site-navigation {
 		display: block;
 		position: relative;
-		width: auto;
+		width: 35%;
 		float: right;
+		text-align: right;
 	}
 	.site-navigation ul {
 		background-color: transparent;
+		white-space: nowrap;
+		overflow-x: hidden;
 	}
 	.site-navigation li {
 		width: auto;
 		display: inline-block;
-		padding-left: 1.5em;
+	}
+	.site-navigation .visible-xs {
+		display: none;
 	}
 
 /* Inhalt (.container) */
@@ -167,11 +172,12 @@
 /* Navigation */
 	.mobile-menu {
 		display: block;
-		margin: 0 5% 0 0;
-		padding: 5px;
+		margin: 0;
+		padding: 0;
 		font-size: 1.35em;
 		cursor: pointer;
 		float: right;
+		width: 14%;
 	}
 	.mobile-menu a:before {
 		content: "";
@@ -179,7 +185,16 @@
 		height: 60px;
 		width: 60px;
 		background: url(../images/11.png) no-repeat center;
+		float: right;
 	}
+	.logo {
+		width: 14%;
+		float: left;
+	}
+	.logo h1, .ui-select {
+		display: none;
+	}
+
 	.site-navigation {
 		display: none;
 		position: absolute;

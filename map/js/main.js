@@ -50,12 +50,12 @@ function initLayout() {
 	$("#top.header #suche")[0].placeholder = "Finde deinen Bahnhof";
 
 	var menu = "";
-	menu += "<li><a href=\"javascript:showSettings();\" title=\"Einstellungen\"><i class=\"fa fa-sliders\" aria-hidden=\"true\" style=\"font-size:2em;\"></i></a></li>";
-	menu += "<li><a href=\"javascript:showHighScore();\" title=\"Rangliste\"><i class=\"fa fa-line-chart\" aria-hidden=\"true\" style=\"font-size:2em;\"></i></a></li>";
-	menu += "<li><a href=\"https://chat.railway-stations.org\" title=\"Chat\" target=\"_blank\"><i class=\"fa fa-comments\" aria-hidden=\"true\" style=\"font-size:2em;\"></i></a></li>";
-	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-question\" aria-hidden=\"true\" style=\"font-size:2em;\"></i></a></li>";
-	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-github\" aria-hidden=\"true\" style=\"font-size:2em;\"></i></a></li>";
-	menu += "<li><a href=\"impressum.html\" class=\"localLink\">Impressum</a></li>";
+	menu += "<li><a href=\"javascript:showSettings();\" title=\"Einstellungen\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
+	menu += "<li><a href=\"javascript:showHighScore();\" title=\"Rangliste\"><i class=\"fa fa-fw fa-2x fa-line-chart\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Rangliste</span></a></li>";
+	menu += "<li><a href=\"https://chat.railway-stations.org\" title=\"Chat\" target=\"_blank\"><i class=\"fa fa-fw fa-2x fa-comments\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Chat</span></a></li>";
+	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
+	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-fw fa-2x fa-github\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Entwicklung</span></a></li>";
+	menu += "<li><a href=\"impressum.html\" title=\"Impressum\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-info\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Impressum</span></a></li>";
 
 	$("#top.header .nav-menu").html(menu);
 	preventLocalLink();
@@ -178,24 +178,32 @@ function setNickname() {
 	updateMarker(showPoints);
 }
 
-function switchCountry() {
+function switchCountryLink(countryCode) {
 	"use strict";
 
 	var showPoints, uri;
 
 	showPoints = $("#togglePoints").hasClass("fa-toggle-on");
-	setCountryCode($("#country").val());
+	setCountryCode(countryCode);
 
 	$("#details").hide();
 	$("#karte").show();
+	$('.header .mobile-menu:visible .ui-link').click();
 
 	initLayout();
+	initCountry();
 
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
 		updateMarker(showPoints);
 	});
+}
+
+function switchCountry() {
+	"use strict";
+
+	switchCountryLink($("#country").val());
 }
 
 function showHighScore() {
@@ -258,12 +266,40 @@ function showSettings() {
 
 	swal({
 			title: "<h4 class=\"h4sweetalert\">Einstellungen</h4>",
-			text: "<p class=\"name\"><a href=\"#\" onclick=\"clickPoints()\"><span style=\"padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;\">Marker</span><i id=\"togglePoints\" class=\"fa " + (showPoints?"fa-toggle-on":"fa-toggle-off") + "\" aria-hidden=\"true\" style=\"font-size:2em;\"></i><span style=\"padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;\">Punkte</span></a></p>" +
+			text: "<p class=\"name\"><a href=\"#\" onclick=\"clickPoints()\"><span style=\"padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;\">Marker</span><i id=\"togglePoints\" class=\"fa fa-2x " + (showPoints?"fa-toggle-on":"fa-toggle-off") + "\" aria-hidden=\"true\"></i><span style=\"padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;\">Punkte</span></a></p>" +
 						"<p class=\"name\"><input id=\"nickname\" onchange=\"setNickname()\" value=\"" + nickname + "\" style=\"display:inline-block\" placeholder=\"Nickname\"/></p>",
 			confirmButtonColor: "#9f0c35",
 			html: true
 	});
 
+}
+
+function initCountry() {
+	$("#country").selectmenu();
+	$.getJSON(getAPIURI() + "countries", function (countryData) {
+		countries = countryData;
+		var select = $("#country");
+		var menu = $("#top.header .nav-menu").html();
+		var style = " style=\"border-top:2px solid #9F0C35;\"";
+
+		select.html('');
+		countries.sort(function(a,b) {
+			return a.name.localeCompare(b.name);
+		});
+
+		for (var i = 0; i < countries.length; ++i) {
+			select.append($("<option>", {
+			    value: countries[i].code,
+			    text: countries[i].name
+			}));
+			menu += "<li class=\"visible-xs\"><a href=\"javascript:switchCountryLink('" + countries[i].code + "');\" title=\"" + countries[i].name + "\"" + style + "><i class=\"fa fa-fw fa-2x fa-globe\" aria-hidden=\"true\"></i> " + countries[i].name + "</a></li>";
+			style = "";
+		}
+		select.val(getCountryCode());
+		select.show();
+
+		$("#top.header .nav-menu").html(menu);
+	});
 }
 
 $(document).ready(function () {
@@ -285,19 +321,7 @@ $(document).ready(function () {
 	nickname = localStorage.getItem("nickname");
 
 	initLayout();
-
-	$("#country").selectmenu();
-	$.getJSON(getAPIURI() + "countries", function (countryData) {
-		countries = countryData;
-		var select = $("#country");
-		for (var i = 0; i < countries.length; ++i) {
-			select.append($("<option>", {
-			    value: countries[i].code,
-			    text: countries[i].name
-			}));
-		}
-		select.val(getCountryCode());
-	});
+	initCountry();
 
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
