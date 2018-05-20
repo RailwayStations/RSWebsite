@@ -730,6 +730,10 @@ input[type="submit"]:hover, input[type="submit"]:focus {
 	color: #9f0c35;
 }
 
+ul.simple-list li:before {
+  content: "";
+}
+
 ul.sprachumschalter {
     list-style: none;
     float: right;

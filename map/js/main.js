@@ -56,6 +56,7 @@ function initLayout() {
 	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
 	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-fw fa-2x fa-github\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Entwicklung</span></a></li>";
 	menu += "<li><a href=\"impressum.html\" title=\"Impressum\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-info\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Impressum</span></a></li>";
+	menu += "<li><a href=\"datenschutz.html\" title=\"Datenschutzerklärung\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-shield\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Datenschutzerklärung</span></a></li>";
 
 	$("#top.header .nav-menu").html(menu);
 	preventLocalLink();
