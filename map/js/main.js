@@ -20,7 +20,7 @@ function showMap() {
 function showPopup(feature, layer) {
 	"use strict";
 
-	var detailLink = "station.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.id;
+	var detailLink = "station.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr;
 	var str = "";
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
@@ -358,12 +358,12 @@ $(document).ready(function () {
 	  source: function( request, response ) {
 	          var matcher = new RegExp( $.ui.autocomplete.escapeRegex( request.term ), "i" );
 						var filtered = dataBahnhoefe.filter(function (bahnhof) {
-    										return matcher.test(bahnhof.title) || matcher.test(bahnhof.id);
+    										return matcher.test(bahnhof.title) || matcher.test(bahnhof.idStr);
 						});
 	          response( $.map(filtered, function (value, key) {
 	                			return {
 	                    		label: value.title,
-	                    		value: value.id
+	                    		value: value.idStr
 	                			};
 	            		})
 						);
@@ -377,7 +377,7 @@ $(document).ready(function () {
 			$("#karte").show();
 			$( "#suche" ).val( ui.item.label);
 			var bahnhof = dataBahnhoefe.filter(function (bahnhof) {
-							return bahnhof.id == ui.item.value;
+							return bahnhof.idStr == ui.item.value;
 			});
 			map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon));
 			map.setZoom(14);
@@ -387,7 +387,7 @@ $(document).ready(function () {
 				bahnhofMarkers = bahnhofMarkers[0].getLayers();
 			}
 			for (var i in bahnhofMarkers) {
-				var markerID = bahnhofMarkers[i].options.properties.id;
+				var markerID = bahnhofMarkers[i].options.properties.idStr;
 				if (markerID == ui.item.value) {
 					showPopup(bahnhofMarkers[i].options, this);
 				}
