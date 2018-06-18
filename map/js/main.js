@@ -207,39 +207,42 @@ function switchCountry() {
 	switchCountryLink($("#country").val());
 }
 
+function getPhotoCount() {
+	"use strict";
+
+	var photoCount = 0;
+
+	for (var i = 0; i < dataBahnhoefe.length; ++i) {
+		if (dataBahnhoefe[i].photographer !== null) {
+			photoCount++;
+		}
+	}
+
+	return photoCount;
+}
+
 function showHighScore() {
 	"use strict";
+
+	var countStations = dataBahnhoefe.length;
+	var countPhotographers = 0;
+	var countPhotos = getPhotoCount();
+	var percentPhotos = countPhotos / countStations;
 
 	$.ajax({
 			url: getAPIURI() + getCountryCode() + "/photographers",
 			type: "GET",
 			dataType: "json",
 			error: function () {
-				var jsonOutput = "";
-				var countPhotographers = 0;
-				var countPhotos = 0;
-
-				swal({
-						title: "<h4 class=\"h4rangliste\">Rangliste</h4>",
-						text: "<p>Anzahl Bahnhofsfotos: <strong>" + countPhotos + "</strong><br>" +
-									"Anzahl Fotografen: <strong>" + countPhotographers + "</strong></p>" +
-									"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + jsonOutput + "</table></div>",
-						confirmButtonColor: "#9f0c35",
-						html: true
-				});
-
-				$(".sweet-alert").scrollTop();
-				preventLocalLink();
+				showHighScorePopup(countStations, countPhotos, countPhotographers, "");
 			},
 			success: function (obj) {
 					var jsonOutput = "";
 					var rang = 0;
 					var lastPhotoCount = -1;
-					var countPhotographers = 0;
-					var countPhotos = 0;
+
 					$.each(obj, function (propertyName, valueOfProperty) {
 									countPhotographers++;
-									countPhotos += valueOfProperty;
 								  if (lastPhotoCount !== valueOfProperty) {
 										rang = rang + 1;
 									}
@@ -259,19 +262,38 @@ function showHighScore() {
 									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a class=\"localLink\" href=\"photographer.html?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
 							});
 
-							swal({
-									title: "<h4 class=\"h4rangliste\">Rangliste</h4>",
-									text: "<p>Anzahl Bahnhofsfotos: <strong>" + countPhotos + "</strong><br>" +
-												"Anzahl Fotografen: <strong>" + countPhotographers + "</strong></p>" +
-												"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + jsonOutput + "</table></div>",
-									confirmButtonColor: "#9f0c35",
-									html: true
-							});
-
-							$(".sweet-alert").scrollTop();
-							preventLocalLink();
+							showHighScorePopup(countStations, countPhotos, countPhotographers, jsonOutput);
 					}
 			});
+}
+
+function showHighScorePopup(countStations, countPhotos, countPhotographers, highscoreTable) {
+	"use strict";
+
+	var percentPhotos = countPhotos / countStations;
+
+	swal({
+			title: "<h4 class=\"h4rangliste\">Rangliste</h4>",
+			text: "<div id=\"progressbar\"><div class=\"progress-label\"></div></div>" +
+						"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
+						"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + highscoreTable + "</table></div>",
+			confirmButtonColor: "#9f0c35",
+			html: true
+	});
+
+	$(".sweet-alert").scrollTop();
+	$( function() {
+			var progressbar = $( "#progressbar" ),
+				progressLabel = $( ".progress-label" );
+
+			progressbar.progressbar({
+				value: percentPhotos * 100,
+			});
+			progressLabel.text( countPhotos + " von " + countStations + " Fotos");
+			progressbar.find(".ui-progressbar-value").css("background", "#3db70e");
+			progressbar.find(".ui-progressbar-value").css("border-color", "#3db70e");			
+		} );
+	preventLocalLink();
 }
 
 function showSettings() {
