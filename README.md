@@ -33,6 +33,24 @@ Weitere Domains:
 - [schweizer-bahnhoefe.ch](https://schweizer-bahnhoefe.ch/)
 - [deutschlands-bahnhöfe.de](http://www.xn--deutschlands-bahnhfe-lbc.de/)
 
+Umgebung
+--------
+
+Die Seite benötigt eine PHP 5.6 Umgebung. Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
+
+```
+
+docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:5.6-apache
+
+```
+
+Danach steht die Seite unter http://localhost:8088/map zur Verfügung. Im Unterverzeichnis [/chat](http://localhost:8088/chat) ist der Firebase chat erreichbar.
+
+Deployment
+--------
+
+Mit den Bash Scripten `./deploy-map.sh` und `./deploy-chat.sh` kann die Seite auf dem Server aktualisiert werden.
+
 ---
 
 Lizenz

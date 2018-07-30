@@ -20,7 +20,7 @@ function showMap() {
 function showPopup(feature, layer) {
 	"use strict";
 
-	var detailLink = "station.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr;
+	var detailLink = "station.php?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr;
 	var str = "";
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
@@ -291,7 +291,7 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 			});
 			progressLabel.text( countPhotos + " von " + countStations + " Fotos");
 			progressbar.find(".ui-progressbar-value").css("background", "#3db70e");
-			progressbar.find(".ui-progressbar-value").css("border-color", "#3db70e");			
+			progressbar.find(".ui-progressbar-value").css("border-color", "#3db70e");
 		} );
 	preventLocalLink();
 }
