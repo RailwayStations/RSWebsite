@@ -40,8 +40,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta property="og:image" content="<?php echo $stationPhoto;?>" />
-	<title><?php echo $stationName;?> - RailwayStations</title>
+	<meta property="og:image" content="<?php echo htmlspecialchars($stationPhoto);?>" />
+	<title><?php echo htmlspecialchars($stationName);?> - RailwayStations</title>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
@@ -77,7 +77,7 @@
         		<div class="logo clearfix">
 							<img src="images/logo.jpg">
 							<h1><a href="index.html">Railway<strong>Stations</strong></a></h1>
-              <div id="station-name"><?php echo $stationName;?></div>
+              <div id="station-name"><?php echo htmlspecialchars($stationName);?></div>
 						</div>
 			  </div>
 				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
@@ -90,8 +90,8 @@
 
     <section id="main" class="container detail clearfix">
 			<div>
-				<img id="station-photo" src="<?php echo $stationPhoto;?>" title="<?php echo $photoCaption;?>"/>
-				<div id="photo-caption">Fotograf: <a href="<?php echo $photographerUrl;?>" id="photographer-url"><span id="photographer"><?php echo $photographer;?></span></a>, Lizenz: <span id="license"><?php echo $license;?></span></div>
+				<img id="station-photo" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
+				<div id="photo-caption">Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>, Lizenz: <span id="license"><?php echo htmlspecialchars($license);?></span></div>
 			</div>
     </section>
   </body>
