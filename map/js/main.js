@@ -10,6 +10,16 @@ var dataBahnhoefe = null,
 	countries = null,
 	nickname;
 
+var licenseUrls = {
+	"By Ubahnverleih (Own work) [CC BY 3.0 (http://creativecommons.org/licenses/by/3…" : "https://creativecommons.org/licenses/by/3.0/deed.de",
+	"By ubahnverleih (Own work) [CC0], via Wikimedia Commons" : "https://creativecommons.org/publicdomain/zero/1.0/deed.de",
+	"CC BY 3.0" : "https://creativecommons.org/licenses/by/3.0/deed.de",
+	"CC BY-NC 4.0 International" : "https://creativecommons.org/licenses/by-nc/4.0/deed.de",
+	"CC BY-NC-SA 3.0 DE" : "https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.de",
+	"CC BY-SA 4.0" : "https://creativecommons.org/licenses/by-sa/4.0/deed.de",
+	"CC0 1.0 Universell (CC0 1.0)" : "http://creativecommons.org/publicdomain/zero/1.0/deed.de"
+};
+
 function showMap() {
 	"use strict";
 
@@ -25,7 +35,8 @@ function showPopup(feature, layer) {
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
 		str += "<a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";
-		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, Lizenz: " + feature.properties.license + "</div>";
+		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, "
+		str += "Lizenz: <a href=\"" + licenseUrls[feature.properties.license] + "\">" + feature.properties.license + "</a></div>"
 		str += "<h1 style=\"text-align:center;\"><a href=\"" + detailLink + "\" class=\"localLink\">" + feature.properties.title + "</a></h1>";
 	} else {
 		str += "<a href=\"" + detailLink + "\" class=\"localLink\"><h1 style=\"text-align:center;\">" + feature.properties.title + "</h1></a>";
