@@ -74,3 +74,23 @@ function getQueryParameter() {
 
 		return vars;
 }
+
+var licenseUrls = {
+	"By Ubahnverleih (Own work) [CC BY 3.0 (http://creativecommons.org/licenses/by/3…" : "https://creativecommons.org/licenses/by/3.0/deed.de",
+	"By ubahnverleih (Own work) [CC0], via Wikimedia Commons" : "https://creativecommons.org/publicdomain/zero/1.0/deed.de",
+	"CC BY 3.0" : "https://creativecommons.org/licenses/by/3.0/deed.de",
+	"CC BY-NC 4.0 International" : "https://creativecommons.org/licenses/by-nc/4.0/deed.de",
+	"CC BY-NC-SA 3.0 DE" : "https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.de",
+	"CC BY-SA 4.0" : "https://creativecommons.org/licenses/by-sa/4.0/deed.de",
+	"CC0 1.0 Universell (CC0 1.0)" : "http://creativecommons.org/publicdomain/zero/1.0/deed.de"
+};
+
+/**
+ * Gibt die URL zum Lizenttext zurück
+ * 
+ * @param {string} licenseName interner Name der Lizenz
+ * @return {string} die URL zum Lizenztext
+ */
+function getLicenseUrlForLicenseName(licenseName) {
+	return licenseUrls[licenseName];
+}

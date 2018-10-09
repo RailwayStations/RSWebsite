@@ -26,7 +26,7 @@ $(document).ready(function () {
 					$("#stations").append("<div class=\"station\">" +
 						"<h1><a href=\"" + detailLink + "\" class=\"localLink\">" + obj[i].title + "</a></h1>" +
 						"<div><a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a></div>" +
-						"<div>Lizenz: " + obj[i].license + "</div>" +
+						"<div>Lizenz: <a href=\"" + getLicenseUrlForLicenseName(obj[i].license) + "\">" + obj[i].license + "</a></div>" +
 						"</div>");
 				}
 			} else {
