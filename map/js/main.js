@@ -25,7 +25,8 @@ function showPopup(feature, layer) {
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
 		str += "<a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";
-		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, Lizenz: " + feature.properties.license + "</div>";
+		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, "
+		str += "Lizenz: <a href=\"" + getLicenseUrlForLicenseName(feature.properties.license) + "\">" + feature.properties.license + "</a></div>"
 		str += "<h1 style=\"text-align:center;\"><a href=\"" + detailLink + "\" class=\"localLink\">" + feature.properties.title + "</a></h1>";
 	} else {
 		str += "<a href=\"" + detailLink + "\" class=\"localLink\"><h1 style=\"text-align:center;\">" + feature.properties.title + "</h1></a>";
