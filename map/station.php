@@ -7,9 +7,19 @@
 	$photographer = 'n.a.';
 	$photographerUrl = '';
 	$license = 'n.a.';
+	$licenseUrl = '';
 
 	try {
-		$json = file_get_contents('https://api.railway-stations.org/'.$countryCode.'/stations/'.$stationId);
+		$opts = [
+			"http" => [
+				"method" => "GET",
+				"header" => "Accept-language: " . $_SERVER['HTTP_ACCEPT_LANGUAGE']
+			]
+		];
+
+		$context = stream_context_create($opts);
+
+		$json = file_get_contents('https://api.railway-stations.org/'.$countryCode.'/stations/'.$stationId, false, $context);
 		if ($json !== false) {
 			$data = json_decode($json, true);
 			if (isset($data)) {
@@ -19,6 +29,7 @@
 					$stationPhoto = $data['photoUrl'];
 					$photographerUrl = $data['photographerUrl'];
 					$license = $data['license'];
+					$licenseUrl = $data['licenseUrl'];
 					$photoCaption = $stationName;
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
@@ -29,16 +40,6 @@
 	} catch (Exception $e) {
 	    $photoCaption = 'Fehler beim Laden der Station';
 	}
-
-	$licenseUrls = [
-		"By Ubahnverleih (Own work) [CC BY 3.0 (http://creativecommons.org/licenses/by/3…" => "https://creativecommons.org/licenses/by/3.0/deed.de",
-		"By ubahnverleih (Own work) [CC0], via Wikimedia Commons" => "https://creativecommons.org/publicdomain/zero/1.0/deed.de",
-		"CC BY 3.0" => "https://creativecommons.org/licenses/by/3.0/deed.de",
-		"CC BY-NC 4.0 International" => "https://creativecommons.org/licenses/by-nc/4.0/deed.de",
-		"CC BY-NC-SA 3.0 DE" => "https://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.de",
-		"CC BY-SA 4.0" => "https://creativecommons.org/licenses/by-sa/4.0/deed.de",
-		"CC0 1.0 Universell (CC0 1.0)" => "http://creativecommons.org/publicdomain/zero/1.0/deed.de"
-	];
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="de-DE"> <![endif]-->
@@ -102,7 +103,7 @@
 				<img id="station-photo" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
 				<div id="photo-caption">
 					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>, 
-					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrls[$license]);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
+					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
 				</div>
 			</div>
     </section>
