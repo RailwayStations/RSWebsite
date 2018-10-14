@@ -22,7 +22,7 @@ $(document).ready(function () {
 				$("#photographer").attr("href", obj[0].photographerUrl);
 				for (var i = 0; i < obj.length; i++) {
 					var photoURL = scaleImage(obj[i].photoUrl, 301);
-					var detailLink = "station.html?countryCode=" + obj[i].country + "&stationId=" + obj[i].idStr;
+					var detailLink = "station.php?countryCode=" + obj[i].country + "&stationId=" + obj[i].idStr;
 					$("#stations").append("<div class=\"station\">" +
 						"<h1><a href=\"" + detailLink + "\" class=\"localLink\">" + obj[i].title + "</a></h1>" +
 						"<div><a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a></div>" +
