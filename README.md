@@ -19,7 +19,6 @@ Diese Seiten gehören zu Railway-Stations.org:
 
 Hauptseite
 - [railway-stations.org](https://railway-stations.org/) + [github](https://github.com/RailwayStations/RSWebsite)
-- [chat.railway-stations.org](https://chat.railway-stations.org/)
 
 Weitere Domains:
 - [map.railway-stations.org](https://map.railway-stations.org/) (wie die Hauptseite)
@@ -38,20 +37,20 @@ REST API
 Umgebung
 --------
 
-Die Seite benötigt eine PHP 5.6 Umgebung. Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
+Die Seite benötigt eine PHP Umgebung (ab 5.6). Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
 
 ```
 
-docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:5.6-apache
+docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:7.2-apache
 
 ```
 
-Danach steht die Seite unter http://localhost:8088/map zur Verfügung. Im Unterverzeichnis [/chat](http://localhost:8088/chat) ist der Firebase chat erreichbar.
+Danach steht die Seite unter http://localhost:8088/map zur Verfügung.
 
 Deployment
 --------
 
-Mit den Bash Scripten `./deploy-map.sh` und `./deploy-chat.sh` kann die Seite auf dem Server aktualisiert werden.
+Mit dem Bash Script `./deploy.sh` kann die Seite auf dem Server aktualisiert werden.
 
 ---
 

@@ -53,7 +53,6 @@ function initLayout() {
 	var menu = "";
 	menu += "<li><a href=\"javascript:showSettings();\" title=\"Einstellungen\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
 	menu += "<li><a href=\"javascript:showHighScore();\" title=\"Rangliste\"><i class=\"fa fa-fw fa-2x fa-line-chart\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Rangliste</span></a></li>";
-	menu += "<li><a href=\"https://chat.railway-stations.org\" title=\"Chat\" target=\"_blank\"><i class=\"fa fa-fw fa-2x fa-comments\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Chat</span></a></li>";
 	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
 	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-fw fa-2x fa-github\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Entwicklung</span></a></li>";
 	menu += "<li><a href=\"impressum.html\" title=\"Impressum\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-info\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Impressum</span></a></li>";
