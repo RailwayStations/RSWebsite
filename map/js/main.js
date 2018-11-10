@@ -148,13 +148,16 @@ function updateMarker(showPoints) {
 	}
 }
 
-function clickPoints() {
+function togglePoints() {
 	"use strict";
 
-	var showPoints;
-
-	showPoints = !$("#togglePoints").hasClass("fa-toggle-on");
 	$("#togglePoints").toggleClass("fa-toggle-on").toggleClass("fa-toggle-off");
+}
+
+function savePoints() {
+	"use strict";
+
+	var showPoints = !$("#togglePoints").hasClass("fa-toggle-on");
 	localStorage.setItem("showPoints", showPoints ? "true" : "false");
 
 	updateMarker(showPoints);
@@ -272,13 +275,14 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 
 	var percentPhotos = countPhotos / countStations;
 
+	var highscoreDiv = document.createElement("div");
+	highscoreDiv.innerHTML = "<div id=\"progressbar\"><div class=\"progress-label\"></div></div>" +
+				"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
+				"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + highscoreTable + "</table></div>";
+
 	swal({
-			title: "<h4 class=\"h4rangliste\">Rangliste</h4>",
-			text: "<div id=\"progressbar\"><div class=\"progress-label\"></div></div>" +
-						"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
-						"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + highscoreTable + "</table></div>",
-			confirmButtonColor: "#9f0c35",
-			html: true
+			title: "Rangliste",
+			content: highscoreDiv,
 	});
 
 	$(".sweet-alert").scrollTop();
@@ -300,13 +304,22 @@ function showSettings() {
 	"use strict"
 
 	var showPoints = getBoolFromLocalStorage("showPoints", false);
+	var settings = document.createElement("div");
+	settings.innerHTML = "<p class=\"name\"><a href=\"#\" onclick=\"togglePoints()\"><span style=\"padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;\">Marker</span><i id=\"togglePoints\" class=\"fa fa-2x " + (showPoints?"fa-toggle-on":"fa-toggle-off") + "\" aria-hidden=\"true\"></i><span style=\"padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;\">Punkte</span></a></p>" +
+				"<p class=\"name\"><input id=\"nickname\" value=\"" + nickname + "\" style=\"display:inline-block\" placeholder=\"Nickname\"/></p>";
 
 	swal({
-			title: "<h4 class=\"h4sweetalert\">Einstellungen</h4>",
-			text: "<p class=\"name\"><a href=\"#\" onclick=\"clickPoints()\"><span style=\"padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;\">Marker</span><i id=\"togglePoints\" class=\"fa fa-2x " + (showPoints?"fa-toggle-on":"fa-toggle-off") + "\" aria-hidden=\"true\"></i><span style=\"padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;\">Punkte</span></a></p>" +
-						"<p class=\"name\"><input id=\"nickname\" onchange=\"setNickname()\" value=\"" + nickname + "\" style=\"display:inline-block\" placeholder=\"Nickname\"/></p>",
-			confirmButtonColor: "#9f0c35",
-			html: true
+			title: "Einstellungen",
+			content: settings,
+			buttons: true,
+	}).then((ok) => {
+	  if (ok) {
+			setNickname();
+			var newShowPoints = !$("#togglePoints").hasClass("fa-toggle-on");
+			if (newShowPoints != showPoints) {
+				clickPoints();
+			}
+	  }
 	});
 
 }

@@ -16,6 +16,19 @@ table {
   padding-top: 10px;
 }
 
+.swal-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #9f0c35;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 50px;
+  margin-top: 20px;
+}
+
+.swal-content {
+  line-height: normal;
+}
+
 #progressbar .ui-progressbar {
   position: relative;
   text-align: center;
@@ -27,7 +40,7 @@ table {
   right: 0%;
   margin-left: auto;
   margin-right: auto;
-  top: 4px;
+  top: 128px;
   font-weight: bold;
   text-align: center;
 }
@@ -64,16 +77,6 @@ table {
 	font-family: 'Open Sans', sans-serif;
 	line-height: 60px;
 }
-
-.h4sweetalert {
-  font-size: 0.8em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #9f0c35;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 50px;
-  margin-top: 20px;
- }
 
 .small-text
 {
