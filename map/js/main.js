@@ -8,7 +8,7 @@ var dataBahnhoefe = null,
 	markers = null,
 	popup = null,
 	countries = null,
-	nickname;
+	nickname = "";
 
 function showMap() {
 	"use strict";
@@ -356,6 +356,9 @@ $(document).ready(function () {
 	map.spin(true);
 
 	nickname = localStorage.getItem("nickname");
+	if (nickname == null) {
+		nickname = "";
+	}
 
 	initLayout();
 	initCountry();
