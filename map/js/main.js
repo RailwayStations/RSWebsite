@@ -31,6 +31,7 @@ function showPopup(feature, layer) {
 	} else {
 		str += "<a href=\"" + detailLink + "\" class=\"localLink\"><h1 style=\"text-align:center;\">" + feature.properties.title + "</h1></a>";
 		str += "<div>Hier fehlt noch ein Foto.</div>";
+		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" class=\"localLink\"><i class=\"fa fa-upload\"> Lade Dein Foto hoch.</a></div>";
 	}
 
 	if (null === popup) {
@@ -175,7 +176,9 @@ function setNickname() {
 	var showPoints;
 
 	nickname = $("#nickname").val();
-	localStorage.setItem("nickname", nickname);
+	var userProfile = getUserProfile();
+	userProfile.nickname = nickname;
+	setUserProfile(userProfile);
 
 	showPoints = $("#togglePoints").hasClass("fa-toggle-on");
 
@@ -317,7 +320,7 @@ function showSettings() {
 			setNickname();
 			var newShowPoints = !$("#togglePoints").hasClass("fa-toggle-on");
 			if (newShowPoints != showPoints) {
-				clickPoints();
+				togglePoints();
 			}
 	  }
 	});
@@ -368,11 +371,7 @@ $(document).ready(function () {
 	basemap.addTo(map);
 	map.spin(true);
 
-	nickname = localStorage.getItem("nickname");
-	if (nickname == null) {
-		nickname = "";
-	}
-
+	nickname = getUserProfile().nickname;
 	initLayout();
 	initCountry();
 

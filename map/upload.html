@@ -6,7 +6,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Station - RailwayStations</title>
+	<title>Upload - RailwayStations</title>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
@@ -29,9 +29,10 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
-	<script src="js/jquery-3.4.1.min.js"></script>
+
+  <script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/common.js"></script>
-	<script src="js/photographer.js"></script>
+	<script src="js/upload.js"></script>
 
 </head>
 <body>
@@ -41,21 +42,47 @@
         		<div class="logo clearfix">
 							<img src="images/logo.jpg">
 							<h1><a href="index.html">Railway<strong>Stations</strong></a></h1>
-              <div id="title">Fotograf: <a href="" id="photographer"></a></div>
+              <div>Foto-Upload (BETA)</div>
 						</div>
 			  </div>
-				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
-					<ul class="nav-menu">
-							<li><a href="impressum.html" class="localLink">Impressum</a></li>
-					</ul>
-				</nav>
 		    </div>
     </header>
 
-    <section id="main" class="container detail clearfix">
-			<div id="stations">
+    <section id="main" class="container karte clearfix">
+        <div class="info" style="text-align:left;" id="upload-form">
+					<p id="title-form">Upload</p>
+							<p id="f1_upload_process">Loading...<br/><img src="images/loader.gif" /></p>
+							<form id="uploadForm" action="https://api.railway-stations.org/photoUpload" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="startUpload();">
+									<input id="email" name="email" type="hidden" />
+									<input id="uploadToken" name="uploadToken" type="hidden" />
+									<input id="stationId" name="stationId" type="hidden" />
+									<input id="countryCode" name="countryCode" type="hidden" />
+									<input id="fileInput" name="file" type="file" disabled/>
+									<input id="uploadSubmit" type="submit" name="submitBtn" value="Hochladen" disabled/>
+							</form>
+							<p id="result"></p>
+				</div>
 
-			</div>
+				<hr/>
+				<div class="info" style="text-align:left;" id="profile-form">
+					<p id="title-form">Benutzerprofil</p>
+							<form id="profileForm" action="#" method="post">
+								<table>
+									<tr><td>Email:</td><td><input id="profileEmail" name="email" type="input" /></td></tr>
+									<tr><td>Nickname:</td><td><input id="profileNickname" name="nickname" type="input" /></td></tr>
+									<tr><td>Eigene Fotos:</td><td><input id="profilePhotoOwner" name="photoOwner" type="checkbox" /></td></tr>
+									<tr><td>Lizenz CC0:</td><td><input id="profileCc0" name="cc0" type="checkbox" /></td></tr>
+									<tr><td>Anonym:</td><td><input id="profileAnonymous" name="anonymous" type="checkbox" /></td></tr>
+									<tr><td>Dein Link:</td><td><input id="profileLink" name="link" type="input" /></td></tr>
+									<tr><td>Upload-Token:</td><td><input id="profileUploadToken" name="uploadToken" type="input" /></td></tr>
+								</table>
+							</form>
+							<button id="saveProfile" name="saveBtn" onclick="saveProfile();">Speichern / Registrieren</button>
+							<p id="resultProfile"></p>
+				</div>
     </section>
+
+		<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+
   </body>
 </html>

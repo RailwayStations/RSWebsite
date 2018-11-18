@@ -12,6 +12,16 @@ table {
 	border-spacing: 0;
 }
 
+.msg {
+  font-weight: bold;
+  background-color: antiquewhite;
+  padding: 10px;
+}
+
+#result, #resultProfile {
+  margin-top: 20px;
+}
+
 .station {
   padding-top: 10px;
 }
@@ -921,4 +931,16 @@ svg.circle .pie {
 
 #ui-id-1 {
   z-index: 1100;
+}
+
+#f1_upload_process{
+   z-index:100;
+   position:absolute;
+   visibility:hidden;
+   text-align:center;
+   width:400px;
+   margin:0px;
+   padding:0px;
+   background-color:#fff;
+   border:1px solid #ccc;
 }

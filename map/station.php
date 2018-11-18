@@ -8,6 +8,7 @@
 	$photographerUrl = '';
 	$license = 'n.a.';
 	$licenseUrl = '';
+	$uploadUrl = '';
 
 	try {
 		$opts = [
@@ -34,6 +35,7 @@
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
 					$photographer = 'n.a.';
+					$uploadUrl = 'upload.html?countryCode='.$countryCode.'&stationId='.$stationId.'&title='.$stationName;
 				}
 			}
 		}
@@ -71,12 +73,10 @@
 	<meta name="theme-color" content="#ffffff">
 
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
-  <link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300,600,700,800' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,300' rel='stylesheet' type='text/css'>
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
 	<script src="js/common.js"></script>
 
 </head>
@@ -100,10 +100,22 @@
 
     <section id="main" class="container detail clearfix">
 			<div>
-				<img id="station-photo" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
 				<div id="photo-caption">
-					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>, 
+		<?php if ($uploadUrl == '') { ?>
+					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
 					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
+		<?php } else { ?>
+					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" class="localLink"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
+		<?php } ?>
+				</div>
+				<img id="station-photo" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
+				<div id="photo-caption2">
+		<?php if ($uploadUrl == '') { ?>
+					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
+					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
+		<?php } else { ?>
+					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" class="localLink"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
+		<?php } ?>
 				</div>
 			</div>
     </section>

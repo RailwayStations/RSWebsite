@@ -3,16 +3,27 @@
 
 //-----------------------------------------------------------------------
 
-function getBoolFromLocalStorage(pre, defaultVal) {
+function getBoolFromLocalStorage(key, defaultVal) {
 	"use strict";
 
-	var value = localStorage.getItem(pre);
+	var value = localStorage.getItem(key);
+	if (value == null) {
+		return defaultVal;
+	}
+
+  return value == "true" ? true : false;
+}
+
+function getStringFromLocalStorage(key, defaultVal) {
+	"use strict";
+
+	var value = localStorage.getItem(key);
 
 	if (value == null) {
 		return defaultVal;
 	}
 
-  return localStorage.getItem(pre) == "true" ? true : false;
+  return value;
 }
 
 function preventLocalLink() {
@@ -24,27 +35,56 @@ function preventLocalLink() {
 	});
 }
 
-function setCountryCode(countryCode) {
+function setUserProfile(userProfile) {
 	"use strict";
 
+	localStorage.setItem("userProfile", JSON.stringify(userProfile));
+}
+
+function getUserProfile() {
+	"use strict";
+
+	var userProfile = JSON.parse(getStringFromLocalStorage("userProfile","{}"));
+	if (userProfile.email === undefined) {
+		userProfile.email = "";
+	}
+	if (userProfile.uploadToken === undefined) {
+		userProfile.uploadToken = "";
+	}
+	if (userProfile.nickname === undefined) {
+		userProfile.nickname = "";
+	}
+	if (userProfile.link === undefined) {
+		userProfile.link = "";
+	}
+	if (userProfile.photoOwner === undefined) {
+		userProfile.photoOwner = false;
+	}
+	if (userProfile.anonymous === undefined) {
+		userProfile.anonymous = false;
+	}
+	if (userProfile.license === undefined) {
+		userProfile.license = "";
+	}
+	userProfile.cc0 = (userProfile.license == "CC0");
+
+	return userProfile;
+}
+
+function setCountryCode(countryCode) {
+	"use strict";
 	localStorage.setItem("countryCode", countryCode);
 }
 
 function getCountryCode() {
 	"use strict";
-
-	var countryCode = localStorage.getItem("countryCode");
-	if (countryCode == null) {
-		countryCode = "de";
-	}
-
-	return countryCode;
+	return getStringFromLocalStorage("countryCode", "de");
 }
 
 function getAPIURI() {
 	"use strict";
-
 	return "https://api.railway-stations.org/";
+	//return "http://localhost:8080/";
 }
 
 /**
