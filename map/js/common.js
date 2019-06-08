@@ -26,6 +26,13 @@ function getStringFromLocalStorage(key, defaultVal) {
   return value;
 }
 
+function setResultMessage(message) {
+  "use strict";
+
+  document.getElementById('result').innerHTML =
+       '<span class="msg">' + message + '<\/span><br/><br/>';
+}
+
 function preventLocalLink() {
 	"use strict";
 

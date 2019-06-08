@@ -52,7 +52,7 @@ function initLayout() {
 	$("#top.header #suche")[0].placeholder = "Finde deinen Bahnhof";
 
 	var menu = "";
-	menu += "<li><a href=\"javascript:showSettings();\" title=\"Einstellungen\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
+	menu += "<li><a href=\"settings.html\" title=\"Einstellungen\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
 	menu += "<li><a href=\"javascript:showHighScore();\" title=\"Rangliste\"><i class=\"fa fa-fw fa-2x fa-line-chart\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Rangliste</span></a></li>";
 	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
 	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-fw fa-2x fa-github\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Entwicklung</span></a></li>";
@@ -149,48 +149,15 @@ function updateMarker(showPoints) {
 	}
 }
 
-function togglePoints() {
-	"use strict";
-
-	$("#togglePoints").toggleClass("fa-toggle-on").toggleClass("fa-toggle-off");
-}
-
-function savePoints() {
-	"use strict";
-
-	var showPoints = !$("#togglePoints").hasClass("fa-toggle-on");
-	localStorage.setItem("showPoints", showPoints ? "true" : "false");
-
-	updateMarker(showPoints);
-}
-
 function getStationsURL() {
 	"use strict";
 
   return getAPIURI() + getCountryCode() + "/stations";
 }
 
-function setNickname() {
-	"use strict";
-
-	var showPoints;
-
-	nickname = $("#nickname").val();
-	var userProfile = getUserProfile();
-	userProfile.nickname = nickname;
-	setUserProfile(userProfile);
-
-	showPoints = $("#togglePoints").hasClass("fa-toggle-on");
-
-	updateMarker(showPoints);
-}
-
 function switchCountryLink(countryCode) {
 	"use strict";
 
-	var showPoints, uri;
-
-	showPoints = $("#togglePoints").hasClass("fa-toggle-on");
 	setCountryCode(countryCode);
 
 	$("#details").hide();
@@ -203,7 +170,7 @@ function switchCountryLink(countryCode) {
 	$.getJSON(getStationsURL(), function (featureCollection) {
 		dataBahnhoefe = featureCollection;
 
-		updateMarker(showPoints);
+		updateMarker(getBoolFromLocalStorage("showPoints", false));
 	});
 }
 
@@ -301,30 +268,6 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 			progressbar.find(".ui-progressbar-value").css("border-color", "#3db70e");
 		} );
 	preventLocalLink();
-}
-
-function showSettings() {
-	"use strict"
-
-	var showPoints = getBoolFromLocalStorage("showPoints", false);
-	var settings = document.createElement("div");
-	settings.innerHTML = "<p class=\"name\"><a href=\"#\" onclick=\"togglePoints()\"><span style=\"padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;\">Marker</span><i id=\"togglePoints\" class=\"fa fa-2x " + (showPoints?"fa-toggle-on":"fa-toggle-off") + "\" aria-hidden=\"true\"></i><span style=\"padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;\">Punkte</span></a></p>" +
-				"<p class=\"name\"><input id=\"nickname\" value=\"" + nickname + "\" style=\"display:inline-block\" placeholder=\"Nickname\"/></p>";
-
-	swal({
-			title: "Einstellungen",
-			content: settings,
-			buttons: true,
-	}).then((ok) => {
-	  if (ok) {
-			setNickname();
-			var newShowPoints = !$("#togglePoints").hasClass("fa-toggle-on");
-			if (newShowPoints != showPoints) {
-				togglePoints();
-			}
-	  }
-	});
-
 }
 
 function initCountry() {
