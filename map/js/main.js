@@ -301,6 +301,11 @@ function initCountry() {
 $(document).ready(function () {
 	"use strict";
 
+	var vars = getQueryParameter();
+	if (vars && vars.countryCode && vars.countryCode.length > 0) {
+		setCountryCode(vars.countryCode)
+	}
+
 	var basemap = L.tileLayer(
 		"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 		{

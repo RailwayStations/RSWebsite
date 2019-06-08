@@ -109,7 +109,7 @@ function getQueryParameter() {
 		"use strict";
 		var vars = [];
 	  var q = document.URL.split("?")[1];
-	  if (q !== null) {
+	  if (q && q !== null) {
 				q = q.split("&");
 
 	      for (var i = 0; i < q.length; i++) {
