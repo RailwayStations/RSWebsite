@@ -218,6 +218,24 @@ a.ankunft:visited,
 	font-weight: 700;
 
 }
+#saveProfile {	background: #9f0c35;
+	border: medium none;
+	color: #FFF;
+	padding: 15px 10px;
+	font-size: 18px;
+	font-weight: 600;
+	font-family: "Open Sans",sans-serif;
+	transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	-webkit-transition: all 0.3s ease 0s;
+	-ms-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	margin-top: 20px;
+	transition: background 0.3s ease-in;
+	cursor: pointer;
+	display: block;
+	margin-top: 30px;
+	border-radius : 5px;};
 
 button.submit
 {
