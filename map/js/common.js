@@ -33,15 +33,6 @@ function setResultMessage(message) {
        '<span class="msg">' + message + '<\/span><br/><br/>';
 }
 
-function preventLocalLink() {
-	"use strict";
-
-	$(".localLink").click(function(e) {
-		e.preventDefault();
-		window.location.href = $(this).attr("href");
-	});
-}
-
 function setUserProfile(userProfile) {
 	"use strict";
 

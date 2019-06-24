@@ -24,8 +24,8 @@ $(document).ready(function () {
 					var photoURL = scaleImage(obj[i].photoUrl, 301);
 					var detailLink = "station.php?countryCode=" + obj[i].country + "&stationId=" + obj[i].idStr;
 					$("#stations").append("<div class=\"station\">" +
-						"<h1><a href=\"" + detailLink + "\" class=\"localLink\">" + obj[i].title + "</a></h1>" +
-						"<div><a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a></div>" +
+						"<h1><a href=\"" + detailLink + "\" data-ajax=\"false\">" + obj[i].title + "</a></h1>" +
+						"<div><a href=\"" + detailLink + "\" data-ajax=\"false\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a></div>" +
 						"<div>Lizenz: <a href=\"" + obj[i].licenseUrl + "\">" + obj[i].license + "</a></div>" +
 						"</div>");
 				}

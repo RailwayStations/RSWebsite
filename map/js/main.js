@@ -24,14 +24,14 @@ function showPopup(feature, layer) {
 	var str = "";
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
-		str += "<a href=\"" + detailLink + "\" class=\"localLink\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";
+		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";
 		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, "
 		str += "Lizenz: <a href=\"" + feature.properties.licenseUrl + "\">" + feature.properties.license + "</a></div>"
-		str += "<h1 style=\"text-align:center;\"><a href=\"" + detailLink + "\" class=\"localLink\">" + feature.properties.title + "</a></h1>";
+		str += "<h1 style=\"text-align:center;\"><a href=\"" + detailLink + "\" data-ajax=\"false\">" + feature.properties.title + "</a></h1>";
 	} else {
-		str += "<a href=\"" + detailLink + "\" class=\"localLink\"><h1 style=\"text-align:center;\">" + feature.properties.title + "</h1></a>";
+		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\"><h1 style=\"text-align:center;\">" + feature.properties.title + "</h1></a>";
 		str += "<div>Hier fehlt noch ein Foto.</div>";
-		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" class=\"localLink\"><i class=\"fa fa-upload\"> Lade Dein Foto hoch.</a></div>";
+		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" data-ajax=\"false\"><i class=\"fa fa-upload\"> Lade Dein Foto hoch.</a></div>";
 	}
 
 	if (null === popup) {
@@ -41,8 +41,6 @@ function showPopup(feature, layer) {
 	popup.setLatLng([feature.properties.lat, feature.properties.lon])
 		.setContent(str)
 		.openOn(map);
-
-	preventLocalLink();
 }
 
 function initLayout() {
@@ -52,15 +50,14 @@ function initLayout() {
 	$("#top.header #suche")[0].placeholder = "Finde deinen Bahnhof";
 
 	var menu = "";
-	menu += "<li><a href=\"settings.html\" title=\"Einstellungen\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
+	menu += "<li><a href=\"settings.html\" title=\"Einstellungen\" data-ajax=\"false\"><i class=\"fa fa-fw fa-2x fa-sliders\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Einstellungen</span></a></li>";
 	menu += "<li><a href=\"javascript:showHighScore();\" title=\"Rangliste\"><i class=\"fa fa-fw fa-2x fa-line-chart\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Rangliste</span></a></li>";
-	menu += "<li><a href=\"faq.html\" title=\"FAQ\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
+	menu += "<li><a href=\"faq.html\" title=\"FAQ\" data-ajax=\"false\"><i class=\"fa fa-fw fa-2x fa-question\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> FAQ</span></a></li>";
 	menu += "<li><a href=\"https://github.com/RailwayStations\" title=\"Entwicklung\"><i class=\"fa fa-fw fa-2x fa-github\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Entwicklung</span></a></li>";
-	menu += "<li><a href=\"impressum.html\" title=\"Impressum\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-info\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Impressum</span></a></li>";
-	menu += "<li><a href=\"datenschutz.html\" title=\"Datenschutzerklärung\" class=\"localLink\"><i class=\"fa fa-fw fa-2x fa-shield\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Datenschutzerklärung</span></a></li>";
+	menu += "<li><a href=\"impressum.html\" title=\"Impressum\" data-ajax=\"false\"><i class=\"fa fa-fw fa-2x fa-info\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Impressum</span></a></li>";
+	menu += "<li><a href=\"datenschutz.html\" title=\"Datenschutzerklärung\" data-ajax=\"false\"><i class=\"fa fa-fw fa-2x fa-shield\" aria-hidden=\"true\"></i><span class=\"visible-xs\"> Datenschutzerklärung</span></a></li>";
 
 	$("#top.header .nav-menu").html(menu);
-	preventLocalLink();
 }
 
 function showMarkerImagesClustered() {
@@ -232,7 +229,7 @@ function showHighScore() {
 										crown = rang + ".";
 									}
 
-									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a class=\"localLink\" href=\"photographer.html?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
+									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a data-ajax=\"false\" href=\"photographer.html?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
 							});
 
 							showHighScorePopup(countStations, countPhotos, countPhotographers, jsonOutput);
@@ -267,7 +264,6 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 			progressbar.find(".ui-progressbar-value").css("background", "#3db70e");
 			progressbar.find(".ui-progressbar-value").css("border-color", "#3db70e");
 		} );
-	preventLocalLink();
 }
 
 function initCountry() {

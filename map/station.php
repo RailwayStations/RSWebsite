@@ -76,7 +76,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300,200' rel='stylesheet' type='text/css'>
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="css/responsive.css" rel="stylesheet" media="screen" type="text/css"/>
-	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script src="js/common.js"></script>
 
 </head>
@@ -92,7 +92,7 @@
 			  </div>
 				<nav id="nav" class="site-navigation primary-navigation" role="navigation">
 					<ul class="nav-menu">
-							<li><a href="impressum.html" class="localLink">Impressum</a></li>
+							<li><a href="impressum.html" data-ajax="false">Impressum</a></li>
 					</ul>
 				</nav>
 		    </div>
@@ -105,7 +105,7 @@
 					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
 					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
 		<?php } else { ?>
-					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" class="localLink"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
+					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
 		<?php } ?>
 				</div>
 				<img id="station-photo" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
@@ -114,7 +114,7 @@
 					Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
 					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a>
 		<?php } else { ?>
-					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" class="localLink"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
+					<a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fa fa-upload"> Lade Dein Foto hoch.</i></a>
 		<?php } ?>
 				</div>
 			</div>
