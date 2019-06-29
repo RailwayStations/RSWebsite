@@ -19,14 +19,21 @@ function register(userProfile, uploadTokenOnly) {
 
   request.done(function (data) {
 		if (uploadTokenOnly) {
-			setResultMessage('Upload-Token angefordert, bitte schaue in Deine Email');
+			alert('Upload-Token angefordert, bitte schaue in Deine Email');
 		} else {
-    	setResultMessage('Registrierung erfolgreich');
+    	alert('Registrierung erfolgreich');
 		}
 	});
 
 	request.fail(function (jqXHR, textStatus, errorThrown) {
-   	setResultMessage('Fehler: ' + textStatus + ', ' + errorThrown);
+		var status = jqXHR.status;
+		if (status == 400) {
+			alert('Ungültige Daten: ' + textStatus + ', ' + errorThrown);
+		} else if (status == 409) {
+			alert('Es liegt ein Konflikt mit einem anderen Nickname oder einer Email vor. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de');
+		} else {
+			alert('Fehler: ' + textStatus + ', ' + errorThrown);
+		}
 	});
 
 }
@@ -35,8 +42,12 @@ function onRequestUploadToken() {
 	"use strict";
 
 	var userProfile = getUserProfileForm();
-	if (!userProfile.email || userProfile.email.length == 0) {
-		setResultMessage('Bitte Email angeben, um einen neune Upload-Token zu bekommen.');
+	if (isBlank(userProfile.email)) {
+		alert('Bitte Email angeben, um einen neuen Upload-Token zu bekommen.');
+		return false;
+	}
+	if (isBlank(userProfile.nickname)) {
+		alert('Bitte Nickname angeben, um einen neuen Upload-Token zu bekommen.');
 		return false;
 	}
 
@@ -48,9 +59,8 @@ function onLogin() {
 	"use strict";
 
 	var userProfile = getUserProfileForm();
-	if (!userProfile.email || userProfile.email.length == 0
-		|| !userProfile.uploadToken || userProfile.uploadToken.length == 0) {
-		setResultMessage('Bitte Email und Upload-Token zum Login angeben');
+	if (isBlank(userProfile.email) || isBlank(userProfile.uploadToken)) {
+		alert('Bitte Email und Upload-Token zum Login angeben');
 		return false;
 	}
 	login(userProfile);
@@ -60,8 +70,7 @@ function onLogin() {
 function login(userProfile, quiet) {
 	"use strict";
 
-	if (!userProfile.email || userProfile.email.length == 0
-		|| !userProfile.uploadToken || userProfile.uploadToken.length == 0) {
+	if (isBlank(userProfile.email) || isBlank(userProfile.uploadToken)) {
 		console.log("Not logged on");
 		return;
 	}
@@ -85,7 +94,7 @@ function login(userProfile, quiet) {
 		setUserProfile(data);
 		setUserProfileForm(data);
 		if (!quiet) {
-			setResultMessage('Login erfolgreich.');
+			alert('Login erfolgreich.');
 		}
 	});
 
@@ -101,7 +110,7 @@ function badUploadToken(userProfile) {
 	userProfile.uploadToken = "";
 	setUserProfile(userProfile);
 	setUserProfileForm(userProfile);
-	setResultMessage('Upload-Token ungültig, bitte einen Neuen anfordern');
+	alert('Upload-Token ungültig, bitte einen Neuen anfordern');
 }
 
 function togglePoints() {
@@ -150,23 +159,32 @@ function uploadProfile(userProfile) {
 
   request.done(function (data) {
     loggedIn = true;
-		setResultMessage('Profil gespeichert');
+		alert('Profil gespeichert');
 	});
 
 	request.fail(function (jqXHR, textStatus, errorThrown) {
 		var status = jqXHR.status;
 		if (status == 400) {
-			setResultMessage('Ungültige Daten: ' + textStatus + ', ' + errorThrown);
+			alert('Ungültige Daten: ' + textStatus + ', ' + errorThrown);
 		} else if (status == 401) {
-			setResultMessage('Ungültige Token, bitte einen Neuen anfordern');
+			alert('Ungültige Token, bitte einen Neuen anfordern');
 			badUploadToken(userProfile);
 		} else if (status == 409) {
-			setResultMessage('Profile kann nicht gespeichert werden, es liegt ein Konflikt mit einem anderen Nickname oder einer Email vor.');
+			alert('Es liegt ein Konflikt mit einem anderen Nickname oder einer Email vor. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de');
 		} else {
-			setResultMessage('Speichern fehlgeschlagen: ' + textStatus + ', ' + errorThrown);
+			alert('Speichern fehlgeschlagen: ' + textStatus + ', ' + errorThrown);
 		}
 	});
 
+}
+
+function isURL(str) {
+	try {
+    var url = new URL(str);
+		return (url.protocol == "http:" || url.protocol == "https:") ;
+  } catch (_) {
+    return false;
+  }
 }
 
 function saveProfile() {
@@ -174,13 +192,45 @@ function saveProfile() {
 
   var userProfile = getUserProfileForm();
   setUserProfile(userProfile);
-  if (userProfile.uploadToken === undefined || userProfile.uploadToken.length == 0) {
+
+	if (!userProfile.cc0) {
+		alert('Bitte akzeptiere CC0, damit wir Deine Fotos ohne Probleme verwenden können.')
+		return false;
+	}
+
+	if (!userProfile.photoOwner) {
+		alert('Bitte gib an, ob es sich um Deine eigenen Fotos handelt.')
+		return false;
+	}
+
+	if (isBlank(userProfile.nickname)) {
+		alert('Bitte gib Deinen Nickname an.')
+		return false;
+	}
+
+	if (isBlank(userProfile.email)) {
+		alert('Bitte gib Deine Email an.')
+		return false;
+	} else {
+		var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if (!userProfile.email.match(mailformat)) {
+			alert('Ungültiges Email format.')
+			return false;
+		}
+	}
+
+	if (isNotBlank(userProfile.link) && !isURL(userProfile.link)) {
+		alert('Bitte gib eine gültige HTTP(S) URL an.')
+		return false;
+	}
+
+  if (isBlank(userProfile.uploadToken)) {
   	register(userProfile);
   } else {
 		if (loggedIn) {
 			uploadProfile(userProfile);
 		} else {
-    	setResultMessage('Benutzerprofil gespeichert');
+    	alert('Benutzerprofil gespeichert');
 		}
   }
 
