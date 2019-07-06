@@ -242,13 +242,20 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 
 	var percentPhotos = countPhotos / countStations;
 
+	var countryName = getCountryCode();
+	for (var i = 0; i < countries.length; ++i) {
+		if (countries[i].code == getCountryCode()) {
+			countryName = countries[i].name;
+		}
+	}
+
 	var highscoreDiv = document.createElement("div");
 	highscoreDiv.innerHTML = "<div id=\"progressbar\"><div class=\"progress-label\"></div></div>" +
 				"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
 				"<div style=\"height:60vh;overflow-y:scroll;\"><table style=\"width:100%;\">" + highscoreTable + "</table></div>";
 
 	swal({
-			title: "Rangliste",
+			title: "Rangliste: " + countryName,
 			content: highscoreDiv,
 	});
 
