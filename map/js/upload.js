@@ -3,8 +3,8 @@
 //-----------------------------------------------------------------------
 
 function startUpload(){
-    document.getElementById('f1_upload_process').style.visibility = 'visible';
-    return true;
+  $('#upload-process').modal('show')
+  return true;
 }
 
 function stopUpload(message){
@@ -22,8 +22,8 @@ function stopUpload(message){
         result = 'Foto zu groß (maximal 20 MB)';
       }
 
+      $('#upload-process').modal('hide')
       alert(result);
-      document.getElementById('f1_upload_process').style.visibility = 'hidden';
       return true;
 }
 
@@ -56,5 +56,7 @@ $(document).ready(function () {
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.html";
+  } else {
+    bsCustomFileInput.init();
   }
 });
