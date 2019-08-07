@@ -23,10 +23,12 @@ $(document).ready(function () {
 				for (var i = 0; i < obj.length; i++) {
 					var photoURL = scaleImage(obj[i].photoUrl, 301);
 					var detailLink = "station.php?countryCode=" + obj[i].country + "&stationId=" + obj[i].idStr;
-					$("#stations").append("<div class=\"station\">" +
-						"<h1><a href=\"" + detailLink + "\" data-ajax=\"false\">" + obj[i].title + "</a></h1>" +
-						"<div><a href=\"" + detailLink + "\" data-ajax=\"false\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a></div>" +
-						"<div>Lizenz: <a href=\"" + obj[i].licenseUrl + "\">" + obj[i].license + "</a></div>" +
+					$("#stations").append("<div class=\"card mt-1\" style=\"max-width: 302px;\">" +
+						  "<div class=\"card-body\">" +
+						  "  <h5 class=\"card-title\"><a href=\"" + detailLink + "\" data-ajax=\"false\">" + obj[i].title + "</a></h5>" +
+						  "  <p class=\"card-text\"><small class=\"text-muted\">Lizenz: <a href=\"" + obj[i].licenseUrl + "\">" + obj[i].license + "</a></small></p>" +
+						  "</div>" +
+						  "<a href=\"" + detailLink + "\" data-ajax=\"false\"><img src=\"" + photoURL + "\" class=\"card-img-top\" style=\"width:301px;\" alt=\"" + obj[i].title + "\"></a>" +
 						"</div>");
 				}
 			} else {

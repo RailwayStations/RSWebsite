@@ -38,39 +38,73 @@ function register(userProfile, uploadTokenOnly) {
 
 }
 
+function newUploadToken(email) {
+	"use strict";
+
+	var request = $.ajax({
+			url: getAPIURI() + "/newUploadToken",
+      contentType: "application/json; charset=utf-8",
+			type: "POST",
+			dataType: "text",
+      processData: false,
+			headers: {
+					"Email": email
+			}
+
+    });
+
+  request.done(function (data) {
+		alert('Upload-Token angefordert, bitte schaue in Deine Email');
+	});
+
+	request.fail(function (jqXHR, textStatus, errorThrown) {
+		var status = jqXHR.status;
+		if (status == 400) {
+			alert('In Deinem Profil ist keine Email hinterlegt. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de');
+		} else if (status == 404) {
+			alert('Kein Profil mit dieser Email / mit diesem Nickname gefunden.');
+		} else {
+			alert('Fehler: ' + textStatus + ', ' + errorThrown);
+		}
+	});
+
+}
+
 function onRequestUploadToken() {
 	"use strict";
 
-	var userProfile = getUserProfileForm();
-	if (isBlank(userProfile.email)) {
-		alert('Bitte Email angeben, um einen neuen Upload-Token zu bekommen.');
-		return false;
-	}
-	if (isBlank(userProfile.nickname)) {
-		alert('Bitte Nickname angeben, um einen neuen Upload-Token zu bekommen.');
+	var email = $("#loginEmail").val();
+
+	if (isBlank(email)) {
+		alert('Bitte Email oder Nickname angeben, um einen neuen Upload-Token zu bekommen.');
 		return false;
 	}
 
-	register(userProfile, true);
+	newUploadToken(email);
 	return false;
 }
 
 function onLogin() {
 	"use strict";
 
-	var userProfile = getUserProfileForm();
-	if (isBlank(userProfile.email) || isBlank(userProfile.uploadToken)) {
+	var email = $("#loginEmail").val();
+  var uploadToken = $("#loginUploadToken").val();
+
+	if (isBlank(email) || isBlank(uploadToken)) {
 		alert('Bitte Email und Upload-Token zum Login angeben');
 		return false;
 	}
-	login(userProfile);
+	login();
 	return false;
 }
 
-function login(userProfile, quiet) {
+function login(quiet) {
 	"use strict";
 
-	if (isBlank(userProfile.email) || isBlank(userProfile.uploadToken)) {
+  var email = $("#loginEmail").val();
+  var uploadToken = $("#loginUploadToken").val();
+
+	if (isBlank(email) || isBlank(uploadToken)) {
 		console.log("Not logged on");
 		return;
 	}
@@ -81,18 +115,19 @@ function login(userProfile, quiet) {
 			type: "GET",
 			dataType: "json",
       processData: true,
-			headers: {"Upload-Token":userProfile.uploadToken,
-					"Email": userProfile.email
-			},
-      data: JSON.stringify(userProfile)
+			headers: {"Upload-Token":uploadToken,
+					"Email": email
+			}
     });
 
   request.done(function (data) {
     loggedIn = true;
-		data.uploadToken = userProfile.uploadToken;
+		data.uploadToken = uploadToken;
 		data.cc0 = data.license.startsWith("CC0");
 		setUserProfile(data);
 		setUserProfileForm(data);
+		$("#loginProfile").css('visibility','collapse');
+		$("#fullProfile").css('visibility','visible');
 		if (!quiet) {
 			alert('Login erfolgreich.');
 		}
@@ -110,6 +145,8 @@ function badUploadToken(userProfile) {
 	userProfile.uploadToken = "";
 	setUserProfile(userProfile);
 	setUserProfileForm(userProfile);
+	$("#loginProfile").css('visibility','visible');
+	$("#fullProfile").css('visibility','collapse');
 	alert('Upload-Token ungültig, bitte einen Neuen anfordern');
 }
 
@@ -148,7 +185,6 @@ function uploadProfile(userProfile) {
 			url: getAPIURI() + "/myProfile",
       contentType: "application/json; charset=utf-8",
 			type: "POST",
-			data: JSON.stringify(userProfile),
 			dataType: "text",
       processData: false,
 			headers: {"Upload-Token":userProfile.uploadToken,
@@ -187,7 +223,7 @@ function isURL(str) {
   }
 }
 
-function saveProfile() {
+function onSaveProfile() {
 	"use strict";
 
   var userProfile = getUserProfileForm();
@@ -224,21 +260,35 @@ function saveProfile() {
 		return false;
 	}
 
-  if (isBlank(userProfile.uploadToken)) {
+  if (!loggedIn && isBlank(userProfile.uploadToken)) {
   	register(userProfile);
   } else {
-		if (loggedIn) {
+		if (loggedIn && isNotBlank(userProfile.uploadToken)) {
 			uploadProfile(userProfile);
 		} else {
     	alert('Benutzerprofil gespeichert');
 		}
   }
 
-  return true;
+  return false;
+}
+
+function onNewRegistration() {
+	"use strict";
+
+	$("#loginProfile").css('visibility','collapse');
+	$("#fullProfile").css('visibility','visible');
 }
 
 function setUserProfileForm(userProfile) {
 	"use strict";
+
+	if (isNotBlank(userProfile.email)) {
+		$("#loginEmail").val(userProfile.email);
+	} else {
+		$("#loginEmail").val(userProfile.nickname);
+	}
+	$("#loginUploadToken").val(userProfile.uploadToken);
 
 	$("#profileNickname").val(userProfile.nickname);
   $("#profileEmail").val(userProfile.email);
@@ -268,6 +318,6 @@ $(document).ready(function () {
     $("#togglePoints").toggleClass("fa-toggle-off");
   }
 
-	login(userProfile, true);
+	login(true);
 
 });
