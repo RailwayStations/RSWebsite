@@ -4,6 +4,9 @@
 	$stationName = 'Station nicht gefunden';
 	$stationPhoto = 'images/default.jpg';
 	$photoCaption = $stationName;
+	$DS100 = "";
+	$lat = 0;
+	$lon = 0;
 	$photographer = 'n.a.';
 	$photographerUrl = '';
 	$license = 'n.a.';
@@ -32,6 +35,9 @@
 					$license = $data['license'];
 					$licenseUrl = $data['licenseUrl'];
 					$photoCaption = $stationName;
+					$DS100 = $data['DS100'];
+					$lat = $data['lat'];
+					$lon = $data['lon'];
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
 					$photographer = 'n.a.';
@@ -99,6 +105,12 @@
 		    </li>
 				<li class="nav-item">
 		      <a class="nav-link p-2" href="datenschutz.html" rel="noopener" aria-label="Datenschutzerklärung" title="Datenschutzerklärung"><i class="fas fa-shield-alt"></i></a>
+		    </li>
+				<li class="nav-item">
+		      <a class="nav-link p-2" href="#" onclick="navigate(<?php echo htmlspecialchars($lat);?>,<?php echo htmlspecialchars($lon);?>);" rel="noopener" aria-label="Navigiere" title="Navigiere"><i class="fas fa-directions"></i></a>
+		    </li>
+				<li class="nav-item">
+		      <a class="nav-link p-2" href="#" onclick="timetable('<?php echo htmlspecialchars($countryCode);?>','<?php echo htmlspecialchars($stationId);?>','<?php echo htmlspecialchars($stationName);?>', '<?php echo htmlspecialchars($DS100);?>');" rel="noopener" aria-label="Abfahrtszeiten" title="Abfahrtszeiten"><i class="fas fa-list"></i></a>
 		    </li>
 	    </ul>
 	  </div>

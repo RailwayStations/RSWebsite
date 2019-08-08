@@ -14,6 +14,72 @@ function getBoolFromLocalStorage(key, defaultVal) {
   return value == "true" ? true : false;
 }
 
+function fetchCountries(callback) {
+	"use strict";
+
+	if (sessionStorage.getItem("countries")) {
+		callback(JSON.parse(sessionStorage.getItem("countries")));
+		return;
+	}
+
+	$.getJSON(getAPIURI() + "countries", function (countries) {
+		sessionStorage.setItem("countries", JSON.stringify(countries));
+		callback(countries);
+	});
+}
+
+function getCountryByCode(countryCode, callback) {
+	"use strict";
+
+	fetchCountries(function(countries) {
+		for (var i = 0; i < countries.length; i++) {
+			if (countries[i].code == countryCode) {
+				callback(countries[i]);
+			}
+		}
+	});
+}
+
+function navigate(lat, lon){
+	"use strict";
+
+    // If it's an iPhone..
+    if( (navigator.platform.indexOf("iPhone") != -1)
+        || (navigator.platform.indexOf("iPod") != -1)
+        || (navigator.platform.indexOf("iPad") != -1)) {
+         window.open("maps://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=");
+    } else {
+         window.open("http://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=");
+		}
+		return false;
+}
+
+function createTimetableUrl(country, stationId, stationTitle, stationDs100) {
+	"use strict";
+
+		var timeTableTemplate = country.timetableUrlTemplate;
+		if (isBlank(timeTableTemplate)) {
+				return null;
+		}
+
+		timeTableTemplate = timeTableTemplate.replace("{id}", stationId);
+		timeTableTemplate = timeTableTemplate.replace("{title}", stationTitle);
+		timeTableTemplate = timeTableTemplate.replace("{DS100}", stationDs100);
+
+		return timeTableTemplate;
+}
+
+function timetable(countryCode, stationId, stationTitle, stationDs100) {
+	"use strict";
+
+	getCountryByCode(countryCode, function(country) {
+		var timetableUrl = createTimetableUrl(country, stationId, stationTitle, stationDs100);
+		if (isNotBlank(timetableUrl)) {
+			window.open(timetableUrl);
+		}
+	});
+}
+
 function getStringFromLocalStorage(key, defaultVal) {
 	"use strict";
 

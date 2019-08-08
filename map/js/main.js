@@ -8,7 +8,6 @@ var dataBahnhoefe = null,
 	markers = null,
 	ownMarker = null;
 	popup = null,
-	countries = null,
 	nickname = "";
 
 var watchLocation = false;
@@ -24,6 +23,18 @@ function toggleLocation() {
 		map.stopLocate();
 		watchLocation = false;
 		$("#location_watch_toggle").removeClass("active");
+	}
+}
+
+function timetableByStation(stationId) {
+	"use strict";
+
+	for (var i = 0; i < dataBahnhoefe.length; ++i) {
+		if (dataBahnhoefe[i].idStr == stationId) {
+			var station = dataBahnhoefe[i];
+		  timetable(station.country, station.idStr, station.title, station.DS100);
+			return;
+		}
 	}
 }
 
@@ -48,8 +59,11 @@ function showPopup(feature, layer) {
 	} else {
 		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\"><h2 style=\"text-align:center;\">" + feature.properties.title + "</h2></a>";
 		str += "<div>Hier fehlt noch ein Foto.</div>";
-		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</a></div>";
+		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
 	}
+	str += "<div><a href=\"#\" onclick=\"navigate(" + feature.properties.lat + "," + feature.properties.lon + ");\"><i class=\"fas fa-directions\"> Navigiere</i></a>, ";
+	str += "<a href=\"#\" onclick=\"timetableByStation('" + feature.properties.idStr + "');\"><i class=\"fas fa-list\"> Abfahrtszeiten</i></a></div>";
+
 
 	if (null === popup) {
 		popup = L.popup();
@@ -241,33 +255,24 @@ function showHighScorePopup(countStations, countPhotos, countPhotographers, high
 
 	var percentPhotos = (countPhotos / countStations) * 100;
 
-	var countryName = getCountryCode();
-	for (var i = 0; i < countries.length; ++i) {
-		if (countries[i].code == getCountryCode()) {
-			countryName = countries[i].name;
-		}
-	}
+	getCountryByCode(getCountryCode(), function(country) {
+		var highscoreDiv = $("#highscoreBody");
+		highscoreDiv.html("<div class=\"progress\">" +
+	  			"<div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: " + percentPhotos + "%;\" aria-valuenow=\"" + percentPhotos + "\" aria-valuemin=\"0\" aria-valuemax=\"100\">" + countPhotos + " von " + countStations + " Fotos</div>" +
+					"</div>" +
+					"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
+					"<table class=\"table table-striped\">" + highscoreTable + "</table>");
 
-	var highscoreDiv = $("#highscoreBody");
-	highscoreDiv.html("<div class=\"progress\">" +
-  			"<div class=\"progress-bar bg-success\" role=\"progressbar\" style=\"width: " + percentPhotos + "%;\" aria-valuenow=\"" + percentPhotos + "\" aria-valuemin=\"0\" aria-valuemax=\"100\">" + countPhotos + " von " + countStations + " Fotos</div>" +
-				"</div>" +
-				"<p style=\"padding-top: 10px;font-weight: bold;\">" + countPhotographers + " Fotografen</p>" +
-				"<table class=\"table table-striped\">" + highscoreTable + "</table>");
+		$('#highscoreLabel').html("Rangliste: " + country.name);
+		$('#highscore').modal('show')
+	});
 
-	var countryCode = getCountryCode();
-	for (var i = 0; i < countries.length; ++i) {
-		if (countries[i].code == countryCode) {
-			$('#highscoreLabel').html("Rangliste: " + countries[i].name);
-		}
-	}
-
-	$('#highscore').modal('show')
 }
 
 function initCountry() {
-	$.getJSON(getAPIURI() + "countries", function (countryData) {
-		countries = countryData;
+	"use strict";
+
+	fetchCountries(function(countries) {
 		var menu = $("#countries");
 		var menuItems = "";
 		var currentCountry = getCountryCode();
@@ -286,6 +291,7 @@ function initCountry() {
 
 		menu.html(menuItems);
 	});
+
 }
 
 $(document).ready(function () {
@@ -338,9 +344,10 @@ $(document).ready(function () {
 				map.panTo(ev.latlng); // ev is an event object (MouseEvent in this case)
 		});
 		map.on('locationerror', function(ev) {
-			  watchLocation = false;
+				map.stopLocate();
+				watchLocation = false;
 				$("#location_watch_toggle").removeClass("active");
-		    alert('Position konnte nicht ermittelt werden');
+		    console.log('Position konnte nicht ermittelt werden');
 		});
 	}).fail(function (xhr) {
 		alert("error");
