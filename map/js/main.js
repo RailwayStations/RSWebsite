@@ -6,9 +6,26 @@
 var dataBahnhoefe = null,
 	map = null,
 	markers = null,
+	ownMarker = null;
 	popup = null,
 	countries = null,
 	nickname = "";
+
+var watchLocation = false;
+
+function toggleLocation() {
+	"use strict";
+
+	if (!watchLocation) {
+		map.locate({watch: true});
+		watchLocation = true;
+		$("#location_watch_toggle").addClass("active");
+	} else {
+		map.stopLocate();
+		watchLocation = false;
+		$("#location_watch_toggle").removeClass("active");
+	}
+}
 
 function showMap() {
 	"use strict";
@@ -304,6 +321,27 @@ $(document).ready(function () {
 	}).done(function () {
 		// alert( "second success" );
 		map.spin(false);
+		map.on('locationfound', function(ev) {
+				if (ownMarker != null) {
+					ownMarker.setLatLng(ev.latlng);
+					ownMarker.update();
+				} else {
+					var customIcon = L.icon({
+						iconUrl: "./images/pointer-blue.png",
+						iconSize: [50, 50],
+						iconAnchor: [25, 50],
+						popupAnchor: [0, -28]
+					});
+					ownMarker = L.marker(ev.latlng, {icon: customIcon});
+					ownMarker.addTo(map);
+				}
+				map.panTo(ev.latlng); // ev is an event object (MouseEvent in this case)
+		});
+		map.on('locationerror', function(ev) {
+			  watchLocation = false;
+				$("#location_watch_toggle").removeClass("active");
+		    alert('Position konnte nicht ermittelt werden');
+		});
 	}).fail(function (xhr) {
 		alert("error");
 		map.spin(false);
