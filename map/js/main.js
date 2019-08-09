@@ -50,6 +50,9 @@ function showPopup(feature, layer) {
 
 	var detailLink = "station.php?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr;
 	var str = "";
+	if (!feature.properties.active) {
+		str += "<div><i class=\"fas fa-times-circle\"></i> Dieser Bahnhof ist nicht aktiv!</i></div>";
+	}
 	if (null !== feature.properties.photographer) {
 		var photoURL = scaleImage(feature.properties.photoUrl, 301);
 		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";

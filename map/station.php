@@ -12,6 +12,7 @@
 	$license = 'n.a.';
 	$licenseUrl = '';
 	$uploadUrl = '';
+	$active = true;
 
 	try {
 		$opts = [
@@ -38,6 +39,7 @@
 					$DS100 = $data['DS100'];
 					$lat = $data['lat'];
 					$lon = $data['lon'];
+					$active = $data['active'];
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
 					$photographer = 'n.a.';
@@ -119,6 +121,9 @@
 <main role="main" class="col-12 bd-content station">
 
 		<h2><?php echo htmlspecialchars($stationName);?></h2>
+		<?php if (!$active) { ?>
+	  	<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>
+		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
 					<p><small class=\"text-muted\">Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
