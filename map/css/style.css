@@ -43,6 +43,8 @@ svg.circle .pie {
 	left: 0px;
 	width: 40px;
 	line-height: 25px;
+  color: #fff;
+  z-index: 300;
 }
 
 .marker-cluster span:nth-child(2) {
@@ -53,7 +55,8 @@ svg.circle .pie {
 	width: 40px;
 	text-align: center;
 	top: 24px;
-	color: #bbb;
+	color: #fff;
+  z-index: 300;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
