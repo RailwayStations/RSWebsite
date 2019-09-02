@@ -134,7 +134,7 @@ function login(quiet) {
 	});
 
 	request.fail(function (jqXHR, textStatus, errorThrown) {
-		badUploadToken(userProfile);
+		badUploadToken(getUserProfile());
 	});
 }
 
