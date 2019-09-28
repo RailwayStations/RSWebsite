@@ -58,7 +58,7 @@ function showPopup(feature, layer) {
 		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\" style=\"display: block; max-height: 200px; overflow: hidden;\"><img src=\"" + photoURL + "\" style=\"width:301px;\" height=\"400\"></a><br>";
 		str += "<div style=\"text-align:right;\">Fotograf: <a href=\"" + feature.properties.photographerUrl + "\">" + feature.properties.photographer + "</a>, "
 		str += "Lizenz: <a href=\"" + feature.properties.licenseUrl + "\">" + feature.properties.license + "</a></div>"
-		str += "<h2 style=\"text-align:center;\"><a href=\"" + detailLink + "\" data-ajax=\"false\">" + feature.properties.title + "</a></h2>";
+		str += "<h3 style=\"text-align:center;\"><a href=\"" + detailLink + "\" data-ajax=\"false\">" + feature.properties.title + "</a></h3>";
 	} else {
 		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\"><h2 style=\"text-align:center;\">" + feature.properties.title + "</h2></a>";
 		str += "<div>Hier fehlt noch ein Foto.</div>";
@@ -73,6 +73,23 @@ function showPopup(feature, layer) {
 	}
 
 	popup.setLatLng([feature.properties.lat, feature.properties.lon])
+		.setContent(str)
+		.openOn(map);
+}
+
+function showMissingStationPopup(mouseEvent) {
+	"use strict";
+
+	var str = "";
+	str += "<h3>Fehlenden Bahnhof melden</h3>";
+	str += "<div>Position: " + mouseEvent.latlng .lat + "," + mouseEvent.latlng .lng + "</div>";
+	str += "<div><a href=\"upload.html?latitude=" + mouseEvent.latlng .lat + "&longitude=" + mouseEvent.latlng .lng + "\" title=\"Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
+
+	if (null === popup) {
+		popup = L.popup();
+	}
+
+	popup.setLatLng([mouseEvent.latlng .lat, mouseEvent.latlng .lng])
 		.setContent(str)
 		.openOn(map);
 }
@@ -317,6 +334,10 @@ $(document).ready(function () {
 
 	basemap.addTo(map);
 	map.spin(true);
+
+	map.on('contextmenu', function(ev) {
+		showMissingStationPopup(ev);
+	});
 
 	nickname = getUserProfile().nickname;
 	initCountry();
