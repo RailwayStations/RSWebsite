@@ -21,7 +21,7 @@ function register(userProfile, uploadTokenOnly) {
 		if (uploadTokenOnly) {
 			alert('Upload-Token angefordert, bitte schaue in Deine Email');
 		} else {
-    	alert('Registrierung erfolgreich');
+    		alert('Registrierung erfolgreich');
 		}
 	});
 
@@ -142,9 +142,6 @@ function badUploadToken(userProfile) {
 	"use strict";
 
 	loggedIn = false;
-	userProfile.uploadToken = "";
-	setUserProfile(userProfile);
-	setUserProfileForm(userProfile);
 	$("#loginProfile").css('visibility','visible');
 	$("#fullProfile").css('visibility','collapse');
 	alert('Upload-Token ungültig, bitte einen Neuen anfordern');
@@ -154,7 +151,7 @@ function togglePoints() {
 	"use strict";
 
 	$("#togglePoints").toggleClass("fa-toggle-on").toggleClass("fa-toggle-off");
-  var showPoints = $("#togglePoints").hasClass("fa-toggle-on");
+	var showPoints = $("#togglePoints").hasClass("fa-toggle-on");
 	localStorage.setItem("showPoints", showPoints ? "true" : "false");
 }
 
