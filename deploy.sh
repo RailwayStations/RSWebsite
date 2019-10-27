@@ -1,3 +1,3 @@
 #!/bin/sh
 
-scp -r map railway-stations.org:/var/www
+rsync -rst --progress map railway-stations.org:/var/www
