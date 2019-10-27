@@ -80,6 +80,33 @@ function timetable(countryCode, stationId, stationTitle, stationDs100) {
 	});
 }
 
+function providerApp(countryCode) {
+	"use strict";
+
+	getCountryByCode(countryCode, function(country) {
+		var providerAppsTable = "";
+		$.each(country.providerApps, function (index, providerApp) {
+			var icon = "fas fa-external-link-alt";
+			if (providerApp.type === "android") {
+				icon = "fab fa-android";
+			} else if (providerApp.type === "ios") {
+				icon = "fab fa-apple";
+			}
+
+			providerAppsTable = providerAppsTable + "<tr><td><a data-ajax=\"false\" href=\"" + providerApp.url + "\"><i class=\"" + icon + "\"> " + providerApp.name + "</i></a></td></tr>";
+		});
+
+		if (providerAppsTable === "") {
+			providerAppsTable = "<tr><td>Leider keine Apps hinterlegt</td></tr>"
+		}
+
+		var providerAppsDiv = $("#providerAppsBody");
+		providerAppsDiv.html("<table class=\"table table-striped\">" + providerAppsTable + "</table>");
+
+		$('#providerApps').modal('show')
+	});
+}
+
 function getStringFromLocalStorage(key, defaultVal) {
 	"use strict";
 

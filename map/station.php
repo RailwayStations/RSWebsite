@@ -93,26 +93,29 @@
 
 	  <div class="collapse navbar-collapse" id="navbar">
 	    <ul class="navbar-nav mr-auto">
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="settings.html" rel="noopener" aria-label="Einstellungen" title="Einstellungen"><i class="fas fa-sliders-h"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="faq.html" rel="noopener" aria-label="FAQ" title="FAQ"><i class="fas fa-question"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="Entwicklung" title="Entwicklung"><i class="fab fa-github"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="impressum.html" rel="noopener" aria-label="Impressum" title="Impressum"><i class="fas fa-info"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="datenschutz.html" rel="noopener" aria-label="Datenschutzerklärung" title="Datenschutzerklärung"><i class="fas fa-shield-alt"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="#" onclick="navigate(<?php echo htmlspecialchars($lat);?>,<?php echo htmlspecialchars($lon);?>);" rel="noopener" aria-label="Navigiere" title="Navigiere"><i class="fas fa-directions"></i></a>
 		    </li>
-				<li class="nav-item">
+			<li class="nav-item">
 		      <a class="nav-link p-2" href="#" onclick="timetable('<?php echo htmlspecialchars($countryCode);?>','<?php echo htmlspecialchars($stationId);?>','<?php echo htmlspecialchars($stationName);?>', '<?php echo htmlspecialchars($DS100);?>');" rel="noopener" aria-label="Abfahrtszeiten" title="Abfahrtszeiten"><i class="fas fa-list"></i></a>
+		    </li>
+			<li class="nav-item">
+		      <a class="nav-link p-2" href="#" onclick="providerApp('<?php echo htmlspecialchars($countryCode);?>');" rel="noopener" aria-label="Betreiber App" title="Betreiber App"><i class="fas fa-external-link-alt"></i></a>
 		    </li>
 	    </ul>
 	  </div>
@@ -135,6 +138,25 @@
 		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
 
 </main>
+
+<div class="modal fade" id="providerApps" tabindex="-1" role="dialog" aria-labelledby="Betreiber Apps" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="providerAppsLabel">Betreiber Apps</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="providerAppsBody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/popper.min.js"></script>
