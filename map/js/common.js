@@ -131,6 +131,12 @@ function isBlank(string) {
   return (string === undefined || string.trim().length == 0);
 }
 
+function deleteUserProfile() {
+	"use strict";
+
+	localStorage.removeItem("userProfile");
+}
+
 function setUserProfile(userProfile) {
 	"use strict";
 
@@ -144,8 +150,13 @@ function getUserProfile() {
 	if (userProfile.email === undefined) {
 		userProfile.email = "";
 	}
-	if (userProfile.uploadToken === undefined) {
-		userProfile.uploadToken = "";
+	if (userProfile.password === undefined) {
+		if (userProfile.uploadToken !== undefined) {
+			userProfile.password = userProfile.uploadToken;
+			delete userProfile.uploadToken;
+		} else {
+			userProfile.password = "";
+		}
 	}
 	if (userProfile.nickname === undefined) {
 		userProfile.nickname = "";

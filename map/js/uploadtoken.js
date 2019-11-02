@@ -5,7 +5,8 @@ $(document).ready(function () {
   var userProfile = getUserProfile();
 
   if (uploadToken && uploadToken.length > 0) {
-    userProfile.uploadToken = uploadToken;
+    userProfile.password = uploadToken;
+    delete userProfile.uploadToken;
     setUserProfile(userProfile);
   }
 

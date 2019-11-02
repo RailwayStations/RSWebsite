@@ -66,9 +66,9 @@
 			<table id="loginProfile">
 				<tr><td>Nickname oder Email:&nbsp;&nbsp;</td><td><input id="loginEmail" name="loginEmail" type="input" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Upload-Token:&nbsp;&nbsp;</td><td><input id="loginUploadToken" name="loginUploadToken" type="input" /></td></tr>
+				<tr><td>Passwort oder Upload-Token:&nbsp;&nbsp;</td><td><input id="loginPassword" name="loginPassword" type="password" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><button id="loginButton" name="loginBtn" class="btn btn-primary" onclick="return onLogin();">Login</button></td><td><button id="uploadTokenButton" name="uploadTokenBtn" class="btn btn-primary" onclick="return onRequestUploadToken();">Upload-Token anfordern</button></td></tr>
+				<tr><td><button id="loginButton" name="loginBtn" class="btn btn-primary" onclick="return onLogin();">Login</button></td><td><button id="resetPasswordButton" name="resetPasswordBtn" class="btn btn-primary" onclick="return onResetPassword();">Passwort zurücksetzen</button></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 				<tr><td><p class="name"><a href="javascript:onNewRegistration();">Neu Registrieren</a></p></td></tr>
 			</table>
@@ -78,7 +78,7 @@
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 				<tr><td>Email:&nbsp;&nbsp;</td><td><input id="profileEmail" name="email" type="email" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Upload-Token:&nbsp;&nbsp;</td><td><input id="profileUploadToken" name="uploadToken" type="input" /></td></tr>
+				<tr><td>Password:&nbsp;&nbsp;</td><td><input id="profilePassword" name="password" type="password" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
 				<tr><td><label for="profilePhotoOwner">Eigene Fotos:</label>&nbsp;&nbsp;</td><td><input id="profilePhotoOwner" name="photoOwner" type="checkbox" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
@@ -88,8 +88,14 @@
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
 				<tr><td>Dein Link:&nbsp;&nbsp;</td><td><input id="profileLink" name="link" type="url" /></td></tr>
 				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><button id="saveProfile" class="btn btn-primary" name="saveBtn" onclick="return onSaveProfile();">Speichern / Registrieren</button></td></tr>
-			</table>
+				<tr>
+					<td><button id="saveProfile" class="btn btn-primary" name="saveBtn" onclick="return onSaveProfile();">Speichern / Registrieren</button></td>
+					<td><button id="changePassword" class="btn btn-primary" name="changePwdBtn" onclick="return onChangePassword();">Passwort ändern</button></td>
+				</tr>
+				<tr>
+					<td><button id="logout" class="btn btn-primary" name="logoutBtn" onclick="return onLogout();">Logout</button></td>
+				</tr>
+				</table>
 		</form>
 
 				<hr/>
@@ -98,6 +104,36 @@
 				<p class="name"><a href="#" onclick="togglePoints()"><span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">Marker</span><i id="togglePoints" class="fas fa-2x" aria-hidden="true"></i><span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">Punkte</span></a></p>
 
 </main>
+
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="Rangliste" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="changePasswordLabel">Passwort ändern</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<form action="#" onsubmit="return changePassword();">
+			<div class="modal-body" id="changePasswordBody">
+				<div class="form-group">
+					<label for="newPassword">Passwort:</label>
+					<input id="newPassword" class="form-control" name="newPassword" type="password" />
+				</div>				
+				<div class="form-group">
+					<label for="newPasswordRepeat">Wiederholen:</label>
+					<input id="newPasswordRepeat" class="form-control" name="newPasswordRepeat" type="password" />
+				</div>				
+			</div>
+			<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+					<button type="submit" class="btn btn-primary">Ok</button>
+			</div>
+		</form>
+	</div>
+</div>
+	  
 
 <script src="js/jquery-3.4.1.min.js"></script>
 <script src="js/popper.min.js"></script>

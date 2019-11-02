@@ -57,10 +57,10 @@ $(document).ready(function() {
   }
   $("#uploadForm").attr("action", getAPIURI() + "photoUpload");
   $("#email").val(userProfile.email);
-  $("#uploadToken").val(userProfile.uploadToken);
+  $("#uploadToken").val(userProfile.password);
 
   var uploadDisabled =
-    isBlank(userProfile.email) || isBlank(userProfile.uploadToken);
+    isBlank(userProfile.email) || isBlank(userProfile.password);
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
