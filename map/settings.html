@@ -63,39 +63,59 @@
 
 		<h2 id="title-form">Benutzerprofil</h2>
 		<form id="profileForm" action="#" method="post">
-			<table id="loginProfile">
-				<tr><td>Nickname oder Email:&nbsp;&nbsp;</td><td><input id="loginEmail" name="loginEmail" type="input" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Passwort oder Upload-Token:&nbsp;&nbsp;</td><td><input id="loginPassword" name="loginPassword" type="password" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><button id="loginButton" name="loginBtn" class="btn btn-primary" onclick="return onLogin();">Login</button></td><td><button id="resetPasswordButton" name="resetPasswordBtn" class="btn btn-primary" onclick="return onResetPassword();">Passwort zurücksetzen</button></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><p class="name"><a href="javascript:onNewRegistration();">Neu Registrieren</a></p></td></tr>
-			</table>
-
-			<table id="fullProfile" style="visibility:collapse;">
-				<tr><td>Nickname:&nbsp;&nbsp;</td><td><input id="profileNickname" name="nickname" type="input" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Email:&nbsp;&nbsp;</td><td><input id="profileEmail" name="email" type="email" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Password:&nbsp;&nbsp;</td><td><input id="profilePassword" name="password" type="password" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><label for="profilePhotoOwner">Eigene Fotos:</label>&nbsp;&nbsp;</td><td><input id="profilePhotoOwner" name="photoOwner" type="checkbox" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><label for="profileCc0">Lizenz CC0:</label>&nbsp;&nbsp;</td><td><input id="profileCc0" name="cc0" type="checkbox" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td><label for="profileAnonymous">Anonym:</label>&nbsp;&nbsp;</td><td><input id="profileAnonymous" name="anonymous" type="checkbox" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr><td>Dein Link:&nbsp;&nbsp;</td><td><input id="profileLink" name="link" type="url" /></td></tr>
-				<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
-				<tr>
-					<td><button id="saveProfile" class="btn btn-primary" name="saveBtn" onclick="return onSaveProfile();">Speichern / Registrieren</button></td>
-					<td><button id="changePassword" class="btn btn-primary" name="changePwdBtn" onclick="return onChangePassword();">Passwort ändern</button></td>
-				</tr>
-				<tr>
-					<td><button id="logout" class="btn btn-primary" name="logoutBtn" onclick="return onLogout();">Logout</button></td>
-				</tr>
-				</table>
+			<div class="form-group login-form">
+				<label for="loginEmail">Nickname oder Email</label>
+				<input name="loginEmail" type="text" class="form-control" id="loginEmail">
+			</div>
+			<div class="form-group login-form">
+				<label for="loginPassword">Passwort oder Upload-Token</label>
+				<input name="loginPassword" type="password" class="form-control" id="loginPassword">
+			</div>
+			<div class="form-group login-form">
+				<button id="loginButton" name="loginBtn" class="btn btn-primary" onclick="return onLogin();">Login</button>&nbsp;<button id="resetPasswordButton" name="resetPasswordBtn" class="btn btn-primary" onclick="return onResetPassword();">Passwort zurücksetzen</button>
+				<p class="name"><a href="javascript:onNewRegistration();">Neu Registrieren</a></p>
+			</div>
+	
+			<div class="form-group profile-form">
+				<label for="profileNickname">Nickname</label>
+				<input name="profileNickname" type="text" class="form-control" id="profileNickname">
+			</div>
+			<div class="form-group profile-form">
+				<label for="profileEmail">Email</label>
+				<input name="profileEmail" type="text" class="form-control" id="profileEmail">
+			</div>
+			<div class="form-group profile-form logged-in">
+				<label for="profilePassword">Password</label>
+				<input name="profilePassword" type="password" class="form-control" id="profilePassword">
+			</div>
+			<div class="form-group form-check profile-form">
+				<input id="profilePhotoOwner" name="photoOwner" type="checkbox"/>
+				<label for="profilePhotoOwner">Eigene Fotos</label>
+			</div>
+			<div class="form-group form-check profile-form">
+				<input id="profileCc0" name="cc0" type="checkbox"/>
+				<label for="profileCc0">Lizenz CC0</label>
+			</div>
+			<div class="form-group form-check profile-form">
+				<input id="profileAnonymous" name="anonymous" type="checkbox"/>
+				<label for="profileAnonymous">Anonym</label>
+			</div>					
+			<div class="form-group profile-form">
+				<label for="profileLink">Dein Link</label>
+				<input id="profileLink" name="link" type="url" class="form-control"/>
+			</div>
+			<div class="form-group profile-form">
+				<button class="btn btn-primary" id="saveProfile" type="button" name="saveBtn" onclick="return onSaveProfile();">
+					<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+					<span id="saveBtnText">Speichern / Registrieren</span>
+				</button>				
+			</div>
+			<div class="form-group profile-form logged-in">
+				<button id="changePassword" class="btn btn-primary" name="changePwdBtn" onclick="return onChangePassword();">Passwort ändern</button>
+				&nbsp;
+				<button id="logout" class="btn btn-primary" name="logoutBtn" onclick="return onLogout();">Logout</button>
+			</div>
+	
 		</form>
 
 				<hr/>

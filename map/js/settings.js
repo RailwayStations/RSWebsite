@@ -7,6 +7,7 @@ function register(userProfile, passwordResetOnly) {
   "use strict";
 
   console.log(JSON.stringify(userProfile));
+  saveBtnSpinning(true);
 
   var request = $.ajax({
     url: getAPIURI() + "/registration",
@@ -18,16 +19,21 @@ function register(userProfile, passwordResetOnly) {
   });
 
   request.done(function(data) {
+    saveBtnSpinning(false);
     if (passwordResetOnly) {
       alert(
         "Neues Passwort angefordert, bitte schaue in Deine Email. Prüfe auch den SPAM Ordner."
       );
     } else {
-      alert("Registrierung erfolgreich");
+      alert("Registrierung erfolgreich. Ein Initial-Passwort wird dir per Email zugeschickt. Bitte prüfe auch den SPAM Ordner.");
+      $("#loginEmail").val(userProfile.email);
+      $(".login-form").show();
+      $(".profile-form").hide();  
     }
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
+    saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
       alert("Ungültige Daten: " + textStatus + ", " + errorThrown);
@@ -173,6 +179,8 @@ function login(quiet) {
 
   if (isBlank(email) || isBlank(password)) {
     console.log("Not logged on");
+    $(".login-form").show();
+    $(".profile-form").hide();
     return;
   }
 
@@ -193,8 +201,9 @@ function login(quiet) {
     data.cc0 = data.license.startsWith("CC0");
     setUserProfile(data);
     setUserProfileForm(data);
-    $("#loginProfile").css("visibility", "collapse");
-    $("#fullProfile").css("visibility", "visible");
+
+    $(".login-form").hide();
+    $(".profile-form").show();
     if (!quiet) {
       alert("Login erfolgreich.");
     }
@@ -209,8 +218,8 @@ function badLogin(userProfile) {
   "use strict";
 
   loggedIn = false;
-  $("#loginProfile").css("visibility", "visible");
-  $("#fullProfile").css("visibility", "collapse");
+  $(".login-form").show();
+  $(".profile-form").hide();
   alert("Login fehlgeschlagen.");
 }
 
@@ -247,6 +256,7 @@ function getUserProfileForm() {
 function uploadProfile(userProfile) {
   "use strict";
 
+  saveBtnSpinning(true);
   var request = $.ajax({
     url: getAPIURI() + "/myProfile",
     contentType: "application/json; charset=utf-8",
@@ -262,10 +272,12 @@ function uploadProfile(userProfile) {
 
   request.done(function(data) {
     loggedIn = true;
+    saveBtnSpinning(false);
     alert("Profil gespeichert");
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
+    saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
       alert("Ungültige Daten: " + textStatus + ", " + errorThrown);
@@ -279,6 +291,16 @@ function uploadProfile(userProfile) {
       alert("Speichern fehlgeschlagen: " + textStatus + ", " + errorThrown);
     }
   });
+}
+
+function saveBtnSpinning(spinning) {
+  "use strict";
+
+  if (spinning) {
+    $("#saveProfile .spinner-border").show();
+  } else {
+    $("#saveProfile .spinner-border").hide();  
+  }
 }
 
 function isURL(str) {
@@ -345,8 +367,10 @@ function onSaveProfile() {
 function onNewRegistration() {
   "use strict";
 
-  $("#loginProfile").css("visibility", "collapse");
-  $("#fullProfile").css("visibility", "visible");
+  $(".login-form").hide();
+  $(".profile-form").show();
+  $(".logged-in").hide();
+  $("#profilePassword").val("");
 }
 
 function setUserProfileForm(userProfile) {
@@ -377,9 +401,9 @@ function setUserProfileForm(userProfile) {
   );
 
   if (loggedIn) {
-    $("#saveProfile").html("Speichern");
+    $("#saveBtnText").html("Speichern");
   } else {
-    $("#saveProfile").html("Registrieren");
+    $("#saveBtnText").html("Registrieren");
   }
 }
 
@@ -396,5 +420,6 @@ $(document).ready(function() {
     $("#togglePoints").toggleClass("fa-toggle-off");
   }
 
+  $("#saveProfile .spinner-border").hide();
   login(true);
 });
