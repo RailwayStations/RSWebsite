@@ -140,7 +140,8 @@ function changePassword() {
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		var status = jqXHR.status;
 		alert("Passwort konnte nicht geändert werden: " + textStatus + ", " + errorThrown);
-	});  
+  });  
+  return false;
 }
 
 function onChangePassword() {
@@ -421,5 +422,14 @@ $(document).ready(function() {
   }
 
   $("#saveProfile .spinner-border").hide();
+
+  $(function(){
+    $('.modal-content').keypress(function(e){
+      if(e.which == 13) {
+        changePassword();
+      }
+    })
+  })
+
   login(true);
 });

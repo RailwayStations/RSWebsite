@@ -63,6 +63,8 @@
 
 		<h2 id="title-form">Benutzerprofil</h2>
 		<form id="profileForm" action="#" method="post">
+			<input name="profilePassword" type="hidden" class="form-control" id="profilePassword">
+			
 			<div class="form-group login-form">
 				<label for="loginEmail">Nickname oder Email</label>
 				<input name="loginEmail" type="text" class="form-control" id="loginEmail">
@@ -83,10 +85,6 @@
 			<div class="form-group profile-form">
 				<label for="profileEmail">Email</label>
 				<input name="profileEmail" type="text" class="form-control" id="profileEmail">
-			</div>
-			<div class="form-group profile-form logged-in">
-				<label for="profilePassword">Password</label>
-				<input name="profilePassword" type="password" class="form-control" id="profilePassword">
 			</div>
 			<div class="form-group form-check profile-form">
 				<input id="profilePhotoOwner" name="photoOwner" type="checkbox"/>
