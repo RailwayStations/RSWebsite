@@ -30,16 +30,16 @@
 			if (isset($data)) {
 				$stationName = $data['title'];
 				$photographer = $data['photographer'];
+				$photoCaption = $stationName;
+				$DS100 = $data['DS100'];
+				$lat = $data['lat'];
+				$lon = $data['lon'];
+				$active = $data['active'];
 				if (isset($photographer)) {
 					$stationPhoto = $data['photoUrl'];
 					$photographerUrl = $data['photographerUrl'];
 					$license = $data['license'];
 					$licenseUrl = $data['licenseUrl'];
-					$photoCaption = $stationName;
-					$DS100 = $data['DS100'];
-					$lat = $data['lat'];
-					$lon = $data['lon'];
-					$active = $data['active'];
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
 					$photographer = 'n.a.';
