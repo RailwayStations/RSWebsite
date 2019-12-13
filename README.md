@@ -6,14 +6,12 @@ Railway-Stations.org (a.k.a Deutschlands Bahnhöfe) ist ein Community-Projekt, u
 
 Sie finden die Seite unter [railway-stations.org](https://railway-stations.org/)
 
-Aktueller Stand
----------------
+## Aktueller Stand
 
 Das Projekt hat sich rasant entwickelt. Innerhalb des ersten Jahres wurden über 1500 Fotos eingereicht und an weiteren Hackathons wurden Stück für Stück neue Funktionen und weitere Länder hinzugefügt.
 Eine [Android](https://play.google.com/store/apps/details?id=de.bahnhoefe.deutschlands.bahnhofsfotos) und eine iOS App (derzeit in der Testphase, bei Interesse bitte per [eMail](mailto:bahnhofsfotos@deutschlands-bahnhoefe.de) melden) sind entstanden.
 
-Inventur
---------
+## Inventur
 
 Diese Seiten gehören zu Railway-Stations.org:
 
@@ -34,27 +32,22 @@ REST API
 - [https://api.railway-stations.org](https://api.railway-stations.org)
 - [github](https://github.com/RailwayStations/RSAPI)
 
-Umgebung
---------
+## Umgebung
 
 Die Seite benötigt eine PHP Umgebung (ab 5.6). Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
 
-```
-
+```sh
 docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:7.2-apache
-
 ```
 
 Danach steht die Seite unter http://localhost:8088/map zur Verfügung.
 
-Deployment
---------
+## Deployment
 
 Mit dem Bash Script `./deploy.sh` kann die Seite auf dem Server aktualisiert werden.
 
 ---
 
-Lizenz
-------
+## Lizenz
 
 Die Webseite ist unter MIT lizensiert. Die Bilder sind größtenteils unter CC-0, einige auch unter CC-BY lizensiert.
