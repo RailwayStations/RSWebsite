@@ -2,12 +2,12 @@
 <html lang="de-DE">
 <head>
     <title>Upload - RailwayStations</title>
-    <?php require_once "./header.php" ?>
+    <?php require_once __DIR__ . "/header.php" ?>
 </head>
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once __DIR__ . "/navbar.php";
 navbar();
 ?>
 

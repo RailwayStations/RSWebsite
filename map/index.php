@@ -2,7 +2,7 @@
 <html lang="de-DE">
   <head>
 
-      <?php require_once "./header.php" ?>
+      <?php require_once __DIR__ . "/header.php" ?>
       
       <title>RailwayStations</title>
 
@@ -14,7 +14,7 @@
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once __DIR__ . "/navbar.php";
 $prefixNavItems = <<<HTML
     <li class="nav-item dropdown active">
         <a class="nav-link dropdown-toggle" href="#" id="country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Land</a>

@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="de-DE">
 <head>
-    <?php require_once "./header.php" ?>
+    <?php require_once __DIR__ . "/header.php" ?>
     <title>Datenschutzerklärung - RailwayStations</title>
 </head>
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once __DIR__ . "/navbar.php";
 navbar();
 ?>
 
