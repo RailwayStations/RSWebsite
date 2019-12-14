@@ -262,7 +262,7 @@ function showHighScore() {
 										crown = rang + ".";
 									}
 
-									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a data-ajax=\"false\" href=\"photographer.html?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
+									jsonOutput = jsonOutput + "<tr><td>" + crown + "</td><td>" + valueOfProperty + "</td><td><a data-ajax=\"false\" href=\"photographer.php?photographer=" + propertyName + "\">" + propertyName + "</a></td></tr>";
 							});
 
 							showHighScorePopup(countStations, countPhotos, countPhotographers, jsonOutput);
