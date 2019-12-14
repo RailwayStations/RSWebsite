@@ -1,6 +1,6 @@
 <?php
-	$stationId = trim($_GET['stationId']);
-	$countryCode = trim($_GET['countryCode']);
+	$stationId = trim(filter_input(INPUT_GET, 'stationId', FILTER_SANITIZE_STRING));
+	$countryCode = trim(filter_input(INPUT_GET, 'countryCode', FILTER_SANITIZE_STRING));
 	$stationName = 'Station nicht gefunden';
 	$stationPhoto = 'images/default.jpg';
 	$photoCaption = $stationName;
@@ -18,7 +18,7 @@
 		$opts = [
 			"http" => [
 				"method" => "GET",
-				"header" => "Accept-language: " . $_SERVER['HTTP_ACCEPT_LANGUAGE']
+				"header" => "Accept-language: " . filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING)
 			]
 		];
 
@@ -54,8 +54,8 @@
 <!doctype html>
 <html lang="de-DE" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-	<meta property="og:image" content="<?php echo htmlspecialchars($stationPhoto); ?>"/>
-	<title><?php echo htmlspecialchars($stationName); ?> - RailwayStations</title>
+	<meta property="og:image" content="<?= htmlspecialchars($stationPhoto); ?>"/>
+	<title><?= htmlspecialchars($stationName); ?> - RailwayStations</title>
 	<?php require_once "./header.php" ?>
 </head>
 <body>
@@ -79,19 +79,19 @@ navbar($suffixNavItems);
 
 <main role="main" class="col-12 bd-content station">
 
-		<h2><?php echo htmlspecialchars($stationName);?></h2>
+		<h2><?= htmlspecialchars($stationName);?></h2>
 		<?php if (!$active) { ?>
 		<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>
 		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
-					<p><small class=\"text-muted\">Fotograf: <a href="<?php echo htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?php echo htmlspecialchars($photographer);?></span></a>,
-					Lizenz: <a href="<?php echo htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?php echo htmlspecialchars($license);?></span></a></small></p>
+					<p><small class="text-muted">Fotograf: <a href="<?= htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars($photographer);?></span></a>,
+					Lizenz: <a href="<?= htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?= htmlspecialchars($license);?></span></a></small></p>
 		<?php } else { ?>
-					<p><a href="<?php echo htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fas fa-upload"></i> Lade Dein eigenes Foto hoch</i></a></p>
+					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fas fa-upload"></i> Lade Dein eigenes Foto hoch</i></a></p>
 		<?php } ?>
 
-		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?php echo htmlspecialchars($stationPhoto);?>" title="<?php echo htmlspecialchars($photoCaption);?>"/>
+		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars($stationPhoto);?>" title="<?= htmlspecialchars($photoCaption);?>"/>
 
 </main>
 
