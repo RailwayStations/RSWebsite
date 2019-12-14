@@ -1,63 +1,15 @@
 <!doctype html>
 <html lang="de-DE">
-  <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Impressum - RailwayStations">
-		<title>Datenschutzerklärung - RailwayStations</title>
-
-    <!-- Bootstrap core CSS -->
-		<link href="bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-
-		<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="./images/apple-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="./images/apple-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="./images/apple-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="./images/apple-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="./images/apple-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="./images/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="./images/apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="./images/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="./images/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-
-		<link href="css/all.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-
+<head>
+    <?php require_once "./header.php" ?>
+    <title>Datenschutzerklärung - RailwayStations</title>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #9F0C35;">
-		<a class="navbar-brand" href="index.html" active>
-	    <img src="images/logo_white.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-	    Railway<strong>Stations</strong>
-	  </a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-
-	  <div class="collapse navbar-collapse" id="navbar">
-	    <ul class="navbar-nav mr-auto">
-				<li class="nav-item">
-		      <a class="nav-link p-2" href="settings.html" rel="noopener" aria-label="Einstellungen" title="Einstellungen"><i class="fas fa-sliders-h"></i></a>
-		    </li>
-				<li class="nav-item">
-		      <a class="nav-link p-2" href="faq.html" rel="noopener" aria-label="FAQ" title="FAQ"><i class="fas fa-question"></i></a>
-		    </li>
-				<li class="nav-item">
-		      <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="Entwicklung" title="Entwicklung"><i class="fab fa-github"></i></a>
-		    </li>
-				<li class="nav-item">
-		      <a class="nav-link p-2" href="impressum.html" rel="noopener" aria-label="Impressum" title="Impressum"><i class="fas fa-info"></i></a>
-		    </li>
-				<li class="nav-item active">
-		      <a class="nav-link p-2" href="datenschutz.html" rel="noopener" aria-label="Datenschutzerklärung" title="Datenschutzerklärung"><i class="fas fa-shield-alt"></i> <span class="sr-only">(current)</span></a>
-		    </li>
-	    </ul>
-	  </div>
-	</nav>
+<?php
+require_once "./navbar.php";
+navbar();
+?>
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
 

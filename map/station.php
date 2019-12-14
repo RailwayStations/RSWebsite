@@ -43,89 +43,45 @@
 				} else {
 					$photoCaption = 'Hier fehlt noch ein Foto';
 					$photographer = 'n.a.';
-					$uploadUrl = 'upload.html?countryCode='.$countryCode.'&stationId='.$stationId.'&title='.$stationName;
+					$uploadUrl = 'upload.php?countryCode='.$countryCode.'&stationId='.$stationId.'&title='.$stationName;
 				}
 			}
 		}
 	} catch (Exception $e) {
-	    $photoCaption = 'Fehler beim Laden der Station';
+		$photoCaption = 'Fehler beim Laden der Station';
 	}
 ?>
 <!doctype html>
 <html lang="de-DE" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
-  <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta property="og:image" content="<?php echo htmlspecialchars($stationPhoto);?>" />
-		<title><?php echo htmlspecialchars($stationName);?> - RailwayStations</title>
-
-    <!-- Bootstrap core CSS -->
-		<link href="bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet">
-
-		<link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="./images/apple-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="./images/apple-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="./images/apple-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="./images/apple-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="./images/apple-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="./images/apple-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="./images/apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="./images/android-icon-192x192.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="96x96" href="./images/favicon-96x96.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
-
-		<link href="css/all.min.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-
+<head>
+	<meta property="og:image" content="<?php echo htmlspecialchars($stationPhoto); ?>"/>
+	<title><?php echo htmlspecialchars($stationName); ?> - RailwayStations</title>
+	<?php require_once "./header.php" ?>
 </head>
 <body>
 
-	<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #9F0C35;">
-		<a class="navbar-brand" href="index.html" active>
-	    <img src="images/logo_white.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-	    Railway<strong>Stations</strong>
-	  </a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
-	  </button>
-
-	  <div class="collapse navbar-collapse" id="navbar">
-	    <ul class="navbar-nav mr-auto">
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="settings.html" rel="noopener" aria-label="Einstellungen" title="Einstellungen"><i class="fas fa-sliders-h"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="faq.html" rel="noopener" aria-label="FAQ" title="FAQ"><i class="fas fa-question"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="Entwicklung" title="Entwicklung"><i class="fab fa-github"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="impressum.html" rel="noopener" aria-label="Impressum" title="Impressum"><i class="fas fa-info"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="datenschutz.html" rel="noopener" aria-label="Datenschutzerklärung" title="Datenschutzerklärung"><i class="fas fa-shield-alt"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="#" onclick="navigate(<?php echo htmlspecialchars($lat);?>,<?php echo htmlspecialchars($lon);?>);" rel="noopener" aria-label="Navigiere" title="Navigiere"><i class="fas fa-directions"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="#" onclick="timetable('<?php echo htmlspecialchars($countryCode);?>','<?php echo htmlspecialchars($stationId);?>','<?php echo htmlspecialchars($stationName);?>', '<?php echo htmlspecialchars($DS100);?>');" rel="noopener" aria-label="Abfahrtszeiten" title="Abfahrtszeiten"><i class="fas fa-list"></i></a>
-		    </li>
-			<li class="nav-item">
-		      <a class="nav-link p-2" href="#" onclick="providerApp('<?php echo htmlspecialchars($countryCode);?>');" rel="noopener" aria-label="Betreiber App" title="Betreiber App"><i class="fas fa-external-link-alt"></i></a>
-		    </li>
-	    </ul>
-	  </div>
-	</nav>
+<?php
+require_once "./navbar.php";
+$ds100Html = htmlspecialchars($DS100);
+$suffixNavItems = <<<HTML
+	<li class="nav-item">
+		<a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="Navigiere" title="Navigiere"><i class="fas fa-directions"></i></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="Abfahrtszeiten" title="Abfahrtszeiten"><i class="fas fa-list"></i></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="Betreiber App" title="Betreiber App"><i class="fas fa-external-link-alt"></i></a>
+	</li>
+HTML;
+navbar($suffixNavItems);
+?>
 
 <main role="main" class="col-12 bd-content station">
 
 		<h2><?php echo htmlspecialchars($stationName);?></h2>
 		<?php if (!$active) { ?>
-	  	<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>
+		<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>
 		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
@@ -139,22 +95,23 @@
 
 </main>
 
-<div class="modal fade" id="providerApps" tabindex="-1" role="dialog" aria-labelledby="Betreiber Apps" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="providerAppsLabel">Betreiber Apps</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="providerAppsBody">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="providerApps" tabindex="-1" role="dialog" aria-labelledby="Betreiber Apps"
+	 aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="providerAppsLabel">Betreiber Apps</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body" id="providerAppsBody">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 
