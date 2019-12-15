@@ -31,7 +31,7 @@ svg.circle {
 svg.circle .pie {
 	fill: #B70E3D;
 	stroke: #3db70e;
-	stroke-width: 30;
+	stroke-width: 32;
 }
 
 .showCluster .marker-cluster-large {
