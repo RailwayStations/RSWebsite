@@ -112,8 +112,9 @@ function showMarkerImagesClustered() {
 				red += markers[i].options.icon.options.iconUrl.indexOf("red") > 0 ? 1 : 0;
 				green += (markers[i].options.icon.options.iconUrl.indexOf("green") > 0 || markers[i].options.icon.options.iconUrl.indexOf("violet") > 0) ? 1 : 0;
 			}
+			let stokeDasharray = green === max ? 101 : parseInt(green / max * 100, 10);
 			return new L.divIcon({ html:
-				"<svg width=\"40\" height=\"40\" class=\"circle\"><circle r=\"16\" cx=\"20\" cy=\"20\" class=\"pie\" style=\"stroke-dasharray:" + parseInt(green / max * 100, 10) + ", 1000;\"/></svg>" +
+				"<svg width=\"40\" height=\"40\" class=\"circle\"><circle r=\"16\" cx=\"20\" cy=\"20\" class=\"pie\" style=\"stroke-dasharray:" + stokeDasharray + ", 1000;\"/></svg>" +
 				"<div>" +
 				"<span>" + max + "</span>" +
 				"<span>" + parseInt(green / max * 100, 10) + "%</span>" +
