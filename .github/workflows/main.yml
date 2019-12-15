@@ -12,5 +12,6 @@ jobs:
         FTP_SERVER: railway-stations.org
         FTP_USERNAME: rswebsitesftp
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        LOCAL_DIR: map
         METHOD: sftp
         ARGS: --delete
