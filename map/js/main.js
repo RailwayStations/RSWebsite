@@ -62,7 +62,7 @@ function showPopup(feature, layer) {
 	} else {
 		str += "<a href=\"" + detailLink + "\" data-ajax=\"false\"><h2 style=\"text-align:center;\">" + feature.properties.title + "</h2></a>";
 		str += "<div>Hier fehlt noch ein Foto.</div>";
-		str += "<div><a href=\"upload.html?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
+		str += "<div><a href=\"upload.php?countryCode=" + feature.properties.country + "&stationId=" + feature.properties.idStr + "&title=" + feature.properties.title + "\" title=\"Eigenes Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
 	}
 	str += "<div><a href=\"#\" onclick=\"navigate(" + feature.properties.lat + "," + feature.properties.lon + ");\"><i class=\"fas fa-directions\"> Navigiere</i></a>, ";
 	str += "<a href=\"#\" onclick=\"timetableByStation('" + feature.properties.idStr + "');\"><i class=\"fas fa-list\"> Abfahrtszeiten</i></a></div>";
@@ -83,7 +83,7 @@ function showMissingStationPopup(mouseEvent) {
 	var str = "";
 	str += "<h3>Fehlenden Bahnhof melden</h3>";
 	str += "<div>Position: " + mouseEvent.latlng .lat + "," + mouseEvent.latlng .lng + "</div>";
-	str += "<div><a href=\"upload.html?latitude=" + mouseEvent.latlng .lat + "&longitude=" + mouseEvent.latlng .lng + "\" title=\"Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
+	str += "<div><a href=\"upload.php?latitude=" + mouseEvent.latlng .lat + "&longitude=" + mouseEvent.latlng .lng + "\" title=\"Foto hochladen\" data-ajax=\"false\"><i class=\"fas fa-upload\"> Lade Dein Foto hoch.</i></a></div>";
 
 	if (null === popup) {
 		popup = L.popup();
