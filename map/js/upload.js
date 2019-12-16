@@ -14,7 +14,7 @@ function stopUpload(message) {
   } else if (result.startsWith("400")) {
     result = "Upload ungültig (z.B. nicht unterstützter Dateityp)";
   } else if (result.startsWith("401")) {
-    window.location.href = "settings.html";
+    window.location.href = "settings.php";
     return false;
   } else if (result.startsWith("409")) {
     result = "Foto upload erfolgreich, eventuell gibt es aber einen Konflikt";
@@ -64,7 +64,7 @@ $(document).ready(function() {
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
-    window.location.href = "settings.html";
+    window.location.href = "settings.php";
   } else {
     bsCustomFileInput.init();
   }
