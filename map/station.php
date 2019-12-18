@@ -63,15 +63,24 @@
 <?php
 require_once "./navbar.php";
 $ds100Html = htmlspecialchars($DS100);
+
+$navigate = L::station_navigate;
+$departure = L::station_departure;
+$app = L::station_app;
+$inactive = L::station_inactive;
+$i18nPhotographer = L::station_photographer;
+$i18nLicense = L::station_license;
+$uploadYourOwnPicture = L::station_uploadYourOwnPicture;
+
 $suffixNavItems = <<<HTML
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="Navigiere" title="Navigiere"><i class="fas fa-directions"></i></a>
+		<a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><i class="fas fa-directions"></i></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="Abfahrtszeiten" title="Abfahrtszeiten"><i class="fas fa-list"></i></a>
+		<a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="{$departure}" title="{$departure}"><i class="fas fa-list"></i></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="Betreiber App" title="Betreiber App"><i class="fas fa-external-link-alt"></i></a>
+		<a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="{$app}" title="{$app}"><i class="fas fa-external-link-alt"></i></a>
 	</li>
 HTML;
 navbar($suffixNavItems);
@@ -81,14 +90,14 @@ navbar($suffixNavItems);
 
 		<h2><?= htmlspecialchars($stationName);?></h2>
 		<?php if (!$active) { ?>
-		<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>
+		<div><i class="fas fa-times-circle"></i><?php echo $inactive; ?>!</i></div>
 		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
-					<p><small class="text-muted">Fotograf: <a href="<?= htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars($photographer);?></span></a>,
-					Lizenz: <a href="<?= htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?= htmlspecialchars($license);?></span></a></small></p>
+					<p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars($photographer);?></span></a>,
+                    <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?= htmlspecialchars($license);?></span></a></small></p>
 		<?php } else { ?>
-					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fas fa-upload"></i> Lade Dein eigenes Foto hoch</i></a></p>
+					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fas fa-upload"></i><?php echo $uploadYourOwnPicture; ?></i></a></p>
 		<?php } ?>
 
 		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars($stationPhoto);?>" title="<?= htmlspecialchars($photoCaption);?>"/>
@@ -100,7 +109,7 @@ navbar($suffixNavItems);
 	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="providerAppsLabel">Betreiber Apps</h5>
+				<h5 class="modal-title" id="providerAppsLabel"><?php echo $app; ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
