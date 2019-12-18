@@ -1,4 +1,7 @@
-on: push.master
+on: 
+  push:
+    branches:
+      - master
 name: Publish Website over SFTP
 jobs:
   FTP-Deploy-Action:
