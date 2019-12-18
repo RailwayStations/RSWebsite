@@ -15,26 +15,32 @@
 
 <?php
 require_once "./navbar.php";
+$country = L::index_country;
+$findStation = L::index_findStation;
+$search = L::index_search;
+$myLocation = L::index_myLocation;
+$highscore = L::index_highscore;
+
 $prefixNavItems = <<<HTML
     <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Land</a>
+        <a class="nav-link dropdown-toggle" href="#" id="country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$country}</a>
         <div class="dropdown-menu" id="countries" aria-labelledby="country">
         </div>
     </li>
     <li class="nav-item" id="location_watch_toggle">
-        <a class="nav-link p-2" href="javascript:toggleLocation();" rel="noopener" aria-label="Mein Standort" title="Mein Standort"><i class="fas fa-search-location"></i></a>
+        <a class="nav-link p-2" href="javascript:toggleLocation();" rel="noopener" aria-label="{$myLocation}" title="{$myLocation}"><i class="fas fa-search-location"></i></a>
     </li>
 HTML;
 
 $additionalItems = <<<HTML
     <form class="form-inline my-2 my-lg-0 order-sm-0 order-md-1">
-        <input class="form-control mr-sm-2" type="text" placeholder="Finde deinen Bahnhof" aria-label="Suche" id="suche">
+        <input class="form-control mr-sm-2" type="text" placeholder="{$findStation}" aria-label="{$search}" id="suche">
     </form>
 HTML;
 
 $suffixNavItems = <<<HTML
     <li class="nav-item">
-        <a class="nav-link p-2" href="javascript:showHighScore();" rel="noopener" aria-label="Rangliste" title="Rangliste"><i class="fas fa-chart-line"></i></a>
+        <a class="nav-link p-2" href="javascript:showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><i class="fas fa-chart-line"></i></a>
     </li>
 HTML;
 navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
@@ -45,11 +51,11 @@ navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
 </main>
 
 
-<div class="modal fade" id="highscore" tabindex="-1" role="dialog" aria-labelledby="Rangliste" aria-hidden="true">
+<div class="modal fade" id="highscore" tabindex="-1" role="dialog" aria-labelledby="<?php echo $highscore; ?>" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="highscoreLabel">Rangliste</h5>
+        <h5 class="modal-title" id="highscoreLabel"><?php echo $highscore; ?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
