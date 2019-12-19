@@ -28,7 +28,7 @@ $prefixNavItems = <<<HTML
         </div>
     </li>
     <li class="nav-item" id="location_watch_toggle">
-        <a class="nav-link p-2" href="javascript:toggleLocation();" rel="noopener" aria-label="{$myLocation}" title="{$myLocation}"><i class="fas fa-search-location"></i></a>
+        <a class="nav-link p-2" href="javascript:toggleLocation();" rel="noopener" aria-label="{$myLocation}" title="{$myLocation}"><em class="fas fa-search-location"></em></a>
     </li>
 HTML;
 
@@ -40,7 +40,7 @@ HTML;
 
 $suffixNavItems = <<<HTML
     <li class="nav-item">
-        <a class="nav-link p-2" href="javascript:showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><i class="fas fa-chart-line"></i></a>
+        <a class="nav-link p-2" href="javascript:showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><em class="fas fa-chart-line"></em></a>
     </li>
 HTML;
 navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');

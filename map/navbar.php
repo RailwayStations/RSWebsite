@@ -19,19 +19,19 @@
             } ?>
 
             <li class="nav-item">
-                <a class="nav-link p-2" href="settings.php" rel="noopener" aria-label="<?php echo L::navbar_settings; ?>" title="<?php echo L::navbar_settings; ?>"><i class="fas fa-sliders-h"></i></a>
+                <a class="nav-link p-2" href="settings.php" rel="noopener" aria-label="<?php echo L::navbar_settings; ?>" title="<?php echo L::navbar_settings; ?>"><em class="fas fa-sliders-h"></em></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link p-2" href="faq.php" rel="noopener" aria-label="<?php echo L::navbar_faq; ?>" title="<?php echo L::navbar_faq; ?>"><i class="fas fa-question"></i></a>
+                <a class="nav-link p-2" href="faq.php" rel="noopener" aria-label="<?php echo L::navbar_faq; ?>" title="<?php echo L::navbar_faq; ?>"><em class="fas fa-question"></em></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="<?php echo L::navbar_development; ?>" title="<?php echo L::navbar_development; ?>"><i class="fab fa-github"></i></a>
+                <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="<?php echo L::navbar_development; ?>" title="<?php echo L::navbar_development; ?>"><em class="fab fa-github"></em></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link p-2" href="impressum.php" rel="noopener" aria-label="<?php echo L::navbar_impressum; ?>" title="<?php echo L::navbar_impressum; ?>"><i class="fas fa-info"></i></a>
+                <a class="nav-link p-2" href="impressum.php" rel="noopener" aria-label="<?php echo L::navbar_impressum; ?>" title="<?php echo L::navbar_impressum; ?>"><em class="fas fa-info"></em></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link p-2" href="datenschutz.php" rel="noopener" aria-label="<?php echo L::navbar_privacyPolicy; ?>" title="<?php echo L::navbar_privacyPolicy; ?>"><i class="fas fa-shield-alt"></i></a>
+                <a class="nav-link p-2" href="datenschutz.php" rel="noopener" aria-label="<?php echo L::navbar_privacyPolicy; ?>" title="<?php echo L::navbar_privacyPolicy; ?>"><em class="fas fa-shield-alt"></em></a>
             </li>
             <?php if ($suffixNavItems !== null) {
                 echo $suffixNavItems;

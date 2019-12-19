@@ -74,13 +74,13 @@ $uploadYourOwnPicture = L::station_uploadYourOwnPicture;
 
 $suffixNavItems = <<<HTML
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><i class="fas fa-directions"></i></a>
+		<a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><em class="fas fa-directions"></em></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="{$departure}" title="{$departure}"><i class="fas fa-list"></i></a>
+		<a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="{$departure}" title="{$departure}"><em class="fas fa-list"></em></a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="{$app}" title="{$app}"><i class="fas fa-external-link-alt"></i></a>
+		<a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="{$app}" title="{$app}"><em class="fas fa-external-link-alt"></em></a>
 	</li>
 HTML;
 navbar($suffixNavItems);
@@ -90,14 +90,14 @@ navbar($suffixNavItems);
 
 		<h2><?= htmlspecialchars($stationName);?></h2>
 		<?php if (!$active) { ?>
-		<div><i class="fas fa-times-circle"></i><?php echo $inactive; ?>!</i></div>
+		<div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
 		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
 					<p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars($photographer);?></span></a>,
                     <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?= htmlspecialchars($license);?></span></a></small></p>
 		<?php } else { ?>
-					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><i class="fas fa-upload"></i><?php echo $uploadYourOwnPicture; ?></i></a></p>
+					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><em class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
 		<?php } ?>
 
 		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars($stationPhoto);?>" title="<?= htmlspecialchars($photoCaption);?>"/>
