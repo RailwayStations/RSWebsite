@@ -29,3 +29,4 @@ $i18n->init();
 
 <link href="css/all.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
+<script src="js/i18n.js"></script>
