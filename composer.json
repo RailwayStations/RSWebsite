@@ -1,12 +1,14 @@
 {
-    "name": "railway-stations/frontend",
-    "authors": [
-        {
-            "name": "Ben Antony",
-            "email": "greenhalos@gmail.com"
-        }
-    ],
-    "require": {
-        "philipp15b/php-i18n": "v4.0.1"
+  "name": "railway-stations/frontend",
+  "description": "Dependencies of railway stations website",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Ben Antony",
+      "email": "greenhalos@gmail.com"
     }
+  ],
+  "require": {
+    "philipp15b/php-i18n": "~v4.0.1"
+  }
 }
