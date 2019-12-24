@@ -14,7 +14,6 @@ navbar();
 
 $profile = L::settings_profile;
 $nicknameOrEmail = L::settings_nicknameOrEmail;
-$passwordOrUploadToken = L::settings_passwordOrUploadToken;
 $login = L::settings_login;
 $resetPassword = L::settings_resetPassword;
 $register = L::settings_register;
@@ -47,7 +46,7 @@ $submit = L::settings_submit;
 				<input name="loginEmail" type="text" class="form-control" id="loginEmail">
 			</div>
 			<div class="form-group login-form">
-				<label for="loginPassword"><?php echo $passwordOrUploadToken; ?></label>
+				<label for="loginPassword"><?php echo $password; ?></label>
 				<input name="loginPassword" type="password" class="form-control" id="loginPassword">
 			</div>
 			<div class="form-group login-form">
