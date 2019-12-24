@@ -20,4 +20,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
 #          LOCAL_DIR: map
           METHOD: sftp
-#          ARGS: --delete
+          ARGS: --delete
