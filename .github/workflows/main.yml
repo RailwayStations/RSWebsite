@@ -4,7 +4,7 @@ on:
       - master
 name: Publish Website over SFTP
 jobs:
-  build-php:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -12,17 +12,12 @@ jobs:
         run: composer validate
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@2.0.0
-      env:
-        FTP_SERVER: railway-stations.org
-        FTP_USERNAME: rswebsitesftp
-        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-        LOCAL_DIR: map
-        METHOD: sftp
-        ARGS: --delete
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        env:
+          FTP_SERVER: railway-stations.org
+          FTP_USERNAME: rswebsitesftp
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          LOCAL_DIR: map
+          METHOD: sftp
+          ARGS: --delete
