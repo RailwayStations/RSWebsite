@@ -3,10 +3,10 @@
 <head>
     <?php
     require_once "./header.php";
-    $title = L::token_title;
-    $info = L::token_info;
-    $mobileInfo = L::token_mobileInfo;
-    $happy = L::token_happy;
+    $title = L::passwordUpdate_title;
+    $info = L::passwordUpdate_info;
+    $mobileInfo = L::passwordUpdate_mobileInfo;
+    $happy = L::passwordUpdate_happy;
     ?>
     <title><?php echo $title; ?> - RailwayStations</title>
 </head>
@@ -33,6 +33,6 @@ navbar();
 		<script src="bootstrap-4.3.1-dist/js/bootstrap.bundle.min.js"></script>
 
 		<script src="js/common.js"></script>
-		<script src="js/uploadtoken.js"></script>
+		<script src="js/updatePassword.js"></script>
   </body>
 </html>
