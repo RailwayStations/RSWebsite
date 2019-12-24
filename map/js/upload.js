@@ -10,16 +10,16 @@ function startUpload() {
 function stopUpload(message) {
   var result = message;
   if (result.startsWith("202")) {
-    result = "Foto upload erfolgreich";
+    result = window.i18n.upload.successful;
   } else if (result.startsWith("400")) {
-    result = "Upload ungültig (z.B. nicht unterstützter Dateityp)";
+    result = window.i18n.upload.invalid;
   } else if (result.startsWith("401")) {
     window.location.href = "settings.php";
     return false;
   } else if (result.startsWith("409")) {
-    result = "Foto upload erfolgreich, eventuell gibt es aber einen Konflikt";
+    result = window.i18n.upload.conflict;
   } else if (result.startsWith("413")) {
-    result = "Foto zu groß (maximal 20 MB)";
+    result = window.i18n.upload.maxSize;
   }
 
   $("#upload-process").modal("hide");

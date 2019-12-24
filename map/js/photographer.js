@@ -8,14 +8,14 @@ $(document).ready(function () {
 	var vars = getQueryParameter();
 	var photographer = vars.photographer;
 
-	$("#photographer").html(photographer).attr("href", "index.html");;
+	$("#photographer").html(photographer).attr("href", "index.php");
 
 	$.ajax({
 		url: getAPIURI() + "stations?photographer=" + photographer,
 		type: "GET",
 		dataType: "json",
 		error: function () {
-			$("#stations").html("Fehler beim Laden der Stationen des Fotografen " + photographer);
+			$("#stations").html(window.i18n.photographer.errorLoadingStationsOfPhotographer +" " + photographer);
 		},
 		success: function (obj) {
 			if (Array.isArray(obj) && obj.length > 0) {
@@ -26,13 +26,13 @@ $(document).ready(function () {
 					$("#stations").append("<div class=\"card mt-1\" style=\"max-width: 302px;\">" +
 						  "<div class=\"card-body\">" +
 						  "  <h5 class=\"card-title\"><a href=\"" + detailLink + "\" data-ajax=\"false\">" + obj[i].title + "</a></h5>" +
-						  "  <p class=\"card-text\"><small class=\"text-muted\">Lizenz: <a href=\"" + obj[i].licenseUrl + "\">" + obj[i].license + "</a></small></p>" +
+						  "  <p class=\"card-text\"><small class=\"text-muted\">" + window.i18n.photographer.licence +": <a href=\"" + obj[i].licenseUrl + "\">" + obj[i].license + "</a></small></p>" +
 						  "</div>" +
 						  "<a href=\"" + detailLink + "\" data-ajax=\"false\"><img src=\"" + photoURL + "\" class=\"card-img-top\" style=\"width:301px;\" alt=\"" + obj[i].title + "\"></a>" +
 						"</div>");
 				}
 			} else {
-				$("#stations").html("Keine Bahnhöfe gefunden");
+				$("#stations").html(window.i18n.photographer.noStationsFound);
 			}
 		}
 	});

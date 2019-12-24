@@ -21,11 +21,9 @@ function register(userProfile, passwordResetOnly) {
   request.done(function(data) {
     saveBtnSpinning(false);
     if (passwordResetOnly) {
-      alert(
-        "Neues Passwort angefordert, bitte schaue in Deine Email. Prüfe auch den SPAM Ordner."
-      );
+      alert(window.i18n.settings.newPasswordViaEmail);
     } else {
-      alert("Registrierung erfolgreich. Ein Initial-Passwort wird dir per Email zugeschickt. Bitte prüfe auch den SPAM Ordner.");
+      alert(window.i18n.settings.registrationSuccessfully);
       $("#loginEmail").val(userProfile.email);
       $(".login-form").show();
       $(".profile-form").hide();  
@@ -36,13 +34,13 @@ function register(userProfile, passwordResetOnly) {
     saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
-      alert("Ungültige Daten: " + textStatus + ", " + errorThrown);
+      alert(window.i18n.settings.invalidData + ": " + textStatus + ", " + errorThrown);
     } else if (status == 409) {
       alert(
-        "Es liegt ein Konflikt mit einem anderen Nickname oder einer Email vor. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+          window.i18n.settings.conflict + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
       );
     } else {
-      alert("Fehler: " + textStatus + ", " + errorThrown);
+      alert(window.i18n.settings.conflict + ": " + textStatus + ", " + errorThrown);
     }
   });
 }
@@ -62,21 +60,19 @@ function resetPassword(nameOrEmail) {
   });
 
   request.done(function(data) {
-    alert(
-      "Neues Passwort angefordert, bitte schaue in Deine Email und prüfe auch den SPAM Ordner."
-    );
+    alert(window.i18n.settings.newPasswordViaEmail);
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        "In Deinem Profil ist keine Email hinterlegt. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+          window.i18n.settings.missingEMail + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
       );
     } else if (status == 404) {
-      alert("Kein Profil mit dieser Email / mit diesem Nickname gefunden.");
+      alert(window.i18n.settings.noProfileFound);
     } else {
-      alert("Fehler: " + textStatus + ", " + errorThrown);
+      alert(window.i18n.settings.error + ": " + textStatus + ", " + errorThrown);
     }
   });
 }
@@ -87,9 +83,7 @@ function onResetPassword() {
   var nameOrEmail = $("#loginEmail").val();
 
   if (isBlank(nameOrEmail)) {
-    alert(
-      "Bitte Email oder Nickname angeben, um einen neues Passwort zu bekommen."
-    );
+    alert(window.i18n.settings.pleaseEnterNicknameEmail);
     return false;
   }
 
@@ -103,15 +97,11 @@ function changePassword() {
 	var newPasswordRepeat = $("#newPasswordRepeat").val();
 
 	if (newPassword === undefined || newPassword.length < 8) {
-		alert(
-		  "Passwort muss mindestens 8 Zeichen lang sein."
-		);
+		alert(window.i18n.settings.passwordMinLength);
 		return false;
 	}
 	if (newPassword !== newPasswordRepeat) {
-		alert(
-		  "Passwörter sind unterschiedlich"
-		);
+		alert(window.i18n.settings.passwordMismatch);
 		return false;
 	}
 	$('#changePasswordModal').modal('hide')
@@ -134,12 +124,12 @@ function changePassword() {
 		userProfile.password = newPassword;
 		setUserProfile(userProfile);
 		setUserProfileForm(userProfile);
-		alert("Passwort geändert.");
+		alert(window.i18n.settings.passwordChanges);
 	});
   
 	request.fail(function(jqXHR, textStatus, errorThrown) {
 		var status = jqXHR.status;
-		alert("Passwort konnte nicht geändert werden: " + textStatus + ", " + errorThrown);
+		alert(window.i18n.settings.unableToChangePassword + ": " + textStatus + ", " + errorThrown);
   });  
   return false;
 }
@@ -165,7 +155,7 @@ function onLogin() {
   var password = $("#loginPassword").val();
 
   if (isBlank(email) || isBlank(password)) {
-    alert("Bitte Email/Nickname und Passwort zum Login angeben");
+    alert(window.i18n.settings.provideEmailNicknameForLogin);
     return false;
   }
   login();
@@ -206,7 +196,7 @@ function login(quiet) {
     $(".login-form").hide();
     $(".profile-form").show();
     if (!quiet) {
-      alert("Login erfolgreich.");
+      alert(window.i18n.settings.loginSuccessful);
     }
   });
 
@@ -221,7 +211,7 @@ function badLogin(userProfile) {
   loggedIn = false;
   $(".login-form").show();
   $(".profile-form").hide();
-  alert("Login fehlgeschlagen.");
+  alert(window.i18n.settings.loginFailed);
 }
 
 function togglePoints() {
@@ -274,22 +264,20 @@ function uploadProfile(userProfile) {
   request.done(function(data) {
     loggedIn = true;
     saveBtnSpinning(false);
-    alert("Profil gespeichert");
+    alert(window.i18n.settings.profileSaved);
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
     saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
-      alert("Ungültige Daten: " + textStatus + ", " + errorThrown);
+      alert(window.i18n.settings.invalidData + ": " + textStatus + ", " + errorThrown);
     } else if (status == 401) {
       badLogin(userProfile);
     } else if (status == 409) {
-      alert(
-        "Es liegt ein Konflikt mit einem anderen Nickname oder einer Email vor. Bitte kontaktiere unseren Support: Bahnhofsfotos@deutschlands-Bahnhoefe.de"
-      );
+      alert(window.i18n.settings.conflict + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de");
     } else {
-      alert("Speichern fehlgeschlagen: " + textStatus + ", " + errorThrown);
+      alert(window.i18n.settings.profileSavedFailed + ": " + textStatus + ", " + errorThrown);
     }
   });
 }
@@ -321,34 +309,34 @@ function onSaveProfile() {
 
   if (!userProfile.cc0) {
     alert(
-      "Bitte akzeptiere CC0, damit wir Deine Fotos ohne Probleme verwenden können."
+        window.i18n.settings.acceptCC0
     );
     return false;
   }
 
   if (!userProfile.photoOwner) {
-    alert("Bitte gib an, ob es sich um Deine eigenen Fotos handelt.");
+    alert(window.i18n.settings.ownPhotos);
     return false;
   }
 
   if (isBlank(userProfile.nickname)) {
-    alert("Bitte gib Deinen Nickname an.");
+    alert(window.i18n.settings.provideNickname);
     return false;
   }
 
   if (isBlank(userProfile.email)) {
-    alert("Bitte gib Deine Email an.");
+    alert(window.i18n.settings.provideEmail);
     return false;
   } else {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!userProfile.email.match(mailformat)) {
-      alert("Ungültiges Email format.");
+      alert(window.i18n.settings.invalidEmail);
       return false;
     }
   }
 
   if (isNotBlank(userProfile.link) && !isURL(userProfile.link)) {
-    alert("Bitte gib eine gültige HTTP(S) URL an.");
+    alert(window.i18n.settings.provideValidUrl);
     return false;
   }
 
@@ -358,7 +346,7 @@ function onSaveProfile() {
     if (loggedIn && isNotBlank(userProfile.password)) {
       uploadProfile(userProfile);
     } else {
-      alert("Benutzerprofil gespeichert");
+      alert(window.i18n.settings.profileSaved);
     }
   }
 
@@ -402,9 +390,9 @@ function setUserProfileForm(userProfile) {
   );
 
   if (loggedIn) {
-    $("#saveBtnText").html("Speichern");
+    $("#saveBtnText").html(window.i18n.settings.save);
   } else {
-    $("#saveBtnText").html("Registrieren");
+    $("#saveBtnText").html(window.i18n.settings.register);
   }
 }
 

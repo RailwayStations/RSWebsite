@@ -97,7 +97,7 @@ function providerApp(countryCode) {
 		});
 
 		if (providerAppsTable === "") {
-			providerAppsTable = "<tr><td>Leider keine Apps hinterlegt</td></tr>"
+			providerAppsTable = "<tr><td>" + window.i18n.common.noApp + "</td></tr>"
 		}
 
 		var providerAppsDiv = $("#providerAppsBody");
