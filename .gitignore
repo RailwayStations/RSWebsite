@@ -1,4 +1,4 @@
 /vendor/
-/i18n/langcache
+/i18n/langcache/*.php
 /node_modules/
 
