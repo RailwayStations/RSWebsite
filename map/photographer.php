@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="de-DE">
   <head>
-      <?php require_once "./header.php" ?>
-      <title><?php echo L::photographer_title?></title>
+      <?php require_once "./header.php"; ?>
+      <title><?php echo L::photographer_title; ?></title>
   </head>
 <body>
 

@@ -1,62 +1,83 @@
 <?php
-	$stationId = trim(filter_input(INPUT_GET, 'stationId', FILTER_SANITIZE_STRING));
-	$countryCode = trim(filter_input(INPUT_GET, 'countryCode', FILTER_SANITIZE_STRING));
-	$stationName = 'Station nicht gefunden';
-	$stationPhoto = 'images/default.jpg';
-	$photoCaption = $stationName;
-	$DS100 = "";
-	$lat = 0;
-	$lon = 0;
-	$photographer = 'n.a.';
-	$photographerUrl = '';
-	$license = 'n.a.';
-	$licenseUrl = '';
-	$uploadUrl = '';
-	$active = true;
+$stationId = trim(filter_input(INPUT_GET, 'stationId', FILTER_SANITIZE_STRING));
+$countryCode = trim(
+    filter_input(INPUT_GET, 'countryCode', FILTER_SANITIZE_STRING)
+);
+$stationName = 'Station nicht gefunden';
+$stationPhoto = 'images/default.jpg';
+$photoCaption = $stationName;
+$DS100 = "";
+$lat = 0;
+$lon = 0;
+$photographer = 'n.a.';
+$photographerUrl = '';
+$license = 'n.a.';
+$licenseUrl = '';
+$uploadUrl = '';
+$active = true;
 
-	try {
-		$opts = [
-			"http" => [
-				"method" => "GET",
-				"header" => "Accept-language: " . filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING)
-			]
-		];
+try {
+    $opts = [
+        "http" => [
+            "method" => "GET",
+            "header" =>
+                "Accept-language: " .
+                filter_input(
+                    INPUT_SERVER,
+                    'SERVER_NAME',
+                    FILTER_SANITIZE_STRING
+                )
+        ]
+    ];
 
-		$context = stream_context_create($opts);
+    $context = stream_context_create($opts);
 
-		$json = file_get_contents('https://api.railway-stations.org/'.$countryCode.'/stations/'.$stationId, false, $context);
-		if ($json !== false) {
-			$data = json_decode($json, true);
-			if (isset($data)) {
-				$stationName = $data['title'];
-				$photographer = $data['photographer'];
-				$photoCaption = $stationName;
-				$DS100 = $data['DS100'];
-				$lat = $data['lat'];
-				$lon = $data['lon'];
-				$active = $data['active'];
-				if (isset($photographer)) {
-					$stationPhoto = $data['photoUrl'];
-					$photographerUrl = $data['photographerUrl'];
-					$license = $data['license'];
-					$licenseUrl = $data['licenseUrl'];
-				} else {
-					$photoCaption = 'Hier fehlt noch ein Foto';
-					$photographer = 'n.a.';
-					$uploadUrl = 'upload.php?countryCode='.$countryCode.'&stationId='.$stationId.'&title='.$stationName;
-				}
-			}
-		}
-	} catch (Exception $e) {
-		$photoCaption = 'Fehler beim Laden der Station';
-	}
+    $json = file_get_contents(
+        'https://api.railway-stations.org/' .
+            $countryCode .
+            '/stations/' .
+            $stationId,
+        false,
+        $context
+    );
+    if ($json !== false) {
+        $data = json_decode($json, true);
+        if (isset($data)) {
+            $stationName = $data['title'];
+            $photographer = $data['photographer'];
+            $photoCaption = $stationName;
+            $DS100 = $data['DS100'];
+            $lat = $data['lat'];
+            $lon = $data['lon'];
+            $active = $data['active'];
+            if (isset($photographer)) {
+                $stationPhoto = $data['photoUrl'];
+                $photographerUrl = $data['photographerUrl'];
+                $license = $data['license'];
+                $licenseUrl = $data['licenseUrl'];
+            } else {
+                $photoCaption = 'Hier fehlt noch ein Foto';
+                $photographer = 'n.a.';
+                $uploadUrl =
+                    'upload.php?countryCode=' .
+                    $countryCode .
+                    '&stationId=' .
+                    $stationId .
+                    '&title=' .
+                    $stationName;
+            }
+        }
+    }
+} catch (Exception $e) {
+    $photoCaption = 'Fehler beim Laden der Station';
+}
 ?>
 <!doctype html>
 <html lang="de-DE" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
-	<meta property="og:image" content="<?= htmlspecialchars($stationPhoto); ?>"/>
-	<title><?= htmlspecialchars($stationName); ?> - RailwayStations</title>
-	<?php require_once "./header.php" ?>
+	<meta property="og:image" content="<?= htmlspecialchars($stationPhoto) ?>"/>
+	<title><?= htmlspecialchars($stationName) ?> - RailwayStations</title>
+	<?php require_once "./header.php"; ?>
 </head>
 <body>
 
@@ -88,19 +109,31 @@ navbar($suffixNavItems);
 
 <main role="main" class="col-12 bd-content station">
 
-		<h2><?= htmlspecialchars($stationName);?></h2>
+		<h2><?= htmlspecialchars($stationName) ?></h2>
 		<?php if (!$active) { ?>
 		<div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
 		<?php } ?>
 
 		<?php if ($uploadUrl == '') { ?>
-					<p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars($photographerUrl);?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars($photographer);?></span></a>,
-                    <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars($licenseUrl);?>" id="license-url"><span id="license"><?= htmlspecialchars($license);?></span></a></small></p>
+					<p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
+    $photographerUrl
+) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
+    $photographer
+) ?></span></a>,
+                    <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
+    $licenseUrl
+) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
+    $license
+) ?></span></a></small></p>
 		<?php } else { ?>
-					<p><a href="<?= htmlspecialchars($uploadUrl);?>" title="Eigenes Foto hochladen" data-ajax="false"><em class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
+					<p><a href="<?= htmlspecialchars(
+         $uploadUrl
+     ) ?>" title="Eigenes Foto hochladen" data-ajax="false"><em class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
 		<?php } ?>
 
-		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars($stationPhoto);?>" title="<?= htmlspecialchars($photoCaption);?>"/>
+		<img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
+      $stationPhoto
+  ) ?>" title="<?= htmlspecialchars($photoCaption) ?>"/>
 
 </main>
 

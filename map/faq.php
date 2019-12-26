@@ -2,7 +2,7 @@
 <html lang="de-DE">
   <head>
       <title>FAQ - RailwayStations</title>
-      <?php require_once "./header.php" ?>
+      <?php require_once "./header.php"; ?>
 </head>
 <body>
 
