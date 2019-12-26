@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="de-DE">
 <head>
-    <?php require_once "./header.php" ?>
+    <?php require_once "./header.php"; ?>
     <title>Datenschutzerklärung - RailwayStations</title>
 </head>
 <body>

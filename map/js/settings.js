@@ -26,7 +26,7 @@ function register(userProfile, passwordResetOnly) {
       alert(window.i18n.settings.registrationSuccessfully);
       $("#loginEmail").val(userProfile.email);
       $(".login-form").show();
-      $(".profile-form").hide();  
+      $(".profile-form").hide();
     }
   });
 
@@ -34,13 +34,22 @@ function register(userProfile, passwordResetOnly) {
     saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
-      alert(window.i18n.settings.invalidData + ": " + textStatus + ", " + errorThrown);
+      alert(
+        window.i18n.settings.invalidData +
+          ": " +
+          textStatus +
+          ", " +
+          errorThrown
+      );
     } else if (status == 409) {
       alert(
-          window.i18n.settings.conflict + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+        window.i18n.settings.conflict +
+          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
       );
     } else {
-      alert(window.i18n.settings.conflict + ": " + textStatus + ", " + errorThrown);
+      alert(
+        window.i18n.settings.conflict + ": " + textStatus + ", " + errorThrown
+      );
     }
   });
 }
@@ -67,12 +76,15 @@ function resetPassword(nameOrEmail) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-          window.i18n.settings.missingEMail + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+        window.i18n.settings.missingEMail +
+          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
       );
     } else if (status == 404) {
       alert(window.i18n.settings.noProfileFound);
     } else {
-      alert(window.i18n.settings.error + ": " + textStatus + ", " + errorThrown);
+      alert(
+        window.i18n.settings.error + ": " + textStatus + ", " + errorThrown
+      );
     }
   });
 }
@@ -92,62 +104,69 @@ function onResetPassword() {
 }
 
 function changePassword() {
-	"use strict";
-	var newPassword = $("#newPassword").val();
-	var newPasswordRepeat = $("#newPasswordRepeat").val();
+  "use strict";
+  var newPassword = $("#newPassword").val();
+  var newPasswordRepeat = $("#newPasswordRepeat").val();
 
-	if (newPassword === undefined || newPassword.length < 8) {
-		alert(window.i18n.settings.passwordMinLength);
-		return false;
-	}
-	if (newPassword !== newPasswordRepeat) {
-		alert(window.i18n.settings.passwordMismatch);
-		return false;
-	}
-	$('#changePasswordModal').modal('hide')
+  if (newPassword === undefined || newPassword.length < 8) {
+    alert(window.i18n.settings.passwordMinLength);
+    return false;
+  }
+  if (newPassword !== newPasswordRepeat) {
+    alert(window.i18n.settings.passwordMismatch);
+    return false;
+  }
+  $("#changePasswordModal").modal("hide");
 
-	var userProfile = getUserProfileForm();
+  var userProfile = getUserProfileForm();
 
-	var request = $.ajax({
-	  url: getAPIURI() + "/changePassword",
-	  contentType: "application/json; charset=utf-8",
-	  type: "POST",
-	  dataType: "text",
-	  processData: false,
-	  headers: {
-		"New-Password": encodeURIComponent(newPassword),
-		Authorization: "Basic " + btoa(userProfile.email + ":" + userProfile.password)
-	  }
-	});
-  
-	request.done(function(data) {
-		userProfile.password = newPassword;
-		setUserProfile(userProfile);
-		setUserProfileForm(userProfile);
-		alert(window.i18n.settings.passwordChanges);
-	});
-  
-	request.fail(function(jqXHR, textStatus, errorThrown) {
-		var status = jqXHR.status;
-		alert(window.i18n.settings.unableToChangePassword + ": " + textStatus + ", " + errorThrown);
-  });  
+  var request = $.ajax({
+    url: getAPIURI() + "/changePassword",
+    contentType: "application/json; charset=utf-8",
+    type: "POST",
+    dataType: "text",
+    processData: false,
+    headers: {
+      "New-Password": encodeURIComponent(newPassword),
+      Authorization:
+        "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+    }
+  });
+
+  request.done(function(data) {
+    userProfile.password = newPassword;
+    setUserProfile(userProfile);
+    setUserProfileForm(userProfile);
+    alert(window.i18n.settings.passwordChanges);
+  });
+
+  request.fail(function(jqXHR, textStatus, errorThrown) {
+    var status = jqXHR.status;
+    alert(
+      window.i18n.settings.unableToChangePassword +
+        ": " +
+        textStatus +
+        ", " +
+        errorThrown
+    );
+  });
   return false;
 }
 
 function onChangePassword() {
-	"use strict";
-	$('#changePasswordModal').modal('show')
-	return false;  
+  "use strict";
+  $("#changePasswordModal").modal("show");
+  return false;
 }
 
 function onLogout() {
-	"use strict";
+  "use strict";
 
-	deleteUserProfile();
-	document.reload();
-	return false;
+  deleteUserProfile();
+  document.reload();
+  return false;
 }
-  
+
 function onLogin() {
   "use strict";
 
@@ -271,13 +290,28 @@ function uploadProfile(userProfile) {
     saveBtnSpinning(false);
     var status = jqXHR.status;
     if (status == 400) {
-      alert(window.i18n.settings.invalidData + ": " + textStatus + ", " + errorThrown);
+      alert(
+        window.i18n.settings.invalidData +
+          ": " +
+          textStatus +
+          ", " +
+          errorThrown
+      );
     } else if (status == 401) {
       badLogin(userProfile);
     } else if (status == 409) {
-      alert(window.i18n.settings.conflict + ": Bahnhofsfotos@deutschlands-Bahnhoefe.de");
+      alert(
+        window.i18n.settings.conflict +
+          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+      );
     } else {
-      alert(window.i18n.settings.profileSavedFailed + ": " + textStatus + ", " + errorThrown);
+      alert(
+        window.i18n.settings.profileSavedFailed +
+          ": " +
+          textStatus +
+          ", " +
+          errorThrown
+      );
     }
   });
 }
@@ -288,7 +322,7 @@ function saveBtnSpinning(spinning) {
   if (spinning) {
     $("#saveProfile .spinner-border").show();
   } else {
-    $("#saveProfile .spinner-border").hide();  
+    $("#saveProfile .spinner-border").hide();
   }
 }
 
@@ -308,9 +342,7 @@ function onSaveProfile() {
   setUserProfile(userProfile);
 
   if (!userProfile.cc0) {
-    alert(
-        window.i18n.settings.acceptCC0
-    );
+    alert(window.i18n.settings.acceptCC0);
     return false;
   }
 
@@ -411,13 +443,13 @@ $(document).ready(function() {
 
   $("#saveProfile .spinner-border").hide();
 
-  $(function(){
-    $('.modal-content').keypress(function(e){
-      if(e.which == 13) {
+  $(function() {
+    $(".modal-content").keypress(function(e) {
+      if (e.which == 13) {
         changePassword();
       }
-    })
-  })
+    });
+  });
 
   login(true);
 });

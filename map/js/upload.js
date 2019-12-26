@@ -80,7 +80,7 @@ $(document).ready(function() {
           event.preventDefault();
           event.stopPropagation();
         } else {
-          startUpload();          
+          startUpload();
         }
         form.classList.add("was-validated");
       },

@@ -1,7 +1,7 @@
-$(document).ready(function () {
-	"use strict";
-	var vars = getQueryParameter();
-	var uploadToken = vars.uploadToken;
+$(document).ready(function() {
+  "use strict";
+  var vars = getQueryParameter();
+  var uploadToken = vars.uploadToken;
   var userProfile = getUserProfile();
 
   if (uploadToken && uploadToken.length > 0) {
@@ -9,5 +9,4 @@ $(document).ready(function () {
     delete userProfile.uploadToken;
     setUserProfile(userProfile);
   }
-
 });
