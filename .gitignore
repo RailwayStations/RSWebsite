@@ -1,2 +1,4 @@
 /vendor/
 /i18n/langcache
+/node_modules/
+

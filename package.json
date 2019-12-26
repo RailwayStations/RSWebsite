@@ -1,0 +1,24 @@
+{
+  "name": "railway-stations-frontend",
+  "version": "1.0.0",
+  "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/078d5d9052634ddcb67b92f3998918c6)](https://www.codacy.com/gh/RailwayStations/RSWebsite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RailwayStations/RSWebsite&amp;utm_campaign=Badge_Grade)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/main.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RailwayStations/RSWebsite.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RailwayStations/RSWebsite/issues"
+  },
+  "homepage": "https://github.com/RailwayStations/RSWebsite#readme",
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.12.0",
+    "prettier": "^1.19.1"
+  }
+}
