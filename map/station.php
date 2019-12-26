@@ -109,31 +109,32 @@ navbar($suffixNavItems);
 
 <main role="main" class="col-12 bd-content station">
 
-        <h2><?= htmlspecialchars($stationName) ?></h2>
-        <?php if (!$active) { ?>
+    <h2><?= htmlspecialchars($stationName) ?></h2>
+    <?php if (!$active) { ?>
         <div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
-        <?php } ?>
+    <?php } ?>
 
-        <?php if ($uploadUrl == '') { ?>
-                    <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
+    <?php if ($uploadUrl == '') { ?>
+        <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
     $photographerUrl
 ) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
     $photographer
 ) ?></span></a>,
-                    <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
+                <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
     $licenseUrl
 ) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
     $license
 ) ?></span></a></small></p>
-        <?php } else { ?>
-                    <p><a href="<?= htmlspecialchars(
-         $uploadUrl
-     ) ?>" title="Eigenes Foto hochladen" data-ajax="false"><em class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
-        <?php } ?>
+    <?php } else { ?>
+        <p><a href="<?= htmlspecialchars(
+            $uploadUrl
+        ) ?>" title="Eigenes Foto hochladen" data-ajax="false"><em
+                        class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
+    <?php } ?>
 
-        <img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
-      $stationPhoto
-  ) ?>" title="<?= htmlspecialchars($photoCaption) ?>"/>
+    <img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
+        $stationPhoto
+    ) ?>" title="<?= htmlspecialchars($photoCaption) ?>"/>
 
 </main>
 

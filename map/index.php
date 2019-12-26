@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="de-DE">
-  <head>
+<head>
 
-      <?php require_once "./header.php"; ?>
-      
-      <title>RailwayStations</title>
+    <?php require_once "./header.php"; ?>
 
-      <link rel="stylesheet" href="css/leaflet.css" />
-      <link rel="stylesheet" href="css/MarkerCluster.css" />
-      <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+    <title>RailwayStations</title>
 
-  </head>
+    <link rel="stylesheet" href="css/leaflet.css"/>
+    <link rel="stylesheet" href="css/MarkerCluster.css"/>
+    <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+
+</head>
 <body>
 
 <?php
@@ -51,22 +51,23 @@ navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
 </main>
 
 
-<div class="modal fade" id="highscore" tabindex="-1" role="dialog" aria-labelledby="<?php echo $highscore; ?>" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="highscoreLabel"><?php echo $highscore; ?></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="highscoreBody">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      </div>
+<div class="modal fade" id="highscore" tabindex="-1" role="dialog" aria-labelledby="<?php echo $highscore; ?>"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="highscoreLabel"><?php echo $highscore; ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="highscoreBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="js/jquery-3.4.1.min.js"></script>
