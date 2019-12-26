@@ -134,7 +134,7 @@ navbar($suffixNavItems);
 
     <img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
         $stationPhoto
-    ) ?>" title="<?= htmlspecialchars($photoCaption) ?>"/>
+    ) ?>" title="<?= htmlspecialchars($photoCaption) ?>" alt="<?= htmlspecialchars($photoCaption) ?>"/>
 
 </main>
 
