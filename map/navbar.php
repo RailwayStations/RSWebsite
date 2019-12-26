@@ -6,45 +6,55 @@
 ) {
     ?>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #9F0C35;">
-    <a class="navbar-brand" href="<?php echo $brandkLink; ?>" active>
-        <img src="images/logo_white.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-        Railway<strong>Stations</strong>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #9F0C35;">
+        <a class="navbar-brand" href="<?php echo $brandkLink; ?>" active>
+            <img src="images/logo_white.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Railway<strong>Stations</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbar">
-        <?php if ($additionalItems !== null) {
-            echo $additionalItems;
-        } ?>
-        <ul class="navbar-nav mr-auto order-sm-1 order-md-0">
-            <?php if ($prefixNavItems !== null) {
-                echo $prefixNavItems;
+        <div class="collapse navbar-collapse" id="navbar">
+            <?php if ($additionalItems !== null) {
+                echo $additionalItems;
             } ?>
+            <ul class="navbar-nav mr-auto order-sm-1 order-md-0">
+                <?php if ($prefixNavItems !== null) {
+                    echo $prefixNavItems;
+                } ?>
 
-            <li class="nav-item">
-                <a class="nav-link p-2" href="settings.php" rel="noopener" aria-label="<?php echo L::navbar_settings; ?>" title="<?php echo L::navbar_settings; ?>"><em class="fas fa-sliders-h"></em></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link p-2" href="faq.php" rel="noopener" aria-label="<?php echo L::navbar_faq; ?>" title="<?php echo L::navbar_faq; ?>"><em class="fas fa-question"></em></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener" aria-label="<?php echo L::navbar_development; ?>" title="<?php echo L::navbar_development; ?>"><em class="fab fa-github"></em></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link p-2" href="impressum.php" rel="noopener" aria-label="<?php echo L::navbar_impressum; ?>" title="<?php echo L::navbar_impressum; ?>"><em class="fas fa-info"></em></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link p-2" href="datenschutz.php" rel="noopener" aria-label="<?php echo L::navbar_privacyPolicy; ?>" title="<?php echo L::navbar_privacyPolicy; ?>"><em class="fas fa-shield-alt"></em></a>
-            </li>
-            <?php if ($suffixNavItems !== null) {
-                echo $suffixNavItems;
-            } ?>
-        </ul>
-    </div>
-</nav>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="settings.php" rel="noopener"
+                       aria-label="<?php echo L::navbar_settings; ?>" title="<?php echo L::navbar_settings; ?>"><em
+                                class="fas fa-sliders-h"></em></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="faq.php" rel="noopener" aria-label="<?php echo L::navbar_faq; ?>"
+                       title="<?php echo L::navbar_faq; ?>"><em class="fas fa-question"></em></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="https://github.com/RailwayStations" rel="noopener"
+                       aria-label="<?php echo L::navbar_development; ?>"
+                       title="<?php echo L::navbar_development; ?>"><em class="fab fa-github"></em></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="impressum.php" rel="noopener"
+                       aria-label="<?php echo L::navbar_impressum; ?>" title="<?php echo L::navbar_impressum; ?>"><em
+                                class="fas fa-info"></em></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="datenschutz.php" rel="noopener"
+                       aria-label="<?php echo L::navbar_privacyPolicy; ?>"
+                       title="<?php echo L::navbar_privacyPolicy; ?>"><em class="fas fa-shield-alt"></em></a>
+                </li>
+                <?php if ($suffixNavItems !== null) {
+                    echo $suffixNavItems;
+                } ?>
+            </ul>
+        </div>
+    </nav>
 
-<?php
+    <?php
 } ?>
