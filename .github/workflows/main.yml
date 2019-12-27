@@ -10,8 +10,10 @@ jobs:
       - uses: actions/checkout@v1
       - name: Validate composer.json and composer.lock
         run: composer validate
-      - name: Install dependencies
+      - name: Install composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Install npm dependencies
+        run: npm ci
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@2.0.0
         env:
