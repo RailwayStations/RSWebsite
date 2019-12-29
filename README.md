@@ -25,12 +25,24 @@ Weitere Domains:
 - [deutschlands-bahnhöfe.de](http://www.xn--deutschlands-bahnhfe-lbc.de/)
 
 Mobile Apps:
-- [Android App](https://play.google.com/store/apps/details?id=de.bahnhoefe.deutschlands.bahnhofsfotos) + [github](https://github.com/RailwayStations/RSAndroidApp)
-- iOS App [github](https://github.com/RailwayStations/Bahnhofsfotos)
+- [Android App](https://play.google.com/store/apps/details?id=de.bahnhoefe.deutschlands.bahnhofsfotos), [F-Droid](https://f-droid.org/de/packages/de.bahnhoefe.deutschlands.bahnhofsfotos/) und [github](https://github.com/RailwayStations/RSAndroidApp)
+- [iOS App](https://apps.apple.com/de/app/bahnhofsfotos/id1476038821) und [github](https://github.com/RailwayStations/Bahnhofsfotos)
 
 REST API
 - [https://api.railway-stations.org](https://api.railway-stations.org)
 - [github](https://github.com/RailwayStations/RSAPI)
+
+## Bauen
+
+Benötigte tools: [PHP-composer](https://getcomposer.org/) und [npm](https://www.npmjs.com/get-npm)
+
+Wenn beide Tools vorhanden sind, dann können sie ausgeführt werden:
+```bash
+composer install
+npm ci
+```
+
+Danach geht es weiter mit der [Umgebung](#umgebung) um die Website in einem Browser anzeigen zu können.
 
 ## Umgebung
 
@@ -44,7 +56,7 @@ Danach steht die Seite unter http://localhost:8088/map zur Verfügung.
 
 ## Deployment
 
-Mit dem Bash Script `./deploy.sh` kann die Seite auf dem Server aktualisiert werden.
+Der `master` Branch wird bei jedem Commit automatisch durch Github Actions gebaut und auf den Server deployed.
 
 ---
 
