@@ -2,3 +2,4 @@
 /i18n/langcache/*.php
 /node_modules/
 /map/assets
+/map/js/map.js

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/main.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css'",
-    "postinstall": "npm run leaflet && npm run leaflet-spin && npm run leaflet-markercluster && npm run bs-custom-file-input && npm run jquery-autocomplete && npm run jquery && npm run popper && npm run bootstrap && npm run font-awesome",
+    "postinstall": "npm run leaflet && npm run leaflet-spin && npm run leaflet-markercluster && npm run bs-custom-file-input && npm run jquery-autocomplete && npm run jquery && npm run popper && npm run bootstrap && npm run font-awesome && npm run webpack",
     "leaflet": "mkdir -p ./map/assets/leaflet && cp -r node_modules/leaflet/dist/* map/assets/leaflet/",
     "leaflet-spin": "mkdir -p ./map/assets/leaflet-spin && mkdir -p ./map/assets/spin && cp -r node_modules/leaflet-spin/leaflet.spin.* map/assets/leaflet-spin/ && cp -r node_modules/spin.js/spin.* map/assets/spin/",
     "leaflet-markercluster": "mkdir -p ./map/assets/leaflet-markercluster && cp -r node_modules/leaflet.markercluster/dist/* map/assets/leaflet-markercluster/",
@@ -15,7 +15,9 @@
     "jquery": "mkdir -p ./map/assets/jquery && cp -r node_modules/jquery/dist/* map/assets/jquery/",
     "popper": "mkdir -p ./map/assets/popper && cp -r node_modules/popper.js/dist/* map/assets/popper/",
     "bootstrap": "mkdir -p ./map/assets/bootstrap && cp -r node_modules/bootstrap/dist/* map/assets/bootstrap/",
-    "font-awesome": "mkdir -p ./map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/css/all*.css map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/webfonts map/assets/font-awesome/"
+    "font-awesome": "mkdir -p ./map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/css/all*.css map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/webfonts map/assets/font-awesome/",
+    "webpack": "webpack --mode production",
+    "webpack-watch": "webpack --mode development --watch"
   },
   "repository": {
     "type": "git",
@@ -28,8 +30,13 @@
   },
   "homepage": "https://github.com/RailwayStations/RSWebsite#readme",
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
     "@prettier/plugin-php": "^0.12.0",
-    "prettier": "^1.19.1"
+    "babel-loader": "^8.0.6",
+    "prettier": "^1.19.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.12.0",
