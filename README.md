@@ -63,4 +63,3 @@ Der `master` Branch wird bei jedem Commit automatisch durch Github Actions gebau
 ## Lizenz
 
 Die Webseite ist unter MIT lizensiert. Die Bilder sind größtenteils unter CC-0, einige auch unter CC-BY lizensiert.
-
