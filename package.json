@@ -5,7 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/main.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css'"
+    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/main.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css'",
+    "postinstall": "npm run leaflet && npm run leaflet-spin && npm run leaflet-markercluster && npm run bs-custom-file-input && npm run jquery-autocomplete && npm run jquery && npm run popper && npm run bootstrap && npm run font-awesome",
+    "leaflet": "mkdir -p ./map/assets/leaflet && cp -r node_modules/leaflet/dist/* map/assets/leaflet/",
+    "leaflet-spin": "mkdir -p ./map/assets/leaflet-spin && mkdir -p ./map/assets/spin && cp -r node_modules/leaflet-spin/leaflet.spin.* map/assets/leaflet-spin/ && cp -r node_modules/spin.js/spin.* map/assets/spin/",
+    "leaflet-markercluster": "mkdir -p ./map/assets/leaflet-markercluster && cp -r node_modules/leaflet.markercluster/dist/* map/assets/leaflet-markercluster/",
+    "bs-custom-file-input": "mkdir -p ./map/assets/bs-custom-file-input && cp -r node_modules/bs-custom-file-input/dist/* map/assets/bs-custom-file-input/",
+    "jquery-autocomplete": "mkdir -p ./map/assets/jquery-autocomplete && cp -r node_modules/jQuery-Autocomplete/dist/* map/assets/jquery-autocomplete/",
+    "jquery": "mkdir -p ./map/assets/jquery && cp -r node_modules/jquery/dist/* map/assets/jquery/",
+    "popper": "mkdir -p ./map/assets/popper && cp -r node_modules/popper.js/dist/* map/assets/popper/",
+    "bootstrap": "mkdir -p ./map/assets/bootstrap && cp -r node_modules/bootstrap/dist/* map/assets/bootstrap/",
+    "font-awesome": "mkdir -p ./map/assets/font-awesome && cp -r node_modules/@fortawesome/fontawesome-free/css/all*.css map/assets/font-awesome/"
   },
   "repository": {
     "type": "git",
@@ -20,5 +30,16 @@
   "devDependencies": {
     "@prettier/plugin-php": "^0.12.0",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.12.0",
+    "bootstrap": "^4.4.1",
+    "bs-custom-file-input": "^1.3.2",
+    "jQuery-Autocomplete": "https://github.com/devbridge/jQuery-Autocomplete.git#v1.4.10",
+    "jquery": "^3.4.1",
+    "leaflet": "^1.6.0",
+    "leaflet-spin": "^1.1.0",
+    "leaflet.markercluster": "^1.4.1",
+    "popper.js": "^1.16.0"
   }
 }
