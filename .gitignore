@@ -3,3 +3,7 @@
 /node_modules/
 /map/assets
 /map/js/map.js
+/map/css/map.css
+/map/images/layers-2x.png
+/map/images/layers.png
+/map/images/marker-icon.png

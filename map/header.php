@@ -10,8 +10,6 @@ $i18n->init();
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 
-<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 <link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="./images/apple-icon-72x72.png">
@@ -26,6 +24,7 @@ $i18n->init();
 <link rel="icon" type="image/png" sizes="96x96" href="./images/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
 
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="assets/font-awesome/css/all.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <script src="js/i18n.js"></script>

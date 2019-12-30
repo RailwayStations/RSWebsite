@@ -1,0 +1,116 @@
+.leaflet-popup-content {
+  color: #9f0c35 !important;
+  text-decoration: none;
+}
+
+.leaflet-container img {
+  height: auto;
+}
+
+.leaflet-popup-content a:link,
+.leaflet-popup-content a:visited,
+.leaflet-popup-content a:active,
+.leaflet-popup-content a:hover,
+.leaflet-popup-content a:focus {
+  color: #9f0c35 !important;
+  text-decoration: none;
+}
+
+body {
+  padding-top: 3.5rem;
+}
+
+svg.circle {
+  border-radius: 50%;
+  transform: rotate(-90deg);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+svg.circle .pie {
+  fill: #b70e3d;
+  stroke: #3db70e;
+  stroke-width: 32;
+}
+
+.showCluster .marker-cluster-large {
+  background: #b70e3d !important;
+}
+
+.marker-cluster span:nth-child(1) {
+  position: absolute;
+  left: 0px;
+  width: 40px;
+  line-height: 25px;
+  color: #fff;
+  z-index: 300;
+}
+
+.marker-cluster span:nth-child(2) {
+  line-height: 10px;
+  font-size: 9px;
+  position: absolute;
+  left: 0px;
+  width: 40px;
+  text-align: center;
+  top: 24px;
+  color: #fff;
+  z-index: 300;
+}
+
+.autocomplete-suggestions {
+  border: 1px solid #999;
+  background: #fff;
+  overflow: auto;
+}
+.autocomplete-suggestion {
+  padding: 2px 5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.autocomplete-selected {
+  background: #f0f0f0;
+}
+.autocomplete-suggestions strong {
+  font-weight: normal;
+  color: #3399ff;
+}
+.autocomplete-group {
+  padding: 2px 5px;
+}
+.autocomplete-group strong {
+  display: block;
+  border-bottom: 1px solid #000;
+}
+
+#highscoreLabel {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #9f0c35;
+  font-family: "Open Sans", sans-serif;
+}
+
+#countries {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.station a,
+.name a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+#providerAppsBody a,
+.card-title a,
+.card-text a {
+  color: #9f0c35 !important;
+}
+
+.btn-primary {
+  background-color: #9f0c35 !important;
+  border-color: #9f0c35 !important;
+}

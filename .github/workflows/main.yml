@@ -22,4 +22,4 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           REMOTE_DIR: map
           METHOD: sftp
-          ARGS: --delete-excluded --exclude=.sonarcloud.properties --exclude-glob=.git*/** --exclude-glob=.git** --exclude-glob=composer* --exclude-glob=package* --exclude-glob=node_modules/**
+          ARGS: --delete-excluded --exclude=.sonarcloud.properties --exclude-glob=.git*/** --exclude-glob=.git** --exclude-glob=composer* --exclude-glob=package* --exclude-glob=node_modules/** --exclude-glob=js/  --exclude-glob=css/ 
