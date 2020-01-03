@@ -49,6 +49,7 @@ Danach geht es weiter mit der [Umgebung](#umgebung) um die Website in einem Brow
 Die Seite benötigt eine PHP Umgebung (ab 5.6). Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
 
 ```sh
+chmod go+w i18n/langcache
 docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:7.2-apache
 ```
 
