@@ -90,7 +90,7 @@ function showPopup(feature, layer) {
       '" data-ajax="false"><h2 style="text-align:center;">' +
       feature.properties.title +
       "</h2></a>";
-    str += "<div>Hier fehlt noch ein Foto.</div>";
+    str += "<div>" + window.i18n.index.missingPhoto + ".</div>";
     str +=
       '<div><a href="upload.php?countryCode=' +
       feature.properties.country +
@@ -109,11 +109,11 @@ function showPopup(feature, layer) {
     feature.properties.lat +
     "," +
     feature.properties.lon +
-    ');"><i class="fas fa-directions"> Navigiere</i></a>, ';
+    ');"><i class="fas fa-directions"> ' + window.i18n.index.navigation + '</i></a>, ';
   str +=
     '<a href="#" onclick="timetableByStation(\'' +
     feature.properties.idStr +
-    '\');"><i class="fas fa-list"> Abfahrtszeiten</i></a></div>';
+    '\');"><i class="fas fa-list"> ' + window.i18n.index.departureTimes + '</i></a></div>';
 
   if (null === popup) {
     popup = L.popup();
@@ -143,7 +143,7 @@ function showMissingStationPopup(mouseEvent) {
     mouseEvent.latlng.lat +
     "&longitude=" +
     mouseEvent.latlng.lng +
-    '" title="Foto hochladen" data-ajax="false"><i class="fas fa-upload"> Lade Dein Foto hoch.</i></a></div>';
+    '" title="' + window.i18n.index.uploadPhoto + '" data-ajax="false"><i class="fas fa-upload"> ' + window.i18n.index.uploadYourPhoto + '.</i></a></div>';
 
   if (null === popup) {
     popup = L.popup();

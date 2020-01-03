@@ -44,7 +44,7 @@ $(document).ready(function() {
   var userProfile = getUserProfile();
 
   if (stationId) {
-    $("#title-form").html("Upload Foto für " + title);
+    $("#title-form").html(window.i18n.upload.uploadPhotoFor + " " + title);
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $(".missing-station").hide();
