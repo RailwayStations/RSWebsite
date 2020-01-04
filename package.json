@@ -13,7 +13,7 @@
     "popper": "mkdir -p ./map/assets/popper && cp -r node_modules/popper.js/dist/* map/assets/popper/",
     "bootstrap": "mkdir -p ./map/assets/bootstrap && cp -r node_modules/bootstrap/dist/* map/assets/bootstrap/",
     "font-awesome": "mkdir -p ./map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/css/all*.css map/assets/font-awesome/css && cp -r node_modules/@fortawesome/fontawesome-free/webfonts map/assets/font-awesome/",
-    "webpack": "webpack --mode production",
+    "webpack": "webpack --mode production && ls -la map/js",
     "webpack-watch": "webpack --mode development --watch"
   },
   "repository": {
