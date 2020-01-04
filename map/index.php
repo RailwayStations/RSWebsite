@@ -6,9 +6,7 @@
 
     <title>RailwayStations</title>
 
-    <link rel="stylesheet" href="assets/leaflet/leaflet.css"/>
-    <link rel="stylesheet" href="assets/leaflet-markercluster/MarkerCluster.css"/>
-    <link rel="stylesheet" href="assets/leaflet-markercluster/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="css/map.css"/>
 
 </head>
 <body>
@@ -70,19 +68,7 @@ navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
     </div>
 </div>
 
-<script src="assets/jquery/jquery.min.js"></script>
-<script src="assets/jquery-autocomplete/jquery.autocomplete.min.js"></script>
-
-<script src="assets/popper/popper.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="assets/leaflet/leaflet.js"></script>
-<script src="assets/spin/spin.min.js"></script>
-<script src="assets/leaflet-spin/leaflet.spin.min.js"></script>
-<script src="assets/leaflet-markercluster/leaflet.markercluster.js"></script>
-
-<script src="js/common.js"></script>
-<script src="js/main.js"></script>
+<script src="js/map.js"></script>
 
 </body>
 </html>

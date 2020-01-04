@@ -1,27 +1,46 @@
-/*jslint browser: true*/
-/*global $,L*/
+import "../css/map.css";
 
-//-----------------------------------------------------------------------
+import $ from "jquery";
+import "leaflet";
+import "leaflet.markercluster";
+import { Spinner } from "spin.js";
+import "leaflet-spin/leaflet.spin";
+import "jQuery-Autocomplete";
+import "popper.js";
+import "bootstrap";
+import {
+  getQueryParameter,
+  getCountryCode,
+  getUserProfile,
+  fetchCountries,
+  getAPIURI,
+  getBoolFromLocalStorage,
+  scaleImage,
+  setCountryCode
+} from "./common";
 
-var dataBahnhoefe = null,
+window.$ = $;
+window.Spinner = Spinner;
+
+let dataBahnhoefe = null,
   map = null,
   markers = null,
-  ownMarker = null;
-(popup = null), (nickname = "");
-
-var watchLocation = false;
+  ownMarker = null,
+  popup = null,
+  nickname = "",
+  watchLocation = false;
 
 function toggleLocation() {
   "use strict";
 
-  if (!watchLocation) {
-    map.locate({ watch: true });
-    watchLocation = true;
-    $("#location_watch_toggle").addClass("active");
-  } else {
+  if (watchLocation) {
     map.stopLocate();
     watchLocation = false;
     $("#location_watch_toggle").removeClass("active");
+  } else {
+    map.locate({ watch: true });
+    watchLocation = true;
+    $("#location_watch_toggle").addClass("active");
   }
 }
 
@@ -29,7 +48,7 @@ function timetableByStation(stationId) {
   "use strict";
 
   for (var i = 0; i < dataBahnhoefe.length; ++i) {
-    if (dataBahnhoefe[i].idStr == stationId) {
+    if (dataBahnhoefe[i].idStr === stationId) {
       var station = dataBahnhoefe[i];
       timetable(station.country, station.idStr, station.title, station.DS100);
       return;
@@ -109,11 +128,15 @@ function showPopup(feature, layer) {
     feature.properties.lat +
     "," +
     feature.properties.lon +
-    ');"><i class="fas fa-directions"> ' + window.i18n.index.navigation + '</i></a>, ';
+    ');"><i class="fas fa-directions"> ' +
+    window.i18n.index.navigation +
+    "</i></a>, ";
   str +=
     '<a href="#" onclick="timetableByStation(\'' +
     feature.properties.idStr +
-    '\');"><i class="fas fa-list"> ' + window.i18n.index.departureTimes + '</i></a></div>';
+    '\');"><i class="fas fa-list"> ' +
+    window.i18n.index.departureTimes +
+    "</i></a></div>";
 
   if (null === popup) {
     popup = L.popup();
@@ -143,7 +166,11 @@ function showMissingStationPopup(mouseEvent) {
     mouseEvent.latlng.lat +
     "&longitude=" +
     mouseEvent.latlng.lng +
-    '" title="' + window.i18n.index.uploadPhoto + '" data-ajax="false"><i class="fas fa-upload"> ' + window.i18n.index.uploadYourPhoto + '.</i></a></div>';
+    '" title="' +
+    window.i18n.index.uploadPhoto +
+    '" data-ajax="false"><i class="fas fa-upload"> ' +
+    window.i18n.index.uploadYourPhoto +
+    ".</i></a></div>";
 
   if (null === popup) {
     popup = L.popup();
@@ -282,7 +309,7 @@ function getStationsURL() {
   return getAPIURI() + getCountryCode() + "/stations";
 }
 
-function switchCountryLink(countryCode) {
+export function switchCountryLink(countryCode) {
   "use strict";
 
   setCountryCode(countryCode);
@@ -298,12 +325,6 @@ function switchCountryLink(countryCode) {
 
     updateMarker(getBoolFromLocalStorage("showPoints", false));
   });
-}
-
-function switchCountry() {
-  "use strict";
-
-  switchCountryLink($("#country").val());
 }
 
 function getPhotoCount() {
@@ -438,20 +459,15 @@ function initCountry() {
       return a.name.localeCompare(b.name);
     });
 
-    for (var i = 0; i < countries.length; ++i) {
-      menuItems +=
-        '<a class="dropdown-item" href="javascript:switchCountryLink(\'' +
-        countries[i].code +
-        '\');" title="' +
-        countries[i].name +
-        '">' +
-        countries[i].name +
-        "</a>";
-      if (countries[i].code == currentCountry) {
-        $("#country").html(countries[i].name);
-        document.title = "RailwayStations - " + countries[i].name;
+    countries.forEach(country => {
+      let code = country.code;
+      let name = country.name;
+      menuItems += `<a class="dropdown-item" href="javascript:map.switchCountryLink('${code}');" title="${name}">${name}</a>`;
+      if (code === currentCountry) {
+        $("#country").html(name);
+        document.title = `RailwayStations - ${name}`;
       }
-    }
+    });
 
     menu.html(menuItems);
   });
