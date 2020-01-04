@@ -42,6 +42,11 @@ composer install
 npm ci
 ```
 
+Der Code sollte formatiert gepusht werden:
+```bash
+npm run format
+```
+
 Danach geht es weiter mit der [Umgebung](#umgebung) um die Website in einem Browser anzeigen zu können.
 
 ## Umgebung
