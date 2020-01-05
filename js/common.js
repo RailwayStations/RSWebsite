@@ -1,3 +1,7 @@
+import Popper from 'popper.js'
+
+window.Popper = Popper;
+
 export function getBoolFromLocalStorage(key, defaultVal) {
   const value = localStorage.getItem(key);
   if (value == null) {

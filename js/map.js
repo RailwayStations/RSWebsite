@@ -6,21 +6,20 @@ import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "jQuery-Autocomplete";
-import "popper.js";
-import "bootstrap";
 import {
-  getQueryParameter,
-  getCountryCode,
-  getUserProfile,
-  fetchCountries,
-  getAPIURI,
-  getBoolFromLocalStorage,
-  scaleImage,
-  setCountryCode,
-  getCountryByCode,
-  navigate,
-  timetable
+    getQueryParameter,
+    getCountryCode,
+    getUserProfile,
+    fetchCountries,
+    getAPIURI,
+    getBoolFromLocalStorage,
+    scaleImage,
+    setCountryCode,
+    getCountryByCode,
+    navigate,
+    timetable
 } from "./common";
+import "bootstrap";
 
 window.$ = $;
 window.Spinner = Spinner;

@@ -1,6 +1,6 @@
 import $ from "jquery";
-import "bootstrap";
 import { getQueryParameter, setUserProfile } from "./common";
+import "bootstrap";
 
 $(document).ready(function() {
   const vars = getQueryParameter();

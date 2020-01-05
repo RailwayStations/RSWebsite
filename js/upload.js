@@ -1,6 +1,12 @@
-/*jslint browser: true*/
-/*global $,L*/
-//-----------------------------------------------------------------------
+import $ from "jquery";
+import bsCustomFileInput from "bs-custom-file-input";
+import {
+  getAPIURI,
+  getQueryParameter,
+  getUserProfile,
+  isBlank
+} from "./common";
+import "bootstrap";
 
 function startUpload() {
   $("#upload-process").modal("show");
@@ -8,7 +14,7 @@ function startUpload() {
 }
 
 function stopUpload(message) {
-  var result = message;
+  let result = message;
   if (result.startsWith("202")) {
     result = window.i18n.upload.successful;
   } else if (result.startsWith("400")) {
@@ -34,23 +40,22 @@ function receiveMessage(event) {
 }
 
 $(document).ready(function() {
-  "use strict";
-  var vars = getQueryParameter();
-  var stationId = vars.stationId;
-  var countryCode = vars.countryCode;
-  var latitude = vars.latitude;
-  var longitude = vars.longitude;
-  var title = vars.title;
-  var userProfile = getUserProfile();
+  const queryParameters = getQueryParameter();
+  const stationId = queryParameters.stationId;
+  const countryCode = queryParameters.countryCode;
+  const latitude = queryParameters.latitude;
+  const longitude = queryParameters.longitude;
+  const title = queryParameters.title;
+  const userProfile = getUserProfile();
 
   if (stationId) {
     $("#title-form").html(window.i18n.upload.uploadPhotoFor + " " + title);
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $(".missing-station").hide();
-    $("#inputLatitude").attr("required", false);
-    $("#inputLongitude").attr("required", false);
-    $("#inputStationTitle").attr("required", false);
+    $("#inputLatitude").removeAttr("required");
+    $("#inputLongitude").removeAttr("required");
+    $("#inputStationTitle").removeAttr("required");
   } else {
     $("#inputLatitude").val(latitude);
     $("#inputLongitude").val(longitude);
@@ -59,9 +64,9 @@ $(document).ready(function() {
   $("#email").val(userProfile.email);
   $("#uploadToken").val(userProfile.password);
 
-  var uploadDisabled =
-    isBlank(userProfile.email) || isBlank(userProfile.password);
-  $("#fileInput").attr("disabled", uploadDisabled);
+    const uploadDisabled =
+        isBlank(userProfile.email) || isBlank(userProfile.password);
+    $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.php";
@@ -70,9 +75,9 @@ $(document).ready(function() {
   }
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.getElementsByClassName("needs-validation");
+  const forms = document.getElementsByClassName("needs-validation");
   // Loop over them and prevent submission
-  var validation = Array.prototype.filter.call(forms, function(form) {
+  const validation = Array.prototype.filter.call(forms, function(form) {
     form.addEventListener(
       "submit",
       function(event) {

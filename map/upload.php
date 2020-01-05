@@ -98,12 +98,6 @@ navbar();
     </div>
 </div>
 
-<script src="assets/jquery/jquery.min.js"></script>
-<script src="assets/popper/popper.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="js/common.js"></script>
-<script src="assets/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script src="js/upload.js"></script>
 </body>
 </html>

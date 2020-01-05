@@ -1,6 +1,6 @@
 import $ from "jquery";
-import "bootstrap";
 import { getAPIURI, getQueryParameter, scaleImage } from "./common";
+import "bootstrap";
 
 window.$ = $;
 
