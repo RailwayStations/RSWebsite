@@ -1,5 +1,6 @@
+<?php require_once "./i18n.php"; ?>
 <!doctype html>
-<html lang="de-DE">
+<html lang="<?php echo $i18n->getAppliedLang()?>">
 <head>
     <meta name="description" content="Einstellungen - RailwayStations">
     <title>Einstellungen - RailwayStations</title>
