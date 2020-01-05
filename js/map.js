@@ -17,11 +17,14 @@ import {
   getBoolFromLocalStorage,
   scaleImage,
   setCountryCode,
-  getCountryByCode
+  getCountryByCode,
+  navigate,
+  timetable
 } from "./common";
 
 window.$ = $;
 window.Spinner = Spinner;
+window.navigate = navigate;
 
 let dataBahnhoefe = null,
   map = null,
@@ -45,7 +48,7 @@ export function toggleLocation() {
   }
 }
 
-function timetableByStation(stationId) {
+export function timetableByStation(stationId) {
   "use strict";
 
   for (var i = 0; i < dataBahnhoefe.length; ++i) {
@@ -133,7 +136,7 @@ function showPopup(feature, layer) {
     window.i18n.index.navigation +
     "</i></a>, ";
   str +=
-    '<a href="#" onclick="timetableByStation(\'' +
+    '<a href="#" onclick="map.timetableByStation(\'' +
     feature.properties.idStr +
     '\');"><i class="fas fa-list"> ' +
     window.i18n.index.departureTimes +
