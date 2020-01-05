@@ -32,7 +32,8 @@ let dataBahnhoefe = null,
   ownMarker = null,
   popup = null,
   nickname = "",
-  watchLocation = false;
+  watchLocation = false,
+  setzoomlevel = false;
 
 export function toggleLocation() {
   "use strict";
@@ -46,6 +47,41 @@ export function toggleLocation() {
     watchLocation = true;
     $("#location_watch_toggle").addClass("active");
   }
+}
+
+export function setLastZoomLevel(zoomLevel) {
+  "use strict";
+  if (zoomLevel != null) {
+    localStorage.setItem("zoomLevel", zoomLevel);
+  } else {
+    localStorage.removeItem("zoomLevel");
+  }
+}
+
+export function getLastZoomLevel() {
+  "use strict";
+  return localStorage.getItem("zoomLevel");
+}
+
+export function setLastPos(lastPos) {
+  "use strict";
+  if (lastPos != null) {
+    localStorage.setItem("lastPosLat", lastPos.lat);
+    localStorage.setItem("lastPosLng", lastPos.lng);
+  } else {
+    localStorage.removeItem("lastPosLat");
+    localStorage.removeItem("lastPosLng");
+  }
+}
+
+export function getLastPos() {
+  "use strict";
+  var lat = localStorage.getItem("lastPosLat");
+  var lng = localStorage.getItem("lastPosLng");
+  if (lat != null && lng != null) {
+    return L.latLng(lat, lng);
+  }
+  return null;
 }
 
 export function timetableByStation(stationId) {
@@ -186,6 +222,22 @@ function showMissingStationPopup(mouseEvent) {
     .openOn(map);
 }
 
+function setMapViewport(markerBounds) {
+  "use strict";
+
+  if (getLastZoomLevel() != null) {
+    setzoomlevel = true;
+    map.setZoom(getLastZoomLevel());
+    setzoomlevel = false;
+  }
+
+  if (getLastPos() != null) {
+    map.panTo(getLastPos());
+  } else {
+    map.fitBounds(markerBounds); //set view on the cluster extend
+  }
+}
+
 function showMarkerImagesClustered() {
   "use strict";
 
@@ -259,7 +311,8 @@ function showMarkerImagesClustered() {
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   map.addLayer(markers); // add it to the map
-  map.fitBounds(markers.getBounds()); //set view on the cluster extend
+
+  setMapViewport(markers.getBounds());
 }
 
 function showCircleAllClustered() {
@@ -294,7 +347,8 @@ function showCircleAllClustered() {
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   map.addLayer(markers); // add it to the map
-  //	map.fitBounds(markers.getBounds()); //set view on the cluster extend
+
+  setMapViewport(bahnhoefe.getBounds());
 }
 
 function updateMarker(showPoints) {
@@ -327,6 +381,8 @@ export function switchCountryLink(countryCode) {
   $.getJSON(getStationsURL(), function(featureCollection) {
     dataBahnhoefe = featureCollection;
 
+    setLastZoomLevel(null);
+    setLastPos(null);
     updateMarker(getBoolFromLocalStorage("showPoints", false));
   });
 }
@@ -510,7 +566,7 @@ $(document).ready(function() {
       }
     ),
     countryCode = getCountryCode();
-  map = L.map("map").setView([50.9730622, 10.9603269], 6);
+  map = L.map("map");
 
   basemap.addTo(map);
   map.spin(true);
@@ -554,6 +610,14 @@ $(document).ready(function() {
         $("#location_watch_toggle").removeClass("active");
         console.log("Position konnte nicht ermittelt werden");
       });
+      map.on("zoomend", function(ev) {
+        if (!setzoomlevel) {
+          setLastZoomLevel(map.getZoom());
+        }
+      });
+      map.on("moveend", function(ev) {
+        setLastPos(map.getCenter());
+      });
     })
     .fail(function(xhr) {
       alert("error");
@@ -587,7 +651,7 @@ $(document).ready(function() {
       });
       result.suggestions.sort((a, b) => {
         return searchWeight(query, b) - searchWeight(query, a);
-      })
+      });
       done(result);
     },
     onSelect: function(suggestion) {
