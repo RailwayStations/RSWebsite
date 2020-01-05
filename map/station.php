@@ -71,9 +71,10 @@ try {
 } catch (Exception $e) {
     $photoCaption = 'Fehler beim Laden der Station';
 }
-require_once "../php/i18n.php"; ?>
+require_once "../php/i18n.php";
+?>
 <!doctype html>
-<html lang="<?php echo $i18n->getAppliedLang()?>">
+<html lang="<?php echo $i18n->getAppliedLang(); ?>">
 <head>
     <meta property="og:image" content="<?= htmlspecialchars($stationPhoto) ?>"/>
     <title><?= htmlspecialchars($stationName) ?> - RailwayStations</title>

@@ -1,6 +1,6 @@
 <?php require_once "../php/i18n.php"; ?>
 <!doctype html>
-<html lang="<?php echo $i18n->getAppliedLang()?>">
+<html lang="<?php echo $i18n->getAppliedLang(); ?>">
 <head>
 
     <?php require_once "../php/header.php"; ?>
