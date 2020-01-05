@@ -474,6 +474,22 @@ function initCountry() {
   });
 }
 
+function searchWeight(query, suggestion) {
+  "use strict";
+
+  var weight = 0;
+
+  if (suggestion.data === query) {
+    weight = 3;
+  } else if (suggestion.value.toLowerCase() === query.toLowerCase()) {
+    weight = 2;
+  } else if (suggestion.value.toLowerCase().startsWith(query.toLowerCase())) {
+    weight = 1;
+  }
+
+  return weight;
+}
+
 $(document).ready(function() {
   "use strict";
 
@@ -555,7 +571,7 @@ $(document).ready(function() {
     lookup: function(query, done) {
       var matcher = new RegExp(query, "i");
       var filtered = dataBahnhoefe.filter(function(bahnhof) {
-        return matcher.test(bahnhof.title) || matcher.test(bahnhof.idStr);
+        return matcher.test(bahnhof.title) || bahnhof.idStr === query;
       });
       var result = {
         suggestions: []
@@ -566,6 +582,9 @@ $(document).ready(function() {
           data: value.idStr
         };
       });
+      result.suggestions.sort((a, b) => {
+        return searchWeight(query, b) - searchWeight(query, a);
+      })
       done(result);
     },
     onSelect: function(suggestion) {
