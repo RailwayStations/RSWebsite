@@ -565,7 +565,7 @@ $(document).ready(function() {
       }
     ),
     countryCode = getCountryCode();
-  
+
   const lastPos = getLastPos();
   const mapCenter = !lastPos ? L.latLng(50.9730622, 10.9603269) : lastPos;
   const lastZoomLevel = getLastZoomLevel();

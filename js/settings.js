@@ -1,6 +1,7 @@
 import $ from "jquery";
 import {
-  deleteUserProfile, getAPIURI,
+  deleteUserProfile,
+  getAPIURI,
   getBoolFromLocalStorage,
   getUserProfile,
   isBlank,
