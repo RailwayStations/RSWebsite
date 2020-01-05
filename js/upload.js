@@ -64,9 +64,9 @@ $(document).ready(function() {
   $("#email").val(userProfile.email);
   $("#uploadToken").val(userProfile.password);
 
-    const uploadDisabled =
-        isBlank(userProfile.email) || isBlank(userProfile.password);
-    $("#fileInput").attr("disabled", uploadDisabled);
+  const uploadDisabled =
+    isBlank(userProfile.email) || isBlank(userProfile.password);
+  $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.php";

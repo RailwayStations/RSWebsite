@@ -1,7 +1,15 @@
-/*jslint browser: true*/
-/*global $,L*/
-//-----------------------------------------------------------------------
-var loggedIn = false;
+import $ from "jquery";
+import {
+  deleteUserProfile, getAPIURI,
+  getBoolFromLocalStorage,
+  getUserProfile,
+  isBlank,
+  isNotBlank,
+  setUserProfile
+} from "./common";
+import "bootstrap";
+
+let loggedIn = false;
 
 function register(userProfile, passwordResetOnly) {
   "use strict";
@@ -35,21 +43,14 @@ function register(userProfile, passwordResetOnly) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        window.i18n.settings.invalidData +
-          ": " +
-          textStatus +
-          ", " +
-          errorThrown
+        `${window.i18n.settings.invalidData}: ${textStatus}, ${errorThrown}`
       );
     } else if (status == 409) {
       alert(
-        window.i18n.settings.conflict +
-          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+        `${window.i18n.settings.conflict}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else {
-      alert(
-        window.i18n.settings.conflict + ": " + textStatus + ", " + errorThrown
-      );
+      alert(`${window.i18n.settings.conflict}: ${textStatus}, ${errorThrown}`);
     }
   });
 }
@@ -76,15 +77,12 @@ function resetPassword(nameOrEmail) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        window.i18n.settings.missingEMail +
-          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+        `${window.i18n.settings.missingEMail}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else if (status == 404) {
       alert(window.i18n.settings.noProfileFound);
     } else {
-      alert(
-        window.i18n.settings.error + ": " + textStatus + ", " + errorThrown
-      );
+      alert(`${window.i18n.settings.error}: ${textStatus}, ${errorThrown}`);
     }
   });
 }
@@ -143,23 +141,19 @@ function changePassword() {
   request.fail(function(jqXHR, textStatus, errorThrown) {
     var status = jqXHR.status;
     alert(
-      window.i18n.settings.unableToChangePassword +
-        ": " +
-        textStatus +
-        ", " +
-        errorThrown
+      `${window.i18n.settings.unableToChangePassword}: ${textStatus}, ${errorThrown}`
     );
   });
   return false;
 }
 
-function onChangePassword() {
+export function onChangePassword() {
   "use strict";
   $("#changePasswordModal").modal("show");
   return false;
 }
 
-function onLogout() {
+export function onLogout() {
   "use strict";
 
   deleteUserProfile();
@@ -167,7 +161,7 @@ function onLogout() {
   return false;
 }
 
-function onLogin() {
+export function onLogin() {
   "use strict";
 
   var email = $("#loginEmail").val();
@@ -233,7 +227,7 @@ function badLogin(userProfile) {
   alert(window.i18n.settings.loginFailed);
 }
 
-function togglePoints() {
+export function togglePoints() {
   "use strict";
 
   $("#togglePoints")
@@ -301,16 +295,11 @@ function uploadProfile(userProfile) {
       badLogin(userProfile);
     } else if (status == 409) {
       alert(
-        window.i18n.settings.conflict +
-          ": Bahnhofsfotos@deutschlands-Bahnhoefe.de"
+        `${window.i18n.settings.conflict}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else {
       alert(
-        window.i18n.settings.profileSavedFailed +
-          ": " +
-          textStatus +
-          ", " +
-          errorThrown
+        `${window.i18n.settings.profileSavedFailed}: ${textStatus}, ${errorThrown}`
       );
     }
   });
@@ -335,7 +324,7 @@ function isURL(str) {
   }
 }
 
-function onSaveProfile() {
+export function onSaveProfile() {
   "use strict";
 
   var userProfile = getUserProfileForm();
@@ -385,7 +374,7 @@ function onSaveProfile() {
   return false;
 }
 
-function onNewRegistration() {
+export function onNewRegistration() {
   "use strict";
 
   $(".login-form").hide();

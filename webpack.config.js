@@ -6,7 +6,8 @@ module.exports = {
     map: "./js/map.js",
     photographer: "./js/photographer.js",
     updatePassword: "./js/updatePassword.js",
-    upload: "./js/upload.js"
+    upload: "./js/upload.js",
+    settings: "./js/settings.js"
   },
   module: {
     rules: [

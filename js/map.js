@@ -7,17 +7,17 @@ import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "jQuery-Autocomplete";
 import {
-    getQueryParameter,
-    getCountryCode,
-    getUserProfile,
-    fetchCountries,
-    getAPIURI,
-    getBoolFromLocalStorage,
-    scaleImage,
-    setCountryCode,
-    getCountryByCode,
-    navigate,
-    timetable
+  getQueryParameter,
+  getCountryCode,
+  getUserProfile,
+  fetchCountries,
+  getAPIURI,
+  getBoolFromLocalStorage,
+  scaleImage,
+  setCountryCode,
+  getCountryByCode,
+  navigate,
+  timetable
 } from "./common";
 import "bootstrap";
 
@@ -565,7 +565,7 @@ $(document).ready(function() {
       }
     ),
     countryCode = getCountryCode();
-  map = L.map("map");
+  map = L.map("map").setView([50.9730622, 10.9603269], 6);
 
   basemap.addTo(map);
   map.spin(true);

@@ -51,11 +51,11 @@ $submit = L::settings_submit;
         </div>
         <div class="form-group login-form">
             <button id="loginButton" name="loginBtn" class="btn btn-primary"
-                    onclick="return onLogin();"><?php echo $login; ?></button>&nbsp;<button id="resetPasswordButton"
+                    onclick="return settings.onLogin();"><?php echo $login; ?></button>&nbsp;<button id="resetPasswordButton"
                                                                                             name="resetPasswordBtn"
                                                                                             class="btn btn-primary"
                                                                                             onclick="return onResetPassword();"><?php echo $resetPassword; ?></button>
-            <p class="name"><a href="javascript:onNewRegistration();"><?php echo $register; ?></a></p>
+            <p class="name"><a href="javascript:settings.onNewRegistration();"><?php echo $register; ?></a></p>
         </div>
 
         <div class="form-group profile-form">
@@ -84,17 +84,17 @@ $submit = L::settings_submit;
         </div>
         <div class="form-group profile-form">
             <button class="btn btn-primary" id="saveProfile" type="button" name="saveBtn"
-                    onclick="return onSaveProfile();">
+                    onclick="return settings.onSaveProfile();">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span id="saveBtnText"><?php echo $saveRegister; ?></span>
             </button>
         </div>
         <div class="form-group profile-form logged-in">
             <button id="changePassword" class="btn btn-primary" name="changePwdBtn"
-                    onclick="return onChangePassword();"><?php echo $changePassword; ?></button>
+                    onclick="return settings.onChangePassword();"><?php echo $changePassword; ?></button>
             &nbsp;
             <button id="logout" class="btn btn-primary" name="logoutBtn"
-                    onclick="return onLogout();"><?php echo $logout; ?></button>
+                    onclick="return settings.onLogout();"><?php echo $logout; ?></button>
         </div>
 
     </form>
@@ -102,7 +102,7 @@ $submit = L::settings_submit;
     <hr/>
 
     <h2 id="title-form"><?php echo $mapSettings; ?></h2>
-    <p class="name"><a href="#" onclick="togglePoints()"><span
+    <p class="name"><a href="#" onclick="settings.togglePoints()"><span
                     style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"><?php echo $mapMarker; ?></span><i
                     id="togglePoints" class="fas fa-2x" aria-hidden="true"></i><span
                     style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"><?php echo $mapPoint; ?></span></a>
@@ -140,11 +140,6 @@ $submit = L::settings_submit;
     </div>
 
 
-    <script src="assets/jquery/jquery.min.js"></script>
-    <script src="assets/popper/popper.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-    <script src="js/common.js"></script>
     <script src="js/settings.js"></script>
 </body>
 </html>
