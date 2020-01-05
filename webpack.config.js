@@ -7,7 +7,8 @@ module.exports = {
     photographer: "./js/photographer.js",
     updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",
-    settings: "./js/settings.js"
+    settings: "./js/settings.js",
+    basic: "./js/basic.js"
   },
   module: {
     rules: [
