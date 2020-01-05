@@ -4,7 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   entry: {
     map: "./js/map.js",
-    photographer: "./js/photographer.js"
+    photographer: "./js/photographer.js",
+    updatePassword: "./js/updatePassword.js"
   },
   module: {
     rules: [
