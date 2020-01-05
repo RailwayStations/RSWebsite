@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css', './js/**'",
+    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css' './js/**' './webpack.config.js'",
     "postinstall": "npm run bs-custom-file-input && npm run jquery-autocomplete && npm run jquery && npm run popper && npm run bootstrap && npm run font-awesome && npm run webpack",
     "bs-custom-file-input": "mkdir -p ./map/assets/bs-custom-file-input && cp -r node_modules/bs-custom-file-input/dist/* map/assets/bs-custom-file-input/",
     "jquery-autocomplete": "mkdir -p ./map/assets/jquery-autocomplete && cp -r node_modules/jQuery-Autocomplete/dist/* map/assets/jquery-autocomplete/",

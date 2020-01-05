@@ -1,9 +1,10 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
-    map: './js/map.js'
+    map: "./js/map.js",
+    photographer: "./js/photographer.js"
   },
   module: {
     rules: [
@@ -11,27 +12,23 @@ module.exports = {
         test: /\.m?js$/,
         exclude: /(node_modules)/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            presets: ["@babel/preset-env"]
           }
         }
       },
       {
         test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "postcss-loader"
-        ]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
       },
       {
         test: /\.(jpe?g|png|gif|mp3)$/i,
-        loader: 'file-loader',
+        loader: "file-loader",
         options: {
-          name: 'images/[name].[ext]',
-        },
-      },
+          name: "images/[name].[ext]"
+        }
+      }
     ]
   },
   output: {
@@ -43,6 +40,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[name].css",
       chunkFilename: "css/[name].css"
-    }),
+    })
   ]
 };

@@ -16,7 +16,8 @@ import {
   getAPIURI,
   getBoolFromLocalStorage,
   scaleImage,
-  setCountryCode
+  setCountryCode,
+  getCountryByCode
 } from "./common";
 
 window.$ = $;
@@ -30,7 +31,7 @@ let dataBahnhoefe = null,
   nickname = "",
   watchLocation = false;
 
-function toggleLocation() {
+export function toggleLocation() {
   "use strict";
 
   if (watchLocation) {
@@ -341,7 +342,7 @@ function getPhotoCount() {
   return photoCount;
 }
 
-function showHighScore() {
+export function showHighScore() {
   "use strict";
 
   var countStations = dataBahnhoefe.length;

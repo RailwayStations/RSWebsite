@@ -15,11 +15,6 @@ navbar();
     <div id="stations"></div>
 </main>
 
-<script src="assets/jquery/jquery.min.js"></script>
-<script src="assets/popper/popper.min.js"></script>
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-
-<script src="js/common.js"></script>
 <script src="js/photographer.js"></script>
 </body>
 </html>
