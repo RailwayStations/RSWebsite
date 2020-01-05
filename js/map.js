@@ -565,7 +565,12 @@ $(document).ready(function() {
       }
     ),
     countryCode = getCountryCode();
-  map = L.map("map").setView([50.9730622, 10.9603269], 6);
+  
+  const lastPos = getLastPos();
+  const mapCenter = !lastPos ? L.latLng(50.9730622, 10.9603269) : lastPos;
+  const lastZoomLevel = getLastZoomLevel();
+  const mapZoomLevel = !lastZoomLevel ? 6 : lastZoomLevel;
+  map = L.map("map").setView(mapCenter, mapZoomLevel);
 
   basemap.addTo(map);
   map.spin(true);
