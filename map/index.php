@@ -1,9 +1,9 @@
-<?php require_once "./i18n.php"; ?>
+<?php require_once "../php/i18n.php"; ?>
 <!doctype html>
 <html lang="<?php echo $i18n->getAppliedLang()?>">
 <head>
 
-    <?php require_once "./header.php"; ?>
+    <?php require_once "../php/header.php"; ?>
 
     <title>RailwayStations</title>
 
@@ -13,7 +13,7 @@
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once "../php/navbar.php";
 $country = L::index_country;
 $findStation = L::index_findStation;
 $search = L::index_search;

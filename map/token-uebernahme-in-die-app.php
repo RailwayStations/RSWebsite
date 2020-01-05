@@ -1,9 +1,9 @@
-<?php require_once "./i18n.php"; ?>
+<?php require_once "../php/i18n.php"; ?>
 <!doctype html>
 <html lang="<?php echo $i18n->getAppliedLang()?>">
 <head>
     <?php
-    require_once "./header.php";
+    require_once "../php/header.php";
     $title = L::passwordUpdate_title;
     $info = L::passwordUpdate_info;
     $mobileInfo = L::passwordUpdate_mobileInfo;
@@ -14,7 +14,7 @@
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once "../php/navbar.php";
 navbar();
 ?>
 

@@ -71,18 +71,18 @@ try {
 } catch (Exception $e) {
     $photoCaption = 'Fehler beim Laden der Station';
 }
-require_once "./i18n.php"; ?>
+require_once "../php/i18n.php"; ?>
 <!doctype html>
 <html lang="<?php echo $i18n->getAppliedLang()?>">
 <head>
     <meta property="og:image" content="<?= htmlspecialchars($stationPhoto) ?>"/>
     <title><?= htmlspecialchars($stationName) ?> - RailwayStations</title>
-    <?php require_once "./header.php"; ?>
+    <?php require_once "../php/header.php"; ?>
 </head>
 <body>
 
 <?php
-require_once "./navbar.php";
+require_once "../php/navbar.php";
 $ds100Html = htmlspecialchars($DS100);
 
 $navigate = L::station_navigate;
