@@ -129,7 +129,7 @@ navbar($suffixNavItems);
     <?php } else { ?>
         <p><a href="<?= htmlspecialchars(
             $uploadUrl
-        ) ?>" title="Eigenes Foto hochladen" data-ajax="false"><em
+        ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
                         class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
     <?php } ?>
 
@@ -160,6 +160,6 @@ navbar($suffixNavItems);
     </div>
 </div>
 
-<script src="js/basic.js"></script>
+<script src="js/station.js"></script>
 </body>
 </html>

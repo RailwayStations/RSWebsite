@@ -8,7 +8,8 @@ module.exports = {
     updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",
     settings: "./js/settings.js",
-    basic: "./js/basic.js"
+    basic: "./js/basic.js",
+    station: "./js/station.js"
   },
   module: {
     rules: [
