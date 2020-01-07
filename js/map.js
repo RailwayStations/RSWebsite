@@ -1,4 +1,5 @@
 import "../css/map.css";
+import "whatwg-fetch";
 
 import $ from "jquery";
 import "leaflet";
@@ -378,13 +379,15 @@ export function switchCountryLink(countryCode) {
 
   initCountry();
 
-  $.getJSON(getStationsURL(), function(featureCollection) {
-    dataBahnhoefe = featureCollection;
+  fetch(getStationsURL())
+    .then(r => r.json())
+    .then(data => {
+      dataBahnhoefe = data;
 
-    setLastZoomLevel(null);
-    setLastPos(null);
-    updateMarker(getBoolFromLocalStorage("showPoints", false));
-  });
+      setLastZoomLevel(null);
+      setLastPos(null);
+      updateMarker(getBoolFromLocalStorage("showPoints", false));
+    });
 }
 
 function getPhotoCount() {
@@ -468,52 +471,34 @@ function showHighScorePopup(
   countPhotographers,
   highscoreTable
 ) {
-  "use strict";
-
-  var percentPhotos = (countPhotos / countStations) * 100;
+  const percentPhotos = (countPhotos / countStations) * 100;
 
   getCountryByCode(getCountryCode(), function(country) {
-    var highscoreDiv = $("#highscoreBody");
-    highscoreDiv.html(
-      '<div class="progress">' +
-        '<div class="progress-bar bg-success" role="progressbar" style="width: ' +
-        percentPhotos +
-        '%;" aria-valuenow="' +
-        percentPhotos +
-        '" aria-valuemin="0" aria-valuemax="100">' +
-        countPhotos +
-        " " +
-        getI18nStrings().index.of +
-        " " +
-        countStations +
-        " " +
-        getI18nStrings().index.photos +
-        "</div>" +
-        "</div>" +
-        '<p style="padding-top: 10px;font-weight: bold;">' +
-        countPhotographers +
-        " " +
-        getI18nStrings().index.photographers +
-        "</p>" +
-        '<table class="table table-striped">' +
-        highscoreTable +
-        "</table>"
-    );
+    document.getElementById("highscoreBody").innerHTML = `
+<div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" style="width: ${percentPhotos}%;"
+         aria-valuenow="${percentPhotos}" aria-valuemin="0" aria-valuemax="100">${countPhotos}
+        ${getI18nStrings().index.of} ${countStations} ${
+      getI18nStrings().index.photos
+    }
+    </div>
+</div><p style="padding-top: 10px;font-weight: bold;">${countPhotographers} ${
+      getI18nStrings().index.photographers
+    }</p>
+<table class="table table-striped">${highscoreTable}</table>
+      `;
 
-    $("#highscoreLabel").html(
-      getI18nStrings().index.highscore + ": " + country.name
-    );
+    document.getElementById("highscoreLabel").innerHTML =
+      getI18nStrings().index.highscore + ": " + country.name;
     $("#highscore").modal("show");
   });
 }
 
 function initCountry() {
-  "use strict";
-
   fetchCountries(function(countries) {
-    var menu = $("#countries");
-    var menuItems = "";
-    var currentCountry = getCountryCode();
+    const menu = document.getElementById("countries");
+    let menuItems = "";
+    const currentCountry = getCountryCode();
 
     countries.sort(function(a, b) {
       return a.name.localeCompare(b.name);
@@ -524,12 +509,12 @@ function initCountry() {
       let name = country.name;
       menuItems += `<a class="dropdown-item" href="javascript:map.switchCountryLink('${code}');" title="${name}">${name}</a>`;
       if (code === currentCountry) {
-        $("#country").html(name);
+        document.getElementById("country").innerHTML = name;
         document.title = `RailwayStations - ${name}`;
       }
     });
 
-    menu.html(menuItems);
+    menu.innerHTML = menuItems;
   });
 }
 
@@ -550,30 +535,31 @@ function searchWeight(query, suggestion) {
 }
 
 $(document).ready(function() {
-  "use strict";
-
-  var vars = getQueryParameter();
-  if (vars && vars.countryCode && vars.countryCode.length > 0) {
-    setCountryCode(vars.countryCode);
+  const queryParameter = getQueryParameter();
+  if (
+    queryParameter &&
+    queryParameter.countryCode &&
+    queryParameter.countryCode.length > 0
+  ) {
+    setCountryCode(queryParameter.countryCode);
   }
-
-  var basemap = L.tileLayer(
-      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 18,
-        attribution:
-          '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-      }
-    ),
-    countryCode = getCountryCode();
 
   const lastPos = getLastPos();
   const mapCenter = !lastPos ? L.latLng(50.9730622, 10.9603269) : lastPos;
   const lastZoomLevel = getLastZoomLevel();
   const mapZoomLevel = !lastZoomLevel ? 6 : lastZoomLevel;
+
   map = L.map("map").setView(mapCenter, mapZoomLevel);
 
-  basemap.addTo(map);
+  const osmTileLayer = L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom: 18,
+      attribution:
+        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+    }
+  ).addTo(map);
+
   map.spin(true);
 
   map.on("contextmenu", function(ev) {
@@ -583,14 +569,14 @@ $(document).ready(function() {
   nickname = getUserProfile().nickname;
   initCountry();
 
-  $.getJSON(getStationsURL(), function(featureCollection) {
-    dataBahnhoefe = featureCollection;
-
-    var showPoints = getBoolFromLocalStorage("showPoints", false);
-
-    updateMarker(showPoints);
-  })
-    .done(function() {
+  fetch(getStationsURL())
+    .then(r => r.json())
+    .then(data => {
+      dataBahnhoefe = data;
+      const showPoints = getBoolFromLocalStorage("showPoints", false);
+      updateMarker(showPoints);
+    })
+    .then(function() {
       // alert( "second success" );
       map.spin(false);
       map.on("locationfound", function(ev) {
@@ -624,12 +610,9 @@ $(document).ready(function() {
         setLastPos(map.getCenter());
       });
     })
-    .fail(function(xhr) {
-      alert("error");
+    .catch(error => {
+      alert(`error: ${error}`);
       map.spin(false);
-    })
-    .always(function() {
-      // alert( "finished" );
     });
 
   $(window)

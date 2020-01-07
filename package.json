@@ -48,7 +48,8 @@
     "leaflet-spin": "^1.1.0",
     "leaflet.markercluster": "^1.4.1",
     "popper.js": "^1.16.0",
-    "spin.js": "^4.1.0"
+    "spin.js": "^4.1.0",
+    "whatwg-fetch": "^3.0.0"
   },
   "browserslist": [
     ">0.25% in DE"
