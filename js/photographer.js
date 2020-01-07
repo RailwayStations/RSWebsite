@@ -1,6 +1,7 @@
 import $ from "jquery";
 import { getAPIURI, getQueryParameter, scaleImage } from "./common";
 import "bootstrap";
+import { getI18nStrings } from "./i18n";
 
 window.$ = $;
 
@@ -18,7 +19,9 @@ $(document).ready(function() {
     dataType: "json",
     error: function() {
       $("#stations").html(
-        `${window.i18n.photographer.errorLoadingStationsOfPhotographer} ${photographer}`
+        `${
+          getI18nStrings().photographer.errorLoadingStationsOfPhotographer
+        } ${photographer}`
       );
     },
     success: function(obj) {
@@ -31,22 +34,28 @@ $(document).ready(function() {
           $("#stations").append(
             `
 <div class="card mt-1" style="max-width: 302px;">
-    <div class="card-body"><h5 class="card-title"><a href="${detailLink}" data-ajax="false">${station.title}</a></h5>
+    <div class="card-body"><h5 class="card-title"><a href="${detailLink}" data-ajax="false">${
+              station.title
+            }</a></h5>
         <p class="card-text">
             <small class="text-muted">
-                ${window.i18n.photographer.licence}: <a href="${station.licenseUrl}">${station.license}</a>
+                ${getI18nStrings().photographer.licence}: <a href="${
+              station.licenseUrl
+            }">${station.license}</a>
             </small>
         </p>
     </div>
     <a href="${detailLink}" data-ajax="false">
-        <img src="${photoURL}" class="card-img-top" style="width:301px;" alt="${station.title}">
+        <img src="${photoURL}" class="card-img-top" style="width:301px;" alt="${
+              station.title
+            }">
     </a>
 </div>
 `
           );
         }
       } else {
-        $("#stations").html(window.i18n.photographer.noStationsFound);
+        $("#stations").html(getI18nStrings().photographer.noStationsFound);
       }
     }
   });

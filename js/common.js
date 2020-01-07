@@ -1,5 +1,6 @@
 import $ from "jquery";
 import Popper from "popper.js";
+import { getI18nStrings } from "./i18n";
 
 window.Popper = Popper;
 
@@ -117,7 +118,8 @@ export function providerApp(countryCode) {
     });
 
     if (providerAppsTable === "") {
-      providerAppsTable = "<tr><td>" + window.i18n.common.noApp + "</td></tr>";
+      providerAppsTable =
+        "<tr><td>" + getI18nStrings().common.noApp + "</td></tr>";
     }
 
     var providerAppsDiv = $("#providerAppsBody");

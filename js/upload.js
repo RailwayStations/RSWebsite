@@ -7,6 +7,7 @@ import {
   isBlank
 } from "./common";
 import "bootstrap";
+import { getI18nStrings } from "./i18n";
 
 function startUpload() {
   $("#upload-process").modal("show");
@@ -16,16 +17,16 @@ function startUpload() {
 function stopUpload(message) {
   let result = message;
   if (result.startsWith("202")) {
-    result = window.i18n.upload.successful;
+    result = getI18nStrings().upload.successful;
   } else if (result.startsWith("400")) {
-    result = window.i18n.upload.invalid;
+    result = getI18nStrings().upload.invalid;
   } else if (result.startsWith("401")) {
     window.location.href = "settings.php";
     return false;
   } else if (result.startsWith("409")) {
-    result = window.i18n.upload.conflict;
+    result = getI18nStrings().upload.conflict;
   } else if (result.startsWith("413")) {
-    result = window.i18n.upload.maxSize;
+    result = getI18nStrings().upload.maxSize;
   }
 
   $("#upload-process").modal("hide");
@@ -49,7 +50,7 @@ $(document).ready(function() {
   const userProfile = getUserProfile();
 
   if (stationId) {
-    $("#title-form").html(window.i18n.upload.uploadPhotoFor + " " + title);
+    $("#title-form").html(getI18nStrings().upload.uploadPhotoFor + " " + title);
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $(".missing-station").hide();

@@ -20,6 +20,7 @@ import {
   timetable
 } from "./common";
 import "bootstrap";
+import { getI18nStrings } from "./i18n";
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -148,7 +149,7 @@ function showPopup(feature, layer) {
       '" data-ajax="false"><h2 style="text-align:center;">' +
       feature.properties.title +
       "</h2></a>";
-    str += "<div>" + window.i18n.index.missingPhoto + ".</div>";
+    str += "<div>" + getI18nStrings().index.missingPhoto + ".</div>";
     str +=
       '<div><a href="upload.php?countryCode=' +
       feature.properties.country +
@@ -157,9 +158,9 @@ function showPopup(feature, layer) {
       "&title=" +
       feature.properties.title +
       '" title="' +
-      window.i18n.index.uploadYourPhoto +
+      getI18nStrings().index.uploadYourPhoto +
       '" data-ajax="false"><i class="fas fa-upload">' +
-      window.i18n.index.uploadYourPhoto +
+      getI18nStrings().index.uploadYourPhoto +
       "</i></a></div>";
   }
   str +=
@@ -168,13 +169,13 @@ function showPopup(feature, layer) {
     "," +
     feature.properties.lon +
     ');"><i class="fas fa-directions"> ' +
-    window.i18n.index.navigation +
+    getI18nStrings().index.navigation +
     "</i></a>, ";
   str +=
     '<a href="#" onclick="map.timetableByStation(\'' +
     feature.properties.idStr +
     '\');"><i class="fas fa-list"> ' +
-    window.i18n.index.departureTimes +
+    getI18nStrings().index.departureTimes +
     "</i></a></div>";
 
   if (null === popup) {
@@ -191,10 +192,10 @@ function showMissingStationPopup(mouseEvent) {
   "use strict";
 
   var str = "";
-  str += "<h3>" + window.i18n.index.addMissingStation + "</h3>";
+  str += "<h3>" + getI18nStrings().index.addMissingStation + "</h3>";
   str +=
     "<div>" +
-    window.i18n.index.location +
+    getI18nStrings().index.location +
     ": " +
     mouseEvent.latlng.lat +
     "," +
@@ -206,9 +207,9 @@ function showMissingStationPopup(mouseEvent) {
     "&longitude=" +
     mouseEvent.latlng.lng +
     '" title="' +
-    window.i18n.index.uploadPhoto +
+    getI18nStrings().index.uploadPhoto +
     '" data-ajax="false"><i class="fas fa-upload"> ' +
-    window.i18n.index.uploadYourPhoto +
+    getI18nStrings().index.uploadYourPhoto +
     ".</i></a></div>";
 
   if (null === popup) {
@@ -482,17 +483,17 @@ function showHighScorePopup(
         '" aria-valuemin="0" aria-valuemax="100">' +
         countPhotos +
         " " +
-        window.i18n.index.of +
+        getI18nStrings().index.of +
         " " +
         countStations +
         " " +
-        window.i18n.index.photos +
+        getI18nStrings().index.photos +
         "</div>" +
         "</div>" +
         '<p style="padding-top: 10px;font-weight: bold;">' +
         countPhotographers +
         " " +
-        window.i18n.index.photographers +
+        getI18nStrings().index.photographers +
         "</p>" +
         '<table class="table table-striped">' +
         highscoreTable +
@@ -500,7 +501,7 @@ function showHighScorePopup(
     );
 
     $("#highscoreLabel").html(
-      window.i18n.index.highscore + ": " + country.name
+      getI18nStrings().index.highscore + ": " + country.name
     );
     $("#highscore").modal("show");
   });

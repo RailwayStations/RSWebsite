@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css' './js/**' './webpack.config.js'",
-    "postinstall": "npm run webpack",
+    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css' './js/**' './webpack.config.js' './scripts/*.js'",
+    "postinstall": "npm run ini2json && npm run webpack",
     "webpack": "webpack --mode production",
-    "webpack-watch": "webpack --mode development --watch"
+    "webpack-watch": "webpack --mode development --watch",
+    "ini2json": "node ./scripts/inti2Json.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "core-js": "^3.6.1",
     "css-loader": "^3.4.0",
     "file-loader": "^5.0.2",
+    "ini": "^1.3.5",
     "mini-css-extract-plugin": "^0.9.0",
     "postcss-loader": "^3.0.0",
     "prettier": "^1.19.1",
