@@ -16,7 +16,5 @@
 <link rel="icon" type="image/png" sizes="96x96" href="./images/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
 
-<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="assets/font-awesome/css/all.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
+<link href="css/basic.css" rel="stylesheet">
 <script src="js/i18n.js"></script>

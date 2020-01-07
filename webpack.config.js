@@ -32,6 +32,15 @@ module.exports = {
         options: {
           name: "images/[name].[ext]"
         }
+      },
+      {
+        test: /\.(eot|woff|woff2|ttf|svg)$/i,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+          outputPath: "fonts",
+          publicPath: "../fonts"
+        }
       }
     ]
   },
