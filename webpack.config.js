@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: {
-    map: "./js/map.js",
+    map: "./js/map/map.js",
     photographer: "./js/photographer.js",
     updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",

@@ -1,4 +1,4 @@
-import "../css/map.css";
+import "../../css/map.css";
 import "whatwg-fetch";
 
 import $ from "jquery";
@@ -14,14 +14,14 @@ import {
   fetchCountries,
   getAPIURI,
   getBoolFromLocalStorage,
-  scaleImage,
   setCountryCode,
   getCountryByCode,
   navigate,
   timetable
-} from "./common";
+} from "../common";
 import "bootstrap";
-import { getI18nStrings } from "./i18n";
+import { getI18nStrings } from "../i18n";
+import { stationHtml } from "./station";
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -104,62 +104,12 @@ function showMap() {
   $("#details").hide();
 }
 
-function showPopup(feature, layer) {
+function showPopup(feature) {
   "use strict";
 
-  const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
-  let str = "";
-  if (!feature.properties.active) {
-    str +=
-      '<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>';
-  }
-  if (null !== feature.properties.photographer) {
-    const photoURL = scaleImage(feature.properties.photoUrl, 301);
-    str += `
-<a href="${detailLink}" data-ajax="false" style="display: block; max-height: 200px; overflow: hidden;">
-    <img src="${photoURL}" style="width:301px;" height="400">
-</a>
-<br>
-<div style="text-align:right;">Fotograf: <a href="${feature.properties.photographerUrl}">${feature.properties.photographer}</a>, Lizenz: <a href="${feature.properties.licenseUrl}">${feature.properties.license}</a></div>
-<h3 style="text-align:center;"><a href="${detailLink}" data-ajax="false">${feature.properties.title}</a></h3>
-`;
-  } else {
-    str += `
-<a href="${detailLink}" data-ajax="false">
-    <h2 style="text-align:center;">${feature.properties.title}</h2>
-</a>
-<div>${getI18nStrings().index.missingPhoto}.</div>
-<div>
-    <a href="upload.php?countryCode=${feature.properties.country}&stationId=${
-      feature.properties.idStr
-    }&title=${feature.properties.title}"
-       title="${getI18nStrings().index.uploadYourPhoto}" data-ajax="false">
-        <i class="fas fa-upload">${getI18nStrings().index.uploadYourPhoto}</i>
-    </a>
-</div>
-`;
-  }
-  str += `
-<div>
-    <a href="#" onclick="navigate(${feature.properties.lat},${
-    feature.properties.lon
-  });">
-        <i class="fas fa-directions">${getI18nStrings().index.navigation}</i>
-    </a>, <a href="#" onclick="map.timetableByStation('${
-      feature.properties.idStr
-    }');">
-        <i class="fas fa-list">${getI18nStrings().index.departureTimes}</i>
-    </a>
-</div>
-`;
-
-  if (null === popup) {
-    popup = L.popup();
-  }
-
-  popup
+  L.popup()
     .setLatLng([feature.properties.lat, feature.properties.lon])
-    .setContent(str)
+    .setContent(stationHtml(feature))
     .openOn(map);
 }
 
@@ -258,7 +208,7 @@ function showMarkerImagesClustered() {
   });
 
   var bahnhoefe = L.featureGroup().on("click", function(event) {
-      showPopup(event.layer.options, this);
+      showPopup(event.layer.options);
     }),
     i,
     customIcon,
@@ -299,7 +249,7 @@ function showCircleAllClustered() {
   markers = L.layerGroup();
 
   var bahnhoefe = L.featureGroup().on("click", function(event) {
-      showPopup(event.layer.options, this);
+      showPopup(event.layer.options);
     }),
     i,
     marker,
@@ -631,7 +581,7 @@ $(document).ready(function() {
       for (var i in bahnhofMarkers) {
         var markerID = bahnhofMarkers[i].options.properties.idStr;
         if (markerID == suggestion.data) {
-          showPopup(bahnhofMarkers[i].options, this);
+          showPopup(bahnhofMarkers[i].options);
         }
       }
       return false;

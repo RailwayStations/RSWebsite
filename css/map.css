@@ -2,3 +2,20 @@
 @import "~spin.js/spin.css";
 @import "~leaflet.markercluster/dist/MarkerCluster.css";
 @import "~leaflet.markercluster/dist/MarkerCluster.Default.css";
+
+.station-popup {
+    width: 300px;
+}
+
+.station-popup h3 {
+    text-align: center;
+}
+
+.station-popup a {
+    width: 100%;
+}
+
+.station-popup i {
+    width: 20px;
+    text-align: center;
+}
