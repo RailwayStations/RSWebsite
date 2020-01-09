@@ -107,77 +107,51 @@ function showMap() {
 function showPopup(feature, layer) {
   "use strict";
 
-  var detailLink =
-    "station.php?countryCode=" +
-    feature.properties.country +
-    "&stationId=" +
-    feature.properties.idStr;
-  var str = "";
+  const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
+  let str = "";
   if (!feature.properties.active) {
     str +=
       '<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>';
   }
   if (null !== feature.properties.photographer) {
-    var photoURL = scaleImage(feature.properties.photoUrl, 301);
-    str +=
-      '<a href="' +
-      detailLink +
-      '" data-ajax="false" style="display: block; max-height: 200px; overflow: hidden;"><img src="' +
-      photoURL +
-      '" style="width:301px;" height="400"></a><br>';
-    str +=
-      '<div style="text-align:right;">Fotograf: <a href="' +
-      feature.properties.photographerUrl +
-      '">' +
-      feature.properties.photographer +
-      "</a>, ";
-    str +=
-      'Lizenz: <a href="' +
-      feature.properties.licenseUrl +
-      '">' +
-      feature.properties.license +
-      "</a></div>";
-    str +=
-      '<h3 style="text-align:center;"><a href="' +
-      detailLink +
-      '" data-ajax="false">' +
-      feature.properties.title +
-      "</a></h3>";
+    const photoURL = scaleImage(feature.properties.photoUrl, 301);
+    str += `
+<a href="${detailLink}" data-ajax="false" style="display: block; max-height: 200px; overflow: hidden;">
+    <img src="${photoURL}" style="width:301px;" height="400">
+</a>
+<br>
+<div style="text-align:right;">Fotograf: <a href="${feature.properties.photographerUrl}">${feature.properties.photographer}</a>, Lizenz: <a href="${feature.properties.licenseUrl}">${feature.properties.license}</a></div>
+<h3 style="text-align:center;"><a href="${detailLink}" data-ajax="false">${feature.properties.title}</a></h3>
+`;
   } else {
-    str +=
-      '<a href="' +
-      detailLink +
-      '" data-ajax="false"><h2 style="text-align:center;">' +
-      feature.properties.title +
-      "</h2></a>";
-    str += "<div>" + getI18nStrings().index.missingPhoto + ".</div>";
-    str +=
-      '<div><a href="upload.php?countryCode=' +
-      feature.properties.country +
-      "&stationId=" +
-      feature.properties.idStr +
-      "&title=" +
-      feature.properties.title +
-      '" title="' +
-      getI18nStrings().index.uploadYourPhoto +
-      '" data-ajax="false"><i class="fas fa-upload">' +
-      getI18nStrings().index.uploadYourPhoto +
-      "</i></a></div>";
+    str += `
+<a href="${detailLink}" data-ajax="false">
+    <h2 style="text-align:center;">${feature.properties.title}</h2>
+</a>
+<div>${getI18nStrings().index.missingPhoto}.</div>
+<div>
+    <a href="upload.php?countryCode=${feature.properties.country}&stationId=${
+      feature.properties.idStr
+    }&title=${feature.properties.title}"
+       title="${getI18nStrings().index.uploadYourPhoto}" data-ajax="false">
+        <i class="fas fa-upload">${getI18nStrings().index.uploadYourPhoto}</i>
+    </a>
+</div>
+`;
   }
-  str +=
-    '<div><a href="#" onclick="navigate(' +
-    feature.properties.lat +
-    "," +
-    feature.properties.lon +
-    ');"><i class="fas fa-directions"> ' +
-    getI18nStrings().index.navigation +
-    "</i></a>, ";
-  str +=
-    '<a href="#" onclick="map.timetableByStation(\'' +
-    feature.properties.idStr +
-    '\');"><i class="fas fa-list"> ' +
-    getI18nStrings().index.departureTimes +
-    "</i></a></div>";
+  str += `
+<div>
+    <a href="#" onclick="navigate(${feature.properties.lat},${
+    feature.properties.lon
+  });">
+        <i class="fas fa-directions">${getI18nStrings().index.navigation}</i>
+    </a>, <a href="#" onclick="map.timetableByStation('${
+      feature.properties.idStr
+    }');">
+        <i class="fas fa-list">${getI18nStrings().index.departureTimes}</i>
+    </a>
+</div>
+`;
 
   if (null === popup) {
     popup = L.popup();
