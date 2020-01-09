@@ -53,32 +53,32 @@ export function toggleLocation() {
 export function setLastZoomLevel(zoomLevel) {
   "use strict";
   if (zoomLevel != null) {
-    localStorage.setItem("zoomLevel", zoomLevel);
+    sessionStorage.setItem("zoomLevel", zoomLevel);
   } else {
-    localStorage.removeItem("zoomLevel");
+    sessionStorage.removeItem("zoomLevel");
   }
 }
 
 export function getLastZoomLevel() {
   "use strict";
-  return localStorage.getItem("zoomLevel");
+  return sessionStorage.getItem("zoomLevel");
 }
 
 export function setLastPos(lastPos) {
   "use strict";
   if (lastPos != null) {
-    localStorage.setItem("lastPosLat", lastPos.lat);
-    localStorage.setItem("lastPosLng", lastPos.lng);
+    sessionStorage.setItem("lastPosLat", lastPos.lat);
+    sessionStorage.setItem("lastPosLng", lastPos.lng);
   } else {
-    localStorage.removeItem("lastPosLat");
-    localStorage.removeItem("lastPosLng");
+    sessionStorage.removeItem("lastPosLat");
+    sessionStorage.removeItem("lastPosLng");
   }
 }
 
 export function getLastPos() {
   "use strict";
-  var lat = localStorage.getItem("lastPosLat");
-  var lng = localStorage.getItem("lastPosLng");
+  const lat = sessionStorage.getItem("lastPosLat");
+  const lng = sessionStorage.getItem("lastPosLng");
   if (lat != null && lng != null) {
     return L.latLng(lat, lng);
   }
