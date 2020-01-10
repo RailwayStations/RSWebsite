@@ -175,18 +175,15 @@ function showMarkerImagesClustered() {
       let stokeDasharray =
         green === max ? 101 : parseInt((green / max) * 100, 10);
       return new L.divIcon({
-        html:
-          '<svg width="40" height="40" class="circle"><circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:' +
-          stokeDasharray +
-          ', 1000;"/></svg>' +
-          "<div>" +
-          "<span>" +
-          max +
-          "</span>" +
-          "<span>" +
-          parseInt((green / max) * 100, 10) +
-          "%</span>" +
-          "</div>",
+        html: `
+          <svg width="40" height="40" class="circle">
+            <circle r="16" cx="20" cy="20" class="pie" style="stroke-dasharray:${stokeDasharray}, 1000;"/>
+          </svg>
+          <div>
+            <span>${max}</span>
+            <span>${parseInt((green / max) * 100, 10)}%</span>
+          </div>
+          `,
         className: "marker-cluster marker-cluster-large",
         iconSize: new L.Point(40, 40)
       });
@@ -200,25 +197,26 @@ function showMarkerImagesClustered() {
     customIcon,
     marker;
 
-  for (i = 0; i < dataBahnhoefe.length; ++i) {
+  dataBahnhoefe.forEach(bahnhof => {
+    let iconUrl;
+    if (bahnhof.photographer === null) {
+      iconUrl = `./images/pointer-red.png`;
+    } else if (bahnhof.photographer === nickname) {
+      iconUrl = `./images/pointer-violet.png`;
+    } else {
+      iconUrl = `./images/pointer-green.png`;
+    }
     customIcon = L.icon({
-      iconUrl:
-        "./images/pointer-" +
-        (dataBahnhoefe[i].photographer === null
-          ? "red"
-          : dataBahnhoefe[i].photographer === nickname
-          ? "violet"
-          : "green") +
-        ".png",
+      iconUrl: iconUrl,
       iconSize: [50, 50],
       iconAnchor: [25, 50],
       popupAnchor: [0, -28]
     });
-    marker = L.marker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {
+    marker = L.marker([bahnhof.lat, bahnhof.lon], {
       icon: customIcon,
-      properties: dataBahnhoefe[i]
+      properties: bahnhof
     }).addTo(bahnhoefe);
-  }
+  });
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   map.addLayer(markers); // add it to the map
@@ -234,27 +232,28 @@ function showCircleAllClustered() {
   }
   markers = L.layerGroup();
 
-  var bahnhoefe = L.featureGroup().on("click", function(event) {
+  let bahnhoefe = L.featureGroup().on("click", function(event) {
       showPopup(event.layer.options);
     }),
-    i,
-    marker,
-    color;
+    i;
 
-  for (i = 0; i < dataBahnhoefe.length; ++i) {
-    color =
-      dataBahnhoefe[i].photographer === null
-        ? "#B70E3D"
-        : dataBahnhoefe[i].photographer === nickname
-        ? "#8000FF"
-        : "#3db70e";
-    marker = L.circleMarker([dataBahnhoefe[i].lat, dataBahnhoefe[i].lon], {
+  dataBahnhoefe.forEach(bahnhof => {
+    let color;
+    if (bahnhof.photographer === null) {
+      color = "#B70E3D";
+    } else if (bahnhof.photographer === nickname) {
+      color = "#8000FF";
+    } else {
+      color = "#3db70e";
+    }
+
+    L.circleMarker([bahnhof.lat, bahnhof.lon], {
       fillColor: color,
       fillOpacity: 1,
       stroke: false,
-      properties: dataBahnhoefe[i]
+      properties: bahnhof
     }).addTo(bahnhoefe);
-  }
+  });
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   map.addLayer(markers); // add it to the map
@@ -300,48 +299,35 @@ export function switchCountryLink(countryCode) {
     });
 }
 
-function getPhotoCount() {
+function getTotalCountPhotos() {
   "use strict";
 
-  var photoCount = 0;
-
-  for (var i = 0; i < dataBahnhoefe.length; ++i) {
-    if (dataBahnhoefe[i].photographer !== null) {
-      photoCount++;
-    }
-  }
-
-  return photoCount;
+  return dataBahnhoefe.filter(bahnhof => bahnhof.photographer !== null).length;
 }
 
 export function showHighScore() {
   "use strict";
 
-  var countStations = dataBahnhoefe.length;
-  var countPhotographers = 0;
-  var countPhotos = getPhotoCount();
-  var percentPhotos = countPhotos / countStations;
+  let html = "";
 
-  $.ajax({
-    url: getAPIURI() + getCountryCode() + "/photographers",
-    type: "GET",
-    dataType: "json",
-    error: function() {
-      showHighScorePopup(countStations, countPhotos, countPhotographers, "");
-    },
-    success: function(obj) {
-      var jsonOutput = "";
-      var rang = 0;
-      var lastPhotoCount = -1;
+  const statisticUrl = getAPIURI() + getCountryCode() + "/photographers";
+  fetch(statisticUrl)
+    .then(r => r.json())
+    .then(statistics => {
+      let rang = 0;
+      let lastPhotoCount = -1;
+      let countPhotographers = 0;
+      Object.entries(statistics).forEach(entry => {
+        const name = entry[0];
+        const currentPhotoCount = entry[1];
 
-      $.each(obj, function(propertyName, valueOfProperty) {
         countPhotographers++;
-        if (lastPhotoCount !== valueOfProperty) {
+        if (lastPhotoCount !== currentPhotoCount) {
           rang = rang + 1;
+        } else {
+          lastPhotoCount = currentPhotoCount;
         }
-        lastPhotoCount = valueOfProperty;
-
-        var crown = "";
+        let crown = "";
         if (rang === 1) {
           crown = '<img src="images/crown_gold.png"/>';
         } else if (rang === 2) {
@@ -352,35 +338,24 @@ export function showHighScore() {
           crown = rang + ".";
         }
 
-        jsonOutput =
-          jsonOutput +
-          "<tr><td>" +
-          crown +
-          "</td><td>" +
-          valueOfProperty +
-          '</td><td><a data-ajax="false" href="photographer.php?photographer=' +
-          propertyName +
-          '">' +
-          propertyName +
-          "</a></td></tr>";
+        html += `
+           <tr>
+            <td>${crown}</td>
+            <td>${name}</td>
+            <td><a data-ajax="false" href="photographer.php?photographer=${name}">${name}</a></td>
+          </tr>
+          `;
       });
-
-      showHighScorePopup(
-        countStations,
-        countPhotos,
-        countPhotographers,
-        jsonOutput
-      );
-    }
-  });
+      showHighScorePopup(countPhotographers, html);
+    })
+    .catch(() => {
+      showHighScorePopup(-1, "Something went wrong");
+    });
 }
 
-function showHighScorePopup(
-  countStations,
-  countPhotos,
-  countPhotographers,
-  highscoreTable
-) {
+function showHighScorePopup(countPhotographers, highscoreTable) {
+  const countPhotos = getTotalCountPhotos();
+  const countStations = dataBahnhoefe.length;
   const percentPhotos = (countPhotos / countStations) * 100;
 
   getCountryByCode(getCountryCode(), function(country) {
@@ -398,8 +373,9 @@ function showHighScorePopup(
 <table class="table table-striped">${highscoreTable}</table>
       `;
 
-    document.getElementById("highscoreLabel").innerHTML =
-      getI18nStrings().index.highscore + ": " + country.name;
+    document.getElementById("highscoreLabel").innerHTML = `${
+      getI18nStrings().index.highscore
+    }: ${country.name}`;
     $("#highscore").modal("show");
   });
 }
@@ -555,7 +531,7 @@ $(document).ready(function() {
     onSelect: function(suggestion) {
       $("#suche").val(suggestion.value);
       var bahnhof = dataBahnhoefe.filter(function(bahnhof) {
-        return bahnhof.idStr == suggestion.data;
+        return bahnhof.idStr === suggestion.data;
       });
       map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon));
       map.setZoom(14);
@@ -566,7 +542,7 @@ $(document).ready(function() {
       }
       for (var i in bahnhofMarkers) {
         var markerID = bahnhofMarkers[i].options.properties.idStr;
-        if (markerID == suggestion.data) {
+        if (markerID === suggestion.data) {
           showPopup(bahnhofMarkers[i].options);
         }
       }
