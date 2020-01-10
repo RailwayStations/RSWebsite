@@ -97,13 +97,6 @@ export function timetableByStation(stationId) {
   }
 }
 
-function showMap() {
-  "use strict";
-
-  $("#karte").show();
-  $("#details").hide();
-}
-
 function showPopup(feature) {
   "use strict";
 
@@ -116,26 +109,19 @@ function showPopup(feature) {
 function showMissingStationPopup(mouseEvent) {
   "use strict";
 
-  var str = "";
-  str += "<h3>" + getI18nStrings().index.addMissingStation + "</h3>";
-  str +=
-    "<div>" +
-    getI18nStrings().index.location +
-    ": " +
-    mouseEvent.latlng.lat +
-    "," +
-    mouseEvent.latlng.lng +
-    "</div>";
-  str +=
-    '<div><a href="upload.php?latitude=' +
-    mouseEvent.latlng.lat +
-    "&longitude=" +
-    mouseEvent.latlng.lng +
-    '" title="' +
-    getI18nStrings().index.uploadPhoto +
-    '" data-ajax="false"><i class="fas fa-upload"> ' +
-    getI18nStrings().index.uploadYourPhoto +
-    ".</i></a></div>";
+  const missingStationUploadUrl = `upload.php?latitude=${mouseEvent.latlng.lat}&longitude=${mouseEvent.latlng.lng}`;
+  const str = `
+<h3>${getI18nStrings().index.addMissingStation}</h3>
+<div>${getI18nStrings().index.location}: ${mouseEvent.latlng.lat},${
+    mouseEvent.latlng.lng
+  }</div>
+<div>
+    <a href="${missingStationUploadUrl}"
+        title="${getI18nStrings().index.uploadPhoto}">
+        <i class="fas fa-upload">${getI18nStrings().index.uploadYourPhoto}.</i>
+    </a>
+</div>
+`;
 
   if (null === popup) {
     popup = L.popup();
