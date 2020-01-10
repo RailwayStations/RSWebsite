@@ -1,16 +1,34 @@
 import { getBoolFromLocalStorage, getUserProfile } from "../common";
 import $ from "jquery";
 import { showPopup } from "./popup";
+import { getLastPos, getLastZoomLevel } from "./map";
+
+let markers = undefined;
 
 export function updateMarker(dataBahnhoefe, map) {
-  "use strict";
+  if (!!markers) {
+    map.removeLayer(markers);
+  }
 
   const showPoints = getBoolFromLocalStorage("showPoints", false);
-  const markers = showPoints
+  markers = showPoints
     ? showCircleAllClustered(dataBahnhoefe, map)
     : showMarkerImagesClustered(dataBahnhoefe, map);
   map.addLayer(markers);
+  setMapViewport(map);
   return markers;
+}
+
+function setMapViewport(map) {
+  if (getLastZoomLevel() != null) {
+    map.setZoom(getLastZoomLevel());
+  }
+
+  if (getLastPos() == null) {
+    map.fitBounds(markers.getBounds()); //set view on the cluster extend
+  } else {
+    map.panTo(getLastPos());
+  }
 }
 
 function showCircleAllClustered(dataBahnhoefe, map) {

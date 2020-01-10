@@ -32,8 +32,7 @@ let dataBahnhoefe = null,
   map = null,
   markers = null,
   ownMarker = null,
-  watchLocation = false,
-  setzoomlevel = false;
+  watchLocation = false;
 
 export function toggleLocation() {
   "use strict";
@@ -96,22 +95,6 @@ export function timetableByStation(stationId) {
   }
 }
 
-function setMapViewport() {
-  "use strict";
-
-  if (getLastZoomLevel() != null) {
-    setzoomlevel = true;
-    map.setZoom(getLastZoomLevel());
-    setzoomlevel = false;
-  }
-
-  if (getLastPos() == null) {
-    map.fitBounds(markers.getBounds()); //set view on the cluster extend
-  } else {
-    map.panTo(getLastPos());
-  }
-}
-
 function getStationsURL() {
   "use strict";
 
@@ -137,8 +120,6 @@ export function switchCountryLink(countryCode) {
       setLastZoomLevel(null);
       setLastPos(null);
       markers = updateMarker(dataBahnhoefe, map);
-      map.addLayer(markers);
-      setMapViewport();
     });
 }
 
@@ -269,8 +250,6 @@ $(document).ready(function() {
     .then(data => {
       dataBahnhoefe = data;
       markers = updateMarker(dataBahnhoefe, map);
-
-      setMapViewport();
     })
     .then(function() {
       // alert( "second success" );
@@ -297,12 +276,10 @@ $(document).ready(function() {
         $("#location_watch_toggle").removeClass("active");
         console.log("Position konnte nicht ermittelt werden");
       });
-      map.on("zoomend", function(ev) {
-        if (!setzoomlevel) {
-          setLastZoomLevel(map.getZoom());
-        }
+      map.on("zoomend", function() {
+        setLastZoomLevel(map.getZoom());
       });
-      map.on("moveend", function(ev) {
+      map.on("moveend", function() {
         setLastPos(map.getCenter());
       });
     })
