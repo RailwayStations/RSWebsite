@@ -10,7 +10,6 @@ import "jQuery-Autocomplete";
 import {
   getQueryParameter,
   getCountryCode,
-  fetchCountries,
   getAPIURI,
   setCountryCode,
   navigate,
@@ -23,6 +22,7 @@ import {
   showMissingStationPopup,
   showPopup
 } from "./popup";
+import { fetchStationDataPromise } from './stationClient';
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -95,12 +95,6 @@ export function timetableByStation(stationId) {
   }
 }
 
-function getStationsURL() {
-  "use strict";
-
-  return getAPIURI() + getCountryCode() + "/stations";
-}
-
 export function switchCountryLink(countryCode) {
   "use strict";
   const oldCountryCode = getCountryCode();
@@ -111,7 +105,7 @@ export function switchCountryLink(countryCode) {
   $("#karte").show();
   $(".header .mobile-menu:visible .ui-link").click();
 
-  fetchStationDataPromise()
+  fetchStationDataPromise(map)
     .then(data => {
       dataBahnhoefe = data;
 
@@ -169,30 +163,6 @@ export function showHighScore() {
     });
 }
 
-function initCountry() {
-  fetchCountries(function(countries) {
-    const menu = document.getElementById("countries");
-    let menuItems = "";
-    const currentCountry = getCountryCode();
-
-    countries.sort(function(a, b) {
-      return a.name.localeCompare(b.name);
-    });
-
-    countries.forEach(country => {
-      let code = country.code;
-      let name = country.name;
-      menuItems += `<a class="dropdown-item" href="javascript:map.switchCountryLink('${code}');" title="${name}">${name}</a>`;
-      if (code === currentCountry) {
-        document.getElementById("country").innerHTML = name;
-        document.title = `RailwayStations - ${name}`;
-      }
-    });
-
-    menu.innerHTML = menuItems;
-  });
-}
-
 function searchWeight(query, suggestion) {
   "use strict";
 
@@ -208,42 +178,6 @@ function searchWeight(query, suggestion) {
 
   return weight;
 }
-
-const fetchStationData = function (countryCode) {
-  return fetch(getStationsURL()).then(r => r.json()).then(data => {
-    const jsonString = JSON.stringify(data);
-    console.log(`writing stations-${countryCode}`);
-    localStorage.setItem(`stations-${countryCode}`, jsonString);
-    return data;
-  });
-};
-
-const loadStationDataFromCache = function (cachedData) {
-  return new Promise(resolve => {
-    resolve(JSON.parse(cachedData));
-  });
-};
-
-const fetchStationDataPromise = function () {
-  map.spin(true);
-  initCountry();
-  const countryCode = getCountryCode();
-
-  const cachedData = localStorage.getItem(`stations-${countryCode}`);
-  console.log(`collect stations-${countryCode}: ${!!cachedData}`);
-  let promise;
-  if (!cachedData) {
-    promise = fetchStationData(countryCode);
-  } else {
-    promise = loadStationDataFromCache(cachedData);
-    //update the stations in the background
-    fetchStationData(countryCode).then(data => updateMarker(data, map, false));
-  }
-  return promise.then(data => {
-    map.spin(false);
-    return data;
-  });
-};
 
 $(document).ready(function() {
   const queryParameter = getQueryParameter();
@@ -272,7 +206,7 @@ $(document).ready(function() {
     showMissingStationPopup(ev, map);
   });
 
-  fetchStationDataPromise()
+  fetchStationDataPromise(map)
     .then(data => {
       dataBahnhoefe = data;
       markers = updateMarker(dataBahnhoefe, map);
