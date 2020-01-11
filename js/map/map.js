@@ -22,7 +22,7 @@ import {
   showMissingStationPopup,
   showPopup
 } from "./popup";
-import { fetchStationDataPromise } from './stationClient';
+import { fetchStationDataPromise } from "./stationClient";
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -105,14 +105,13 @@ export function switchCountryLink(countryCode) {
   $("#karte").show();
   $(".header .mobile-menu:visible .ui-link").click();
 
-  fetchStationDataPromise(map)
-    .then(data => {
-      dataBahnhoefe = data;
+  fetchStationDataPromise(map).then(data => {
+    dataBahnhoefe = data;
 
-      setLastZoomLevel(null);
-      setLastPos(null);
-      markers = updateMarker(dataBahnhoefe, map);
-    });
+    setLastZoomLevel(null);
+    setLastPos(null);
+    markers = updateMarker(dataBahnhoefe, map);
+  });
 }
 
 export function showHighScore() {

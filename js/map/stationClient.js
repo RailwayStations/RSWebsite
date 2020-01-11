@@ -1,5 +1,5 @@
-import { fetchCountries, getAPIURI, getCountryCode } from '../common';
-import { updateMarker } from './markers';
+import { fetchCountries, getAPIURI, getCountryCode } from "../common";
+import { updateMarker } from "./markers";
 
 function getStationsURL() {
   "use strict";
@@ -7,19 +7,21 @@ function getStationsURL() {
   return getAPIURI() + getCountryCode() + "/stations";
 }
 
-const loadStationDataFromCache = function (cachedData) {
+const loadStationDataFromCache = function(cachedData) {
   return new Promise(resolve => {
     resolve(JSON.parse(cachedData));
   });
 };
 
-const fetchStationData = function (countryCode) {
-  return fetch(getStationsURL()).then(r => r.json()).then(data => {
-    const jsonString = JSON.stringify(data);
-    console.log(`writing stations-${countryCode}`);
-    localStorage.setItem(`stations-${countryCode}`, jsonString);
-    return data;
-  });
+const fetchStationData = function(countryCode) {
+  return fetch(getStationsURL())
+    .then(r => r.json())
+    .then(data => {
+      const jsonString = JSON.stringify(data);
+      console.log(`writing stations-${countryCode}`);
+      localStorage.setItem(`stations-${countryCode}`, jsonString);
+      return data;
+    });
 };
 
 function initCountry() {
@@ -46,7 +48,7 @@ function initCountry() {
   });
 }
 
-export const fetchStationDataPromise = function (map) {
+export const fetchStationDataPromise = function(map) {
   map.spin(true);
   initCountry();
   const countryCode = getCountryCode();
