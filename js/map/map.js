@@ -103,17 +103,15 @@ function getStationsURL() {
 
 export function switchCountryLink(countryCode) {
   "use strict";
-
+  const oldCountryCode = getCountryCode();
+  localStorage.removeItem(`stations-${oldCountryCode}`);
   setCountryCode(countryCode);
 
   $("#details").hide();
   $("#karte").show();
   $(".header .mobile-menu:visible .ui-link").click();
 
-  initCountry();
-
-  fetch(getStationsURL())
-    .then(r => r.json())
+  fetchStationDataPromise()
     .then(data => {
       dataBahnhoefe = data;
 
@@ -211,6 +209,42 @@ function searchWeight(query, suggestion) {
   return weight;
 }
 
+const fetchStationData = function (countryCode) {
+  return fetch(getStationsURL()).then(r => r.json()).then(data => {
+    const jsonString = JSON.stringify(data);
+    console.log(`writing stations-${countryCode}`);
+    localStorage.setItem(`stations-${countryCode}`, jsonString);
+    return data;
+  });
+};
+
+const loadStationDataFromCache = function (cachedData) {
+  return new Promise(resolve => {
+    resolve(JSON.parse(cachedData));
+  });
+};
+
+const fetchStationDataPromise = function () {
+  map.spin(true);
+  initCountry();
+  const countryCode = getCountryCode();
+
+  const cachedData = localStorage.getItem(`stations-${countryCode}`);
+  console.log(`collect stations-${countryCode}: ${!!cachedData}`);
+  let promise;
+  if (!cachedData) {
+    promise = fetchStationData(countryCode);
+  } else {
+    promise = loadStationDataFromCache(cachedData);
+    //update the stations in the background
+    fetchStationData(countryCode).then(data => updateMarker(data, map, false));
+  }
+  return promise.then(data => {
+    map.spin(false);
+    return data;
+  });
+};
+
 $(document).ready(function() {
   const queryParameter = getQueryParameter();
   if (
@@ -228,32 +262,23 @@ $(document).ready(function() {
 
   map = L.map("map").setView(mapCenter, mapZoomLevel);
 
-  const osmTileLayer = L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-      maxZoom: 18,
-      attribution:
-        '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-    }
-  ).addTo(map);
-
-  map.spin(true);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 18,
+    attribution:
+      '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
 
   map.on("contextmenu", function(ev) {
     showMissingStationPopup(ev, map);
   });
 
-  initCountry();
-
-  fetch(getStationsURL())
-    .then(r => r.json())
+  fetchStationDataPromise()
     .then(data => {
       dataBahnhoefe = data;
       markers = updateMarker(dataBahnhoefe, map);
     })
     .then(function() {
       // alert( "second success" );
-      map.spin(false);
       map.on("locationfound", function(ev) {
         if (ownMarker != null) {
           ownMarker.setLatLng(ev.latlng);
@@ -286,7 +311,6 @@ $(document).ready(function() {
     .catch(error => {
       console.log(error);
       alert(`error: ${error}`);
-      map.spin(false);
     });
 
   $(window)

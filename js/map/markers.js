@@ -5,7 +5,7 @@ import { getLastPos, getLastZoomLevel } from "./map";
 
 let markers = undefined;
 
-export function updateMarker(dataBahnhoefe, map) {
+export function updateMarker(dataBahnhoefe, map, setViewPort = true) {
   if (!!markers) {
     map.removeLayer(markers);
   }
@@ -15,7 +15,9 @@ export function updateMarker(dataBahnhoefe, map) {
     ? showCircleAllClustered(dataBahnhoefe, map)
     : showMarkerImagesClustered(dataBahnhoefe, map);
   map.addLayer(markers);
-  setMapViewport(map);
+  if (setViewPort) {
+    setMapViewport(map);
+  }
   return markers;
 }
 
