@@ -18,8 +18,11 @@ const fetchStationData = function(countryCode) {
     .then(r => r.json())
     .then(data => {
       const jsonString = JSON.stringify(data);
-      console.log(`writing stations-${countryCode}`);
-      localStorage.setItem(`stations-${countryCode}`, jsonString);
+      try {
+        localStorage.setItem(`stations-${countryCode}`, jsonString);
+      } catch (error) {
+        console.log(`Unable to store data for stations-${countryCode}`, error);
+      }
       return data;
     });
 };
@@ -54,7 +57,6 @@ export const fetchStationDataPromise = function(map) {
   const countryCode = getCountryCode();
 
   const cachedData = localStorage.getItem(`stations-${countryCode}`);
-  console.log(`collect stations-${countryCode}: ${!!cachedData}`);
   let promise;
   if (!cachedData) {
     promise = fetchStationData(countryCode);
