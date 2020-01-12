@@ -98,10 +98,8 @@ const createProgressBar = function(countryStats) {
 
   return `
       <div class="progress">
-          <div class="progress-bar bg-success" role="progressbar" style="width: ${percentPhotos}%;"
-               aria-valuenow="${percentPhotos}" aria-valuemin="0" aria-valuemax="100">
-              ${countryStatistics}
-          </div>
+          <div class="progress-bar bg-success" role="progressbar" style="width: ${percentPhotos}%;" aria-valuenow="${percentPhotos}" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="justify-content-center d-flex position-absolute w-100">${countryStatistics}</div>
       </div>
       <p style="padding-top: 10px;font-weight: bold;">${countPhotographersString}</p>
 `;

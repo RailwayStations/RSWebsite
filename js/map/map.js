@@ -10,7 +10,6 @@ import "jQuery-Autocomplete";
 import {
   getQueryParameter,
   getCountryCode,
-  getAPIURI,
   setCountryCode,
   navigate,
   timetable
