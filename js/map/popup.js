@@ -51,24 +51,26 @@ export function showHighScorePopup(
   const countStations = dataBahnhoefe.length;
   const percentPhotos = (countPhotos / countStations) * 100;
 
-  getCountryByCode(getCountryCode(), function(country) {
-    document.getElementById("highscoreBody").innerHTML = `
-<div class="progress">
-    <div class="progress-bar bg-success" role="progressbar" style="width: ${percentPhotos}%;"
-         aria-valuenow="${percentPhotos}" aria-valuemin="0" aria-valuemax="100">${countPhotos}
-        ${getI18nStrings().index.of} ${countStations} ${
-      getI18nStrings().index.photos
-    }
-    </div>
-</div><p style="padding-top: 10px;font-weight: bold;">${countPhotographers} ${
-      getI18nStrings().index.photographers
-    }</p>
-<table class="table table-striped">${highscoreTable}</table>
-      `;
+  const body = document.getElementById("highscoreBody");
+  const countryStatistics = `
+  ${getI18nStrings().index.of} ${countStations} ${getI18nStrings().index.photos}
+  `;
+  const countPhotographersString = `${countPhotographers} ${
+    getI18nStrings().index.photographers
+  }`;
+  body.innerHTML = `
+      <div class="progress">
+          <div class="progress-bar bg-success" role="progressbar" style="width: ${percentPhotos}%;"
+               aria-valuenow="${percentPhotos}" aria-valuemin="0" aria-valuemax="100">${countPhotos}
+              ${countryStatistics}
+          </div>
+      </div><p style="padding-top: 10px;font-weight: bold;">${countPhotographersString}</p>
+      <table class="table table-striped">${highscoreTable}</table>
+    `;
 
-    document.getElementById("highscoreLabel").innerHTML = `${
-      getI18nStrings().index.highscore
-    }: ${country.name}`;
+  getCountryByCode(getCountryCode()).then(country => {
+    const label = document.getElementById("highscoreLabel");
+    label.innerHTML = `${getI18nStrings().index.highscore}: ${country.name}`;
     $("#highscore").modal("show");
   });
 }

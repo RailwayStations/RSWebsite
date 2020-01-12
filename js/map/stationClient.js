@@ -28,7 +28,7 @@ const fetchStationData = function(countryCode) {
 };
 
 function initCountry() {
-  fetchCountries(function(countries) {
+  fetchCountries().then(countries => {
     const menu = document.getElementById("countries");
     let menuItems = "";
     const currentCountry = getCountryCode();

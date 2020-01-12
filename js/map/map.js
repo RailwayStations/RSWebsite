@@ -125,12 +125,10 @@ export function showHighScore() {
     .then(statistics => {
       let rang = 0;
       let lastPhotoCount = -1;
-      let countPhotographers = 0;
       Object.entries(statistics).forEach(entry => {
         const name = entry[0];
         const currentPhotoCount = entry[1];
 
-        countPhotographers++;
         if (lastPhotoCount !== currentPhotoCount) {
           rang = rang + 1;
         } else {
@@ -155,6 +153,7 @@ export function showHighScore() {
           </tr>
           `;
       });
+      const countPhotographers = Object.keys(statistics).length;
       showHighScorePopup(dataBahnhoefe, countPhotographers, html);
     })
     .catch(() => {

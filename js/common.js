@@ -1,4 +1,5 @@
 import $ from "jquery";
+import "bootstrap";
 import Popper from "popper.js";
 import { getI18nStrings } from "./i18n";
 
@@ -13,28 +14,29 @@ export function getBoolFromLocalStorage(key, defaultVal) {
   return value === "true";
 }
 
-export function fetchCountries(callback) {
+export function fetchCountries() {
+  let promise;
+
   if (sessionStorage.getItem("countries")) {
-    callback(JSON.parse(sessionStorage.getItem("countries")));
-    return;
+    promise = new Promise(resolve =>
+      resolve(JSON.parse(sessionStorage.getItem("countries")))
+    );
+  } else {
+    promise = fetch(getAPIURI() + "countries")
+      .then(r => r.json())
+      .then(countries => {
+        sessionStorage.setItem("countries", JSON.stringify(countries));
+        return countries;
+      });
   }
 
-  $.getJSON(getAPIURI() + "countries", function(countries) {
-    sessionStorage.setItem("countries", JSON.stringify(countries));
-    callback(countries);
-  });
+  return promise;
 }
 
-export function getCountryByCode(countryCode, callback) {
-  "use strict";
-
-  fetchCountries(function(countries) {
-    for (var i = 0; i < countries.length; i++) {
-      if (countries[i].code === countryCode) {
-        callback(countries[i]);
-      }
-    }
-  });
+export function getCountryByCode(countryCode) {
+  return fetchCountries().then(countries =>
+    countries.find(country => country.code === countryCode)
+  );
 }
 
 export function navigate(lat, lon) {
@@ -80,7 +82,7 @@ export function createTimetableUrl(
 export function timetable(countryCode, stationId, stationTitle, stationDs100) {
   "use strict";
 
-  getCountryByCode(countryCode, function(country) {
+  getCountryByCode(countryCode).then(country => {
     var timetableUrl = createTimetableUrl(
       country,
       stationId,
@@ -96,7 +98,7 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
 export function providerApp(countryCode) {
   "use strict";
 
-  getCountryByCode(countryCode, function(country) {
+  getCountryByCode(countryCode).then(country => {
     var providerAppsTable = "";
     $.each(country.providerApps, function(index, providerApp) {
       var icon = "fas fa-external-link-alt";
