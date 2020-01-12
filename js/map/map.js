@@ -1,4 +1,4 @@
-import "../../css/map.css";
+import "../../css/map/map.css";
 import "whatwg-fetch";
 
 import $ from "jquery";
@@ -114,17 +114,30 @@ export function switchCountryLink(countryCode) {
   });
 }
 
-export function showHighScore() {
+export function showHighScore(selectedCountryCode) {
   "use strict";
 
-  let html = "";
+  let statisticUrl;
+  let resultingCountryCode;
 
-  const statisticUrl = getAPIURI() + getCountryCode() + "/photographers";
+  if (!!selectedCountryCode) {
+    resultingCountryCode = selectedCountryCode;
+    if (selectedCountryCode === "all") {
+      statisticUrl = getAPIURI() + "photographers";
+    } else {
+      statisticUrl = getAPIURI() + selectedCountryCode + "/photographers";
+    }
+  } else {
+    resultingCountryCode = getCountryCode();
+    statisticUrl = getAPIURI() + resultingCountryCode + "/photographers";
+  }
+
   fetch(statisticUrl)
     .then(r => r.json())
     .then(statistics => {
       let rang = 0;
       let lastPhotoCount = -1;
+      let html = "";
       Object.entries(statistics).forEach(entry => {
         const name = entry[0];
         const currentPhotoCount = entry[1];
@@ -148,16 +161,15 @@ export function showHighScore() {
         html += `
            <tr>
             <td>${crown}</td>
-            <td>${name}</td>
             <td><a data-ajax="false" href="photographer.php?photographer=${name}">${name}</a></td>
+            <td>${currentPhotoCount}</td>
           </tr>
           `;
       });
-      const countPhotographers = Object.keys(statistics).length;
-      showHighScorePopup(dataBahnhoefe, countPhotographers, html);
+      showHighScorePopup(html, resultingCountryCode);
     })
     .catch(() => {
-      showHighScorePopup(dataBahnhoefe, -1, "Something went wrong");
+      showHighScorePopup("Something went wrong", resultingCountryCode);
     });
 }
 

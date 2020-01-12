@@ -50,7 +50,7 @@ navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
 </main>
 
 
-<div class="modal fade" id="highscore" tabindex="-1" role="dialog" aria-labelledby="<?php echo $highscore; ?>"
+<div class="modal fade" id="highscore" ="-1" role="dialog" aria-labelledby="<?php echo $highscore; ?>"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">

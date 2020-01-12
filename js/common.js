@@ -2,6 +2,7 @@ import $ from "jquery";
 import "bootstrap";
 import Popper from "popper.js";
 import { getI18nStrings } from "./i18n";
+import { CountryClient, getPromise } from "./countriesClient";
 
 window.Popper = Popper;
 
@@ -15,22 +16,7 @@ export function getBoolFromLocalStorage(key, defaultVal) {
 }
 
 export function fetchCountries() {
-  let promise;
-
-  if (sessionStorage.getItem("countries")) {
-    promise = new Promise(resolve =>
-      resolve(JSON.parse(sessionStorage.getItem("countries")))
-    );
-  } else {
-    promise = fetch(getAPIURI() + "countries")
-      .then(r => r.json())
-      .then(countries => {
-        sessionStorage.setItem("countries", JSON.stringify(countries));
-        return countries;
-      });
-  }
-
-  return promise;
+  return CountryClient.getPromise();
 }
 
 export function getCountryByCode(countryCode) {

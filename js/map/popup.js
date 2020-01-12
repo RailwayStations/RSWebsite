@@ -1,8 +1,9 @@
 import "leaflet";
 import { stationHtml } from "./station";
 import { getI18nStrings } from "../i18n";
-import { getCountryByCode, getCountryCode } from "../common";
+import { fetchCountries, getCountryByCode, getCountryCode } from "../common";
 import $ from "jquery";
+import { CountryStats } from "./statsClient";
 
 export function showPopup(feature, map) {
   "use strict";
@@ -36,26 +37,45 @@ export function showMissingStationPopup(mouseEvent, map) {
     .openOn(map);
 }
 
-function getTotalCountPhotos(dataBahnhoefe) {
-  "use strict";
+const highScoreCountryDropDown = function(countries, currentCountryCode) {
+  const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${
+    getI18nStrings().index.allCountries
+  }">${getI18nStrings().index.allCountries}</a>`;
+  let countryOptions = "";
+  countries.forEach(
+    country =>
+      (countryOptions += `<a class="dropdown-item" href="javascript:map.showHighScore('${country.code}');" title="${country.name}">${country.name}</a>`)
+  );
 
-  return dataBahnhoefe.filter(bahnhof => bahnhof.photographer !== null).length;
-}
+  const currentCountryName =
+    currentCountryCode === "all"
+      ? getI18nStrings().index.allCountries
+      : countries.find(country => country.code === currentCountryCode).name;
+  return `
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ${currentCountryName}
+  </button>
+  <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+    ${allOption}
+    ${countryOptions}
+  </div>
+</div>
+  `;
+};
 
-export function showHighScorePopup(
-  dataBahnhoefe,
-  countPhotographers,
-  highscoreTable
-) {
-  const countPhotos = getTotalCountPhotos(dataBahnhoefe);
-  const countStations = dataBahnhoefe.length;
+export async function showHighScorePopup(highscoreTable, countryCode) {
+  const countryStats = await CountryStats.get(countryCode);
+  const countries = await fetchCountries();
+  const countPhotos = countryStats.withPhoto;
+  const countStations = countryStats.total;
   const percentPhotos = (countPhotos / countStations) * 100;
 
   const body = document.getElementById("highscoreBody");
   const countryStatistics = `
   ${getI18nStrings().index.of} ${countStations} ${getI18nStrings().index.photos}
   `;
-  const countPhotographersString = `${countPhotographers} ${
+  const countPhotographersString = `${countryStats.photographers} ${
     getI18nStrings().index.photographers
   }`;
   body.innerHTML = `
@@ -68,9 +88,8 @@ export function showHighScorePopup(
       <table class="table table-striped">${highscoreTable}</table>
     `;
 
-  getCountryByCode(getCountryCode()).then(country => {
-    const label = document.getElementById("highscoreLabel");
-    label.innerHTML = `${getI18nStrings().index.highscore}: ${country.name}`;
-    $("#highscore").modal("show");
-  });
+  const label = document.getElementById("highscoreLabel");
+  const dropDown = highScoreCountryDropDown(countries, countryCode);
+  label.innerHTML = `${getI18nStrings().index.highscore}: ${dropDown}`;
+  $("#highscore").modal("show");
 }
