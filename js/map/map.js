@@ -17,12 +17,9 @@ import {
 } from "../common";
 import "bootstrap";
 import { updateMarker } from "./markers";
-import {
-  showHighScorePopup,
-  showMissingStationPopup,
-  showPopup
-} from "./popup";
+import { showMissingStationPopup, showPopup } from "./popup";
 import { fetchStationDataPromise } from "./stationClient";
+import { showHighScorePopup } from "./highscore";
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -117,60 +114,7 @@ export function switchCountryLink(countryCode) {
 export function showHighScore(selectedCountryCode) {
   "use strict";
 
-  let statisticUrl;
-  let resultingCountryCode;
-
-  if (!!selectedCountryCode) {
-    resultingCountryCode = selectedCountryCode;
-    if (selectedCountryCode === "all") {
-      statisticUrl = getAPIURI() + "photographers";
-    } else {
-      statisticUrl = getAPIURI() + selectedCountryCode + "/photographers";
-    }
-  } else {
-    resultingCountryCode = getCountryCode();
-    statisticUrl = getAPIURI() + resultingCountryCode + "/photographers";
-  }
-
-  fetch(statisticUrl)
-    .then(r => r.json())
-    .then(statistics => {
-      let rang = 0;
-      let lastPhotoCount = -1;
-      let html = "";
-      Object.entries(statistics).forEach(entry => {
-        const name = entry[0];
-        const currentPhotoCount = entry[1];
-
-        if (lastPhotoCount !== currentPhotoCount) {
-          rang = rang + 1;
-        } else {
-          lastPhotoCount = currentPhotoCount;
-        }
-        let crown = "";
-        if (rang === 1) {
-          crown = '<img src="images/crown_gold.png"/>';
-        } else if (rang === 2) {
-          crown = '<img src="images/crown_silver.png"/>';
-        } else if (rang === 3) {
-          crown = '<img src="images/crown_bronze.png"/>';
-        } else {
-          crown = rang + ".";
-        }
-
-        html += `
-           <tr>
-            <td>${crown}</td>
-            <td><a data-ajax="false" href="photographer.php?photographer=${name}">${name}</a></td>
-            <td>${currentPhotoCount}</td>
-          </tr>
-          `;
-      });
-      showHighScorePopup(html, resultingCountryCode);
-    })
-    .catch(() => {
-      showHighScorePopup("Something went wrong", resultingCountryCode);
-    });
+  return showHighScorePopup(selectedCountryCode);
 }
 
 function searchWeight(query, suggestion) {
