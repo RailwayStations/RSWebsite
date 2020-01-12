@@ -45,7 +45,7 @@ export function toggleLocation() {
   }
 }
 
-export function setLastZoomLevel(zoomLevel) {
+function setLastZoomLevel(zoomLevel) {
   "use strict";
   if (zoomLevel != null) {
     sessionStorage.setItem("zoomLevel", zoomLevel);
@@ -83,13 +83,8 @@ export function getLastPos() {
 export function timetableByStation(stationId) {
   "use strict";
 
-  for (var i = 0; i < dataBahnhoefe.length; ++i) {
-    if (dataBahnhoefe[i].idStr === stationId) {
-      var station = dataBahnhoefe[i];
-      timetable(station.country, station.idStr, station.title, station.DS100);
-      return;
-    }
-  }
+  const station = dataBahnhoefe.filter(station => station.idStr === stationId);
+  timetable(station.country, station.idStr, station.title, station.DS100);
 }
 
 export function switchCountryLink(countryCode) {

@@ -75,7 +75,7 @@ const createTable = function(statistics) {
     result += `
            <tr>
             <td>${crown}</td>
-            <td><a data-ajax="false" href="photographer.php?photographer=${name}">${name}</a></td>
+            <td><a href="photographer.php?photographer=${name}">${name}</a></td>
             <td>${currentPhotoCount}</td>
           </tr>
           `;
@@ -107,14 +107,12 @@ const createProgressBar = function(countryStats) {
 `;
 };
 const createLabelWithDropDown = function(countries, currentCountry) {
-  const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${
-    getI18nStrings().index.allCountries
-  }">${getI18nStrings().index.allCountries}</a>`;
+  const allCountries = getI18nStrings().index.allCountries;
+  const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${allCountries}">${allCountries}</a>`;
   let countryOptions = "";
-  countries.forEach(
-    country =>
-      (countryOptions += `<a class="dropdown-item" href="javascript:map.showHighScore('${country.code}');" title="${country.name}">${country.name}</a>`)
-  );
+  countries.forEach(country => {
+    countryOptions += `<a class="dropdown-item" href="javascript:map.showHighScore('${country.code}');" title="${country.name}">${country.name}</a>`;
+  });
   const dropDown = `
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

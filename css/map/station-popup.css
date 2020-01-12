@@ -15,3 +15,8 @@
     width: 20px;
     text-align: center;
 }
+
+.station-popup img {
+    min-height: 169px;
+    background-color: lightgray;
+}

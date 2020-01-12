@@ -1,5 +1,6 @@
 import { fetchCountries, getAPIURI, getCountryCode } from "../common";
 import { updateMarker } from "./markers";
+import { switchCountryLink } from "./map";
 
 function getStationsURL() {
   "use strict";
@@ -30,7 +31,6 @@ const fetchStationData = function(countryCode) {
 function initCountry() {
   fetchCountries().then(countries => {
     const menu = document.getElementById("countries");
-    let menuItems = "";
     const currentCountry = getCountryCode();
 
     countries.sort(function(a, b) {
@@ -40,14 +40,17 @@ function initCountry() {
     countries.forEach(country => {
       let code = country.code;
       let name = country.name;
-      menuItems += `<a class="dropdown-item" href="javascript:map.switchCountryLink('${code}');" title="${name}">${name}</a>`;
+      const link = document.createElement("div");
+      link.classList.add("dropdown-item");
+      link.addEventListener("click", () => switchCountryLink(code));
+      link.title = name;
+      link.innerHTML = name;
+      menu.appendChild(link);
       if (code === currentCountry) {
         document.getElementById("country").innerHTML = name;
         document.title = `RailwayStations - ${name}`;
       }
     });
-
-    menu.innerHTML = menuItems;
   });
 }
 
