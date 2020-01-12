@@ -58,9 +58,9 @@ const createTable = function(statistics) {
 
     if (lastPhotoCount !== currentPhotoCount) {
       rang = rang + 1;
-    } else {
-      lastPhotoCount = currentPhotoCount;
     }
+    lastPhotoCount = currentPhotoCount;
+
     let crown = "";
     if (rang === 1) {
       crown = '<img src="images/crown_gold.png"/>';
