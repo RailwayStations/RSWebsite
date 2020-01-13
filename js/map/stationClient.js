@@ -31,6 +31,7 @@ const fetchStationData = function(countryCode) {
 function initCountry() {
   fetchCountries().then(countries => {
     const menu = document.getElementById("countries");
+    menu.innerHTML = "";
     const currentCountry = getCountryCode();
 
     countries.sort(function(a, b) {
