@@ -227,8 +227,7 @@ $(document).ready(function() {
       var bahnhof = dataBahnhoefe.filter(function(bahnhof) {
         return bahnhof.idStr === suggestion.data;
       });
-      map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon));
-      map.setZoom(14);
+      map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon), 14);
 
       let bahnhofMarkers = markers.getLayers();
       if (!bahnhofMarkers[0].options) {
