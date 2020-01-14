@@ -1,4 +1,4 @@
-import { getI18nStrings } from "../i18n";
+import { getI18n } from "../i18n";
 import { CountryStats } from "./statsClient";
 import { fetchCountries, getAPIURI, getCountryCode } from "../common";
 import $ from "jquery";
@@ -11,7 +11,7 @@ export const showHighScorePopup = async selectedCountryCode => {
 
   if (!!selectedCountryCode) {
     if (selectedCountryCode === "all") {
-      currentCountry = getI18nStrings().index.allCountries;
+      currentCountry = getI18n(s => s.index.allCountries);
       countryStats = await CountryStats.get("all");
       statistics = await fetch(getAPIURI() + "photographers").then(r =>
         r.json()
@@ -89,9 +89,9 @@ const createProgressBar = function(countryStats) {
   const percentPhotos = (countPhotos / countStations) * 100;
   const countPhotographers = countryStats.photographers;
 
-  const of = getI18nStrings().index.of;
-  const photos = getI18nStrings().index.photos;
-  const photographers = getI18nStrings().index.photographers;
+  const of = getI18n(s => s.index.of);
+  const photos = getI18n(s => s.index.photos);
+  const photographers = getI18n(s => s.index.photographers);
 
   const countryStatistics = `${countPhotos} ${of} ${countStations} ${photos}`;
   const countPhotographersString = `${countPhotographers} ${photographers}`;
@@ -105,7 +105,7 @@ const createProgressBar = function(countryStats) {
 `;
 };
 const createLabelWithDropDown = function(countries, currentCountry) {
-  const allCountries = getI18nStrings().index.allCountries;
+  const allCountries = getI18n(s => s.index.allCountries);
   const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${allCountries}">${allCountries}</a>`;
   let countryOptions = "";
   countries.forEach(country => {
@@ -123,5 +123,5 @@ const createLabelWithDropDown = function(countries, currentCountry) {
 </div>
   `;
 
-  return `${getI18nStrings().index.highscore}: ${dropDown}`;
+  return `${getI18n(s => s.index.highscore)}: ${dropDown}`;
 };

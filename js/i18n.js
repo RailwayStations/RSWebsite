@@ -1,6 +1,12 @@
 import languages from "../json/lang";
 
-export function getI18nStrings() {
+const defaultLang = "en";
+
+export function getI18n(parameters) {
   let lang = document.documentElement.lang;
-  return languages[lang];
+  const result = parameters(languages[lang]);
+  if (!result) {
+    return parameters(languages[defaultLang]);
+  }
+  return result;
 }

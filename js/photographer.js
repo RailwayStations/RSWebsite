@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { getAPIURI, getQueryParameter, scaleImage } from "./common";
 import "bootstrap";
-import { getI18nStrings } from "./i18n";
+import { getI18n } from "./i18n";
 
 window.$ = $;
 
@@ -19,9 +19,9 @@ $(document).ready(function() {
     dataType: "json",
     error: function() {
       $("#stations").html(
-        `${
-          getI18nStrings().photographer.errorLoadingStationsOfPhotographer
-        } ${photographer}`
+        `${getI18n(
+          s => s.photographer.errorLoadingStationsOfPhotographer
+        )} ${photographer}`
       );
     },
     success: function(obj) {
@@ -39,7 +39,7 @@ $(document).ready(function() {
             }</a></h5>
         <p class="card-text">
             <small class="text-muted">
-                ${getI18nStrings().photographer.licence}: <a href="${
+                ${getI18n(s => s.photographer.licence)}: <a href="${
               station.licenseUrl
             }">${station.license}</a>
             </small>
@@ -55,7 +55,7 @@ $(document).ready(function() {
           );
         }
       } else {
-        $("#stations").html(getI18nStrings().photographer.noStationsFound);
+        $("#stations").html(getI18n(s => s.photographer.noStationsFound));
       }
     }
   });

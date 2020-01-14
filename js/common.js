@@ -1,8 +1,8 @@
 import $ from "jquery";
 import "bootstrap";
 import Popper from "popper.js";
-import { getI18nStrings } from "./i18n";
-import { CountryClient, getPromise } from "./countriesClient";
+import { getI18n } from "./i18n";
+import { CountryClient } from "./countriesClient";
 
 window.Popper = Popper;
 
@@ -107,7 +107,7 @@ export function providerApp(countryCode) {
 
     if (providerAppsTable === "") {
       providerAppsTable =
-        "<tr><td>" + getI18nStrings().common.noApp + "</td></tr>";
+        "<tr><td>" + getI18n(s => s.common.noApp) + "</td></tr>";
     }
 
     var providerAppsDiv = $("#providerAppsBody");

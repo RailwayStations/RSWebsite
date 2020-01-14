@@ -9,7 +9,7 @@ import {
   setUserProfile
 } from "./common";
 import "bootstrap";
-import { getI18nStrings } from "./i18n";
+import { getI18n } from "./i18n";
 
 let loggedIn = false;
 
@@ -31,9 +31,9 @@ function register(userProfile, passwordResetOnly) {
   request.done(function(data) {
     saveBtnSpinning(false);
     if (passwordResetOnly) {
-      alert(getI18nStrings().settings.newPasswordViaEmail);
+      alert(getI18n(s => s.settings.newPasswordViaEmail));
     } else {
-      alert(getI18nStrings().settings.registrationSuccessfully);
+      alert(getI18n(s => s.settings.registrationSuccessfully));
       $("#loginEmail").val(userProfile.email);
       $(".login-form").show();
       $(".profile-form").hide();
@@ -45,19 +45,17 @@ function register(userProfile, passwordResetOnly) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        `${
-          getI18nStrings().settings.invalidData
-        }: ${textStatus}, ${errorThrown}`
+        `${getI18n(s => s.settings.invalidData)}: ${textStatus}, ${errorThrown}`
       );
     } else if (status == 409) {
       alert(
-        `${
-          getI18nStrings().settings.conflict
-        }: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
+        `${getI18n(
+          s => s.settings.conflict
+        )}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else {
       alert(
-        `${getI18nStrings().settings.conflict}: ${textStatus}, ${errorThrown}`
+        `${getI18n(s => s.settings.conflict)}: ${textStatus}, ${errorThrown}`
       );
     }
   });
@@ -78,23 +76,21 @@ function resetPassword(nameOrEmail) {
   });
 
   request.done(function(data) {
-    alert(getI18nStrings().settings.newPasswordViaEmail);
+    alert(getI18n(s => s.settings.newPasswordViaEmail));
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        `${
-          getI18nStrings().settings.missingEMail
-        }: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
+        `${getI18n(
+          s => s.settings.missingEMail
+        )}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else if (status == 404) {
-      alert(getI18nStrings().settings.noProfileFound);
+      alert(getI18n(s => s.settings.noProfileFound));
     } else {
-      alert(
-        `${getI18nStrings().settings.error}: ${textStatus}, ${errorThrown}`
-      );
+      alert(`${getI18n(s => s.settings.error)}: ${textStatus}, ${errorThrown}`);
     }
   });
 }
@@ -105,7 +101,7 @@ function onResetPassword() {
   var nameOrEmail = $("#loginEmail").val();
 
   if (isBlank(nameOrEmail)) {
-    alert(getI18nStrings().settings.pleaseEnterNicknameEmail);
+    alert(getI18n(s => s.settings.pleaseEnterNicknameEmail));
     return false;
   }
 
@@ -119,11 +115,11 @@ function changePassword() {
   var newPasswordRepeat = $("#newPasswordRepeat").val();
 
   if (newPassword === undefined || newPassword.length < 8) {
-    alert(getI18nStrings().settings.passwordMinLength);
+    alert(getI18n(s => s.settings.passwordMinLength));
     return false;
   }
   if (newPassword !== newPasswordRepeat) {
-    alert(getI18nStrings().settings.passwordMismatch);
+    alert(getI18n(s => s.settings.passwordMismatch));
     return false;
   }
   $("#changePasswordModal").modal("hide");
@@ -147,15 +143,15 @@ function changePassword() {
     userProfile.password = newPassword;
     setUserProfile(userProfile);
     setUserProfileForm(userProfile);
-    alert(getI18nStrings().settings.passwordChanges);
+    alert(getI18n(s => s.settings.passwordChanges));
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
     var status = jqXHR.status;
     alert(
-      `${
-        getI18nStrings().settings.unableToChangePassword
-      }: ${textStatus}, ${errorThrown}`
+      `${getI18n(
+        s => s.settings.unableToChangePassword
+      )}: ${textStatus}, ${errorThrown}`
     );
   });
   return false;
@@ -182,7 +178,7 @@ export function onLogin() {
   var password = $("#loginPassword").val();
 
   if (isBlank(email) || isBlank(password)) {
-    alert(getI18nStrings().settings.provideEmailNicknameForLogin);
+    alert(getI18n(s => s.settings.provideEmailNicknameForLogin));
     return false;
   }
   login();
@@ -223,7 +219,7 @@ function login(quiet) {
     $(".login-form").hide();
     $(".profile-form").show();
     if (!quiet) {
-      alert(getI18nStrings().settings.loginSuccessful);
+      alert(getI18n(s => s.settings.loginSuccessful));
     }
   });
 
@@ -238,7 +234,7 @@ function badLogin(userProfile) {
   loggedIn = false;
   $(".login-form").show();
   $(".profile-form").hide();
-  alert(getI18nStrings().settings.loginFailed);
+  alert(getI18n(s => s.settings.loginFailed));
 }
 
 export function togglePoints() {
@@ -291,7 +287,7 @@ function uploadProfile(userProfile) {
   request.done(function(data) {
     loggedIn = true;
     saveBtnSpinning(false);
-    alert(getI18nStrings().settings.profileSaved);
+    alert(getI18n(s => s.settings.profileSaved));
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -299,7 +295,7 @@ function uploadProfile(userProfile) {
     var status = jqXHR.status;
     if (status == 400) {
       alert(
-        getI18nStrings().settings.invalidData +
+        getI18n(s => s.settings.invalidData) +
           ": " +
           textStatus +
           ", " +
@@ -309,15 +305,15 @@ function uploadProfile(userProfile) {
       badLogin(userProfile);
     } else if (status == 409) {
       alert(
-        `${
-          getI18nStrings().settings.conflict
-        }: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
+        `${getI18n(
+          s => s.settings.conflict
+        )}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
       );
     } else {
       alert(
-        `${
-          getI18nStrings().settings.profileSavedFailed
-        }: ${textStatus}, ${errorThrown}`
+        `${getI18n(
+          s => s.settings.profileSavedFailed
+        )}: ${textStatus}, ${errorThrown}`
       );
     }
   });
@@ -349,33 +345,33 @@ export function onSaveProfile() {
   setUserProfile(userProfile);
 
   if (!userProfile.cc0) {
-    alert(getI18nStrings().settings.acceptCC0);
+    alert(getI18n(s => s.settings.acceptCC0));
     return false;
   }
 
   if (!userProfile.photoOwner) {
-    alert(getI18nStrings().settings.ownPhotos);
+    alert(getI18n(s => s.settings.ownPhotos));
     return false;
   }
 
   if (isBlank(userProfile.nickname)) {
-    alert(getI18nStrings().settings.provideNickname);
+    alert(getI18n(s => s.settings.provideNickname));
     return false;
   }
 
   if (isBlank(userProfile.email)) {
-    alert(getI18nStrings().settings.provideEmail);
+    alert(getI18n(s => s.settings.provideEmail));
     return false;
   } else {
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!userProfile.email.match(mailformat)) {
-      alert(getI18nStrings().settings.invalidEmail);
+      alert(getI18n(s => s.settings.invalidEmail));
       return false;
     }
   }
 
   if (isNotBlank(userProfile.link) && !isURL(userProfile.link)) {
-    alert(getI18nStrings().settings.provideValidUrl);
+    alert(getI18n(s => s.settings.provideValidUrl));
     return false;
   }
 
@@ -385,7 +381,7 @@ export function onSaveProfile() {
     if (loggedIn && isNotBlank(userProfile.password)) {
       uploadProfile(userProfile);
     } else {
-      alert(getI18nStrings().settings.profileSaved);
+      alert(getI18n(s => s.settings.profileSaved));
     }
   }
 
@@ -429,9 +425,9 @@ function setUserProfileForm(userProfile) {
   );
 
   if (loggedIn) {
-    $("#saveBtnText").html(getI18nStrings().settings.save);
+    $("#saveBtnText").html(getI18n(s => s.settings.save));
   } else {
-    $("#saveBtnText").html(getI18nStrings().settings.register);
+    $("#saveBtnText").html(getI18n(s => s.settings.register));
   }
 }
 

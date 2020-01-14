@@ -1,5 +1,5 @@
 import { scaleImage } from "../common";
-import { getI18nStrings } from "../i18n";
+import { getI18n } from "../i18n";
 
 export let stationHtml = function(feature) {
   const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
@@ -24,8 +24,8 @@ export let stationHtml = function(feature) {
     details += `
     <div>
       <a href="${uploadUrl}"
-         title="${getI18nStrings().index.uploadYourPhoto}">
-          <i class="fas fa-upload"></i>${getI18nStrings().index.uploadYourPhoto}
+         title="${getI18n(s => s.index.uploadYourPhoto)}">
+          <i class="fas fa-upload"></i>${getI18n(s => s.index.uploadYourPhoto)}
       </a>
     </div>
     `;
@@ -51,14 +51,14 @@ export let stationHtml = function(feature) {
       <a href="#" onclick="navigate(${feature.properties.lat},${
     feature.properties.lon
   });">
-        <i class="fas fa-directions"></i>${getI18nStrings().index.navigation}
+        <i class="fas fa-directions"></i>${getI18n(s => s.index.navigation)}
       </a>
     </div>
     <div>
       <a href="#" onclick="map.timetableByStation('${
         feature.properties.idStr
       }');">
-        <i class="fas fa-list"></i>${getI18nStrings().index.departureTimes}
+        <i class="fas fa-list"></i>${getI18n(s => s.index.departureTimes)}
       </a>
     </div>
     `;

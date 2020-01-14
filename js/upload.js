@@ -7,7 +7,7 @@ import {
   isBlank
 } from "./common";
 import "bootstrap";
-import { getI18nStrings } from "./i18n";
+import { getI18n } from "./i18n";
 
 function startUpload() {
   $("#upload-process").modal("show");
@@ -17,16 +17,16 @@ function startUpload() {
 function stopUpload(message) {
   let result = message;
   if (result.startsWith("202")) {
-    result = getI18nStrings().upload.successful;
+    result = getI18n(s => s.upload.successful);
   } else if (result.startsWith("400")) {
-    result = getI18nStrings().upload.invalid;
+    result = getI18n(s => s.upload.invalid);
   } else if (result.startsWith("401")) {
     window.location.href = "settings.php";
     return false;
   } else if (result.startsWith("409")) {
-    result = getI18nStrings().upload.conflict;
+    result = getI18n(s => s.upload.conflict);
   } else if (result.startsWith("413")) {
-    result = getI18nStrings().upload.maxSize;
+    result = getI18n(s => s.upload.maxSize);
   }
 
   $("#upload-process").modal("hide");
@@ -50,7 +50,7 @@ $(document).ready(function() {
   const userProfile = getUserProfile();
 
   if (stationId) {
-    $("#title-form").html(getI18nStrings().upload.uploadPhotoFor + " " + title);
+    $("#title-form").html(getI18n(s => s.upload.uploadPhotoFor + " " + title));
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $(".missing-station").hide();

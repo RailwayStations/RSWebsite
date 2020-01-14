@@ -1,6 +1,6 @@
 import "leaflet";
 import { stationHtml } from "./station";
-import { getI18nStrings } from "../i18n";
+import { getI18n } from "../i18n";
 
 export function showPopup(feature, map) {
   "use strict";
@@ -16,14 +16,14 @@ export function showMissingStationPopup(mouseEvent, map) {
 
   const missingStationUploadUrl = `upload.php?latitude=${mouseEvent.latlng.lat}&longitude=${mouseEvent.latlng.lng}`;
   const str = `
-<h3>${getI18nStrings().index.addMissingStation}</h3>
-<div>${getI18nStrings().index.location}: ${mouseEvent.latlng.lat},${
+<h3>${getI18n(s => s.index.addMissingStation)}</h3>
+<div>${getI18n(s => s.index.location)}: ${mouseEvent.latlng.lat},${
     mouseEvent.latlng.lng
   }</div>
 <div>
     <a href="${missingStationUploadUrl}"
-        title="${getI18nStrings().index.uploadPhoto}">
-        <i class="fas fa-upload">${getI18nStrings().index.uploadYourPhoto}.</i>
+        title="${getI18n(s => s.index.uploadPhoto)}">
+        <i class="fas fa-upload">${getI18n(s => s.index.uploadYourPhoto)}.</i>
     </a>
 </div>
 `;
