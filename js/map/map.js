@@ -6,6 +6,8 @@ import "leaflet";
 import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
+import "leaflet-easybutton"
+import "leaflet.locatecontrol"
 import "jQuery-Autocomplete";
 import {
   getQueryParameter,
@@ -19,6 +21,7 @@ import { updateMarker } from "./markers";
 import { showMissingStationPopup, showPopup } from "./popup";
 import { fetchStationDataPromise } from "./stationClient";
 import { showHighScorePopup } from "./highscore";
+import { getI18n } from '../i18n';
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -27,22 +30,8 @@ window.navigate = navigate;
 let dataBahnhoefe = null,
   map = null,
   markers = null,
-  ownMarker = null,
-  watchLocation = false;
+  ownMarker = null;
 
-export function toggleLocation() {
-  "use strict";
-
-  if (watchLocation) {
-    map.stopLocate();
-    watchLocation = false;
-    $("#location_watch_toggle").removeClass("active");
-  } else {
-    map.locate({ watch: true });
-    watchLocation = true;
-    $("#location_watch_toggle").addClass("active");
-  }
-}
 
 function setLastZoomLevel(zoomLevel) {
   "use strict";
@@ -154,35 +143,22 @@ $(document).ready(function() {
     showMissingStationPopup(ev, map);
   });
 
+  const fitMarkers = () => map.fitBounds(markers.getBounds());
+  L.easyButton('fa-globe-europe', fitMarkers, getI18n(s => s.index.showAll)).addTo(map);
+  L.control.locate({
+    showPopup: false,
+    strings: {
+      title: getI18n(s => s.index.myLocation)
+    }
+  }).addTo(map);
+
+
   fetchStationDataPromise(map)
     .then(data => {
       dataBahnhoefe = data;
       markers = updateMarker(dataBahnhoefe, map);
     })
     .then(function() {
-      // alert( "second success" );
-      map.on("locationfound", function(ev) {
-        if (ownMarker != null) {
-          ownMarker.setLatLng(ev.latlng);
-          ownMarker.update();
-        } else {
-          var customIcon = L.icon({
-            iconUrl: "./images/pointer-blue.png",
-            iconSize: [50, 50],
-            iconAnchor: [25, 50],
-            popupAnchor: [0, -28]
-          });
-          ownMarker = L.marker(ev.latlng, { icon: customIcon });
-          ownMarker.addTo(map);
-        }
-        map.panTo(ev.latlng); // ev is an event object (MouseEvent in this case)
-      });
-      map.on("locationerror", function(ev) {
-        map.stopLocate();
-        watchLocation = false;
-        $("#location_watch_toggle").removeClass("active");
-        console.log("Position konnte nicht ermittelt werden");
-      });
       map.on("zoomend", function() {
         setLastZoomLevel(map.getZoom());
       });

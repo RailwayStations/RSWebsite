@@ -26,9 +26,6 @@ $prefixNavItems = <<<HTML
         <div class="dropdown-menu" id="countries" aria-labelledby="country">
         </div>
     </li>
-    <li class="nav-item" id="location_watch_toggle">
-        <a class="nav-link p-2" href="javascript:map.toggleLocation();" rel="noopener" aria-label="{$myLocation}" title="{$myLocation}"><em class="fas fa-search-location"></em></a>
-    </li>
 HTML;
 
 $additionalItems = <<<HTML

@@ -2,8 +2,11 @@
 @import "../../node_modules/spin.js/spin.css";
 @import "../../node_modules/leaflet.markercluster/dist/MarkerCluster.css";
 @import "../../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css";
+@import "../../node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.css";
+@import "../../node_modules/leaflet-easybutton/src/easy-button.css";
 @import "station-popup.css";
 @import "highscore.css";
+
 
 .dropdown-item {
     cursor: pointer;
