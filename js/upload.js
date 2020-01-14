@@ -10,23 +10,41 @@ function startUpload() {
   return true;
 }
 
-function stopUpload(message) {
-  let result = message;
-  if (result.startsWith("202")) {
-    result = getI18n(s => s.upload.successful);
-  } else if (result.startsWith("400")) {
-    result = getI18n(s => s.upload.invalid);
-  } else if (result.startsWith("401")) {
+// example message: {"state":"REVIEW","message":"Accepted","uploadId":1,"inboxUrl":"http://inbox.railway-stations.org/1.jpg"}
+function stopUpload(response) {
+  let result = JSON.parse(response);
+
+  let message =
+    getI18n(s => s.upload.unknown) + ": " + result.state + " - " + message;
+  if (result.state === "REVIEW") {
+    message = getI18n(s => s.upload.successful);
+  } else if (result.state === "LAT_LON_OUT_OF_RANGE") {
+    message = getI18n(s => s.upload.latLonOutOfRange);
+  } else if (result.state === "NOT_ENOUGH_DATA") {
+    message = getI18n(s => s.upload.notEnoughData);
+  } else if (result.state === "UNSUPPORTED_CONTENT_TYPE") {
+    message = getI18n(s => s.upload.unsupportedContentType);
+  } else if (result.state === "UNAUTHORIZED") {
     window.location.href = "settings.php";
     return false;
-  } else if (result.startsWith("409")) {
-    result = getI18n(s => s.upload.conflict);
-  } else if (result.startsWith("413")) {
-    result = getI18n(s => s.upload.maxSize);
+  } else if (result.state === "CONFLICT") {
+    message = getI18n(s => s.upload.conflict);
+  } else if (result.state === "PHOTO_TOO_LARGE") {
+    message = getI18n(s => s.upload.maxSize);
+  } else if (result.state === "ERROR") {
+    message = getI18n(s => s.upload.error);
+  }
+
+  if (result.inboxUrl !== undefined) {
+    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${
+      result.inboxUrl
+    }' target='blank'>${result.inboxUrl}</a>`;
+    document.getElementById("uploaded-photo-link").innerHTML = link;
+    document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
 
   $("#upload-process").modal("hide");
-  alert(result);
+  alert(message);
   return true;
 }
 

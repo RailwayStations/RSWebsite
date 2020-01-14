@@ -43,6 +43,11 @@ npm ci
 npm run build
 ```
 
+Man kann für lokale Testzwecke die API_URL per environment Variablen umkonfigurieren. Ebenfalls lässt sich der scaleImage Service über den Google Dienst per SCALE_IMAGE=false abschalten:
+```bash
+API_URL=http://localhost:8080/ SCALE_IMAGE=false npm ci
+```
+
 Der Code sollte formatiert gepusht werden:
 ```bash
 npm run format

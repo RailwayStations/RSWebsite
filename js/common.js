@@ -155,8 +155,7 @@ export function getCountryCode() {
 
 export function getAPIURI() {
   "use strict";
-  return "https://api.railway-stations.org/";
-  //return "http://localhost:8080/";
+  return process.env.API_URL;
 }
 
 /**
@@ -167,12 +166,16 @@ export function getAPIURI() {
  * @return {string} The URL to the scaled image
  */
 export function scaleImage(src, width) {
-  return (
-    "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=" +
-    width +
-    "&url=" +
-    encodeURIComponent(src)
-  );
+  if (process.env.SCALE_IMAGE === true) {
+    return (
+      "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=" +
+      width +
+      "&url=" +
+      encodeURIComponent(src)
+    );
+  }
+
+  return src;
 }
 
 export function getQueryParameter() {
