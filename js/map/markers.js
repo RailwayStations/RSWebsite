@@ -3,25 +3,25 @@ import $ from "jquery";
 import { showPopup } from "./popup";
 import { getLastPos, getLastZoomLevel } from "./map";
 
-let markers = undefined;
+let _markers = undefined;
 
 export function updateMarker(dataBahnhoefe, map, setViewPort = true) {
-  if (!!markers) {
-    map.removeLayer(markers);
+  if (!!_markers) {
+    map.removeLayer(_markers);
   }
 
-  const showPoints = getBoolFromLocalStorage("showPoints", false);
-  markers = showPoints
-    ? showCircleAllClustered(dataBahnhoefe, map)
-    : showMarkerImagesClustered(dataBahnhoefe, map);
-  map.addLayer(markers);
+  const displayAsPoints = getBoolFromLocalStorage("showPoints", false);
+  _markers = displayAsPoints
+    ? showPoints(dataBahnhoefe, map)
+    : showClustered(dataBahnhoefe, map);
+  map.addLayer(_markers);
   if (setViewPort) {
-    setMapViewport(map);
+    setMapViewport(map, _markers);
   }
-  return markers;
+  return _markers;
 }
 
-function setMapViewport(map) {
+function setMapViewport(map, markers) {
   if (getLastZoomLevel() != null) {
     map.setZoom(getLastZoomLevel());
   }
@@ -33,12 +33,10 @@ function setMapViewport(map) {
   }
 }
 
-function showCircleAllClustered(dataBahnhoefe, map) {
-  "use strict";
+function showPoints(dataBahnhoefe, map) {
+  const markers = L.featureGroup();
 
-  const markers = L.layerGroup();
-
-  let bahnhoefe = L.featureGroup().on("click", function(event) {
+  const bahnhoefe = L.featureGroup().on("click", function(event) {
     showPopup(event.layer.options, map);
   });
 
@@ -63,18 +61,13 @@ function showCircleAllClustered(dataBahnhoefe, map) {
   });
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
-
   return markers;
 }
 
-function showMarkerImagesClustered(dataBahnhoefe, map) {
-  "use strict";
-
+function showClustered(dataBahnhoefe, map) {
   $("body").addClass("showCluster");
-  if (markers) {
-    map.removeLayer(markers);
-  }
-  let markers = L.markerClusterGroup({
+
+  const markers = L.markerClusterGroup({
     iconCreateFunction: function(cluster) {
       var markers = cluster.getAllChildMarkers(),
         red = 0,
@@ -129,7 +122,7 @@ function showMarkerImagesClustered(dataBahnhoefe, map) {
       iconAnchor: [25, 50],
       popupAnchor: [0, -28]
     });
-    const marker = L.marker([bahnhof.lat, bahnhof.lon], {
+    L.marker([bahnhof.lat, bahnhof.lon], {
       icon: customIcon,
       properties: bahnhof
     }).addTo(bahnhoefe);
