@@ -6,8 +6,8 @@ import "leaflet";
 import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
-import "leaflet-easybutton"
-import "leaflet.locatecontrol"
+import "leaflet-easybutton";
+import "leaflet.locatecontrol";
 import "jQuery-Autocomplete";
 import {
   getQueryParameter,
@@ -21,7 +21,7 @@ import { updateMarker } from "./markers";
 import { showMissingStationPopup, showPopup } from "./popup";
 import { fetchStationDataPromise } from "./stationClient";
 import { showHighScorePopup } from "./highscore";
-import { getI18n } from '../i18n';
+import { getI18n } from "../i18n";
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -31,7 +31,6 @@ let dataBahnhoefe = null,
   map = null,
   markers = null,
   ownMarker = null;
-
 
 function setLastZoomLevel(zoomLevel) {
   "use strict";
@@ -144,14 +143,19 @@ $(document).ready(function() {
   });
 
   const fitMarkers = () => map.fitBounds(markers.getBounds());
-  L.easyButton('fa-globe-europe', fitMarkers, getI18n(s => s.index.showAll)).addTo(map);
-  L.control.locate({
-    showPopup: false,
-    strings: {
-      title: getI18n(s => s.index.myLocation)
-    }
-  }).addTo(map);
-
+  L.easyButton(
+    "fa-globe-europe",
+    fitMarkers,
+    getI18n(s => s.index.showAll)
+  ).addTo(map);
+  L.control
+    .locate({
+      showPopup: false,
+      strings: {
+        title: getI18n(s => s.index.myLocation)
+      }
+    })
+    .addTo(map);
 
   fetchStationDataPromise(map)
     .then(data => {

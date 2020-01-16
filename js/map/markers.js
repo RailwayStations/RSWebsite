@@ -1,4 +1,8 @@
-import { getBoolFromLocalStorage, getUserProfile } from "../common";
+import {
+  getBoolFromLocalStorage,
+  getQueryParameter,
+  getUserProfile
+} from "../common";
 import $ from "jquery";
 import { showPopup } from "./popup";
 import { getLastPos, getLastZoomLevel } from "./map";
@@ -33,6 +37,23 @@ function setMapViewport(map, markers) {
   }
 }
 
+let markerRadius = function(map) {
+  if (!!getQueryParameter().beta) {
+    const currentZoom = map.getZoom();
+    let result;
+    if (currentZoom > 10) {
+      result = 10;
+    } else if (currentZoom < 5) {
+      result = 1;
+    } else {
+      result = 10 - 9 * ((10 - currentZoom) / 5);
+    }
+    return result;
+  } else {
+    return 10;
+  }
+};
+
 function showPoints(dataBahnhoefe, map) {
   const markers = L.featureGroup();
 
@@ -42,7 +63,9 @@ function showPoints(dataBahnhoefe, map) {
 
   const nickname = getUserProfile().nickname;
 
-  dataBahnhoefe.forEach(bahnhof => {
+  const radius = markerRadius(map);
+
+  const rawMarkers = dataBahnhoefe.map(bahnhof => {
     let color;
     if (bahnhof.photographer === null) {
       color = "#B70E3D";
@@ -52,13 +75,21 @@ function showPoints(dataBahnhoefe, map) {
       color = "#3db70e";
     }
 
-    L.circleMarker([bahnhof.lat, bahnhof.lon], {
+    return L.circleMarker([bahnhof.lat, bahnhof.lon], {
       fillColor: color,
       fillOpacity: 1,
+      radius: radius,
       stroke: false,
       properties: bahnhof
     }).addTo(bahnhoefe);
   });
+
+  if (!!getQueryParameter().beta) {
+    map.on("zoomend", function(e) {
+      const radius = markerRadius(map);
+      rawMarkers.forEach(m => m.setRadius(radius));
+    });
+  }
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   return markers;
