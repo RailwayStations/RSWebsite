@@ -38,20 +38,16 @@ function setMapViewport(map, markers) {
 }
 
 let markerRadius = function(map) {
-  if (!!getQueryParameter().beta) {
-    const currentZoom = map.getZoom();
-    let result;
-    if (currentZoom > 10) {
-      result = 10;
-    } else if (currentZoom < 5) {
-      result = 1;
-    } else {
-      result = 10 - 9 * ((10 - currentZoom) / 5);
-    }
-    return result;
+  const currentZoom = map.getZoom();
+  let result;
+  if (currentZoom > 10) {
+    result = 10;
+  } else if (currentZoom < 5) {
+    result = 1;
   } else {
-    return 10;
+    result = 10 - 9 * ((10 - currentZoom) / 5);
   }
+  return result;
 };
 
 function showPoints(dataBahnhoefe, map) {
@@ -84,12 +80,10 @@ function showPoints(dataBahnhoefe, map) {
     }).addTo(bahnhoefe);
   });
 
-  if (!!getQueryParameter().beta) {
-    map.on("zoomend", function(e) {
-      const radius = markerRadius(map);
-      rawMarkers.forEach(m => m.setRadius(radius));
-    });
-  }
+  map.on("zoomend", function(e) {
+    const radius = markerRadius(map);
+    rawMarkers.forEach(m => m.setRadius(radius));
+  });
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   return markers;
