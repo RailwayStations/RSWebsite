@@ -14,9 +14,11 @@
     $commentInfo = L::upload_commentInfo;
     $fileChooser = L::upload_fileChooser;
     $pleaseInsertFile = L::upload_pleaseInsertFile;
+    $pleaseInsertComment = L::upload_pleaseInsertComment;
     $upload = L::upload_upload;
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
+    $reportGhost = L::upload_reportGhost;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -65,6 +67,9 @@ navbar();
             <label for="inputComment"><?php echo $comment; ?></label>
             <input name="comment" type="text" class="form-control" id="inputComment"
                    placeholder="<?php echo $commentInfo; ?>">
+            <div class="invalid-feedback">
+                <?php echo $pleaseInsertComment; ?>
+            </div>
         </div>
         <div class="form-group">
             <div class="custom-file">
@@ -75,8 +80,8 @@ navbar();
                 </div>
             </div>
         </div>
-        <input id="uploadSubmit" type="submit" class="btn btn-primary mt-1" name="submitBtn"
-               value="<?php echo $upload; ?>" disabled/>
+        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
+        <button id="reportGhost" type="button" class="btn btn-warning mt-1" onclick="return upload.reportGhost();" disabled><?php echo $reportGhost; ?> <i class="fas fa-ghost"></i></i></button>
     </form>
 
     <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

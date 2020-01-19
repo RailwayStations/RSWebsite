@@ -5,13 +5,19 @@ import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
+window.reportGhost = reportGhost;
+
 function startUpload() {
+  "use strict";
+
   $("#upload-process").modal("show");
   return true;
 }
 
 // example message: {"state":"REVIEW","message":"Accepted","uploadId":1,"inboxUrl":"http://inbox.railway-stations.org/1.jpg"}
 function stopUpload(response) {
+  "use strict";
+
   let result = JSON.parse(response);
 
   let message =
@@ -51,7 +57,63 @@ function stopUpload(response) {
 window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event) {
+  "use strict";
+
   stopUpload(event.data);
+}
+
+export function reportGhost() {
+  "use strict";
+
+  $("#fileInput").removeAttr("required");
+
+  $("#inputComment").attr("required","");
+  var comment = $("#inputComment").val();
+  if (isBlank(comment)) {
+    $("#inputComment").addClass(":invalid");
+    $("#uploadForm").addClass("was-validated");
+    return false;
+  } else {
+    $("#inputComment").removeClass(":invalid");
+  }
+
+  var r = confirm(getI18n(s => s.upload.confirmGhost));
+  if (r == true) {
+    var userProfile = getUserProfile();
+    var stationId = $("#stationId").val();
+    var country = $("#countryCode").val();
+
+    var request = $.ajax({
+      url: getAPIURI() + "reportGhostStation",
+      type: "POST",
+      dataType: "text",
+      processData: false,
+      headers: {
+        Authorization:
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        "Station-Id" : stationId,
+        "Country": country,
+        "Comment": encodeURIComponent(comment)
+      }
+    });
+  
+    request.done(function(data) {
+      alert(getI18n(s => s.upload.reportGhostSuccess))
+    });
+  
+    request.fail(function(jqXHR, textStatus, errorThrown) {
+      if (jqXHR.responseText) {
+        var response = JSON.parse(jqXHR.responseText)
+        alert(
+            errorThrown + 
+            ": " + 
+            response.message 
+        );
+      } else {
+        alert(textStatus + ": " + errorThrown);
+      }
+    });
+  }
 }
 
 $(document).ready(function() {
@@ -83,6 +145,7 @@ $(document).ready(function() {
     isBlank(userProfile.email) || isBlank(userProfile.password);
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
+  $("#reportGhost").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.php";
   } else {
