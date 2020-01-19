@@ -1,15 +1,15 @@
 import $ from "jquery";
-import { getQueryParameter, setUserProfile } from "./common";
 import "bootstrap";
+import { getQueryParameter } from "./common";
+import { UserProfile } from "./settings/UserProfile";
 
 $(document).ready(function() {
   const vars = getQueryParameter();
   const uploadToken = vars.uploadToken;
-  const userProfile = getUserProfile();
+  const userProfile = UserProfile.currentUser();
 
   if (uploadToken && uploadToken.length > 0) {
     userProfile.password = uploadToken;
-    delete userProfile.uploadToken;
-    setUserProfile(userProfile);
+    userProfile.save();
   }
 });

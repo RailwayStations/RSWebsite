@@ -143,53 +143,6 @@ export function isBlank(string) {
   return string === undefined || string.trim().length === 0;
 }
 
-export function deleteUserProfile() {
-  "use strict";
-
-  localStorage.removeItem("userProfile");
-}
-
-export function setUserProfile(userProfile) {
-  "use strict";
-
-  localStorage.setItem("userProfile", JSON.stringify(userProfile));
-}
-
-export function getUserProfile() {
-  "use strict";
-
-  var userProfile = JSON.parse(getStringFromLocalStorage("userProfile", "{}"));
-  if (userProfile.email === undefined) {
-    userProfile.email = "";
-  }
-  if (userProfile.password === undefined) {
-    if (userProfile.uploadToken !== undefined) {
-      userProfile.password = userProfile.uploadToken;
-      delete userProfile.uploadToken;
-    } else {
-      userProfile.password = "";
-    }
-  }
-  if (userProfile.nickname === undefined) {
-    userProfile.nickname = "";
-  }
-  if (userProfile.link === undefined) {
-    userProfile.link = "";
-  }
-  if (userProfile.photoOwner === undefined) {
-    userProfile.photoOwner = false;
-  }
-  if (userProfile.anonymous === undefined) {
-    userProfile.anonymous = false;
-  }
-  if (userProfile.license === undefined) {
-    userProfile.license = "";
-  }
-  userProfile.cc0 = userProfile.license === "CC0";
-
-  return userProfile;
-}
-
 export function setCountryCode(countryCode) {
   "use strict";
   localStorage.setItem("countryCode", countryCode);
