@@ -70,7 +70,7 @@ export function getLastPos() {
 export function timetableByStation(stationId) {
   "use strict";
 
-  const station = dataBahnhoefe.filter(station => station.idStr === stationId);
+  const station = dataBahnhoefe.filter(station => station.idStr === stationId)[0];
   timetable(station.country, station.idStr, station.title, station.DS100);
 }
 
