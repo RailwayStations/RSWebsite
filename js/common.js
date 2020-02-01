@@ -166,16 +166,7 @@ export function getAPIURI() {
  * @return {string} The URL to the scaled image
  */
 export function scaleImage(src, width) {
-  if (process.env.SCALE_IMAGE === true) {
-    return (
-      "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=" +
-      width +
-      "&url=" +
-      encodeURIComponent(src)
-    );
-  }
-
-  return src;
+  return src + "?width=" + width;
 }
 
 export function getQueryParameter() {

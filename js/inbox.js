@@ -111,7 +111,14 @@ $(document).ready(function() {
             let upload = obj[i];
             var createdAt = new Date(0); // The 0 there is the key, which sets the date to the epoch
             createdAt.setUTCSeconds(upload.createdAt / 1000);
-            const inboxUrl = scaleImage(upload.inboxUrl, 301);
+            const isProcessed = upload.isProcessed;
+            var processedIcon = "";
+            if (isProcessed) {
+              processedIcon = ` <i class="fas fa-check" title="${getI18n(s => s.inbox.processed)}"></i>`;
+            } else {
+              processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(s => s.inbox.toProcess)}"></i>`;
+            }
+            const inboxUrl = getAPIURI() + "inbox/" + (isProcessed ? "processed/" : "") + upload.filename;
             var comment = "";
             if (upload.uploadComment !== undefined) {
               comment = `<p class="card-text"><small class="text-muted">${upload.uploadComment}</small></p>`;
@@ -152,7 +159,7 @@ $(document).ready(function() {
 <div class="col mb-4" id="upload-${upload.id}">            
   <div class="card" style="max-width: 303px;">
     <div class="card-body">
-      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${upload.id}: ${upload.title}</a>${conflictIcon}${ghostIcon}</h5>
+      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${upload.id}: ${upload.title}</a>${conflictIcon}${ghostIcon}${processedIcon}</h5>
       <p class="card-text">
         ${upload.photographerNickname}<br>
         ${createdAt.toLocaleString()}
@@ -169,7 +176,7 @@ $(document).ready(function() {
       </p>
     </div>
     <a href="${inboxUrl}" data-ajax="false" target="_blank">
-        <img src="${inboxUrl}" class="card-img-top" alt="${upload.title}">
+        <img src="${inboxUrl}?width=301" class="card-img-top" alt="${upload.title}">
     </a>
   </div>
 </div>`);
