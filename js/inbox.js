@@ -53,7 +53,7 @@ function importPhoto(uploadId) {
   "use strict";
 
   var forceImport = $("#forceImport-" + uploadId).is(":checked");
-  var countryCode = $("#countryCode-" + uploadId).val();
+  var countryCode = $("#country-" + uploadId).val();
   var stationId = $("#stationId-" + uploadId).val();
   var command = forceImport ? "FORCE_IMPORT" : "IMPORT";
 

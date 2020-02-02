@@ -140,7 +140,7 @@ export function isNotBlank(string) {
 export function isBlank(string) {
   "use strict";
 
-  return string === undefined || string.trim().length === 0;
+  return string === undefined || string === null || string.trim().length === 0;
 }
 
 export function setCountryCode(countryCode) {

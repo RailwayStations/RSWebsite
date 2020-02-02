@@ -19,6 +19,9 @@
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
     $reportGhost = L::upload_reportGhost;
+    $freedomOfPanorama = L::upload_freedomOfPanorama;
+    $freedomOfPanoramaInfo = L::upload_freedomOfPanoramaInfo;
+    $pleaseConfirmSpecialLicense = L::upload_pleaseConfirmSpecialLicense;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -80,6 +83,13 @@ navbar();
                 </div>
             </div>
         </div>
+        <div class="form-group special-license-group">
+            <input type="checkbox" name="special-license" class="special-license" id="specialLicense" value="" required>
+            <label class="special-license-label" for="specialLicense" id="special-license-label"></label>
+            <div class="invalid-feedback">
+                <?php echo $pleaseConfirmSpecialLicense; ?>
+            </div>
+        </div>
         <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
         <button id="reportGhost" type="button" class="btn btn-warning mt-1" onclick="return upload.reportGhost();" disabled><?php echo $reportGhost; ?> <i class="fas fa-ghost"></i></i></button>
     </form>
@@ -88,6 +98,8 @@ navbar();
 
     <div id="uploaded-photo-link"></div>
 
+    <h3 id="freedom-of-panorama"><?php echo $freedomOfPanorama; ?></h3>
+    <div id="freedom-of-panorama-info"><?php echo $freedomOfPanoramaInfo; ?></div>
 </main>
 
 

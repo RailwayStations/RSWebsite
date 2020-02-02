@@ -1,6 +1,12 @@
 import $ from "jquery";
 import bsCustomFileInput from "bs-custom-file-input";
-import { getAPIURI, getQueryParameter, isBlank } from "./common";
+import {
+  getAPIURI,
+  getQueryParameter,
+  isBlank,
+  isNotBlank,
+  getCountryByCode
+} from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -41,10 +47,10 @@ function stopUpload(response) {
     message = getI18n(s => s.upload.error);
   }
 
-  if (result.inboxUrl !== undefined) {
-    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${
-      result.inboxUrl
-    }' target='blank'>${result.inboxUrl}</a>`;
+  if (isNotBlank(result.filename)) {
+    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${getAPIURI()}inbox/${
+      result.filename
+    }' target='blank'>${result.filename}</a>`;
     document.getElementById("uploaded-photo-link").innerHTML = link;
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
@@ -133,7 +139,18 @@ $(document).ready(function() {
     $("#inputLatitude").removeAttr("required");
     $("#inputLongitude").removeAttr("required");
     $("#inputStationTitle").removeAttr("required");
+    getCountryByCode(countryCode).then(country => {
+      var overrideLicense = country.overrideLicense;
+      if (isNotBlank(overrideLicense)) {
+        $("#special-license-label").html(overrideLicense);
+      } else {
+        $(".special-license-group").hide();
+        $("#specialLicense").removeAttr("required");
+      }
+    });
   } else {
+    $(".special-license-group").hide();
+    $("#specialLicense").removeAttr("required");
     $("#inputLatitude").val(latitude);
     $("#inputLongitude").val(longitude);
   }
