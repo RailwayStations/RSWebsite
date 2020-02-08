@@ -18,7 +18,7 @@
     $upload = L::upload_upload;
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
-    $reportGhost = L::upload_reportGhost;
+    $reportProblem = L::upload_reportProblem;
     $freedomOfPanorama = L::upload_freedomOfPanorama;
     $freedomOfPanoramaInfo = L::upload_freedomOfPanoramaInfo;
     $pleaseConfirmSpecialLicense = L::upload_pleaseConfirmSpecialLicense;
@@ -91,7 +91,7 @@ navbar();
             </div>
         </div>
         <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
-        <button id="reportGhost" type="button" class="btn btn-warning mt-1" onclick="return upload.reportGhost();" disabled><?php echo $reportGhost; ?> <i class="fas fa-ghost"></i></i></button>
+        <button id="reportProblem" type="button" class="btn btn-warning mt-1" onclick="return upload.reportProblem();" disabled><?php echo $reportProblem; ?> <i class="fas fa-bomb"></i></i></button>
     </form>
 
     <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

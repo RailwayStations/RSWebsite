@@ -3,7 +3,8 @@ import {
   getAPIURI,
   scaleImage,
   fetchCountries,
-  getUserProfile
+  getUserProfile,
+  isNotBlank
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -19,7 +20,7 @@ function sendInboxCommand(upload) {
 
   var userProfile = getUserProfile();
   var request = $.ajax({
-    url: getAPIURI() + "photoUpload/inbox",
+    url: getAPIURI() + "adminInbox",
     contentType: "application/json; charset=utf-8",
     type: "POST",
     dataType: "text",
@@ -49,19 +50,19 @@ function sendInboxCommand(upload) {
   });
 }
 
-function importPhoto(uploadId) {
+function importPhoto(id) {
   "use strict";
 
-  var forceImport = $("#forceImport-" + uploadId).is(":checked");
-  var countryCode = $("#country-" + uploadId).val();
-  var stationId = $("#stationId-" + uploadId).val();
+  var forceImport = $("#forceImport-" + id).is(":checked");
+  var countryCode = $("#country-" + id).val();
+  var stationId = $("#stationId-" + id).val();
   var command = forceImport ? "FORCE_IMPORT" : "IMPORT";
 
-  var upload = {id: uploadId, countryCode: countryCode, stationId: stationId, command: command};
+  var upload = {id: id, countryCode: countryCode, stationId: stationId, command: command};
   sendInboxCommand(upload)
 }
 
-function rejectPhoto(uploadId) {
+function rejectPhoto(id) {
   "use strict";
 
   var rejectReason = prompt(getI18n(s => s.inbox.enterRejectReason));
@@ -71,14 +72,14 @@ function rejectPhoto(uploadId) {
     return;
   }
 
-  var upload = {id: uploadId, rejectReason: rejectReason, command: "REJECT"};
+  var upload = {id: id, rejectReason: rejectReason, command: "REJECT"};
   sendInboxCommand(upload)
 }
 
-function createCountriesDropDown(countries, uploadId) {
+function createCountriesDropDown(countries, id) {
   "use strict";
 
-  let countryOptions = `<select class="form-control" id="country-${uploadId}">
+  let countryOptions = `<select class="form-control" id="country-${id}">
     <option value="">${getI18n(s => s.inbox.selectCountry)}</option>`
 
     countries.forEach(country => {
@@ -94,7 +95,7 @@ $(document).ready(function() {
 
   fetchCountries().then(countries => {
     $.ajax({
-      url: `${getAPIURI()}photoUpload/inbox`,
+      url: `${getAPIURI()}adminInbox`,
       type: "GET",
       dataType: "json",
       crossDomain: true,
@@ -113,15 +114,21 @@ $(document).ready(function() {
             createdAt.setUTCSeconds(upload.createdAt / 1000);
             const isProcessed = upload.isProcessed;
             var processedIcon = "";
-            if (isProcessed) {
-              processedIcon = ` <i class="fas fa-check" title="${getI18n(s => s.inbox.processed)}"></i>`;
-            } else {
-              processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(s => s.inbox.toProcess)}"></i>`;
+            var image = "";
+            if (isNotBlank(upload.filename)) {
+              if (isProcessed) {
+                processedIcon = ` <i class="fas fa-check" title="${getI18n(s => s.inbox.processed)}"></i>`;
+              } else {
+                processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(s => s.inbox.toProcess)}"></i>`;
+              }
+              const inboxUrl = getAPIURI() + "inbox/" + (isProcessed ? "processed/" : "") + upload.filename;
+              image = `<a href="${inboxUrl}" data-ajax="false" target="_blank">
+                       <img src="${inboxUrl}?width=301" class="card-img-top" alt="${upload.title}">
+                       </a>`;
             }
-            const inboxUrl = getAPIURI() + "inbox/" + (isProcessed ? "processed/" : "") + upload.filename;
             var comment = "";
-            if (upload.uploadComment !== undefined) {
-              comment = `<p class="card-text"><small class="text-muted">${upload.uploadComment}</small></p>`;
+            if (upload.comment !== undefined) {
+              comment = `<p class="card-text"><small class="text-muted">${upload.comment}</small></p>`;
             }
             var conflictIcon = "";
             var forceImport = "";
@@ -136,11 +143,9 @@ $(document).ready(function() {
             if (upload.hasConflict || upload.hasPhoto) {
               conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(s => s.inbox.conflict)}"></i>`;
             }
-            var ghostIcon = "";
-            if (upload.isGhost) {
-              ghostIcon = ` <i class="fas fa-ghost" title="${getI18n(s => s.inbox.ghost)}"></i>`;
-              forceImport = `<p class="card-text"><input id="forceImport-${upload.id}" name="forceImport-${upload.id}" type="checkbox"/>
-                  <label for="forceImport-${upload.id}">${getI18n(s => s.inbox.deleteGhost)}</label></p>`
+            var problemIcon = "";
+            if (upload.isProblemReport) {
+              problemIcon = ` <i class="fas fa-bomb" title="${getI18n(s => s.inbox.problemReport)}"></i>`;
             }
             var coords = "";
             var stationKey = "";
@@ -159,7 +164,7 @@ $(document).ready(function() {
 <div class="col mb-4" id="upload-${upload.id}">            
   <div class="card" style="max-width: 303px;">
     <div class="card-body">
-      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${upload.id}: ${upload.title}</a>${conflictIcon}${ghostIcon}${processedIcon}</h5>
+      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${upload.id}: ${upload.title}</a>${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
         ${upload.photographerNickname}<br>
         ${createdAt.toLocaleString()}
@@ -175,14 +180,12 @@ $(document).ready(function() {
                     onclick="return rejectPhoto(${upload.id});">${getI18n(s => s.inbox.reject)} <i class="fas fa-thumbs-down"></i></button>
       </p>
     </div>
-    <a href="${inboxUrl}" data-ajax="false" target="_blank">
-        <img src="${inboxUrl}?width=301" class="card-img-top" alt="${upload.title}">
-    </a>
+    ${image}
   </div>
 </div>`);
           }
         } else {
-          $("#uploads").html(getI18n(s => s.inbox.noUploadsFound));
+          $("#uploads").html(getI18n(s => s.inbox.inboxEmpty));
         }
       }
     });

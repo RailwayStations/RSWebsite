@@ -11,7 +11,7 @@ import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
-window.reportGhost = reportGhost;
+window.reportProblem = reportProblem;
 
 function startUpload() {
   "use strict";
@@ -68,7 +68,7 @@ function receiveMessage(event) {
   stopUpload(event.data);
 }
 
-export function reportGhost() {
+export function reportProblem() {
   "use strict";
 
   $("#fileInput").removeAttr("required");
@@ -83,14 +83,14 @@ export function reportGhost() {
     $("#inputComment").removeClass(":invalid");
   }
 
-  var r = confirm(getI18n(s => s.upload.confirmGhost));
+  var r = confirm(getI18n(s => s.upload.confirmProblemReport));
   if (r == true) {
     var userProfile = getUserProfile();
     var stationId = $("#stationId").val();
     var country = $("#countryCode").val();
 
     var request = $.ajax({
-      url: getAPIURI() + "reportGhostStation",
+      url: getAPIURI() + "reportProblem",
       type: "POST",
       dataType: "text",
       processData: false,
@@ -104,7 +104,7 @@ export function reportGhost() {
     });
   
     request.done(function(data) {
-      alert(getI18n(s => s.upload.reportGhostSuccess))
+      alert(getI18n(s => s.upload.reportProblemSuccess))
     });
   
     request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -142,7 +142,7 @@ $(document).ready(function() {
     getCountryByCode(countryCode).then(country => {
       var overrideLicense = country.overrideLicense;
       if (isNotBlank(overrideLicense)) {
-        $("#special-license-label").html(overrideLicense);
+        $("#special-license-label").html(getI18n(s => s.upload.specialLicenseNeeded) + ": " + overrideLicense);
       } else {
         $(".special-license-group").hide();
         $("#specialLicense").removeAttr("required");
@@ -162,7 +162,7 @@ $(document).ready(function() {
     isBlank(userProfile.email) || isBlank(userProfile.password);
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
-  $("#reportGhost").attr("disabled", uploadDisabled);
+  $("#reportProblem").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.php";
   } else {
