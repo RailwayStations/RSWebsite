@@ -1,4 +1,5 @@
 <?php
+$ini = parse_ini_file("map.ini", TRUE);
 $stationId = trim(filter_input(INPUT_GET, 'stationId', FILTER_SANITIZE_STRING));
 $countryCode = trim(
     filter_input(INPUT_GET, 'countryCode', FILTER_SANITIZE_STRING)
@@ -33,7 +34,7 @@ try {
     $context = stream_context_create($opts);
 
     $json = file_get_contents(
-        'https://api.railway-stations.org/' .
+        $ini['general']['API_URL'] .
             $countryCode .
             '/stations/' .
             $stationId,

@@ -58,7 +58,7 @@ module.exports = {
       chunkFilename: "css/[name].css"
     }),
     new webpack.EnvironmentPlugin({
-      API_URL: "https://api.railway-stations.org/"
+      API_URL: process.env.npm_package_config_api_url
     })
   ]
 };

@@ -81,6 +81,28 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
   });
 }
 
+export function  updateInboxCount() {
+  "use strict";
+
+  var userProfile = getUserProfile();
+  $.ajax({
+    url: `${getAPIURI()}adminInboxCount`,
+    type: "GET",
+    dataType: "json",
+    crossDomain: true,
+    headers: {
+      Authorization:
+        "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+    },
+    error: function() {
+      $("#uploads").html(getI18n(s => s.inbox.errorLoadingPendingUploads));
+    },
+    success: function(obj) {
+      $("#nav_inbox").removeClass("disabled");
+      $("#nav_inbox").append(`<span class="badge badge-light">${obj.pendingInboxEntries}</span>`);
+    }});
+}
+
 export function providerApp(countryCode) {
   "use strict";
 

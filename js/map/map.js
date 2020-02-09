@@ -13,6 +13,7 @@ import {
   getQueryParameter,
   getCountryCode,
   setCountryCode,
+  updateInboxCount,
   navigate,
   timetable
 } from "../common";
@@ -126,6 +127,8 @@ $(document).ready(function() {
   ) {
     setCountryCode(queryParameter.countryCode);
   }
+
+  updateInboxCount();
 
   const lastPos = getLastPos();
   const mapCenter = !lastPos ? L.latLng(50.9730622, 10.9603269) : lastPos;

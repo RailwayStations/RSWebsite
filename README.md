@@ -43,9 +43,14 @@ npm ci
 npm run build
 ```
 
-Man kann für lokale Testzwecke die API_URL per environment Variablen umkonfigurieren. Ebenfalls lässt sich der scaleImage Service über den Google Dienst per SCALE_IMAGE=false abschalten:
+Man kann für lokale Testzwecke die API_URL umkonfigurieren:
 ```bash
-API_URL=http://localhost:8080/ SCALE_IMAGE=false npm ci
+npm config set railway-stations-frontend:api_url http://192.168.0.241:8080/
+```
+
+Während der Entwicklung kann man mit webpack-watch die Änderungen sofort im Browser sehen:
+```bash
+NODE_ENV=development npm run-script webpack-watch
 ```
 
 Der Code sollte formatiert gepusht werden:
