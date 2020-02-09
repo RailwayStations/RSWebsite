@@ -12,8 +12,9 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
-    <div id="stations"></div>
+<main role="main" class="py-md-3 pl-md-5 bd-content">
+    <div id="stations" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    </div>
 </main>
 
 <script src="js/photographer.js"></script>

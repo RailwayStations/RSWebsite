@@ -33,7 +33,8 @@ $(document).ready(function() {
           const detailLink = `station.php?countryCode=${station.country}&stationId=${station.idStr}`;
           $("#stations").append(
             `
-<div class="card mt-1" style="max-width: 302px;">
+<div class="col mb-4">            
+<div class="card" style="max-width: 302px;">
     <div class="card-body"><h5 class="card-title"><a href="${detailLink}" data-ajax="false">${
               station.title
             }</a></h5>
@@ -50,6 +51,7 @@ $(document).ready(function() {
               station.title
             }">
     </a>
+</div>
 </div>
 `
           );
