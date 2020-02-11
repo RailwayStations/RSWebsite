@@ -1,11 +1,8 @@
-import {
-  getBoolFromLocalStorage,
-  getQueryParameter,
-  getUserProfile
-} from "../common";
+import { getBoolFromLocalStorage } from "../common";
 import $ from "jquery";
 import { showPopup } from "./popup";
 import { getLastPos, getLastZoomLevel } from "./map";
+import { UserProfile } from "../settings/UserProfile";
 
 let _markers = undefined;
 
@@ -57,7 +54,7 @@ function showPoints(dataBahnhoefe, map) {
     showPopup(event.layer.options, map);
   });
 
-  const nickname = getUserProfile().nickname;
+  const nickname = UserProfile.currentUser().nickname;
 
   const radius = markerRadius(map);
 
@@ -130,7 +127,7 @@ function showClustered(dataBahnhoefe, map) {
     showPopup(event.layer.options, map);
   });
 
-  const nickname = getUserProfile().nickname;
+  const nickname = UserProfile.currentUser().nickname;
 
   dataBahnhoefe.forEach(bahnhof => {
     let iconUrl;

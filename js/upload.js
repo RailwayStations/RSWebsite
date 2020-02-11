@@ -1,13 +1,9 @@
 import $ from "jquery";
 import bsCustomFileInput from "bs-custom-file-input";
-import {
-  getAPIURI,
-  getQueryParameter,
-  getUserProfile,
-  isBlank
-} from "./common";
+import { getAPIURI, getQueryParameter, isBlank } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
+import { UserProfile } from "./settings/UserProfile";
 
 function startUpload() {
   $("#upload-process").modal("show");
@@ -47,7 +43,7 @@ $(document).ready(function() {
   const latitude = queryParameters.latitude;
   const longitude = queryParameters.longitude;
   const title = queryParameters.title;
-  const userProfile = getUserProfile();
+  const userProfile = UserProfile.currentUser();
 
   if (stationId) {
     $("#title-form").html(getI18n(s => s.upload.uploadPhotoFor + " " + title));

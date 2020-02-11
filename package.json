@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --write './map/**.php' './map/js/i18n.js' './map/js/photographer.js' './map/js/settings.js' './map/js/updatePassword.js' './map/js/upload.js' './map/js/langJson.php' './map/css/style.css' './js/**' './webpack.config.js' './scripts/*.js'",
+    "format": "prettier --write './map/**.php' './css/**' './js/**' './webpack.config.js' './scripts/*.js'",
     "postinstall": "npm run ini2json && npm run webpack",
     "webpack": "webpack --mode production",
     "webpack-watch": "webpack --mode development --watch",

@@ -1,22 +1,22 @@
 .station-popup {
-    width: 300px;
+  width: 300px;
 }
 
 .station-popup h3 {
-    margin-top: 8px;
-    text-align: center;
+  margin-top: 8px;
+  text-align: center;
 }
 
 .station-popup a {
-    width: 100%;
+  width: 100%;
 }
 
 .station-popup i {
-    width: 20px;
-    text-align: center;
+  width: 20px;
+  text-align: center;
 }
 
 .station-popup img {
-    min-height: 169px;
-    background-color: lightgray;
+  min-height: 169px;
+  background-color: lightgray;
 }

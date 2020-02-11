@@ -5,6 +5,7 @@
     <meta name="description" content="Einstellungen - RailwayStations">
     <title>Einstellungen - RailwayStations</title>
     <?php require_once "../php/header.php"; ?>
+    <link rel="stylesheet" href="css/settings.css"/>
 
 </head>
 <body>
@@ -39,7 +40,7 @@ $submit = L::settings_submit;
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
 
     <h2 id="title-form"><?php echo $profile; ?></h2>
-    <form id="profileForm" action="#" method="post">
+    <div id="loginForm" class="hidden">
         <input name="profilePassword" type="hidden" class="form-control" id="profilePassword">
 
         <div class="form-group login-form">
@@ -51,14 +52,18 @@ $submit = L::settings_submit;
             <input name="loginPassword" type="password" class="form-control" id="loginPassword">
         </div>
         <div class="form-group login-form">
-            <button id="loginButton" name="loginBtn" class="btn btn-primary"
-                    onclick="return settings.onLogin();"><?php echo $login; ?></button>&nbsp;<button id="resetPasswordButton"
-                                                                                            name="resetPasswordBtn"
-                                                                                            class="btn btn-primary"
-                                                                                            onclick="return onResetPassword();"><?php echo $resetPassword; ?></button>
-            <p class="name"><a href="javascript:settings.onNewRegistration();"><?php echo $register; ?></a></p>
+            <button id="loginButton" name="loginBtn" class="btn btn-primary">
+                <?php echo $login; ?>
+            </button>
+            <button id="resetPasswordButton" name="resetPasswordBtn" class="btn btn-primary">
+                <?php echo $resetPassword; ?>
+            </button>
+            <button id="registerButton" class="btn btn-primary">
+                <?php echo $register; ?>
+            </button>
         </div>
-
+    </div>
+    <div id="profileForm" class="hidden">
         <div class="form-group profile-form">
             <label for="profileNickname"><?php echo $nickname; ?></label>
             <input name="profileNickname" type="text" class="form-control" id="profileNickname">
@@ -84,63 +89,49 @@ $submit = L::settings_submit;
             <input id="profileLink" name="link" type="url" class="form-control"/>
         </div>
         <div class="form-group profile-form">
-            <button class="btn btn-primary" id="saveProfile" type="button" name="saveBtn"
-                    onclick="return settings.onSaveProfile();">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <button class="btn btn-primary" id="saveProfile" type="button">
+                <span id="saveProfileSpinner" class="spinner-border spinner-border-sm hidden" role="status"
+                      aria-hidden="true"></span>
                 <span id="saveBtnText"><?php echo $saveRegister; ?></span>
             </button>
+            <button id="changePassword" class="btn btn-primary" name="changePwdBtn">
+                <?php echo $changePassword; ?>
+            </button>
+            <button id="logout" class="btn btn-primary" name="logoutBtn">
+                <?php echo $logout; ?>
+            </button>
         </div>
-        <div class="form-group profile-form logged-in">
-            <button id="changePassword" class="btn btn-primary" name="changePwdBtn"
-                    onclick="return settings.onChangePassword();"><?php echo $changePassword; ?></button>
-            &nbsp;
-            <button id="logout" class="btn btn-primary" name="logoutBtn"
-                    onclick="return settings.onLogout();"><?php echo $logout; ?></button>
+    </div>
+    <div id="passwordChangeForm" class="hidden">
+        <div class="form-group">
+            <label for="newPassword"><?php echo $password; ?>:</label>
+            <input id="newPassword" class="form-control" name="newPassword" type="password"/>
         </div>
-
-    </form>
-
+        <div class="form-group">
+            <label for="newPasswordRepeat"><?php echo $passwordRepeat; ?>:</label>
+            <input id="newPasswordRepeat" class="form-control" name="newPasswordRepeat" type="password"/>
+        </div>
+        <div class="form-group profile-form">
+            <button id="passwordChangeCancel" type="button" class="btn btn-secondary"
+                    data-dismiss="modal"><?php echo $close; ?></button>
+            <button id="passwordChangeSubmit" type="button" class="btn btn-primary"><?php echo $submit; ?></button>
+        </div>
+    </div>
     <hr/>
-
     <h2 id="title-form"><?php echo $mapSettings; ?></h2>
-    <p class="name"><a href="#" onclick="settings.togglePoints()"><span
-                    style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;"><?php echo $mapMarker; ?></span><i
-                    id="togglePoints" class="fas fa-2x" aria-hidden="true"></i><span
-                    style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;"><?php echo $mapPoint; ?></span></a>
-    </p>
+    <div id="togglePointsSetting" class="name">
+        <span style="padding:0 1em 0 0;text-align:right;width:7em;text-decoration-line:none;">
+            <?php echo $mapMarker; ?>
+        </span>
+        <i id="togglePoints" class="fas fa-2x" aria-hidden="true"></i>
+        <span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">
+            <?php echo $mapPoint; ?>
+        </span>
+    </div>
 
 </main>
 
 
-<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="changePasswordLabel"><?php echo $changePassword; ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="#" onsubmit="return changePassword();">
-                <div class="modal-body" id="changePasswordBody">
-                    <div class="form-group">
-                        <label for="newPassword"><?php echo $password; ?>:</label>
-                        <input id="newPassword" class="form-control" name="newPassword" type="password"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="newPasswordRepeat"><?php echo $passwordRepeat; ?>:</label>
-                        <input id="newPasswordRepeat" class="form-control" name="newPasswordRepeat" type="password"/>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $close; ?></button>
-                    <button type="submit" class="btn btn-primary"><?php echo $submit; ?></button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    <script src="js/settings.js"></script>
+<script src="js/settings.js"></script>
 </body>
 </html>

@@ -7,7 +7,6 @@
 @import "station-popup.css";
 @import "highscore.css";
 
-
 .dropdown-item {
-    cursor: pointer;
+  cursor: pointer;
 }
