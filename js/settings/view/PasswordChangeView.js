@@ -28,7 +28,7 @@ class PasswordChangeView {
         const newPasswordRepeat = document.getElementById("newPasswordRepeat")
           .value;
         if (newPassword !== newPasswordRepeat) {
-          alert("Password mismatch"); //TODO i18n
+          alert(getI18n(s => s.settings.passwordMismatch));
         } else {
           PasswordClient.updatePassword(newPassword).then(r => {
             if (r.ok) {

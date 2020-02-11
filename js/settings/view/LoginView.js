@@ -16,7 +16,7 @@ class LoginView {
       .addEventListener("click", () => {
         const email = document.getElementById("loginEmail").value;
         if (email.length === 0) {
-          alert("Please insert your e-mail to reset your password"); //TODO
+          alert(getI18n(s => s.settings.insertEmailToResetPassword));
         } else {
           PasswordClient.resetPassword(email).then(r => {
             if (r.ok) {
