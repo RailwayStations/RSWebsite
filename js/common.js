@@ -3,6 +3,7 @@ import "bootstrap";
 import Popper from "popper.js";
 import { getI18n } from "./i18n";
 import { CountryClient } from "./countriesClient";
+import { UserProfile } from "./settings/UserProfile";
 
 window.Popper = Popper;
 
@@ -84,7 +85,7 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
 export function  updateInboxCount() {
   "use strict";
 
-  var userProfile = getUserProfile();
+  const userProfile = UserProfile.currentUser();
   $.ajax({
     url: `${getAPIURI()}adminInboxCount`,
     type: "GET",

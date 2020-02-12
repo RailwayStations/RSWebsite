@@ -85,7 +85,7 @@ export function reportProblem() {
 
   var r = confirm(getI18n(s => s.upload.confirmProblemReport));
   if (r == true) {
-    var userProfile = getUserProfile();
+    const userProfile = UserProfile.currentUser();
     var stationId = $("#stationId").val();
     var country = $("#countryCode").val();
 

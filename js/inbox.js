@@ -1,13 +1,12 @@
 import $ from "jquery";
 import {
   getAPIURI,
-  scaleImage,
   fetchCountries,
-  getUserProfile,
   isNotBlank
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
+import { UserProfile } from "./settings/UserProfile";
 
 window.$ = $;
 window.importPhoto = importPhoto;
@@ -18,7 +17,7 @@ function sendInboxCommand(upload) {
 
   console.log(upload);
 
-  var userProfile = getUserProfile();
+  const userProfile = UserProfile.currentUser();
   var request = $.ajax({
     url: getAPIURI() + "adminInbox",
     contentType: "application/json; charset=utf-8",
@@ -91,7 +90,7 @@ function createCountriesDropDown(countries, id) {
 }
 
 $(document).ready(function() {
-  var userProfile = getUserProfile();
+  const userProfile = UserProfile.currentUser();
 
   fetchCountries().then(countries => {
     $.ajax({
