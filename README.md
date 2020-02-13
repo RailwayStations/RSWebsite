@@ -55,10 +55,10 @@ Die Seite benötigt eine PHP Umgebung (ab 5.6). Zum lokalen Testen kann eine pas
 
 ```sh
 chmod go+w i18n/langcache
-docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/html php:7.2-apache
+docker run -d -p 8088:80 --name rs-website -v "$PWD":/var/www/rs-website railwaystations/rs-website:latest
 ```
 
-Danach steht die Seite unter http://localhost:8088/map zur Verfügung.
+Danach steht die Seite unter http://localhost:8088 zur Verfügung.
 
 ## Deployment
 
