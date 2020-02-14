@@ -11,6 +11,8 @@ FROM node:latest AS npm-installer
 WORKDIR /var/www/rs-website
 
 COPY package*.json ./
+RUN npm ci --unsafe-perm
+
 COPY ./js ./js
 COPY ./css ./css
 COPY ./i18n ./i18n
@@ -19,7 +21,7 @@ COPY ./webpack.config.js ./webpack.config.js
 COPY ./postcss.config.js ./postcss.config.js
 COPY ./.babelrc ./.babelrc
 
-RUN npm ci --unsafe-perm
+RUN npm run build
 
 FROM php:7.2-apache
 
@@ -31,7 +33,9 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 
 WORKDIR /var/www/rs-website
 
-COPY . .
+COPY ./i18n ./i18n
+COPY ./map ./map
+COPY ./php ./php
 COPY --from=coposer-installer /var/www/rs-website/vendor ./vendor
 COPY --from=npm-installer /var/www/rs-website/json ./json
 COPY --from=npm-installer /var/www/rs-website/map/css ./map/css
