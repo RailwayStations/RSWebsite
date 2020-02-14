@@ -72,4 +72,4 @@ Der `master` Branch wird bei jedem Commit automatisch durch Github Actions gebau
 Die Webseite ist unter MIT lizensiert. Die Bilder sind größtenteils unter CC-0, einige auch unter CC-BY lizensiert.
 
 
-![Docker stats](https://dockeri.co/image/railwaystations/rs-website)
+[![Docker stats](https://dockeri.co/image/railwaystations/rs-website)](https://hub.docker.com/repository/docker/railwaystations/rs-website)
