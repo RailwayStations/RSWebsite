@@ -11,8 +11,6 @@ import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
-window.reportProblem = reportProblem;
-
 function startUpload() {
   "use strict";
 
@@ -48,9 +46,7 @@ function stopUpload(response) {
   }
 
   if (isNotBlank(result.filename)) {
-    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${getAPIURI()}inbox/${
-      result.filename
-    }' target='blank'>${result.filename}</a>`;
+    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${result.inboxUrl}' target='blank'>${result.inboxUrl}</a>`;
     document.getElementById("uploaded-photo-link").innerHTML = link;
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
@@ -66,60 +62,6 @@ function receiveMessage(event) {
   "use strict";
 
   stopUpload(event.data);
-}
-
-export function reportProblem() {
-  "use strict";
-
-  $("#fileInput").removeAttr("required");
-
-  $("#inputComment").attr("required","");
-  var comment = $("#inputComment").val();
-  if (isBlank(comment)) {
-    $("#inputComment").addClass(":invalid");
-    $("#uploadForm").addClass("was-validated");
-    return false;
-  } else {
-    $("#inputComment").removeClass(":invalid");
-  }
-
-  var r = confirm(getI18n(s => s.upload.confirmProblemReport));
-  if (r == true) {
-    const userProfile = UserProfile.currentUser();
-    var stationId = $("#stationId").val();
-    var country = $("#countryCode").val();
-
-    var request = $.ajax({
-      url: getAPIURI() + "reportProblem",
-      type: "POST",
-      dataType: "text",
-      processData: false,
-      headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
-        "Station-Id" : stationId,
-        "Country": country,
-        "Comment": encodeURIComponent(comment)
-      }
-    });
-  
-    request.done(function(data) {
-      alert(getI18n(s => s.upload.reportProblemSuccess))
-    });
-  
-    request.fail(function(jqXHR, textStatus, errorThrown) {
-      if (jqXHR.responseText) {
-        var response = JSON.parse(jqXHR.responseText)
-        alert(
-            errorThrown + 
-            ": " + 
-            response.message 
-        );
-      } else {
-        alert(textStatus + ": " + errorThrown);
-      }
-    });
-  }
 }
 
 $(document).ready(function() {
@@ -162,7 +104,6 @@ $(document).ready(function() {
     isBlank(userProfile.email) || isBlank(userProfile.password);
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
-  $("#reportProblem").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
     window.location.href = "settings.php";
   } else {

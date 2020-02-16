@@ -16,9 +16,9 @@
     $pleaseInsertFile = L::upload_pleaseInsertFile;
     $pleaseInsertComment = L::upload_pleaseInsertComment;
     $upload = L::upload_upload;
+    $uploadForMissing = L::upload_uploadForMissing;
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
-    $reportProblem = L::upload_reportProblem;
     $freedomOfPanorama = L::upload_freedomOfPanorama;
     $freedomOfPanoramaInfo = L::upload_freedomOfPanoramaInfo;
     $pleaseConfirmSpecialLicense = L::upload_pleaseConfirmSpecialLicense;
@@ -35,7 +35,7 @@ navbar();
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
 
-    <h2 id="title-form"><?php echo $upload; ?></h2>
+    <h2 id="title-form"><?php echo $uploadForMissing; ?></h2>
     <form id="uploadForm" class="needs-validation" novalidate action="https://api.railway-stations.org/photoUpload"
           method="post" enctype="multipart/form-data" target="upload_target">
         <input id="email" name="email" type="hidden"/>
@@ -91,7 +91,6 @@ navbar();
             </div>
         </div>
         <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
-        <button id="reportProblem" type="button" class="btn btn-warning mt-1" onclick="return upload.reportProblem();" disabled><?php echo $reportProblem; ?> <i class="fas fa-bomb"></i></i></button>
     </form>
 
     <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>

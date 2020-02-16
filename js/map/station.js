@@ -4,11 +4,14 @@ import { getI18n } from "../i18n";
 export let stationHtml = function(feature) {
   const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
   const photoURL = scaleImage(feature.properties.photoUrl, 301);
+  const country = feature.properties.country;
+  const stationId = feature.properties.idStr;
+  const stationName = feature.properties.title;
 
   let details = "";
   if (!feature.properties.active) {
     details =
-      '<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>';
+      `<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>`;
   }
 
   if (feature.properties.photographer) {
@@ -17,9 +20,6 @@ export let stationHtml = function(feature) {
     <div><a href="${feature.properties.licenseUrl}"><i class="fas fa-balance-scale"></i>${feature.properties.license}</a></div>
     `;
   } else {
-    const country = feature.properties.country;
-    const stationId = feature.properties.idStr;
-    const stationName = feature.properties.title;
     const uploadUrl = `upload.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
     details += `
     <div>
@@ -46,6 +46,7 @@ export let stationHtml = function(feature) {
     </h3>
     `;
 
+  const problemUrl = `reportProblem.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
   const links = `
     <div>
       <a href="#" onclick="navigate(${feature.properties.lat},${
@@ -61,6 +62,11 @@ export let stationHtml = function(feature) {
         <i class="fas fa-list"></i>${getI18n(s => s.index.departureTimes)}
       </a>
     </div>
+    <div>
+      <a href="${problemUrl}" title="${getI18n(s => s.index.reportProblem)}">
+        <i class="fas fa-bomb"></i>${getI18n(s => s.index.reportProblem)}
+      </a>
+    </div>    
     `;
 
   return `
