@@ -1,0 +1,36 @@
+version: '3'
+services:
+  rs-website:
+    depends_on:
+      - rsapi
+    image: railwaystations/rs-website:latest
+    ports:
+      - "8000:80"
+  rsapi:
+    depends_on:
+      - db
+    image: railwaystations/rsapi:latest
+    volumes:
+      - ./rsapi/var/rsapi:/var/rsapi
+      - ./rsapi/tmp/railway-station-photos:/tmp/railway-station-photos
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: rsapi
+      MYSQL_USER: rsapi
+      MYSQL_PASSWORD: rsapi
+    volumes:
+      - ./mariadb/mysql-initdb.d:/docker-entrypoint-initdb.d
+#    ports:
+#      - "3306:3306"
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+  foto:
+    image: httpd:2.4
+    volumes:
+      - ./rsapi/tmp/railway-station-photos:/usr/local/apache2/htdocs/
+    ports:
+      - "8082:80"

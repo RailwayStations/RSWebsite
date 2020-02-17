@@ -1,0 +1,30 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+      bindHost: 127.0.0.1
+database:
+  driverClass: org.mariadb.jdbc.Driver
+  user: rsapi
+  password: rsapi
+  url: jdbc:mariadb://db:3306/rsapi
+  properties:
+    charSet: UTF-8
+workDir: ${RSAPI_WORK:-/var/rsapi}
+photoDir: ${PHOTO_DIR:-/tmp/railway-station-photos}
+salt: ${SALT:-dummy}
+mailer:
+  "@class": org.railwaystations.api.mail.MockMailer
+#mailer:
+#  "@class": org.railwaystations.api.mail.SmtpMailer
+#  host: ${SMTP_HOST:-localhost}
+#  port: ${SMTP_PORT:-25}
+#  user: ${SMTP_USER:-}
+#  passwd: ${SMTP_PASSWD:-}
+#  from: ${SMTP_FROM:-}
+slackMonitorUrl: ${SLACK_MONITOR_URL:-}
+slackVerificationToken: ${SLACK_VERIFICATION_TOKEN:-dummy}
+photoBaseUrl: http://localhost:8082
