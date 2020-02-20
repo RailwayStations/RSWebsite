@@ -9,8 +9,8 @@ import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
 window.$ = $;
-window.importPhoto = importPhoto;
-window.rejectPhoto = rejectPhoto;
+window.accept = accept;
+window.reject = reject;
 
 function sendInboxCommand(inboxCommand) {
   "use strict";
@@ -49,19 +49,27 @@ function sendInboxCommand(inboxCommand) {
   });
 }
 
-function importPhoto(id) {
+function accept(id) {
   "use strict";
 
   var forceImport = $("#forceImport-" + id).is(":checked");
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
   var command = forceImport ? "FORCE_IMPORT" : "IMPORT";
+  var problemSolving = $("#problemSolving-" + id).val();
+  if (problemSolving !== undefined) {
+    if (problemSolving === "") {
+      alert(getI18n(s => s.inbox.chooseProblemSolving));
+      return;
+    }
+    command = problemSolving;
+  }
 
   var inboxCommand = {id: id, countryCode: countryCode, stationId: stationId, command: command};
   sendInboxCommand(inboxCommand)
 }
 
-function rejectPhoto(id) {
+function reject(id) {
   "use strict";
 
   var rejectReason = prompt(getI18n(s => s.inbox.enterRejectReason));
@@ -128,23 +136,11 @@ $(document).ready(function() {
             if (inbox.comment !== undefined) {
               comment = `<p class="card-text"><small class="text-muted">${inbox.comment}</small></p>`;
             }
-            var conflictIcon = "";
-            var forceImport = "";
-            if (inbox.hasConflict) {
-              forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
-              <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.ignoreConflict)}</label></p>`
-            }
-            if (inbox.hasPhoto) {
-              forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
-                  <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.overwriteExistingPhoto)}</label></p>`
-            } 
-            if (inbox.hasConflict || inbox.hasPhoto) {
-              conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(s => s.inbox.conflict)}"></i>`;
-            }
             var problemIcon = "";
             var problemType = "";
+            var problemSolving = "";
             if (inbox.problemReportType !== undefined) {
-              problemIcon = ` <i class="fas fa-bomb" title="${getI18n(s => s.inbox.problemReport)}"></i>`;
+              problemIcon = ` <i class="fas fa-bullhorn" title="${getI18n(s => s.inbox.problemReport)}"></i>`;
               var problemText = getI18n(s => s.reportProblem.otherProblem);
               switch (inbox.problemReportType) {
                 case "WRONG_LOCATION":
@@ -161,6 +157,28 @@ $(document).ready(function() {
                   break;
               }
               problemType = `<p class="card-text">${problemText}</p>`;
+              problemSolving = `<p class="card-text"><select class="custom-select" id="problemSolving-${inbox.id}">
+                        <option value="" selected>${getI18n(s => s.inbox.chooseProblemSolving)}</option>
+                        <option value="DEACTIVATE_STATION">${getI18n(s => s.inbox.deactivateStation)}</option>
+                        <option value="DELETE_STATION">${getI18n(s => s.inbox.deleteStation)}</option>
+                        <option value="DELETE_PHOTO">${getI18n(s => s.inbox.deletePhoto)}</option>
+                        <option value="MARK_SOLVED">${getI18n(s => s.inbox.markSolved)}</option>
+                    </select></p>`;
+            }
+            var conflictIcon = "";
+            var forceImport = "";
+            if (problemType === "") {
+              if (inbox.hasConflict) {
+                forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
+                <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.ignoreConflict)}</label></p>`
+              }
+              if (inbox.hasPhoto) {
+                forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
+                    <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.overwriteExistingPhoto)}</label></p>`
+              } 
+              if (inbox.hasConflict || inbox.hasPhoto) {
+                conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(s => s.inbox.conflict)}"></i>`;
+              }
             }
             var coords = "";
             var stationKey = "";
@@ -188,12 +206,13 @@ $(document).ready(function() {
       ${coords}
       ${comment}
       ${stationKey}
+      ${problemSolving}
       ${forceImport}
       <p class="card-text">
-        <button class="btn btn-success" name="importPhoto-${inbox.id}"
-                    onclick="return importPhoto(${inbox.id});">${getI18n(s => s.inbox.accept)} <i class="fas fa-thumbs-up"></i></button>
-        <button class="btn btn-danger" name="rejectPhoto-${inbox.id}"
-                    onclick="return rejectPhoto(${inbox.id});">${getI18n(s => s.inbox.reject)} <i class="fas fa-thumbs-down"></i></button>
+        <button class="btn btn-success" name="accept-${inbox.id}"
+                    onclick="return accept(${inbox.id});">${getI18n(s => s.inbox.accept)} <i class="fas fa-thumbs-up"></i></button>
+        <button class="btn btn-danger" name="reject-${inbox.id}"
+                    onclick="return reject(${inbox.id});">${getI18n(s => s.inbox.reject)} <i class="fas fa-thumbs-down"></i></button>
       </p>
     </div>
     ${image}

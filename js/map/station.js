@@ -64,7 +64,7 @@ export let stationHtml = function(feature) {
     </div>
     <div>
       <a href="${problemUrl}" title="${getI18n(s => s.index.reportProblem)}">
-        <i class="fas fa-bomb"></i>${getI18n(s => s.index.reportProblem)}
+        <i class="fas fa-bullhorn"></i>${getI18n(s => s.index.reportProblem)}
       </a>
     </div>    
     `;
