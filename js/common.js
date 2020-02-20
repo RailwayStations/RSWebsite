@@ -82,7 +82,7 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
   });
 }
 
-export function  updateInboxCount() {
+export function updateInboxCount() {
   "use strict";
 
   const userProfile = UserProfile.currentUser();
@@ -100,8 +100,11 @@ export function  updateInboxCount() {
     },
     success: function(obj) {
       $("#nav_inbox").removeClass("disabled");
-      $("#nav_inbox").append(`<span class="badge badge-light">${obj.pendingInboxEntries}</span>`);
-    }});
+      $("#nav_inbox").append(
+        `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+      );
+    }
+  });
 }
 
 export function providerApp(countryCode) {

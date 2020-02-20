@@ -46,7 +46,9 @@ function stopUpload(response) {
   }
 
   if (isNotBlank(result.filename)) {
-    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${result.inboxUrl}' target='blank'>${result.inboxUrl}</a>`;
+    const link = `${getI18n(s => s.upload.photoUnderReview)}: <a href='${
+      result.inboxUrl
+    }' target='blank'>${result.inboxUrl}</a>`;
     document.getElementById("uploaded-photo-link").innerHTML = link;
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
@@ -84,7 +86,9 @@ $(document).ready(function() {
     getCountryByCode(countryCode).then(country => {
       var overrideLicense = country.overrideLicense;
       if (isNotBlank(overrideLicense)) {
-        $("#special-license-label").html(getI18n(s => s.upload.specialLicenseNeeded) + ": " + overrideLicense);
+        $("#special-license-label").html(
+          getI18n(s => s.upload.specialLicenseNeeded) + ": " + overrideLicense
+        );
       } else {
         $(".special-license-group").hide();
         $("#specialLicense").removeAttr("required");

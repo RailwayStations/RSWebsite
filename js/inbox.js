@@ -1,9 +1,5 @@
 import $ from "jquery";
-import {
-  getAPIURI,
-  fetchCountries,
-  isNotBlank
-} from "./common";
+import { getAPIURI, fetchCountries, isNotBlank } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -32,17 +28,13 @@ function sendInboxCommand(inboxCommand) {
   });
 
   request.done(function(data) {
-    $("#inbox-" + inboxCommand.id).attr("style", "visibility: collapse")
+    $("#inbox-" + inboxCommand.id).attr("style", "visibility: collapse");
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
     if (jqXHR.responseText) {
-      var response = JSON.parse(jqXHR.responseText)
-      alert(
-          errorThrown + 
-          ": " + 
-          response.message 
-      );
+      var response = JSON.parse(jqXHR.responseText);
+      alert(errorThrown + ": " + response.message);
     } else {
       alert(textStatus + ": " + errorThrown);
     }
@@ -65,8 +57,13 @@ function accept(id) {
     command = problemSolving;
   }
 
-  var inboxCommand = {id: id, countryCode: countryCode, stationId: stationId, command: command};
-  sendInboxCommand(inboxCommand)
+  var inboxCommand = {
+    id: id,
+    countryCode: countryCode,
+    stationId: stationId,
+    command: command
+  };
+  sendInboxCommand(inboxCommand);
 }
 
 function reject(id) {
@@ -79,19 +76,19 @@ function reject(id) {
     return;
   }
 
-  var inboxCommand = {id: id, rejectReason: rejectReason, command: "REJECT"};
-  sendInboxCommand(inboxCommand)
+  var inboxCommand = { id: id, rejectReason: rejectReason, command: "REJECT" };
+  sendInboxCommand(inboxCommand);
 }
 
 function createCountriesDropDown(countries, id) {
   "use strict";
 
   let countryOptions = `<select class="form-control" id="country-${id}">
-    <option value="">${getI18n(s => s.inbox.selectCountry)}</option>`
+    <option value="">${getI18n(s => s.inbox.selectCountry)}</option>`;
 
-    countries.forEach(country => {
-      countryOptions += `<option value="${country.code}">${country.name}</option>`;
-    });
+  countries.forEach(country => {
+    countryOptions += `<option value="${country.code}">${country.name}</option>`;
+  });
 
   countryOptions += `</select>`;
   return countryOptions;
@@ -111,7 +108,9 @@ $(document).ready(function() {
           "Basic " + btoa(userProfile.email + ":" + userProfile.password)
       },
       error: function() {
-        $("#inboxEntries").html(getI18n(s => s.inbox.errorLoadingPendingUploads));
+        $("#inboxEntries").html(
+          getI18n(s => s.inbox.errorLoadingPendingUploads)
+        );
       },
       success: function(obj) {
         if (Array.isArray(obj) && obj.length > 0) {
@@ -124,9 +123,13 @@ $(document).ready(function() {
             var image = "";
             if (isNotBlank(inbox.filename)) {
               if (isProcessed) {
-                processedIcon = ` <i class="fas fa-check" title="${getI18n(s => s.inbox.processed)}"></i>`;
+                processedIcon = ` <i class="fas fa-check" title="${getI18n(
+                  s => s.inbox.processed
+                )}"></i>`;
               } else {
-                processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(s => s.inbox.toProcess)}"></i>`;
+                processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(
+                  s => s.inbox.toProcess
+                )}"></i>`;
               }
               image = `<a href="${inbox.inboxUrl}" data-ajax="false" target="_blank">
                        <img src="${inbox.inboxUrl}?width=301" class="card-img-top" alt="${inbox.title}">
@@ -140,7 +143,9 @@ $(document).ready(function() {
             var problemType = "";
             var problemSolving = "";
             if (inbox.problemReportType !== undefined) {
-              problemIcon = ` <i class="fas fa-bullhorn" title="${getI18n(s => s.inbox.problemReport)}"></i>`;
+              problemIcon = ` <i class="fas fa-bullhorn" title="${getI18n(
+                s => s.inbox.problemReport
+              )}"></i>`;
               var problemText = getI18n(s => s.reportProblem.otherProblem);
               switch (inbox.problemReportType) {
                 case "WRONG_LOCATION":
@@ -150,54 +155,90 @@ $(document).ready(function() {
                   problemText = getI18n(s => s.reportProblem.stationInactive);
                   break;
                 case "STATION_NONEXISTENT":
-                  problemText = getI18n(s => s.reportProblem.stationNonExistant);
+                  problemText = getI18n(
+                    s => s.reportProblem.stationNonExistant
+                  );
                   break;
                 case "WRONG_PHOTO":
                   problemText = getI18n(s => s.reportProblem.wrongPhoto);
                   break;
               }
               problemType = `<p class="card-text">${problemText}</p>`;
-              problemSolving = `<p class="card-text"><select class="custom-select" id="problemSolving-${inbox.id}">
-                        <option value="" selected>${getI18n(s => s.inbox.chooseProblemSolving)}</option>
-                        <option value="DEACTIVATE_STATION">${getI18n(s => s.inbox.deactivateStation)}</option>
-                        <option value="DELETE_STATION">${getI18n(s => s.inbox.deleteStation)}</option>
-                        <option value="DELETE_PHOTO">${getI18n(s => s.inbox.deletePhoto)}</option>
-                        <option value="MARK_SOLVED">${getI18n(s => s.inbox.markSolved)}</option>
+              problemSolving = `<p class="card-text"><select class="custom-select" id="problemSolving-${
+                inbox.id
+              }">
+                        <option value="" selected>${getI18n(
+                          s => s.inbox.chooseProblemSolving
+                        )}</option>
+                        <option value="DEACTIVATE_STATION">${getI18n(
+                          s => s.inbox.deactivateStation
+                        )}</option>
+                        <option value="DELETE_STATION">${getI18n(
+                          s => s.inbox.deleteStation
+                        )}</option>
+                        <option value="DELETE_PHOTO">${getI18n(
+                          s => s.inbox.deletePhoto
+                        )}</option>
+                        <option value="MARK_SOLVED">${getI18n(
+                          s => s.inbox.markSolved
+                        )}</option>
                     </select></p>`;
             }
             var conflictIcon = "";
             var forceImport = "";
             if (problemType === "") {
               if (inbox.hasConflict) {
-                forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
-                <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.ignoreConflict)}</label></p>`
+                forceImport = `<p class="card-text"><input id="forceImport-${
+                  inbox.id
+                }" name="forceImport-${inbox.id}" type="checkbox"/>
+                <label for="forceImport-${inbox.id}">${getI18n(
+                  s => s.inbox.ignoreConflict
+                )}</label></p>`;
               }
               if (inbox.hasPhoto) {
-                forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
-                    <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.overwriteExistingPhoto)}</label></p>`
-              } 
+                forceImport = `<p class="card-text"><input id="forceImport-${
+                  inbox.id
+                }" name="forceImport-${inbox.id}" type="checkbox"/>
+                    <label for="forceImport-${inbox.id}">${getI18n(
+                  s => s.inbox.overwriteExistingPhoto
+                )}</label></p>`;
+              }
               if (inbox.hasConflict || inbox.hasPhoto) {
-                conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(s => s.inbox.conflict)}"></i>`;
+                conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(
+                  s => s.inbox.conflict
+                )}"></i>`;
               }
             }
             var coords = "";
             var stationKey = "";
             if (inbox.stationId === undefined) {
-              forceImport = `<p class="card-text"><input id="forceImport-${inbox.id}" name="forceImport-${inbox.id}" type="checkbox"/>
-                  <label for="forceImport-${inbox.id}">${getI18n(s => s.inbox.createStation)}</label></p>`
-              coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${
-                      inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${
-                      inbox.lat},${inbox.lon}</a></small></p>`;
-              stationKey = `<p class="card-text">${getI18n(s => s.inbox.missingStation)}:<br>
+              forceImport = `<p class="card-text"><input id="forceImport-${
+                inbox.id
+              }" name="forceImport-${inbox.id}" type="checkbox"/>
+                  <label for="forceImport-${inbox.id}">${getI18n(
+                s => s.inbox.createStation
+              )}</label></p>`;
+              coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+              stationKey = `<p class="card-text">${getI18n(
+                s => s.inbox.missingStation
+              )}:<br>
                             ${createCountriesDropDown(countries, inbox.id)}</p>
-                      <p class="card-text"><input id="stationId-${inbox.id}" name="stationId-${inbox.id}" type="text" placeholder="Station ID"/></p>`
-                } 
+                      <p class="card-text"><input id="stationId-${
+                        inbox.id
+                      }" name="stationId-${
+                inbox.id
+              }" type="text" placeholder="Station ID"/></p>`;
+            }
             const detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
             $("#inboxEntries").append(`
 <div class="col mb-4" id="inbox-${inbox.id}">            
   <div class="card" style="max-width: 303px;">
     <div class="card-body">
-      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${inbox.id}: ${inbox.title}</a>${conflictIcon}${problemIcon}${processedIcon}</h5>
+      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${
+              inbox.id
+            }: ${
+              inbox.title
+            }</a>${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
         ${inbox.photographerNickname}<br>
         ${createdAt.toLocaleString()}
@@ -210,9 +251,13 @@ $(document).ready(function() {
       ${forceImport}
       <p class="card-text">
         <button class="btn btn-success" name="accept-${inbox.id}"
-                    onclick="return accept(${inbox.id});">${getI18n(s => s.inbox.accept)} <i class="fas fa-thumbs-up"></i></button>
+                    onclick="return accept(${inbox.id});">${getI18n(
+              s => s.inbox.accept
+            )} <i class="fas fa-thumbs-up"></i></button>
         <button class="btn btn-danger" name="reject-${inbox.id}"
-                    onclick="return reject(${inbox.id});">${getI18n(s => s.inbox.reject)} <i class="fas fa-thumbs-down"></i></button>
+                    onclick="return reject(${inbox.id});">${getI18n(
+              s => s.inbox.reject
+            )} <i class="fas fa-thumbs-down"></i></button>
       </p>
     </div>
     ${image}

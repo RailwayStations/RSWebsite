@@ -1,9 +1,5 @@
 import $ from "jquery";
-import {
-  getAPIURI,
-  getQueryParameter,
-  isBlank
-} from "./common";
+import { getAPIURI, getQueryParameter, isBlank } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -13,7 +9,7 @@ window.reportProblem = reportProblem;
 export function reportProblem() {
   "use strict";
 
-  $("#inputType").attr("required","");
+  $("#inputType").attr("required", "");
   var type = $("#inputType").val();
   if (isBlank(type)) {
     $("#inputType").addClass(":invalid");
@@ -23,7 +19,7 @@ export function reportProblem() {
     $("#inputType").removeClass(":invalid");
   }
 
-  $("#inputComment").attr("required","");
+  $("#inputComment").attr("required", "");
   var comment = $("#inputComment").val();
   if (isBlank(comment)) {
     $("#inputComment").addClass(":invalid");
@@ -38,7 +34,12 @@ export function reportProblem() {
     const userProfile = UserProfile.currentUser();
     var stationId = $("#stationId").val();
     var countryCode = $("#countryCode").val();
-    var problemReport = {countryCode: countryCode, stationId: stationId, type: type, comment: comment};
+    var problemReport = {
+      countryCode: countryCode,
+      stationId: stationId,
+      type: type,
+      comment: comment
+    };
 
     var request = $.ajax({
       url: getAPIURI() + "reportProblem",
@@ -51,19 +52,15 @@ export function reportProblem() {
       },
       data: JSON.stringify(problemReport)
     });
-  
+
     request.done(function(data) {
-      alert(getI18n(s => s.reportProblem.reportProblemSuccess))
+      alert(getI18n(s => s.reportProblem.reportProblemSuccess));
     });
-  
+
     request.fail(function(jqXHR, textStatus, errorThrown) {
       if (jqXHR.responseText) {
-        var response = JSON.parse(jqXHR.responseText)
-        alert(
-            errorThrown + 
-            ": " + 
-            response.message 
-        );
+        var response = JSON.parse(jqXHR.responseText);
+        alert(errorThrown + ": " + response.message);
       } else {
         alert(textStatus + ": " + errorThrown);
       }
@@ -79,7 +76,9 @@ $(document).ready(function() {
   const userProfile = UserProfile.currentUser();
 
   if (stationId) {
-    $("#title-form").html(getI18n(s => s.reportProblem.reportProblemFor + " " + title));
+    $("#title-form").html(
+      getI18n(s => s.reportProblem.reportProblemFor + " " + title)
+    );
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
   }
