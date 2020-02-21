@@ -50,7 +50,7 @@ navbar();
                 <?php echo $pleaseInsertComment; ?>
             </div>
         </div>
-        <button id="reportProblemSubmit" type="button" class="btn btn-warning mt-1" onclick="return reportProblem.reportProblem();"><?php echo $reportProblem; ?> <i class="fas fa-bullhorn"></i></button>
+        <button id="reportProblemSubmit" type="button" class="btn btn-warning mt-1" onclick="return reportProblem.reportProblem();"><?php echo $reportProblem; ?> <em class="fas fa-bullhorn"></em></button>
     </form>
 
 </main>

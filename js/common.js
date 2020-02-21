@@ -86,25 +86,39 @@ export function updateInboxCount() {
   "use strict";
 
   const userProfile = UserProfile.currentUser();
-  $.ajax({
-    url: `${getAPIURI()}adminInboxCount`,
-    type: "GET",
-    dataType: "json",
-    crossDomain: true,
-    headers: {
-      Authorization:
-        "Basic " + btoa(userProfile.email + ":" + userProfile.password)
-    },
-    error: function() {
-      $("#uploads").html(getI18n(s => s.inbox.errorLoadingPendingUploads));
-    },
-    success: function(obj) {
-      $("#nav_inbox").removeClass("disabled");
-      $("#nav_inbox").append(
-        `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
-      );
-    }
-  });
+  console.log(userProfile)
+  if (userProfile.admin === true) {
+    $.ajax({
+      url: `${getAPIURI()}adminInboxCount`,
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      headers: {
+        Authorization:
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+      },
+      success: function(obj) {
+        $("#nav_inbox").removeClass("disabled");
+        $("#nav_inbox").append(
+          `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+        );
+      }
+    });
+  } else {
+    $.ajax({
+      url: `${getAPIURI()}publicInbox`,
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      success: function(obj) {
+        $("#nav_inbox").removeClass("disabled");
+        $("#nav_inbox").append(
+          `<span class="badge badge-light">${obj.length}</span>`
+        );
+      }
+    });
+  }
+
 }
 
 export function providerApp(countryCode) {

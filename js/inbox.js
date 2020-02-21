@@ -94,8 +94,8 @@ function createCountriesDropDown(countries, id) {
   return countryOptions;
 }
 
-$(document).ready(function() {
-  const userProfile = UserProfile.currentUser();
+function fetchAdminInbox() {
+  "use strict";
 
   fetchCountries().then(countries => {
     $.ajax({
@@ -270,4 +270,56 @@ $(document).ready(function() {
       }
     });
   });
+}
+
+function fetchPublicInbox() {
+  "use strict";
+  
+  $.ajax({
+    url: `${getAPIURI()}publicInbox`,
+    type: "GET",
+    dataType: "json",
+    crossDomain: true,
+    error: function() {
+      $("#inboxEntries").html(
+        getI18n(s => s.inbox.errorLoadingPendingUploads)
+      );
+    },
+    success: function(obj) {
+      if (Array.isArray(obj) && obj.length > 0) {
+        for (let i = 0; i < obj.length; i++) {
+          let inbox = obj[i];
+          var coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+          var stationKey = getI18n(s => s.inbox.missingStation);
+          const detailLink = "#";
+          if (inbox.stationId !== undefined) {
+            detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
+            stationKey = `${inbox.countryCode}: ${inbox.stationId}`;
+          }
+          $("#inboxEntries").append(`
+            <div class="col mb-4" id="inbox-${i}">            
+            <div class="card" style="max-width: 303px;">
+              <div class="card-body">
+                <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${inbox.title}</a></h5>
+                <p class="card-text">${stationKey}</p>
+                ${coords}
+              </div>
+            </div>
+            </div>`);
+        }
+      } else {
+        $("#inboxEntries").html(getI18n(s => s.inbox.inboxEmpty));
+      }
+    }
+  });
+}
+
+$(document).ready(function() {
+  const userProfile = UserProfile.currentUser();
+
+  if (userProfile.admin === true) {
+    fetchAdminInbox();
+  } else {
+    fetchPublicInbox();
+  }
 });

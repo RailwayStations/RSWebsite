@@ -9,6 +9,7 @@ class UserProfile {
     this._photoOwner = data.photoOwner;
     this._anonymous = data.anonymous;
     this._password = data.password;
+    this._admin = data.admin;
   }
 
   isLoggedIn() {
@@ -84,6 +85,10 @@ class UserProfile {
 
   get password() {
     return this._password;
+  }
+
+  get admin() {
+    return this._admin;
   }
 
   set cc0(value) {

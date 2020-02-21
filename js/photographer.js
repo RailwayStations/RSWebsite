@@ -9,9 +9,9 @@ $(document).ready(function() {
   const vars = getQueryParameter();
   const photographer = vars.photographer;
 
-  $("#photographer")
-    .html(photographer)
-    .attr("href", "index.php");
+  $("#title-form").html(`${getI18n(
+    s => s.photographer.photosBy
+  )} ${photographer}`);
 
   $.ajax({
     url: `${getAPIURI()}stations?photographer=${photographer}`,
