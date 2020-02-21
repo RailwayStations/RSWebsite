@@ -291,7 +291,7 @@ function fetchPublicInbox() {
           let inbox = obj[i];
           var coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
           var stationKey = getI18n(s => s.inbox.missingStation);
-          const detailLink = "#";
+          var detailLink = "#";
           if (inbox.stationId !== undefined) {
             detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
             stationKey = `${inbox.countryCode}: ${inbox.stationId}`;
