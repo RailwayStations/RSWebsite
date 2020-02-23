@@ -121,6 +121,7 @@ function fetchAdminInbox(userProfile) {
             const isProcessed = inbox.isProcessed;
             var processedIcon = "";
             var image = "";
+            var acceptDisabled = "";
             if (isNotBlank(inbox.filename)) {
               if (isProcessed) {
                 processedIcon = ` <i class="fas fa-check" title="${getI18n(
@@ -130,6 +131,7 @@ function fetchAdminInbox(userProfile) {
                 processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(
                   s => s.inbox.toProcess
                 )}"></i>`;
+                acceptDisabled = "disabled";
               }
               image = `<a href="${inbox.inboxUrl}" data-ajax="false" target="_blank">
                        <img src="${inbox.inboxUrl}?width=301" class="card-img-top" alt="${inbox.title}">
@@ -251,7 +253,7 @@ function fetchAdminInbox(userProfile) {
       ${forceImport}
       <p class="card-text">
         <button class="btn btn-success" name="accept-${inbox.id}"
-                    onclick="return accept(${inbox.id});">${getI18n(
+                    onclick="return accept(${inbox.id});" ${acceptDisabled}>${getI18n(
               s => s.inbox.accept
             )} <i class="fas fa-thumbs-up"></i></button>
         <button class="btn btn-danger" name="reject-${inbox.id}"
