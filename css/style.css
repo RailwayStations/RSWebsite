@@ -114,3 +114,7 @@ h6,
   background-color: #9f0c35 !important;
   border-color: #9f0c35 !important;
 }
+
+#uploaded-photo-link {
+  visibility: hidden;
+}

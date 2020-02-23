@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/078d5d9052634ddcb67b92f3998918c6)](https://www.codacy.com/gh/RailwayStations/RSWebsite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RailwayStations/RSWebsite&amp;utm_campaign=Badge_Grade)",
   "main": "index.js",
+  "config" : { 
+    "api_url" : "https://api.railway-stations.org/"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write './map/**.php' './css/**' './js/**' './webpack.config.js' './scripts/*.js'",
-    "build": "npm run ini2json && npm run webpack",
+    "build": "npm run ini2json && npm run map-ini && npm run webpack",
     "webpack": "webpack --mode production",
     "webpack-watch": "webpack --mode development --watch",
-    "ini2json": "node ./scripts/inti2Json.js"
+    "ini2json": "node ./scripts/inti2Json.js",
+    "map-ini": "node ./scripts/map-ini.js"
   },
   "repository": {
     "type": "git",

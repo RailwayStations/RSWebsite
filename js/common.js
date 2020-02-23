@@ -3,6 +3,7 @@ import "bootstrap";
 import Popper from "popper.js";
 import { getI18n } from "./i18n";
 import { CountryClient } from "./countriesClient";
+import { UserProfile } from "./settings/UserProfile";
 
 window.Popper = Popper;
 
@@ -81,6 +82,45 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
   });
 }
 
+export function updateInboxCount() {
+  "use strict";
+
+  const userProfile = UserProfile.currentUser();
+  console.log(userProfile)
+  if (userProfile.admin === true) {
+    $.ajax({
+      url: `${getAPIURI()}adminInboxCount`,
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      headers: {
+        Authorization:
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+      },
+      success: function(obj) {
+        $("#nav_inbox").removeClass("disabled");
+        $("#nav_inbox").append(
+          `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+        );
+      }
+    });
+  } else {
+    $.ajax({
+      url: `${getAPIURI()}publicInbox`,
+      type: "GET",
+      dataType: "json",
+      crossDomain: true,
+      success: function(obj) {
+        $("#nav_inbox").removeClass("disabled");
+        $("#nav_inbox").append(
+          `<span class="badge badge-light">${obj.length}</span>`
+        );
+      }
+    });
+  }
+
+}
+
 export function providerApp(countryCode) {
   "use strict";
 
@@ -140,7 +180,7 @@ export function isNotBlank(string) {
 export function isBlank(string) {
   "use strict";
 
-  return string === undefined || string.trim().length === 0;
+  return string === undefined || string === null || string.trim().length === 0;
 }
 
 export function setCountryCode(countryCode) {
@@ -155,8 +195,7 @@ export function getCountryCode() {
 
 export function getAPIURI() {
   "use strict";
-  return "https://api.railway-stations.org/";
-  //return "http://localhost:8080/";
+  return process.env.API_URL;
 }
 
 /**
@@ -167,12 +206,7 @@ export function getAPIURI() {
  * @return {string} The URL to the scaled image
  */
 export function scaleImage(src, width) {
-  return (
-    "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&resize_w=" +
-    width +
-    "&url=" +
-    encodeURIComponent(src)
-  );
+  return src + "?width=" + width;
 }
 
 export function getQueryParameter() {

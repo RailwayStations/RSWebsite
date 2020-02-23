@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -7,9 +8,11 @@ module.exports = {
     photographer: "./js/photographer.js",
     updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",
+    reportProblem: "./js/reportProblem.js",
     settings: "./js/settings/settings.js",
     basic: "./js/basic.js",
-    station: "./js/station.js"
+    station: "./js/station.js",
+    inbox: "./js/inbox.js"
   },
   module: {
     rules: [
@@ -54,6 +57,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[name].css",
       chunkFilename: "css/[name].css"
+    }),
+    new webpack.EnvironmentPlugin({
+      API_URL: process.env.npm_package_config_api_url
     })
   ]
 };

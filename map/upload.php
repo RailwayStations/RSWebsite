@@ -14,9 +14,14 @@
     $commentInfo = L::upload_commentInfo;
     $fileChooser = L::upload_fileChooser;
     $pleaseInsertFile = L::upload_pleaseInsertFile;
+    $pleaseInsertComment = L::upload_pleaseInsertComment;
     $upload = L::upload_upload;
+    $uploadForMissing = L::upload_uploadForMissing;
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
+    $freedomOfPanorama = L::upload_freedomOfPanorama;
+    $freedomOfPanoramaInfo = L::upload_freedomOfPanoramaInfo;
+    $pleaseConfirmSpecialLicense = L::upload_pleaseConfirmSpecialLicense;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -30,7 +35,7 @@ navbar();
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
 
-    <h2 id="title-form"><?php echo $upload; ?></h2>
+    <h2 id="title-form"><?php echo $uploadForMissing; ?></h2>
     <form id="uploadForm" class="needs-validation" novalidate action="https://api.railway-stations.org/photoUpload"
           method="post" enctype="multipart/form-data" target="upload_target">
         <input id="email" name="email" type="hidden"/>
@@ -65,6 +70,9 @@ navbar();
             <label for="inputComment"><?php echo $comment; ?></label>
             <input name="comment" type="text" class="form-control" id="inputComment"
                    placeholder="<?php echo $commentInfo; ?>">
+            <div class="invalid-feedback">
+                <?php echo $pleaseInsertComment; ?>
+            </div>
         </div>
         <div class="form-group">
             <div class="custom-file">
@@ -75,12 +83,22 @@ navbar();
                 </div>
             </div>
         </div>
-        <input id="uploadSubmit" type="submit" class="btn btn-primary mt-1" name="submitBtn"
-               value="<?php echo $upload; ?>" disabled/>
+        <div class="form-group special-license-group">
+            <input type="checkbox" name="special-license" class="special-license" id="specialLicense" value="" required>
+            <label class="special-license-label" for="specialLicense" id="special-license-label"></label>
+            <div class="invalid-feedback">
+                <?php echo $pleaseConfirmSpecialLicense; ?>
+            </div>
+        </div>
+        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <em class="fas fa-upload"></em></button>
     </form>
 
     <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
 
+    <div id="uploaded-photo-link"></div>
+
+    <h3 id="freedom-of-panorama"><?php echo $freedomOfPanorama; ?></h3>
+    <div id="freedom-of-panorama-info"><?php echo $freedomOfPanoramaInfo; ?></div>
 </main>
 
 
