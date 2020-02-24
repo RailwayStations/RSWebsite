@@ -16,6 +16,10 @@ navbar();
     <h2 id="title-form"><?php echo L::inbox_title; ?></h2>
     <div id="inboxEntries" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
     </div>
+
+    <h2 id="title-form"><?php echo L::inbox_recentImports; ?></h2>
+    <div id="recentImports">
+    </div>
 </main>
 
 <script src="js/inbox.js"></script>

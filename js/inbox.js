@@ -29,6 +29,7 @@ function sendInboxCommand(inboxCommand) {
 
   request.done(function(data) {
     $("#inbox-" + inboxCommand.id).attr("style", "visibility: collapse");
+    fetchRecentPhotoImports();
   });
 
   request.fail(function(jqXHR, textStatus, errorThrown) {
@@ -316,6 +317,55 @@ function fetchPublicInbox() {
   });
 }
 
+function fetchRecentPhotoImports() {
+  "use strict";
+  
+  $.ajax({
+    url: `${getAPIURI()}recentPhotoImports`,
+    type: "GET",
+    dataType: "json",
+    crossDomain: true,
+    error: function() {
+      $("#inboxEntries").html(
+        getI18n(s => s.inbox.errorLoadingRecentImports)
+      );
+    },
+    success: function(obj) {
+      if (Array.isArray(obj) && obj.length > 0) {
+        var statistic = {};
+        $("#recentImports").html(`<p><ul>`);
+        for (let i = 0; i < obj.length; i++) {
+          let station = obj[i];
+          var detailLink = `station.php?countryCode=${station.country}&stationId=${station.idStr}`;
+          var stationKey = `${station.country}: ${station.idStr}`;
+          var countryCount = statistic[station.photographer + " - " + station.country];
+          if (countryCount === undefined) {
+            countryCount = 0;
+          }
+          countryCount++;
+          statistic[station.photographer + " - " + station.country] = countryCount;
+
+          $("#recentImports").append(`
+            <li>
+                <a href="${detailLink}" data-ajax="false">${station.title}</a> 
+                - ${stationKey} ${getI18n(s => s.inbox.by)} <a href="photographer.php?photographer=${station.photographer}">${station.photographer}</a>
+            </li>`);
+        }
+
+        $("#recentImports").append(`</ul></p><p>${getI18n(s => s.inbox.countByPhotographerAndCountry)}:<ul>`);
+
+        for (var key in statistic) {
+          $("#recentImports").append(`
+            <li>${key}: ${statistic[key]}</li>`);
+        }
+        $("#recentImports").append(`</ul></p>`);
+      } else {
+        $("#recentImports").html(getI18n(s => s.inbox.noRecentImports));
+      }
+    }
+  });
+}
+
 $(document).ready(function() {
   const userProfile = UserProfile.currentUser();
 
@@ -324,4 +374,5 @@ $(document).ready(function() {
   } else {
     fetchPublicInbox();
   }
+  fetchRecentPhotoImports();
 });
