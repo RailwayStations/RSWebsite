@@ -55,6 +55,7 @@ export function reportProblem() {
 
     request.done(function(data) {
       alert(getI18n(s => s.reportProblem.reportProblemSuccess));
+      window.location.href = "index.php";
     });
 
     request.fail(function(jqXHR, textStatus, errorThrown) {
