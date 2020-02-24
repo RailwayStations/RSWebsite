@@ -1,5 +1,5 @@
 import $ from "jquery";
-import { getAPIURI, fetchCountries, isNotBlank } from "./common";
+import { getAPIURI, fetchCountries, isNotBlank, getIntFromLocalStorage } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -7,6 +7,7 @@ import { UserProfile } from "./settings/UserProfile";
 window.$ = $;
 window.accept = accept;
 window.reject = reject;
+window.changeSinceHours = changeSinceHours;
 
 function sendInboxCommand(inboxCommand) {
   "use strict";
@@ -319,9 +320,11 @@ function fetchPublicInbox() {
 
 function fetchRecentPhotoImports() {
   "use strict";
+
+  const sinceHours = $("#sinceHours").val();
   
   $.ajax({
-    url: `${getAPIURI()}recentPhotoImports`,
+    url: `${getAPIURI()}recentPhotoImports?sinceHours=${sinceHours}`,
     type: "GET",
     dataType: "json",
     crossDomain: true,
@@ -366,7 +369,16 @@ function fetchRecentPhotoImports() {
   });
 }
 
+function changeSinceHours() {
+  const sinceHours = $("#sinceHours").val();
+  localStorage.setItem("sinceHours", sinceHours);
+  fetchRecentPhotoImports();
+}
+
 $(document).ready(function() {
+  const sinceHours = getIntFromLocalStorage("sinceHours", 10);
+  $("#sinceHours").val(sinceHours);
+
   const userProfile = UserProfile.currentUser();
 
   if (userProfile.admin === true) {

@@ -16,6 +16,17 @@ export function getBoolFromLocalStorage(key, defaultVal) {
   return value === "true";
 }
 
+export function getIntFromLocalStorage(key, defaultVal) {
+  const value = localStorage.getItem(key);
+  if (value == null) {
+    return defaultVal;
+  }
+  const parsed = parseInt(value);
+  if (isNaN(parsed)) { return defaultVal }
+
+  return parsed;
+}
+
 export function fetchCountries() {
   return CountryClient.getPromise();
 }

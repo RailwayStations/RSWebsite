@@ -18,6 +18,15 @@ navbar();
     </div>
 
     <h2 id="title-form"><?php echo L::inbox_recentImports; ?></h2>
+    <label>
+        <select class="custom-select" id="sinceHours" onChange="javascript:changeSinceHours();">
+            <option value="1"><?php echo L::inbox_oneHour; ?></option>
+            <option value="10" selected><?php echo L::inbox_tenHours; ?></option>
+            <option value="24"><?php echo L::inbox_oneDay; ?></option>
+            <option value="168"><?php echo L::inbox_oneWeek; ?></option>
+            <option value="672"><?php echo L::inbox_oneMonth; ?></option>
+        </select>
+    </label>
     <div id="recentImports">
     </div>
 </main>
