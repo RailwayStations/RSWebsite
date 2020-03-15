@@ -6,7 +6,7 @@ import { UserProfile } from "../settings/UserProfile";
 
 let _markers = undefined;
 
-export function updateMarker(dataBahnhoefe, map, setViewPort = true) {
+export function updateMarker(dataBahnhoefe, map, specialMarker, setViewPort = true) {
   if (!!_markers) {
     map.removeLayer(_markers);
   }
@@ -16,6 +16,9 @@ export function updateMarker(dataBahnhoefe, map, setViewPort = true) {
     ? showPoints(dataBahnhoefe, map)
     : showClustered(dataBahnhoefe, map);
   map.addLayer(_markers);
+  if (specialMarker) {
+    map.addLayer(specialMarker);
+  }
   if (setViewPort) {
     setMapViewport(map, _markers);
   }

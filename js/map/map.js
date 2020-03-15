@@ -31,7 +31,8 @@ window.navigate = navigate;
 let dataBahnhoefe = null,
   map = null,
   markers = null,
-  ownMarker = null;
+  ownMarker = null,
+  specialMarker = null;
 
 function setLastZoomLevel(zoomLevel) {
   "use strict";
@@ -92,7 +93,7 @@ export function switchCountryLink(countryCode) {
 
     setLastZoomLevel(null);
     setLastPos(null);
-    markers = updateMarker(dataBahnhoefe, map);
+    markers = updateMarker(dataBahnhoefe, map, specialMarker);
   });
 }
 
@@ -120,12 +121,28 @@ function searchWeight(query, suggestion) {
 
 $(document).ready(function() {
   const queryParameter = getQueryParameter();
-  if (
-    queryParameter &&
-    queryParameter.countryCode &&
-    queryParameter.countryCode.length > 0
-  ) {
-    setCountryCode(queryParameter.countryCode);
+  if (queryParameter) {
+    if (queryParameter.countryCode &&
+      queryParameter.countryCode.length > 0
+    ) {
+      setCountryCode(queryParameter.countryCode);
+    }
+    if (queryParameter.mlat && queryParameter.mlon) {
+      setLastPos(L.latLng(queryParameter.mlat, queryParameter.mlon));
+      let iconUrl = `./images/pointer-grey-question.png`;
+      const customIcon = L.icon({
+        iconUrl: iconUrl,
+        iconSize: [50, 50],
+        iconAnchor: [25, 50],
+        popupAnchor: [0, -28]
+      });
+      specialMarker = L.marker([queryParameter.mlat, queryParameter.mlon], {
+        icon: customIcon
+      });
+    }
+    if (queryParameter.zoom) {
+      setLastZoomLevel(queryParameter.zoom);
+    }
   }
 
   updateInboxCount();
@@ -165,7 +182,7 @@ $(document).ready(function() {
   fetchStationDataPromise(map)
     .then(data => {
       dataBahnhoefe = data;
-      markers = updateMarker(dataBahnhoefe, map);
+      markers = updateMarker(dataBahnhoefe, map, specialMarker);
     })
     .then(function() {
       map.on("zoomend", function() {

@@ -46,12 +46,13 @@ function sendInboxCommand(inboxCommand) {
 function accept(id) {
   "use strict";
 
-  var forceImport = $("#forceImport-" + id).is(":checked");
+  var ignoreConflict = $("#ignoreConflict-" + id).is(":checked");
+  var createStation = $("#createStation-" + id).is(":checked");
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
   var ds100 = $("#ds100-" + id).val();
   var active = $("#active-" + id).is(":checked");
-  var command = forceImport ? "FORCE_IMPORT" : "IMPORT";
+  var command = "IMPORT";
   var problemSolving = $("#problemSolving-" + id).val();
   if (problemSolving !== undefined) {
     if (problemSolving === "") {
@@ -66,6 +67,8 @@ function accept(id) {
     countryCode: countryCode,
     stationId: stationId,
     command: command,
+    ignoreConflict: ignoreConflict,
+    createStation: createStation,
     DS100: ds100,
     active: active
   };
@@ -193,21 +196,21 @@ function fetchAdminInbox(userProfile) {
                     </select></p>`;
             }
             var conflictIcon = "";
-            var forceImport = "";
+            var ignoreConflict = "";
             if (problemType === "") {
               if (inbox.hasConflict) {
-                forceImport = `<p class="card-text"><input id="forceImport-${
+                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
                   inbox.id
-                }" name="forceImport-${inbox.id}" type="checkbox"/>
-                <label for="forceImport-${inbox.id}">${getI18n(
+                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
+                <label for="ignoreConflict-${inbox.id}">${getI18n(
                   s => s.inbox.ignoreConflict
                 )}</label></p>`;
               }
               if (inbox.hasPhoto) {
-                forceImport = `<p class="card-text"><input id="forceImport-${
+                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
                   inbox.id
-                }" name="forceImport-${inbox.id}" type="checkbox"/>
-                    <label for="forceImport-${inbox.id}">${getI18n(
+                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
+                    <label for="ignoreConflict-${inbox.id}">${getI18n(
                   s => s.inbox.overwriteExistingPhoto
                 )}</label></p>`;
               }
@@ -220,13 +223,21 @@ function fetchAdminInbox(userProfile) {
             var coords = "";
             var newStation = "";
             if (inbox.stationId === undefined) {
-              forceImport = `<p class="card-text"><input id="forceImport-${
+              ignoreConflict = `<p class="card-text"><input id="createStation-${
                 inbox.id
-              }" name="forceImport-${inbox.id}" type="checkbox"/>
-                  <label for="forceImport-${inbox.id}">${getI18n(
+              }" name="createStation-${inbox.id}" type="checkbox"/>
+                  <label for="createStation-${inbox.id}">${getI18n(
                 s => s.inbox.createStation
               )}</label></p>`;
-              coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+              if (inbox.hasConflict) {
+                ignoreConflict += `<p class="card-text"><input id="ignoreConflict-${
+                  inbox.id
+                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
+                    <label for="ignoreConflict-${inbox.id}">${getI18n(
+                  s => s.inbox.ignoreConflict
+                )}</label></p>`;
+              }
+              coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
               newStation = `<p class="card-text">${getI18n(
                 s => s.inbox.missingStation
               )}:<br>
@@ -260,7 +271,7 @@ function fetchAdminInbox(userProfile) {
       ${comment}
       ${newStation}
       ${problemSolving}
-      ${forceImport}
+      ${ignoreConflict}
       <p class="card-text">
         <button class="btn btn-success" name="accept-${inbox.id}"
                     onclick="return accept(${inbox.id});" ${acceptDisabled}>${getI18n(
