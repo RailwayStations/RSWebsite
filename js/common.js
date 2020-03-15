@@ -109,10 +109,12 @@ export function updateInboxCount() {
           "Basic " + btoa(userProfile.email + ":" + userProfile.password)
       },
       success: function(obj) {
-        $("#nav_inbox").removeClass("disabled");
-        $("#nav_inbox").append(
-          `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
-        );
+        if (obj.pendingInboxEntries > 0) {
+          $("#nav_inbox").removeClass("disabled");
+          $("#nav_inbox").append(
+            `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+          );
+        }
       }
     });
   } else {
