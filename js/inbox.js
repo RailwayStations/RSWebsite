@@ -49,6 +49,8 @@ function accept(id) {
   var forceImport = $("#forceImport-" + id).is(":checked");
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
+  var ds100 = $("#ds100-" + id).val();
+  var active = $("#active-" + id).is(":checked");
   var command = forceImport ? "FORCE_IMPORT" : "IMPORT";
   var problemSolving = $("#problemSolving-" + id).val();
   if (problemSolving !== undefined) {
@@ -63,7 +65,9 @@ function accept(id) {
     id: id,
     countryCode: countryCode,
     stationId: stationId,
-    command: command
+    command: command,
+    DS100: ds100,
+    active: active
   };
   sendInboxCommand(inboxCommand);
 }
@@ -214,7 +218,7 @@ function fetchAdminInbox(userProfile) {
               }
             }
             var coords = "";
-            var stationKey = "";
+            var newStation = "";
             if (inbox.stationId === undefined) {
               forceImport = `<p class="card-text"><input id="forceImport-${
                 inbox.id
@@ -223,15 +227,19 @@ function fetchAdminInbox(userProfile) {
                 s => s.inbox.createStation
               )}</label></p>`;
               coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
-              stationKey = `<p class="card-text">${getI18n(
+              newStation = `<p class="card-text">${getI18n(
                 s => s.inbox.missingStation
               )}:<br>
-                            ${createCountriesDropDown(countries, inbox.id)}</p>
-                      <p class="card-text"><input id="stationId-${
-                        inbox.id
-                      }" name="stationId-${
-                inbox.id
-              }" type="text" placeholder="Station ID"/></p>`;
+                ${createCountriesDropDown(countries, inbox.id)}</p>
+                <p class="card-text"><input id="stationId-${inbox.id}" 
+                  name="stationId-${inbox.id}" type="text" placeholder="Station ID"/></p>
+                <p class="card-text"><input id="ds100-${inbox.id}" 
+                  name="ds100-${inbox.id}" type="text" placeholder="DS100"/></p>
+                <p class="card-text"><input id="active-${inbox.id}" 
+                  name="active-${inbox.id}" type="checkbox" checked="true"/>
+                  <label for="active-${inbox.id}"> ${getI18n(
+                    s => s.inbox.activeStation
+                  )}</label></p>`;
             }
             const detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
             $("#inboxEntries").append(`
@@ -250,7 +258,7 @@ function fetchAdminInbox(userProfile) {
       ${problemType}
       ${coords}
       ${comment}
-      ${stationKey}
+      ${newStation}
       ${problemSolving}
       ${forceImport}
       <p class="card-text">
