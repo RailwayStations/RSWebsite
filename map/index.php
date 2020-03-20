@@ -40,7 +40,7 @@ $suffixNavItems = <<<HTML
         <a class="nav-link p-2" href="javascript:map.showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><em class="fas fa-chart-line"></em></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link p-2 disabled" href="inbox.php" rel="noopener" id="nav_inbox"
+        <a class="nav-link p-2" href="inbox.php" rel="noopener" id="nav_inbox"
             aria-label="{$inbox}"
             title="{$inbox}"><em class="fas fa-inbox"></em></a>
     </li>
