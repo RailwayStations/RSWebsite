@@ -74,6 +74,8 @@ require_once "../php/i18n.php";
 <!doctype html>
 <html lang="<?php echo $i18n->getAppliedLang(); ?>">
 <head>
+    <meta name="twitter:card" content="summary" />
+    <meta name="og:title" content="<?= htmlspecialchars($stationName) ?> - RailwayStations"></meta>
     <meta property="og:image" content="<?= htmlspecialchars($stationPhoto) ?>"/>
     <title><?= htmlspecialchars($stationName) ?> - RailwayStations</title>
     <?php require_once "../php/header.php"; ?>
