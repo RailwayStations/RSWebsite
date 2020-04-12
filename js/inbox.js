@@ -312,7 +312,7 @@ function fetchPublicInbox() {
       if (Array.isArray(obj) && obj.length > 0) {
         for (let i = 0; i < obj.length; i++) {
           let inbox = obj[i];
-          var coords = `<p class="card-text"><small class="text-muted"><a href="http://www.openstreetmap.org/?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+          var coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
           var stationKey = getI18n(s => s.inbox.missingStation);
           var detailLink = "#";
           if (inbox.stationId !== undefined) {
