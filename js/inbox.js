@@ -7,6 +7,7 @@ import { UserProfile } from "./settings/UserProfile";
 window.$ = $;
 window.accept = accept;
 window.reject = reject;
+window.nextZ = nextZ;
 window.changeSinceHours = changeSinceHours;
 
 function sendInboxCommand(inboxCommand) {
@@ -43,13 +44,33 @@ function sendInboxCommand(inboxCommand) {
   });
 }
 
+function nextZ(id) {
+  "use strict";
+
+  $.ajax({
+    url: `${getAPIURI()}nextZ`,
+    type: "GET",
+    dataType: "json",
+    crossDomain: true,
+    error: function() {
+      $("#stationId-" + id).val("error");
+    },
+    success: function(obj) {
+      $("#stationId-" + id).val(obj.nextZ);
+    }
+  });
+}
+
 function accept(id) {
   "use strict";
 
   var ignoreConflict = $("#ignoreConflict-" + id).is(":checked");
-  var createStation = $("#createStation-" + id).is(":checked");
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
+  var createStation = isNotBlank(stationId);
+  var title = $("#title-" + id).val();
+  var lat = $("#lat-" + id).val();
+  var lon = $("#lon-" + id).val();
   var ds100 = $("#ds100-" + id).val();
   var active = $("#active-" + id).is(":checked");
   var command = "IMPORT";
@@ -66,6 +87,9 @@ function accept(id) {
     id: id,
     countryCode: countryCode,
     stationId: stationId,
+    title: title,
+    lat: lat,
+    lon: lon,
     command: command,
     ignoreConflict: ignoreConflict,
     createStation: createStation,
@@ -223,30 +247,31 @@ function fetchAdminInbox(userProfile) {
             var coords = "";
             var newStation = "";
             if (inbox.stationId === undefined) {
-              ignoreConflict = `<p class="card-text"><input id="createStation-${
-                inbox.id
-              }" name="createStation-${inbox.id}" type="checkbox"/>
-                  <label for="createStation-${inbox.id}">${getI18n(
-                s => s.inbox.createStation
-              )}</label></p>`;
               if (inbox.hasConflict) {
-                ignoreConflict += `<p class="card-text"><input id="ignoreConflict-${
-                  inbox.id
-                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
-                    <label for="ignoreConflict-${inbox.id}">${getI18n(
-                  s => s.inbox.ignoreConflict
-                )}</label></p>`;
+                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${inbox.id}" 
+                    name="ignoreConflict-${inbox.id}" type="checkbox"/>
+                    <label for="ignoreConflict-${inbox.id}">${getI18n(s => s.inbox.ignoreConflict)}</label></p>`;
               }
               coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
-              newStation = `<p class="card-text">${getI18n(
-                s => s.inbox.missingStation
-              )}:<br>
-                ${createCountriesDropDown(countries, inbox.id)}</p>
-                <p class="card-text"><input id="stationId-${inbox.id}" 
-                  name="stationId-${inbox.id}" type="text" placeholder="Station ID"/></p>
-                <p class="card-text"><input id="ds100-${inbox.id}" 
+              newStation = `<p class="card-text">${createCountriesDropDown(countries, inbox.id)}</p>
+                <p class="card-text">
+                  <div class="input-group mb-2 mr-sm-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text" onclick="return nextZ(${inbox.id})" style="cursor: pointer;">Z</div>
+                    </div>
+                    <input id="stationId-${inbox.id}" class="form-control" 
+                      name="stationId-${inbox.id}" type="text" placeholder="Station ID"/>
+                  </div>
+                </p>
+                <p class="card-text"><input id="title-${inbox.id}" class="form-control" 
+                  name="title-${inbox.id}" type="text" placeholder="Title" value="${inbox.title}"/></p>
+                <p class="card-text"><input id="lat-${inbox.id}" class="form-control"  
+                  name="lat-${inbox.id}" type="text" placeholder="Latitude" value="${inbox.lat}"/></p>
+                <p class="card-text"><input id="lon-${inbox.id}" class="form-control"  
+                  name="lon-${inbox.id}" type="text" placeholder="Longitude" value="${inbox.lon}"/></p>
+                <p class="card-text"><input id="ds100-${inbox.id}" class="form-control"  
                   name="ds100-${inbox.id}" type="text" placeholder="DS100"/></p>
-                <p class="card-text"><input id="active-${inbox.id}" 
+                <p class="card-text" id="active-p-${inbox.id}"><input id="active-${inbox.id}" 
                   name="active-${inbox.id}" type="checkbox" checked="true"/>
                   <label for="active-${inbox.id}"> ${getI18n(
                     s => s.inbox.activeStation
