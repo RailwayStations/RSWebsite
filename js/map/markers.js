@@ -133,14 +133,19 @@ function showClustered(dataBahnhoefe, map) {
   const nickname = UserProfile.currentUser().nickname;
 
   dataBahnhoefe.forEach(bahnhof => {
-    let iconUrl;
+    let color;
     if (bahnhof.photographer === null) {
-      iconUrl = `./images/pointer-red.png`;
+      color = `red`;
     } else if (bahnhof.photographer === nickname) {
-      iconUrl = `./images/pointer-violet.png`;
+      color = `violet`;
     } else {
-      iconUrl = `./images/pointer-green.png`;
+      color = `green`;
     }
+    let inactive = ``;
+    if (!bahnhof.active) {
+      inactive = `-inactive`;
+    }
+    const iconUrl = `./images/pointer-${color}${inactive}.png`;
     const customIcon = L.icon({
       iconUrl: iconUrl,
       iconSize: [50, 50],
