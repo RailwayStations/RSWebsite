@@ -27,7 +27,7 @@ class UserProfile {
   static authOnly(email, password) {
     return new UserProfile({
       email: email,
-      password: password
+      password: password,
     });
   }
 
@@ -54,7 +54,7 @@ class UserProfile {
       license: this._license,
       photoOwner: this.photoOwner,
       link: this.link,
-      anonymous: this.anonymous
+      anonymous: this.anonymous,
     };
     return JSON.stringify(result);
   }

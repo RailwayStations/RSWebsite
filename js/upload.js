@@ -5,7 +5,7 @@ import {
   getQueryParameter,
   isBlank,
   isNotBlank,
-  getCountryByCode
+  getCountryByCode,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -66,7 +66,7 @@ function receiveMessage(event) {
   stopUpload(event.data);
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
@@ -117,10 +117,10 @@ $(document).ready(function() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.getElementsByClassName("needs-validation");
   // Loop over them and prevent submission
-  Array.prototype.filter.call(forms, function(form) {
+  Array.prototype.filter.call(forms, function (form) {
     form.addEventListener(
       "submit",
-      function(event) {
+      function (event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();

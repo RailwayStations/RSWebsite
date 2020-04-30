@@ -22,7 +22,9 @@ export function getIntFromLocalStorage(key, defaultVal) {
     return defaultVal;
   }
   const parsed = parseInt(value);
-  if (isNaN(parsed)) { return defaultVal }
+  if (isNaN(parsed)) {
+    return defaultVal;
+  }
 
   return parsed;
 }
@@ -97,7 +99,7 @@ export function updateInboxCount() {
   "use strict";
 
   const userProfile = UserProfile.currentUser();
-  console.log(userProfile)
+  console.log(userProfile);
   if (userProfile.admin === true) {
     $.ajax({
       url: `${getAPIURI()}adminInboxCount`,
@@ -106,16 +108,16 @@ export function updateInboxCount() {
       crossDomain: true,
       headers: {
         Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
       },
-      success: function(obj) {
+      success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
           $("#nav_inbox").removeClass("disabled");
           $("#nav_inbox").append(
             `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
           );
         }
-      }
+      },
     });
   } else {
     $.ajax({
@@ -123,15 +125,14 @@ export function updateInboxCount() {
       type: "GET",
       dataType: "json",
       crossDomain: true,
-      success: function(obj) {
+      success: function (obj) {
         $("#nav_inbox").removeClass("disabled");
         $("#nav_inbox").append(
           `<span class="badge badge-light">${obj.length}</span>`
         );
-      }
+      },
     });
   }
-
 }
 
 export function providerApp(countryCode) {
@@ -139,7 +140,7 @@ export function providerApp(countryCode) {
 
   getCountryByCode(countryCode).then(country => {
     var providerAppsTable = "";
-    $.each(country.providerApps, function(index, providerApp) {
+    $.each(country.providerApps, function (index, providerApp) {
       var icon = "fas fa-external-link-alt";
       if (providerApp.type === "android") {
         icon = "fab fa-android";

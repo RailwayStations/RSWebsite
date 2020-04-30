@@ -6,7 +6,12 @@ import { UserProfile } from "../settings/UserProfile";
 
 let _markers = undefined;
 
-export function updateMarker(dataBahnhoefe, map, specialMarker, setViewPort = true) {
+export function updateMarker(
+  dataBahnhoefe,
+  map,
+  specialMarker,
+  setViewPort = true
+) {
   if (!!_markers) {
     map.removeLayer(_markers);
   }
@@ -37,7 +42,7 @@ function setMapViewport(map, markers) {
   }
 }
 
-let markerRadius = function(map) {
+let markerRadius = function (map) {
   const currentZoom = map.getZoom();
   let result;
   if (currentZoom > 10) {
@@ -53,7 +58,7 @@ let markerRadius = function(map) {
 function showPoints(dataBahnhoefe, map) {
   const markers = L.featureGroup();
 
-  const bahnhoefe = L.featureGroup().on("click", function(event) {
+  const bahnhoefe = L.featureGroup().on("click", function (event) {
     showPopup(event.layer.options, map);
   });
 
@@ -76,11 +81,11 @@ function showPoints(dataBahnhoefe, map) {
       fillOpacity: 1,
       radius: radius,
       stroke: false,
-      properties: bahnhof
+      properties: bahnhof,
     }).addTo(bahnhoefe);
   });
 
-  map.on("zoomend", function(e) {
+  map.on("zoomend", function (e) {
     const radius = markerRadius(map);
     rawMarkers.forEach(m => m.setRadius(radius));
   });
@@ -93,7 +98,7 @@ function showClustered(dataBahnhoefe, map) {
   $("body").addClass("showCluster");
 
   const markers = L.markerClusterGroup({
-    iconCreateFunction: function(cluster) {
+    iconCreateFunction: function (cluster) {
       var markers = cluster.getAllChildMarkers(),
         red = 0,
         green = 0,
@@ -121,12 +126,12 @@ function showClustered(dataBahnhoefe, map) {
           </div>
           `,
         className: "marker-cluster marker-cluster-large",
-        iconSize: new L.Point(40, 40)
+        iconSize: new L.Point(40, 40),
       });
-    }
+    },
   });
 
-  const bahnhoefe = L.featureGroup().on("click", function(event) {
+  const bahnhoefe = L.featureGroup().on("click", function (event) {
     showPopup(event.layer.options, map);
   });
 
@@ -150,11 +155,11 @@ function showClustered(dataBahnhoefe, map) {
       iconUrl: iconUrl,
       iconSize: [50, 50],
       iconAnchor: [25, 50],
-      popupAnchor: [0, -28]
+      popupAnchor: [0, -28],
     });
     L.marker([bahnhof.lat, bahnhof.lon], {
       icon: customIcon,
-      properties: bahnhof
+      properties: bahnhof,
     }).addTo(bahnhoefe);
   });
 

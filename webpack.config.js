@@ -12,7 +12,7 @@ module.exports = {
     settings: "./js/settings/settings.js",
     basic: "./js/basic.js",
     station: "./js/station.js",
-    inbox: "./js/inbox.js"
+    inbox: "./js/inbox.js",
   },
   module: {
     rules: [
@@ -22,20 +22,20 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"]
-          }
-        }
+            presets: ["@babel/preset-env"],
+          },
+        },
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|mp3)$/i,
         loader: "file-loader",
         options: {
-          name: "images/[name].[ext]"
-        }
+          name: "images/[name].[ext]",
+        },
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/i,
@@ -43,23 +43,23 @@ module.exports = {
         options: {
           name: "[name].[ext]",
           outputPath: "fonts",
-          publicPath: "../fonts"
-        }
-      }
-    ]
+          publicPath: "../fonts",
+        },
+      },
+    ],
   },
   output: {
     path: path.resolve(__dirname, "./map"),
     filename: "js/[name].js",
-    library: "[name]"
+    library: "[name]",
   },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "css/[name].css",
-      chunkFilename: "css/[name].css"
+      chunkFilename: "css/[name].css",
     }),
     new webpack.EnvironmentPlugin({
-      API_URL: process.env.npm_package_config_api_url
-    })
-  ]
+      API_URL: process.env.npm_package_config_api_url,
+    }),
+  ],
 };

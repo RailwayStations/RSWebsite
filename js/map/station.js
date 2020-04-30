@@ -1,7 +1,7 @@
 import { scaleImage } from "../common";
 import { getI18n } from "../i18n";
 
-export let stationHtml = function(feature) {
+export let stationHtml = function (feature) {
   const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
   const photoURL = scaleImage(feature.properties.photoUrl, 301);
   const country = feature.properties.country;

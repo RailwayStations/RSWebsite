@@ -38,7 +38,7 @@ export function reportProblem() {
       countryCode: countryCode,
       stationId: stationId,
       type: type,
-      comment: comment
+      comment: comment,
     };
 
     var request = $.ajax({
@@ -48,17 +48,17 @@ export function reportProblem() {
       processData: false,
       headers: {
         Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
       },
-      data: JSON.stringify(problemReport)
+      data: JSON.stringify(problemReport),
     });
 
-    request.done(function(data) {
+    request.done(function (data) {
       alert(getI18n(s => s.reportProblem.reportProblemSuccess));
       window.location.href = "index.php";
     });
 
-    request.fail(function(jqXHR, textStatus, errorThrown) {
+    request.fail(function (jqXHR, textStatus, errorThrown) {
       if (jqXHR.responseText) {
         var response = JSON.parse(jqXHR.responseText);
         alert(errorThrown + ": " + response.message);
@@ -69,7 +69,7 @@ export function reportProblem() {
   }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
@@ -93,10 +93,10 @@ $(document).ready(function() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   const forms = document.getElementsByClassName("needs-validation");
   // Loop over them and prevent submission
-  Array.prototype.filter.call(forms, function(form) {
+  Array.prototype.filter.call(forms, function (form) {
     form.addEventListener(
       "submit",
-      function(event) {
+      function (event) {
         if (form.checkValidity() === false) {
           event.preventDefault();
           event.stopPropagation();

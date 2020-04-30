@@ -5,26 +5,26 @@ import { getI18n } from "./i18n";
 
 window.$ = $;
 
-$(document).ready(function() {
+$(document).ready(function () {
   const vars = getQueryParameter();
   const photographer = vars.photographer;
 
-  $("#title-form").html(`${getI18n(
-    s => s.photographer.photosBy
-  )} ${photographer}`);
+  $("#title-form").html(
+    `${getI18n(s => s.photographer.photosBy)} ${photographer}`
+  );
 
   $.ajax({
     url: `${getAPIURI()}stations?photographer=${photographer}`,
     type: "GET",
     dataType: "json",
-    error: function() {
+    error: function () {
       $("#stations").html(
         `${getI18n(
           s => s.photographer.errorLoadingStationsOfPhotographer
         )} ${photographer}`
       );
     },
-    success: function(obj) {
+    success: function (obj) {
       if (Array.isArray(obj) && obj.length > 0) {
         $("#photographer").attr("href", obj[0].photographerUrl);
         for (let i = 0; i < obj.length; i++) {
@@ -59,6 +59,6 @@ $(document).ready(function() {
       } else {
         $("#stations").html(getI18n(s => s.photographer.noStationsFound));
       }
-    }
+    },
   });
 });
