@@ -1,5 +1,10 @@
 import $ from "jquery";
-import { getAPIURI, fetchCountries, isNotBlank, getIntFromLocalStorage } from "./common";
+import {
+  getAPIURI,
+  fetchCountries,
+  isNotBlank,
+  getIntFromLocalStorage,
+} from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -24,17 +29,17 @@ function sendInboxCommand(inboxCommand) {
     processData: false,
     headers: {
       Authorization:
-        "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+        "Basic " + btoa(userProfile.email + ":" + userProfile.password),
     },
-    data: JSON.stringify(inboxCommand)
+    data: JSON.stringify(inboxCommand),
   });
 
-  request.done(function(data) {
+  request.done(function (data) {
     $("#inbox-" + inboxCommand.id).attr("style", "visibility: collapse");
     fetchRecentPhotoImports();
   });
 
-  request.fail(function(jqXHR, textStatus, errorThrown) {
+  request.fail(function (jqXHR, textStatus, errorThrown) {
     if (jqXHR.responseText) {
       var response = JSON.parse(jqXHR.responseText);
       alert(errorThrown + ": " + response.message);
@@ -52,12 +57,12 @@ function nextZ(id) {
     type: "GET",
     dataType: "json",
     crossDomain: true,
-    error: function() {
+    error: function () {
       $("#stationId-" + id).val("error");
     },
-    success: function(obj) {
+    success: function (obj) {
       $("#stationId-" + id).val(obj.nextZ);
-    }
+    },
   });
 }
 
@@ -94,7 +99,7 @@ function accept(id) {
     ignoreConflict: ignoreConflict,
     createStation: createStation,
     DS100: ds100,
-    active: active
+    active: active,
   };
   sendInboxCommand(inboxCommand);
 }
@@ -138,14 +143,14 @@ function fetchAdminInbox(userProfile) {
       crossDomain: true,
       headers: {
         Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
       },
-      error: function() {
+      error: function () {
         $("#inboxEntries").html(
           getI18n(s => s.inbox.errorLoadingPendingUploads)
         );
       },
-      success: function(obj) {
+      success: function (obj) {
         if (Array.isArray(obj) && obj.length > 0) {
           for (let i = 0; i < obj.length; i++) {
             let inbox = obj[i];
@@ -248,34 +253,67 @@ function fetchAdminInbox(userProfile) {
             var newStation = "";
             if (inbox.stationId === undefined) {
               if (inbox.hasConflict) {
-                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${inbox.id}" 
+                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
+                  inbox.id
+                }" 
                     name="ignoreConflict-${inbox.id}" type="checkbox"/>
-                    <label for="ignoreConflict-${inbox.id}">${getI18n(s => s.inbox.ignoreConflict)}</label></p>`;
+                    <label for="ignoreConflict-${inbox.id}">${getI18n(
+                  s => s.inbox.ignoreConflict
+                )}</label></p>`;
               }
               coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
-              newStation = `<p class="card-text">${createCountriesDropDown(countries, inbox.id)}</p>
+              newStation = `<p class="card-text">${createCountriesDropDown(
+                countries,
+                inbox.id
+              )}</p>
                 <p class="card-text">
                   <div class="input-group mb-2 mr-sm-2">
                     <div class="input-group-prepend">
-                      <div class="input-group-text" onclick="return nextZ(${inbox.id})" style="cursor: pointer;">Z</div>
+                      <div class="input-group-text" onclick="return nextZ(${
+                        inbox.id
+                      })" style="cursor: pointer;">Z</div>
                     </div>
                     <input id="stationId-${inbox.id}" class="form-control" 
-                      name="stationId-${inbox.id}" type="text" placeholder="Station ID"/>
+                      name="stationId-${
+                        inbox.id
+                      }" type="text" placeholder="Station ID"/>
                   </div>
                 </p>
-                <p class="card-text"><input id="title-${inbox.id}" class="form-control" 
-                  name="title-${inbox.id}" type="text" placeholder="Title" value="${inbox.title}"/></p>
-                <p class="card-text"><input id="lat-${inbox.id}" class="form-control"  
-                  name="lat-${inbox.id}" type="text" placeholder="Latitude" value="${inbox.lat}"/></p>
-                <p class="card-text"><input id="lon-${inbox.id}" class="form-control"  
-                  name="lon-${inbox.id}" type="text" placeholder="Longitude" value="${inbox.lon}"/></p>
-                <p class="card-text"><input id="ds100-${inbox.id}" class="form-control"  
+                <p class="card-text"><input id="title-${
+                  inbox.id
+                }" class="form-control" 
+                  name="title-${
+                    inbox.id
+                  }" type="text" placeholder="Title" value="${
+                inbox.title
+              }"/></p>
+                <p class="card-text"><input id="lat-${
+                  inbox.id
+                }" class="form-control"  
+                  name="lat-${
+                    inbox.id
+                  }" type="text" placeholder="Latitude" value="${
+                inbox.lat
+              }"/></p>
+                <p class="card-text"><input id="lon-${
+                  inbox.id
+                }" class="form-control"  
+                  name="lon-${
+                    inbox.id
+                  }" type="text" placeholder="Longitude" value="${
+                inbox.lon
+              }"/></p>
+                <p class="card-text"><input id="ds100-${
+                  inbox.id
+                }" class="form-control"  
                   name="ds100-${inbox.id}" type="text" placeholder="DS100"/></p>
-                <p class="card-text" id="active-p-${inbox.id}"><input id="active-${inbox.id}" 
+                <p class="card-text" id="active-p-${
+                  inbox.id
+                }"><input id="active-${inbox.id}" 
                   name="active-${inbox.id}" type="checkbox" checked="true"/>
                   <label for="active-${inbox.id}"> ${getI18n(
-                    s => s.inbox.activeStation
-                  )}</label></p>`;
+                s => s.inbox.activeStation
+              )}</label></p>`;
             }
             const detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
             $("#inboxEntries").append(`
@@ -299,7 +337,9 @@ function fetchAdminInbox(userProfile) {
       ${ignoreConflict}
       <p class="card-text">
         <button class="btn btn-success" name="accept-${inbox.id}"
-                    onclick="return accept(${inbox.id});" ${acceptDisabled}>${getI18n(
+                    onclick="return accept(${
+                      inbox.id
+                    });" ${acceptDisabled}>${getI18n(
               s => s.inbox.accept
             )} <i class="fas fa-thumbs-up"></i></button>
         <button class="btn btn-danger" name="reject-${inbox.id}"
@@ -315,25 +355,23 @@ function fetchAdminInbox(userProfile) {
         } else {
           $("#inboxEntries").html(getI18n(s => s.inbox.inboxEmpty));
         }
-      }
+      },
     });
   });
 }
 
 function fetchPublicInbox() {
   "use strict";
-  
+
   $.ajax({
     url: `${getAPIURI()}publicInbox`,
     type: "GET",
     dataType: "json",
     crossDomain: true,
-    error: function() {
-      $("#inboxEntries").html(
-        getI18n(s => s.inbox.errorLoadingPendingUploads)
-      );
+    error: function () {
+      $("#inboxEntries").html(getI18n(s => s.inbox.errorLoadingPendingUploads));
     },
-    success: function(obj) {
+    success: function (obj) {
       if (Array.isArray(obj) && obj.length > 0) {
         for (let i = 0; i < obj.length; i++) {
           let inbox = obj[i];
@@ -358,7 +396,7 @@ function fetchPublicInbox() {
       } else {
         $("#inboxEntries").html(getI18n(s => s.inbox.inboxEmpty));
       }
-    }
+    },
   });
 }
 
@@ -366,18 +404,16 @@ function fetchRecentPhotoImports() {
   "use strict";
 
   const sinceHours = $("#sinceHours").val();
-  
+
   $.ajax({
     url: `${getAPIURI()}recentPhotoImports?sinceHours=${sinceHours}`,
     type: "GET",
     dataType: "json",
     crossDomain: true,
-    error: function() {
-      $("#inboxEntries").html(
-        getI18n(s => s.inbox.errorLoadingRecentImports)
-      );
+    error: function () {
+      $("#inboxEntries").html(getI18n(s => s.inbox.errorLoadingRecentImports));
     },
-    success: function(obj) {
+    success: function (obj) {
       if (Array.isArray(obj) && obj.length > 0) {
         var statistic = {};
         $("#recentImports").html(`<p><ul>`);
@@ -385,21 +421,32 @@ function fetchRecentPhotoImports() {
           let station = obj[i];
           var detailLink = `station.php?countryCode=${station.country}&stationId=${station.idStr}`;
           var stationKey = `${station.country}: ${station.idStr}`;
-          var countryCount = statistic[station.photographer + " - " + station.country];
+          var countryCount =
+            statistic[station.photographer + " - " + station.country];
           if (countryCount === undefined) {
             countryCount = 0;
           }
           countryCount++;
-          statistic[station.photographer + " - " + station.country] = countryCount;
+          statistic[
+            station.photographer + " - " + station.country
+          ] = countryCount;
 
           $("#recentImports").append(`
             <li>
                 <a href="${detailLink}" data-ajax="false">${station.title}</a> 
-                - ${stationKey} ${getI18n(s => s.inbox.by)} <a href="photographer.php?photographer=${station.photographer}">${station.photographer}</a>
+                - ${stationKey} ${getI18n(
+            s => s.inbox.by
+          )} <a href="photographer.php?photographer=${station.photographer}">${
+            station.photographer
+          }</a>
             </li>`);
         }
 
-        $("#recentImports").append(`</ul></p><p>${getI18n(s => s.inbox.countByPhotographerAndCountry)}:<ul>`);
+        $("#recentImports").append(
+          `</ul></p><p>${getI18n(
+            s => s.inbox.countByPhotographerAndCountry
+          )}:<ul>`
+        );
 
         for (var key in statistic) {
           $("#recentImports").append(`
@@ -409,7 +456,7 @@ function fetchRecentPhotoImports() {
       } else {
         $("#recentImports").html(getI18n(s => s.inbox.noRecentImports));
       }
-    }
+    },
   });
 }
 
@@ -419,7 +466,7 @@ function changeSinceHours() {
   fetchRecentPhotoImports();
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const sinceHours = getIntFromLocalStorage("sinceHours", 10);
   $("#sinceHours").val(sinceHours);
 

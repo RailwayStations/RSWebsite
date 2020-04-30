@@ -8,13 +8,13 @@ function getStationsURL() {
   return getAPIURI() + getCountryCode() + "/stations";
 }
 
-const loadStationDataFromCache = function(cachedData) {
+const loadStationDataFromCache = function (cachedData) {
   return new Promise(resolve => {
     resolve(JSON.parse(cachedData));
   });
 };
 
-const fetchStationData = function(countryCode) {
+const fetchStationData = function (countryCode) {
   return fetch(getStationsURL())
     .then(r => r.json())
     .then(data => {
@@ -34,7 +34,7 @@ function initCountry() {
     menu.innerHTML = "";
     const currentCountry = getCountryCode();
 
-    countries.sort(function(a, b) {
+    countries.sort(function (a, b) {
       return a.name.localeCompare(b.name);
     });
 
@@ -55,7 +55,7 @@ function initCountry() {
   });
 }
 
-export const fetchStationDataPromise = function(map) {
+export const fetchStationDataPromise = function (map) {
   map.spin(true);
   initCountry();
   const countryCode = getCountryCode();

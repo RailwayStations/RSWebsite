@@ -15,7 +15,7 @@ import {
   setCountryCode,
   updateInboxCount,
   navigate,
-  timetable
+  timetable,
 } from "../common";
 import "bootstrap";
 import { updateMarker } from "./markers";
@@ -119,12 +119,10 @@ function searchWeight(query, suggestion) {
   return weight;
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
   const queryParameter = getQueryParameter();
   if (queryParameter) {
-    if (queryParameter.countryCode &&
-      queryParameter.countryCode.length > 0
-    ) {
+    if (queryParameter.countryCode && queryParameter.countryCode.length > 0) {
       setCountryCode(queryParameter.countryCode);
     }
     if (queryParameter.mlat && queryParameter.mlon) {
@@ -134,10 +132,10 @@ $(document).ready(function() {
         iconUrl: iconUrl,
         iconSize: [50, 50],
         iconAnchor: [25, 50],
-        popupAnchor: [0, -28]
+        popupAnchor: [0, -28],
       });
       specialMarker = L.marker([queryParameter.mlat, queryParameter.mlon], {
-        icon: customIcon
+        icon: customIcon,
       });
     }
     if (queryParameter.zoom) {
@@ -157,10 +155,10 @@ $(document).ready(function() {
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
     attribution:
-      '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+      '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  map.on("contextmenu", function(ev) {
+  map.on("contextmenu", function (ev) {
     showMissingStationPopup(ev, map);
   });
 
@@ -174,8 +172,8 @@ $(document).ready(function() {
     .locate({
       showPopup: false,
       strings: {
-        title: getI18n(s => s.index.myLocation)
-      }
+        title: getI18n(s => s.index.myLocation),
+      },
     })
     .addTo(map);
 
@@ -184,11 +182,11 @@ $(document).ready(function() {
       dataBahnhoefe = data;
       markers = updateMarker(dataBahnhoefe, map, specialMarker);
     })
-    .then(function() {
-      map.on("zoomend", function() {
+    .then(function () {
+      map.on("zoomend", function () {
         setLastZoomLevel(map.getZoom());
       });
-      map.on("moveend", function() {
+      map.on("moveend", function () {
         setLastPos(map.getCenter());
       });
     })
@@ -198,25 +196,25 @@ $(document).ready(function() {
     });
 
   $(window)
-    .on("resize", function() {
+    .on("resize", function () {
       $("#map").height($(window).height() - 60);
       map.invalidateSize();
     })
     .trigger("resize");
 
   $("#suche").autocomplete({
-    lookup: function(query, done) {
+    lookup: function (query, done) {
       var matcher = new RegExp(query, "i");
-      var filtered = dataBahnhoefe.filter(function(bahnhof) {
+      var filtered = dataBahnhoefe.filter(function (bahnhof) {
         return matcher.test(bahnhof.title) || bahnhof.idStr === query;
       });
       var result = {
-        suggestions: []
+        suggestions: [],
       };
-      result.suggestions = $.map(filtered, function(value, key) {
+      result.suggestions = $.map(filtered, function (value, key) {
         return {
           value: value.title,
-          data: value.idStr
+          data: value.idStr,
         };
       });
       result.suggestions.sort((a, b) => {
@@ -224,9 +222,9 @@ $(document).ready(function() {
       });
       done(result);
     },
-    onSelect: function(suggestion) {
+    onSelect: function (suggestion) {
       $("#suche").val(suggestion.value);
-      var bahnhof = dataBahnhoefe.filter(function(bahnhof) {
+      var bahnhof = dataBahnhoefe.filter(function (bahnhof) {
         return bahnhof.idStr === suggestion.data;
       });
       map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon), 14);
@@ -242,6 +240,6 @@ $(document).ready(function() {
         }
       });
       return false;
-    }
+    },
   });
 });

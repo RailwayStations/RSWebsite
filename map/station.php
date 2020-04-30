@@ -27,8 +27,8 @@ try {
                     INPUT_SERVER,
                     'SERVER_NAME',
                     FILTER_SANITIZE_STRING
-                )
-        ]
+                ),
+        ],
     ];
 
     $context = stream_context_create($opts);
@@ -75,7 +75,9 @@ require_once "../php/i18n.php";
 <html lang="<?php echo $i18n->getAppliedLang(); ?>">
 <head>
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="og:title" content="<?= htmlspecialchars($stationName) ?> - RailwayStations"></meta>
+    <meta name="og:title" content="<?= htmlspecialchars(
+        $stationName
+    ) ?> - RailwayStations"></meta>
     <meta property="og:image" content="<?= htmlspecialchars($stationPhoto) ?>"/>
     <title><?= htmlspecialchars($stationName) ?> - RailwayStations</title>
     <?php require_once "../php/header.php"; ?>

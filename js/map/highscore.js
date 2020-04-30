@@ -48,7 +48,7 @@ export const showHighScorePopup = async selectedCountryCode => {
   $("#highscore").modal("show");
 };
 
-const createTable = function(statistics) {
+const createTable = function (statistics) {
   let rang = 0;
   let lastPhotoCount = -1;
   let result = "";
@@ -83,7 +83,7 @@ const createTable = function(statistics) {
   return `<table class="table table-striped">${result}</table>`;
 };
 
-const createProgressBar = function(countryStats) {
+const createProgressBar = function (countryStats) {
   const countPhotos = countryStats.withPhoto;
   const countStations = countryStats.total;
   const percentPhotos = (countPhotos / countStations) * 100;
@@ -104,7 +104,7 @@ const createProgressBar = function(countryStats) {
       <p style="padding-top: 10px;font-weight: bold;">${countPhotographersString}</p>
 `;
 };
-const createLabelWithDropDown = function(countries, currentCountry) {
+const createLabelWithDropDown = function (countries, currentCountry) {
   const allCountries = getI18n(s => s.index.allCountries);
   const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${allCountries}">${allCountries}</a>`;
   let countryOptions = "";

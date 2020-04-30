@@ -8,9 +8,9 @@ class UserProfileClient {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
       },
-      body: userProfile.toJson()
+      body: userProfile.toJson(),
     });
   }
 
@@ -20,8 +20,8 @@ class UserProfileClient {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
         Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password)
-      }
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+      },
     })
       .then(r => r.json())
       .then(data => new UserProfile(data))
