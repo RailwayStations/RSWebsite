@@ -99,7 +99,6 @@ export function updateInboxCount() {
   "use strict";
 
   const userProfile = UserProfile.currentUser();
-  console.log(userProfile);
   if (userProfile.admin === true) {
     $.ajax({
       url: `${getAPIURI()}adminInboxCount`,
@@ -112,7 +111,6 @@ export function updateInboxCount() {
       },
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
-          $("#nav_inbox").removeClass("disabled");
           $("#nav_inbox").append(
             `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
           );
@@ -126,7 +124,6 @@ export function updateInboxCount() {
       dataType: "json",
       crossDomain: true,
       success: function (obj) {
-        $("#nav_inbox").removeClass("disabled");
         $("#nav_inbox").append(
           `<span class="badge badge-light">${obj.length}</span>`
         );

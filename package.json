@@ -47,7 +47,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "@fortawesome/fontawesome-free": "^5.13.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "bs-custom-file-input": "^1.3.4",
     "jQuery-Autocomplete": "https://github.com/devbridge/jQuery-Autocomplete.git#v1.4.10",
     "jquery": "^3.5.0",

@@ -32,7 +32,6 @@ class UserProfileClient {
       }))
       .then(data => new UserProfile(data))
       .then(newUserProfile => {
-        console.log(newUserProfile);
         newUserProfile.password = userProfile.password;
         return newUserProfile;
       });
