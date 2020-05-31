@@ -29,7 +29,7 @@ navbar();
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
 
     <h2 id="title-form"><?php echo $reportProblem; ?></h2>
-    <form id="reportProblemForm" class="needs-validation" novalidate action="#">
+    <form id="reportProblemForm" class="needs-validation" novalidate action="#" onsubmit="return reportProblem.reportProblem();">
         <input id="stationId" name="stationId" type="hidden"/>
         <input id="countryCode" name="countryCode" type="hidden"/>
         <div class="form-group">

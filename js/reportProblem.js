@@ -66,6 +66,8 @@ export function reportProblem() {
         alert(textStatus + ": " + errorThrown);
       }
     });
+  } else {
+    return false;
   }
 }
 
