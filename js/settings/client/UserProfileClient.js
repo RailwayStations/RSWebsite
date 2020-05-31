@@ -23,9 +23,16 @@ class UserProfileClient {
           "Basic " + btoa(userProfile.email + ":" + userProfile.password),
       },
     })
-      .then(r => r.json())
+      .then(r => new Promise((resolve, reject) => { 
+        if (r.ok) {
+          resolve(r.json());
+        } else {
+          throw new Error('Login failed');          
+        }
+      }))
       .then(data => new UserProfile(data))
       .then(newUserProfile => {
+        console.log(newUserProfile);
         newUserProfile.password = userProfile.password;
         return newUserProfile;
       });

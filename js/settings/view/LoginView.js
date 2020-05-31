@@ -45,8 +45,12 @@ class LoginView {
     const email = document.getElementById("loginEmail").value;
     const password = document.getElementById("loginPassword").value;
     UserProfileClient.getProfile(UserProfile.authOnly(email, password))
-      .then(userProfile => userProfile.save())
-      .then(() => location.reload());
+      .then(userProfile => userProfile.save(), error => {
+        throw error;
+      })
+      .then(() => location.reload(), error => {
+        alert(`${getI18n(s => s.settings.loginFailed)}`);
+      });
   }
 }
 
