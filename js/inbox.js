@@ -14,6 +14,7 @@ window.accept = accept;
 window.reject = reject;
 window.nextZ = nextZ;
 window.changeSinceHours = changeSinceHours;
+window.changeProblemSolving = changeProblemSolving;
 
 function sendInboxCommand(inboxCommand) {
   "use strict";
@@ -64,6 +65,17 @@ function nextZ(id) {
       $("#stationId-" + id).val(obj.nextZ);
     },
   });
+}
+
+function changeProblemSolving(id) {
+  "use strict";
+
+  var problemSolving = $("#problemSolving-" + id).val();
+  if (problemSolving == "CHANGE_NAME") {
+    $("#title-p-" + id).show();
+  } else {
+    $("#title-p-" + id).hide();
+  }
 }
 
 function accept(id) {
@@ -204,9 +216,8 @@ function fetchAdminInbox(userProfile) {
                   break;
               }
               problemType = `<p class="card-text">${problemText}</p>`;
-              problemSolving = `<p class="card-text"><select class="custom-select" id="problemSolving-${
-                inbox.id
-              }">
+              problemSolving = `<p class="card-text"><select class="custom-select" 
+                            onchange="changeProblemSolving(${inbox.id})" id="problemSolving-${inbox.id}">
                         <option value="" selected>${getI18n(
                           s => s.inbox.chooseProblemSolving
                         )}</option>
@@ -222,7 +233,13 @@ function fetchAdminInbox(userProfile) {
                         <option value="MARK_SOLVED">${getI18n(
                           s => s.inbox.markSolved
                         )}</option>
-                    </select></p>`;
+                        <option value="CHANGE_NAME">${getI18n(
+                          s => s.inbox.changeName
+                        )}</option>
+                    </select></p>
+                    <p class="card-text" style="display: none" id="title-p-${inbox.id}"><input id="title-${inbox.id}" class="form-control" 
+                    name="title-${inbox.id}" type="text" placeholder="Title" value="${inbox.title}"/></p>
+                      `;
             }
             var conflictIcon = "";
             var ignoreConflict = "";

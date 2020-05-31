@@ -10,6 +10,7 @@
     $pleaseInsertComment = L::reportProblem_pleaseInsertComment;
     $pleaseSelectProblemType = L::reportProblem_pleaseSelectProblemType;
     $wrongLocation = L::reportProblem_wrongLocation;
+    $wrongName = L::reportProblem_wrongName;
     $stationInactive = L::reportProblem_stationInactive;
     $stationNonExistant = L::reportProblem_stationNonExistant;
     $wrongPhoto = L::reportProblem_wrongPhoto;
@@ -36,6 +37,7 @@ navbar();
             <select class="custom-select" id="inputType">
                 <option value="" selected><?php echo $pleaseSelectProblemType; ?></option>
                 <option value="WRONG_LOCATION"><?php echo $wrongLocation; ?></option>
+                <option value="WRONG_NAME"><?php echo $wrongName; ?></option>
                 <option value="STATION_INACTIVE"><?php echo $stationInactive; ?></option>
                 <option value="STATION_NONEXISTENT"><?php echo $stationNonExistant; ?></option>
                 <option value="WRONG_PHOTO"><?php echo $wrongPhoto; ?></option>
