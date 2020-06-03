@@ -89,6 +89,7 @@ require_once "../php/navbar.php";
 $ds100Html = htmlspecialchars($DS100);
 
 $navigate = L::station_navigate;
+$showOnMap = L::station_showOnMap;
 $departure = L::station_departure;
 $app = L::station_app;
 $inactive = L::station_inactive;
@@ -97,6 +98,9 @@ $i18nLicense = L::station_license;
 $uploadYourOwnPicture = L::station_uploadYourOwnPicture;
 
 $suffixNavItems = <<<HTML
+    <li class="nav-item">
+        <a class="nav-link p-2" href="index.php?countryCode={$countryCode}&mlat={$lat}&mlon={$lon}&zoom=18&layers=M" rel="noopener" aria-label="{$showOnMap}" title="{$showOnMap}"><em class="fas fa-map"></em></a>
+    </li>
     <li class="nav-item">
         <a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><em class="fas fa-directions"></em></a>
     </li>

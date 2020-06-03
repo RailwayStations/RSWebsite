@@ -10,7 +10,7 @@ export let stationHtml = function (feature) {
 
   let details = "";
   if (!feature.properties.active) {
-    details = `<div><i class="fas fa-times-circle"></i> Dieser Bahnhof ist nicht aktiv!</i></div>`;
+    details = `<div><i class="fas fa-times-circle"></i> ${getI18n(s => s.station.inactive)}</i></div>`;
   }
 
   if (feature.properties.photographer) {
