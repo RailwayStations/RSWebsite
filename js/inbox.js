@@ -343,7 +343,7 @@ function fetchAdminInbox(userProfile) {
               inbox.title
             }</a>${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
-        ${inbox.photographerNickname}<br>
+        ${inbox.photographerNickname} <a href="mailto:${inbox.photographerEmail}?subject=${inbox.title}"><i class="fas fa-envelope"></i></a><br>
         ${createdAt.toLocaleString()}
       </p>
       ${problemType}
