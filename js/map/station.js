@@ -37,6 +37,12 @@ export let stationHtml = function (feature) {
        <img src="${photoURL}"/>
     </a>
     `;
+  } else {
+    image = `
+    <a href="${detailLink}">
+       <img src="images/default_klein.jpg"/>
+    </a>
+    `;
   }
 
   const title = `
