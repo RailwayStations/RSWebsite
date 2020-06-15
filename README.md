@@ -1,6 +1,6 @@
 # Railway-Stations.org
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/078d5d9052634ddcb67b92f3998918c6)](https://www.codacy.com/gh/RailwayStations/RSWebsite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RailwayStations/RSWebsite&amp;utm_campaign=Badge_Grade) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RailwayStations_RSWebsite&metric=alert_status)](https://sonarcloud.io/dashboard?id=RailwayStations_RSWebsite)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RailwayStations_RSWebsite&metric=alert_status)](https://sonarcloud.io/dashboard?id=RailwayStations_RSWebsite)
 
 Railway-Stations.org (a.k.a Deutschlands Bahnhöfe) ist ein Community-Projekt, um Bilder zu allen Bahnhöfen zu sammeln. Entstanden ist es am 11.12.2015 auf dem DB-Hackathon in Berlin, zunächst nur mit deutschen Bahnhöfen.
 
@@ -73,7 +73,7 @@ Danach steht die Seite unter http://localhost:8088 zur Verfügung.
 
 ## Deployment
 
-Der `master` Branch wird bei jedem Commit automatisch durch Github Actions gebaut und auf den Server deployed.
+Der `main` Branch wird bei jedem Commit automatisch durch Github Actions gebaut und auf den Server deployed.
 
 ---
 
