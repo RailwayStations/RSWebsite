@@ -137,31 +137,33 @@ function showClustered(dataBahnhoefe, map) {
 
   const nickname = UserProfile.currentUser().nickname;
 
-  dataBahnhoefe.forEach(bahnhof => {
-    let color;
-    if (bahnhof.photographer === null) {
-      color = `red`;
-    } else if (bahnhof.photographer === nickname) {
-      color = `violet`;
-    } else {
-      color = `green`;
-    }
-    let inactive = ``;
-    if (!bahnhof.active) {
-      inactive = `-inactive`;
-    }
-    const iconUrl = `./images/pointer-${color}${inactive}.png`;
-    const customIcon = L.icon({
-      iconUrl: iconUrl,
-      iconSize: [50, 50],
-      iconAnchor: [25, 50],
-      popupAnchor: [0, -28],
-    });
-    L.marker([bahnhof.lat, bahnhof.lon], {
-      icon: customIcon,
-      properties: bahnhof,
-    }).addTo(bahnhoefe);
-  });
+  if (dataBahnhoefe.forEach !== undefined) {
+    dataBahnhoefe.forEach(bahnhof => {
+      let color;
+      if (bahnhof.photographer === null) {
+        color = `red`;
+      } else if (bahnhof.photographer === nickname) {
+        color = `violet`;
+      } else {
+        color = `green`;
+      }
+      let inactive = ``;
+      if (!bahnhof.active) {
+        inactive = `-inactive`;
+      }
+      const iconUrl = `./images/pointer-${color}${inactive}.png`;
+      const customIcon = L.icon({
+        iconUrl: iconUrl,
+        iconSize: [50, 50],
+        iconAnchor: [25, 50],
+        popupAnchor: [0, -28],
+      });
+      L.marker([bahnhof.lat, bahnhof.lon], {
+        icon: customIcon,
+        properties: bahnhof,
+      }).addTo(bahnhoefe);
+    });  
+  }
 
   markers.addLayer(bahnhoefe); // add it to the cluster group
   return markers;

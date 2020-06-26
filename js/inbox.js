@@ -332,16 +332,15 @@ function fetchAdminInbox(userProfile) {
                 s => s.inbox.activeStation
               )}</label></p>`;
             }
-            const detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
+            var title = `${inbox.id}: ${inbox.title}`;
+            if (inbox.stationId !== undefined) {
+              title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
+            }
             $("#inboxEntries").append(`
 <div class="col mb-4" id="inbox-${inbox.id}">            
   <div class="card" style="max-width: 303px;">
     <div class="card-body">
-      <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${
-              inbox.id
-            }: ${
-              inbox.title
-            }</a>${conflictIcon}${problemIcon}${processedIcon}</h5>
+      <h5 class="card-title">${title}${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
         ${inbox.photographerNickname} <a href="mailto:${inbox.photographerEmail}?subject=${inbox.title}"><i class="fas fa-envelope"></i></a><br>
         ${createdAt.toLocaleString()}
@@ -392,18 +391,22 @@ function fetchPublicInbox() {
       if (Array.isArray(obj) && obj.length > 0) {
         for (let i = 0; i < obj.length; i++) {
           let inbox = obj[i];
-          var coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+          var countryCode = "";
+          if (inbox.countryCode !== undefined) {
+            countryCode = inbox.countryCode;
+          }
+          var coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
           var stationKey = getI18n(s => s.inbox.missingStation);
-          var detailLink = "#";
+          var title = inbox.title;
           if (inbox.stationId !== undefined) {
-            detailLink = `station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}`;
+            title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${inbox.title}</a>`;
             stationKey = `${inbox.countryCode}: ${inbox.stationId}`;
           }
           $("#inboxEntries").append(`
             <div class="col mb-4" id="inbox-${i}">            
             <div class="card" style="max-width: 303px;">
               <div class="card-body">
-                <h5 class="card-title"><a href="${detailLink}" data-ajax="false">${inbox.title}</a></h5>
+                <h5 class="card-title">${title}</h5>
                 <p class="card-text">${stationKey}</p>
                 ${coords}
               </div>
