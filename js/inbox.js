@@ -89,7 +89,7 @@ function accept(id) {
   var lat = $("#lat-" + id).val();
   var lon = $("#lon-" + id).val();
   var ds100 = $("#ds100-" + id).val();
-  var active = $("#active-" + id).is(":checked");
+  var active = $("#active-" + id).val();
   var command = "IMPORT";
   var problemSolving = $("#problemSolving-" + id).val();
   if (problemSolving !== undefined) {
@@ -98,6 +98,9 @@ function accept(id) {
       return;
     }
     command = problemSolving;
+  } else if (active === "") {
+    alert(getI18n(s => s.upload.pleaseSelectActiveFlag));
+    return;
   }
 
   var inboxCommand = {
@@ -278,6 +281,16 @@ function fetchAdminInbox(userProfile) {
                   s => s.inbox.ignoreConflict
                 )}</label></p>`;
               }
+              var active_undefined = "";
+              var active_true = "";
+              var active_false = "";
+              if (inbox.active === undefined) {
+                active_undefined = `selected`
+              } else if (inbox.active) {
+                active_true = `selected`
+              } else {
+                active_false = `selected`
+              }
               coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
               newStation = `<p class="card-text">${createCountriesDropDown(
                 countries,
@@ -326,11 +339,11 @@ function fetchAdminInbox(userProfile) {
                   name="ds100-${inbox.id}" type="text" placeholder="DS100"/></p>
                 <p class="card-text" id="active-p-${
                   inbox.id
-                }"><input id="active-${inbox.id}" 
-                  name="active-${inbox.id}" type="checkbox" checked="true"/>
-                  <label for="active-${inbox.id}"> ${getI18n(
-                s => s.inbox.activeStation
-              )}</label></p>`;
+                }"><select class="form-control" id="active-${inbox.id}" name="active-${inbox.id}">
+                    <option value="" ${active_undefined}>${getI18n(s => s.upload.pleaseSelectActiveFlag)}</option>
+                    <option value="true" ${active_true}>${getI18n(s => s.inbox.activeStation)}</option>
+                    <option value="false" ${active_false}>${getI18n(s => s.inbox.inactiveStation)}</option>
+                  </select></p>`;
             }
             var title = `${inbox.id}: ${inbox.title}`;
             if (inbox.stationId !== undefined) {

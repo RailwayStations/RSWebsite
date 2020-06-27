@@ -22,6 +22,10 @@
     $freedomOfPanorama = L::upload_freedomOfPanorama;
     $freedomOfPanoramaInfo = L::upload_freedomOfPanoramaInfo;
     $pleaseConfirmSpecialLicense = L::upload_pleaseConfirmSpecialLicense;
+    $active = L::upload_active;
+    $pleaseSelectActiveFlag = L::upload_pleaseSelectActiveFlag;
+    $active_yes = L::upload_active_yes;
+    $active_no = L::upload_active_no;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -64,6 +68,17 @@ navbar();
                    placeholder="<?php echo $longitude; ?>" required>
             <div class="invalid-feedback">
                 <?php echo $pleaseInsertLongitude; ?>
+            </div>
+        </div>
+        <div class="form-group missing-station">
+            <label for="active"><?php echo $active; ?></label>
+            <select class="form-control" id="active" name="active" required>
+                <option value="" selected><?php echo $pleaseSelectActiveFlag; ?></option>
+                <option value="true"><?php echo $active_yes; ?></option>
+                <option value="false"><?php echo $active_no; ?></option>
+            </select>                   
+            <div class="invalid-feedback">
+                <?php echo $pleaseSelectActiveFlag; ?>
             </div>
         </div>
         <div class="form-group">
