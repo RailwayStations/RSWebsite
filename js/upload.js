@@ -80,6 +80,7 @@ $(document).ready(function () {
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $(".missing-station").hide();
+    $("#active").removeAttr("required");
     $("#inputLatitude").removeAttr("required");
     $("#inputLongitude").removeAttr("required");
     $("#inputStationTitle").removeAttr("required");

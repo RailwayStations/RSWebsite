@@ -108,7 +108,7 @@ navbar();
         <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <em class="fas fa-upload"></em></button>
     </form>
 
-    <iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;"></iframe>
+    <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
 
     <div id="uploaded-photo-link"></div>
 
