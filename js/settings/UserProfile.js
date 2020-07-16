@@ -10,6 +10,7 @@ class UserProfile {
     this._anonymous = data.anonymous;
     this._password = data.password;
     this._admin = data.admin;
+    this._emailVerified = data.emailVerified;
   }
 
   isLoggedIn() {
@@ -55,6 +56,7 @@ class UserProfile {
       photoOwner: this.photoOwner,
       link: this.link,
       anonymous: this.anonymous,
+      newPassword: this.newPassword,
     };
     return JSON.stringify(result);
   }
@@ -87,8 +89,16 @@ class UserProfile {
     return this._password;
   }
 
+  get newPassword() {
+    return this._newPassword;
+  }
+
   get admin() {
     return this._admin;
+  }
+
+  get emailVerified() {
+    return this._emailVerified;
   }
 
   set cc0(value) {
@@ -117,6 +127,10 @@ class UserProfile {
 
   set password(value) {
     this._password = value;
+  }
+
+  set newPassword(value) {
+    this._newPassword = value;
   }
 }
 

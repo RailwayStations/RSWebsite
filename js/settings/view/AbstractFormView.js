@@ -4,9 +4,17 @@ import { isBlank, isNotBlank } from "../../common";
 const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 class AbstractFormView {
-  static updateFieldsOfFormWith(currentUser) {
+  static updateFieldsOfFormWith(currentUser, requestVerificationMail) {
     document.getElementById("profileNickname").value = currentUser.nickname;
     document.getElementById("profileEmail").value = currentUser.email;
+    if (currentUser.emailVerified) {
+      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(s => s.settings.emailVerified);
+      document.getElementById("emailVerifiedLabel").style.color = "green";
+    } else {
+      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(s => s.settings.emailNotVerified);
+      document.getElementById("emailVerifiedLabel").style.color = "red";
+      document.getElementById("request-verification-mail").addEventListener("click", requestVerificationMail);
+    }
     document.getElementById("profilePhotoOwner").checked =
       currentUser.photoOwner;
     document.getElementById("profileCc0").checked = currentUser.cc0;
@@ -24,6 +32,7 @@ class AbstractFormView {
     currentUser.cc0 = document.getElementById("profileCc0").checked;
     currentUser.anonymous = document.getElementById("profileAnonymous").checked;
     currentUser.link = document.getElementById("profileLink").value;
+    currentUser.newPassword = document.getElementById("password").value;
   }
 
   static isURL(str) {

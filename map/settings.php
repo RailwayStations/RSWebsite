@@ -69,7 +69,7 @@ $submit = L::settings_submit;
             <input name="profileNickname" type="text" class="form-control" id="profileNickname">
         </div>
         <div class="form-group profile-form">
-            <label for="profileEmail"><?php echo $email; ?></label>
+            <label for="profileEmail"><?php echo $email; ?>&nbsp;<span id="emailVerifiedLabel"></span></label>
             <input name="profileEmail" type="text" class="form-control" id="profileEmail">
         </div>
         <div class="form-group form-check profile-form">
@@ -87,6 +87,14 @@ $submit = L::settings_submit;
         <div class="form-group profile-form">
             <label for="profileLink"><?php echo $yourLink; ?></label>
             <input id="profileLink" name="link" type="url" class="form-control"/>
+        </div>
+        <div class="form-group profile-form hidden" id="initialPasswordGrp">
+            <label for="password"><?php echo $password; ?>:</label>
+            <input id="password" class="form-control" name="password" type="password"/>
+            </div>
+        <div class="form-group profile-form hidden" id="initialPasswordRepeatGrp">
+            <label for="passwordRepeat"><?php echo $passwordRepeat; ?>:</label>
+            <input id="passwordRepeat" class="form-control" name="passwordRepeat" type="password"/>
         </div>
         <div class="form-group profile-form">
             <button class="btn btn-primary" id="saveProfile" type="button">

@@ -13,6 +13,7 @@ module.exports = {
     basic: "./js/basic.js",
     station: "./js/station.js",
     inbox: "./js/inbox.js",
+    emailVerification: "./js/emailVerification.js",
   },
   module: {
     rules: [
