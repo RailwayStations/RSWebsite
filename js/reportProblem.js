@@ -5,29 +5,15 @@ import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
 window.reportProblem = reportProblem;
+window.changeProblemType = changeProblemType;
 
 export function reportProblem() {
   "use strict";
 
-  $("#inputType").attr("required", "");
   var type = $("#inputType").val();
-  if (isBlank(type)) {
-    $("#inputType").addClass(":invalid");
-    $("#reportProblemForm").addClass("was-validated");
-    return false;
-  } else {
-    $("#inputType").removeClass(":invalid");
-  }
-
-  $("#inputComment").attr("required", "");
+  var latitude = $("#inputLatitude").val();
+  var longitude = $("#inputLongitude").val();
   var comment = $("#inputComment").val();
-  if (isBlank(comment)) {
-    $("#inputComment").addClass(":invalid");
-    $("#reportProblemForm").addClass("was-validated");
-    return false;
-  } else {
-    $("#inputComment").removeClass(":invalid");
-  }
 
   var r = confirm(getI18n(s => s.reportProblem.confirmProblemReport));
   if (r == true) {
@@ -39,6 +25,8 @@ export function reportProblem() {
       stationId: stationId,
       type: type,
       comment: comment,
+      lat: latitude,
+      lon: longitude
     };
 
     var request = $.ajax({
@@ -71,6 +59,20 @@ export function reportProblem() {
   }
 }
 
+export function changeProblemType() {
+  var type = $("#inputType").val();
+  if (type === "WRONG_LOCATION") {
+    $(".coords").show();
+    $("#inputLatitude").attr("required", "");
+    $("#inputLongitude").attr("required", "");
+  } else {
+    $(".coords").hide();
+    $("#inputLatitude").removeAttr("required");
+    $("#inputLongitude").removeAttr("required");
+  }
+
+}
+
 $(document).ready(function () {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
@@ -84,6 +86,7 @@ $(document).ready(function () {
     );
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
+    $(".coords").hide();
   }
 
   const reportDisabled =
@@ -99,11 +102,10 @@ $(document).ready(function () {
     form.addEventListener(
       "submit",
       function (event) {
-        if (form.checkValidity() === false) {
-          event.preventDefault();
-          event.stopPropagation();
-        } else {
-          startUpload();
+        event.preventDefault();
+        event.stopPropagation();
+        if (form.checkValidity() !== false) {
+          reportProblem();
         }
         form.classList.add("was-validated");
       },

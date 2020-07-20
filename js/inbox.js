@@ -76,6 +76,15 @@ function changeProblemSolving(id) {
   } else {
     $("#title-p-" + id).hide();
   }
+
+  if (problemSolving == "UPDATE_LOCATION") {
+    $("#lat-p-" + id).show();
+    $("#lon-p-" + id).show();
+  } else {
+    $("#lat-p-" + id).hide();
+    $("#lon-p-" + id).hide();
+  }
+
 }
 
 function accept(id) {
@@ -209,6 +218,9 @@ function fetchAdminInbox(userProfile) {
                 case "STATION_INACTIVE":
                   problemText = getI18n(s => s.reportProblem.stationInactive);
                   break;
+                case "STATION_ACTIVE":
+                  problemText = getI18n(s => s.reportProblem.stationActive);
+                  break;
                 case "STATION_NONEXISTENT":
                   problemText = getI18n(
                     s => s.reportProblem.stationNonExistant
@@ -223,6 +235,9 @@ function fetchAdminInbox(userProfile) {
                             onchange="changeProblemSolving(${inbox.id})" id="problemSolving-${inbox.id}">
                         <option value="" selected>${getI18n(
                           s => s.inbox.chooseProblemSolving
+                        )}</option>
+                        <option value="ACTIVATE_STATION">${getI18n(
+                          s => s.inbox.activateStation
                         )}</option>
                         <option value="DEACTIVATE_STATION">${getI18n(
                           s => s.inbox.deactivateStation
@@ -239,9 +254,16 @@ function fetchAdminInbox(userProfile) {
                         <option value="CHANGE_NAME">${getI18n(
                           s => s.inbox.changeName
                         )}</option>
+                        <option value="UPDATE_LOCATION">${getI18n(
+                          s => s.inbox.updateLocation
+                        )}</option>
                     </select></p>
                     <p class="card-text" style="display: none" id="title-p-${inbox.id}"><input id="title-${inbox.id}" class="form-control" 
                     name="title-${inbox.id}" type="text" placeholder="Title" value="${inbox.title}"/></p>
+                    <p class="card-text" style="display: none" id="lat-p-${inbox.id}"><input id="lat-${inbox.id}" class="form-control"  
+                      name="lat-${inbox.id}" type="text" placeholder="Latitude" value="${inbox.lat}"/></p>
+                    <p class="card-text" style="display: none" id="lon-p-${inbox.id}"><input id="lon-${inbox.id}" class="form-control"  
+                      name="lon-${inbox.id}" type="text" placeholder="Longitude" value="${inbox.lon}"/></p>
                       `;
             }
             var conflictIcon = "";
