@@ -23,6 +23,8 @@ navbar();
             <option value="1"><?php echo L::inbox_oneHour; ?></option>
             <option value="10" selected><?php echo L::inbox_tenHours; ?></option>
             <option value="24"><?php echo L::inbox_oneDay; ?></option>
+            <option value="48"><?php echo L::inbox_twoDays; ?></option>
+            <option value="72"><?php echo L::inbox_threeDays; ?></option>
             <option value="168"><?php echo L::inbox_oneWeek; ?></option>
             <option value="672"><?php echo L::inbox_oneMonth; ?></option>
         </select>
