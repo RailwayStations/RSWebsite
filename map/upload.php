@@ -26,6 +26,7 @@
     $pleaseSelectActiveFlag = L::upload_pleaseSelectActiveFlag;
     $active_yes = L::upload_active_yes;
     $active_no = L::upload_active_no;
+    $photoRequirements = L::upload_photoRequirements;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -97,6 +98,7 @@ navbar();
                     <?php echo $pleaseInsertFile; ?>
                 </div>
             </div>
+            <div id="photo-requirements"><?php echo $photoRequirements; ?></div>
         </div>
         <div class="form-group special-license-group">
             <input type="checkbox" name="special-license" class="special-license" id="specialLicense" value="" required>
