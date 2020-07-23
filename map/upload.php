@@ -27,6 +27,7 @@
     $active_yes = L::upload_active_yes;
     $active_no = L::upload_active_no;
     $photoRequirements = L::upload_photoRequirements;
+    $country = L::upload_country;
     ?>
 
     <title><?php echo $upload; ?> - RailwayStations</title>
@@ -70,6 +71,11 @@ navbar();
             <div class="invalid-feedback">
                 <?php echo $pleaseInsertLongitude; ?>
             </div>
+        </div>
+        <div class="form-group missing-station">
+            <label for="countrySelect"><?php echo $country; ?></label>
+            <select class="form-control" id="countrySelect">
+            </select>
         </div>
         <div class="form-group missing-station">
             <label for="active"><?php echo $active; ?></label>

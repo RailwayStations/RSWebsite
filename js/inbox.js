@@ -142,14 +142,18 @@ function reject(id) {
   sendInboxCommand(inboxCommand);
 }
 
-function createCountriesDropDown(countries, id) {
+function createCountriesDropDown(countries, countryCode, id) {
   "use strict";
 
   let countryOptions = `<select class="form-control" id="country-${id}">
     <option value="">${getI18n(s => s.inbox.selectCountry)}</option>`;
 
   countries.forEach(country => {
-    countryOptions += `<option value="${country.code}">${country.name}</option>`;
+    var selected = "";
+    if (country.code === countryCode) {
+      selected = "selected"
+    }
+    countryOptions += `<option value="${country.code}" ${selected}>${country.name}</option>`;
   });
 
   countryOptions += `</select>`;
@@ -316,6 +320,7 @@ function fetchAdminInbox(userProfile) {
               coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
               newStation = `<p class="card-text">${createCountriesDropDown(
                 countries,
+                inbox.countryCode,
                 inbox.id
               )}</p>
                 <p class="card-text">

@@ -2,6 +2,7 @@ import $ from "jquery";
 import bsCustomFileInput from "bs-custom-file-input";
 import {
   getAPIURI,
+  fetchCountries,
   getQueryParameter,
   isBlank,
   isNotBlank,
@@ -14,6 +15,7 @@ import { UserProfile } from "./settings/UserProfile";
 function startUpload() {
   "use strict";
 
+  $("#countryCode").val($("#countrySelect").val());
   $("#upload-process").modal("show");
   return true;
 }
@@ -66,6 +68,16 @@ function receiveMessage(event) {
   stopUpload(event.data);
 }
 
+function createCountriesDropDown(countries) {
+  "use strict";
+
+  $(`<option value="">${getI18n(s => s.inbox.selectCountry)}</option>`).appendTo("#countrySelect");
+
+  countries.forEach(country => {
+    $(`<option value="${country.code}">${country.name}</option>`).appendTo("#countrySelect");
+  });
+}
+
 $(document).ready(function () {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
@@ -100,6 +112,9 @@ $(document).ready(function () {
     $("#specialLicense").removeAttr("required");
     $("#inputLatitude").val(latitude);
     $("#inputLongitude").val(longitude);
+    fetchCountries().then(countries => {
+      createCountriesDropDown(countries);
+    });
   }
   $("#uploadForm").attr("action", getAPIURI() + "photoUpload");
   $("#email").val(userProfile.email);
