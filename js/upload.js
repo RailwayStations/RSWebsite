@@ -15,7 +15,9 @@ import { UserProfile } from "./settings/UserProfile";
 function startUpload() {
   "use strict";
 
-  $("#countryCode").val($("#countrySelect").val());
+  if (isBlank($("#countryCode").val())) { // for missing stations get countryCode from DropDown
+    $("#countryCode").val($("#countrySelect").val());
+  }
   $("#upload-process").modal("show");
   return true;
 }
