@@ -54,6 +54,11 @@
                        aria-label="<?php echo L::navbar_twitter; ?>"
                        title="<?php echo L::navbar_twitter; ?>"><em class="fab fa-twitter"></em></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link p-2" href="https://botsin.space/@railwaystations" rel="noopener"
+                       aria-label="<?php echo L::navbar_mastodon; ?>"
+                       title="<?php echo L::navbar_mastodon; ?>"><em class="fab fa-mastodon"></em></a>
+                </li>
                 <?php if ($suffixNavItems !== null) {
                     echo $suffixNavItems;
                 } ?>
