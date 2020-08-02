@@ -9,4 +9,5 @@ $i18n = new i18n();
 $i18n->setCachePath('../i18n/langcache');
 $i18n->setFilePath('../i18n/lang/lang_{LANGUAGE}.ini');
 $i18n->setFallbackLang("en");
+$i18n->setMergeFallback(true);
 $i18n->init();
