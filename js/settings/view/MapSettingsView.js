@@ -1,4 +1,4 @@
-import { getBoolFromLocalStorage } from "../../common";
+import { getBoolFromLocalStorage, getTileServer, setTileServer, getTileServerMap } from "../../common";
 import $ from "jquery";
 
 class MapSettingsView {
@@ -14,6 +14,24 @@ class MapSettingsView {
     document
       .getElementById("togglePointsSetting")
       .addEventListener("click", this.togglePointsMarker());
+
+    const tileServerSelect = document.getElementById("tileServer");
+    const tileServer = getTileServer();
+    const tileServerMap = getTileServerMap();
+    Object.entries(tileServerMap).forEach(element => {
+      const name = element[0];
+      var option = document.createElement("option"); 
+      option.setAttribute("value", name); 
+      option.appendChild(document.createTextNode(name)); 
+      if (name === tileServer) {
+        option.setAttribute("selected", "selected");
+      }
+      tileServerSelect.appendChild(option);
+    });
+
+    tileServerSelect.addEventListener("change", () => {
+      setTileServer(tileServerSelect.value);
+    })
   }
 
   static togglePointsMarker() {

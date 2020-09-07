@@ -16,7 +16,7 @@ import {
   updateInboxCount,
   navigate,
   timetable,
-  getCountryByCode,
+  getTileServerUrl,
 } from "../common";
 import "bootstrap";
 import { updateMarker } from "./markers";
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
   map = L.map("map").setView(mapCenter, mapZoomLevel);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  L.tileLayer(getTileServerUrl(), {
     maxZoom: 18,
     attribution:
       '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',

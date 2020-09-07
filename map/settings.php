@@ -35,6 +35,7 @@ $password = L::settings_password;
 $passwordRepeat = L::settings_passwordRepeat;
 $close = L::settings_close;
 $submit = L::settings_submit;
+$tileServer = L::settings_tileServer;
 ?>
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
@@ -135,6 +136,11 @@ $submit = L::settings_submit;
         <span style="padding:0 0 0 1em;text-align:right;width:7em;text-decoration-line:none;">
             <?php echo $mapPoint; ?>
         </span>
+    </div>
+    <div id="mapTileServer" class="form-group">
+            <label for="tileServer"><?php echo $tileServer; ?></label>
+            <select class="form-control" id="tileServer" name="tileServer">
+            </select>     
     </div>
 
 </main>

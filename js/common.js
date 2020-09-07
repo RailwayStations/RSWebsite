@@ -209,6 +209,36 @@ export function getAPIURI() {
   return process.env.API_URL;
 }
 
+const tileServerMap = {
+  "OpenStreetMap": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "DBS OSM Railway": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-railway/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
+  "DBS OSM Basic": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-basic/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv"
+};
+
+export function getTileServerMap() {
+  "use strict";
+
+  return tileServerMap;
+}
+
+export function getTileServerUrl() {
+  "use strict";
+
+  return tileServerMap[getTileServer()];
+}
+
+export function getTileServer() {
+  "use strict";
+
+  return getStringFromLocalStorage("tileServer", "OpenStreetMap");
+}
+
+export function setTileServer(tileServer) {
+  "use strict";
+
+  localStorage.setItem("tileServer", tileServer);
+}
+
 /**
  * Uses the Google Image Proxy to return a scaled version of the image
  *

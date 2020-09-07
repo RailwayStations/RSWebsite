@@ -1,3 +1,7 @@
 .hidden {
   display: none;
 }
+
+#mapTileServer {
+  margin-top: 20px;
+}
