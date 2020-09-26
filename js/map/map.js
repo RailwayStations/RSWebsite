@@ -24,6 +24,7 @@ import { showMissingStationPopup, showPopup } from "./popup";
 import { fetchStationDataPromise } from "./stationClient";
 import { showHighScorePopup } from "./highscore";
 import { getI18n } from "../i18n";
+import Fuse from 'fuse.js'
 
 window.$ = $;
 window.Spinner = Spinner;
@@ -32,8 +33,26 @@ window.navigate = navigate;
 let dataBahnhoefe = null,
   map = null,
   markers = null,
-  ownMarker = null,
   specialMarker = null;
+
+const searchOptions = {
+    // isCaseSensitive: false,
+    // includeScore: false,
+    // shouldSort: true,
+    // includeMatches: false,
+    findAllMatches: true,
+    // minMatchCharLength: 1,
+    // location: 0,
+    threshold: 0.2,
+    distance: 0,
+    // useExtendedSearch: false,
+    ignoreLocation: true,
+    // ignoreFieldNorm: false,
+    keys: [
+      "title",
+      "idStr"
+    ]
+};  
 
 function setLastZoomLevel(zoomLevel) {
   "use strict";
@@ -205,17 +224,15 @@ $(document).ready(function () {
 
   $("#suche").autocomplete({
     lookup: function (query, done) {
-      var matcher = new RegExp(query, "i");
-      var filtered = dataBahnhoefe.filter(function (bahnhof) {
-        return matcher.test(bahnhof.title) || bahnhof.idStr === query;
-      });
+      const fuse = new Fuse(dataBahnhoefe, searchOptions);
+      var filtered = fuse.search(query);
       var result = {
         suggestions: [],
       };
       result.suggestions = $.map(filtered, function (value, key) {
         return {
-          value: value.title,
-          data: value.idStr,
+          value: value.item.title,
+          data: value.item.idStr,
         };
       });
       result.suggestions.sort((a, b) => {
