@@ -75,6 +75,10 @@ Danach steht die Seite unter http://localhost:8088 zur Verfügung.
 
 Der `main` Branch wird bei jedem Commit automatisch durch Github Actions gebaut und auf den Server deployed.
 
+### Translation
+
+Help to translate the project via Crowdin: https://crowdin.com/project/railwaystationsorg
+
 ---
 
 ## Lizenz
