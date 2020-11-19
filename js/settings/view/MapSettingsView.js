@@ -1,4 +1,12 @@
-import { getBoolFromLocalStorage, getTileServer, setTileServer, getTileServerMap } from "../../common";
+import { getBoolFromLocalStorage, 
+         getTileServer, 
+         setTileServer, 
+         getTileServerMap,
+         getPhotoFilter,
+         setPhotoFilter,
+         getActiveFilter,
+         setActiveFilter
+       } from "../../common";
 import $ from "jquery";
 
 class MapSettingsView {
@@ -31,7 +39,19 @@ class MapSettingsView {
 
     tileServerSelect.addEventListener("change", () => {
       setTileServer(tileServerSelect.value);
-    })
+    });
+
+    const photoFilter = document.getElementById("photoFilter");
+    photoFilter.value = getPhotoFilter();
+    photoFilter.addEventListener("change", () => {
+      setPhotoFilter(photoFilter.value);
+    });
+
+    const activeFilter = document.getElementById("activeFilter");
+    activeFilter.value = getActiveFilter();
+    activeFilter.addEventListener("change", () => {
+      setActiveFilter(activeFilter.value)
+    });
   }
 
   static togglePointsMarker() {

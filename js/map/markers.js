@@ -1,4 +1,4 @@
-import { getBoolFromLocalStorage } from "../common";
+import { getBoolFromLocalStorage, getPhotoFilter, getActiveFilter } from "../common";
 import $ from "jquery";
 import { showPopup } from "./popup";
 import { getLastPos, getLastZoomLevel } from "./map";
@@ -42,6 +42,27 @@ function setMapViewport(map, markers) {
   }
 }
 
+function filterBahnhoefe(dataBahnhoefe) {
+  const photoFilter = getPhotoFilter();
+  const activeFilter = getActiveFilter();
+  
+  return dataBahnhoefe.filter((bahnhof, index, arr) => {
+      if (photoFilter === "photoFilterWithPhoto" && bahnhof.photographer === null) {
+        return false;
+      }
+      if (photoFilter === "photoFilterWithoutPhoto" && bahnhof.photographer !== null) {
+        return false;
+      }
+      if (activeFilter === "activeFilterActive" && !bahnhof.active) {
+        return false;
+      }
+      if (activeFilter === "activeFilterInactive" && bahnhof.active) {
+        return false;
+      }
+      return true;
+    });
+}
+
 let markerRadius = function (map) {
   const currentZoom = map.getZoom();
   let result;
@@ -66,7 +87,7 @@ function showPoints(dataBahnhoefe, map) {
 
   const radius = markerRadius(map);
 
-  const rawMarkers = dataBahnhoefe.map(bahnhof => {
+  const rawMarkers = filterBahnhoefe(dataBahnhoefe).map(bahnhof => {
     let color;
     if (bahnhof.photographer === null) {
       color = "#B70E3D";
@@ -97,7 +118,7 @@ function showPoints(dataBahnhoefe, map) {
 function showClustered(dataBahnhoefe, map) {
   $("body").addClass("showCluster");
 
-  const markers = L.markerClusterGroup({
+  const markerCluster = L.markerClusterGroup({
     iconCreateFunction: function (cluster) {
       var markers = cluster.getAllChildMarkers(),
         red = 0,
@@ -138,7 +159,7 @@ function showClustered(dataBahnhoefe, map) {
   const nickname = UserProfile.currentUser().nickname;
 
   if (dataBahnhoefe.forEach !== undefined) {
-    dataBahnhoefe.forEach(bahnhof => {
+    filterBahnhoefe(dataBahnhoefe).forEach(bahnhof => {
       let color;
       if (bahnhof.photographer === null) {
         color = `red`;
@@ -165,6 +186,6 @@ function showClustered(dataBahnhoefe, map) {
     });  
   }
 
-  markers.addLayer(bahnhoefe); // add it to the cluster group
-  return markers;
+  markerCluster.addLayer(bahnhoefe); // add it to the cluster group
+  return markerCluster;
 }

@@ -36,6 +36,14 @@ $passwordRepeat = L::settings_passwordRepeat;
 $close = L::settings_close;
 $submit = L::settings_submit;
 $tileServer = L::settings_tileServer;
+$photoFilter = L::settings_photoFilter;
+$photoFilterAll = L::settings_photoFilterAll;
+$photoFilterWithPhoto = L::settings_photoFilterWithPhoto;
+$photoFilterWithoutPhoto = L::settings_photoFilterWithoutPhoto;
+$activeFilter = L::settings_activeFilter;
+$activeFilterAll = L::settings_activeFilterAll;
+$activeFilterActive = L::settings_activeFilterActive;
+$activeFilterInactive = L::settings_activeFilterInactive;
 ?>
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
@@ -140,6 +148,22 @@ $tileServer = L::settings_tileServer;
     <div id="mapTileServer" class="form-group">
             <label for="tileServer"><?php echo $tileServer; ?></label>
             <select class="form-control" id="tileServer" name="tileServer">
+            </select>     
+    </div>
+    <div class="form-group">
+            <label for="photoFilter"><?php echo $photoFilter; ?></label>
+            <select class="form-control" id="photoFilter" name="photoFilter">
+                <option value="photoFilterAll"><?php echo $photoFilterAll; ?></option>
+                <option value="photoFilterWithPhoto"><?php echo $photoFilterWithPhoto; ?></option>
+                <option value="photoFilterWithoutPhoto"><?php echo $photoFilterWithoutPhoto; ?></option>
+            </select>     
+    </div>
+    <div class="form-group">
+            <label for="activeFilter"><?php echo $activeFilter; ?></label>
+            <select class="form-control" id="activeFilter" name="activeFilter">
+                <option value="activeFilterAll"><?php echo $activeFilterAll; ?></option>
+                <option value="activeFilterActive"><?php echo $activeFilterActive; ?></option>
+                <option value="activeFilterInactive"><?php echo $activeFilterInactive; ?></option>
             </select>     
     </div>
 
