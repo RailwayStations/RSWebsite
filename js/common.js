@@ -239,6 +239,30 @@ export function setTileServer(tileServer) {
   localStorage.setItem("tileServer", tileServer);
 }
 
+export function getPhotoFilter() {
+  "use strict";
+
+  return getStringFromLocalStorage("photoFilter", "photoFilterAll");
+}
+
+export function setPhotoFilter(photoFilter) {
+  "use strict";
+
+  localStorage.setItem("photoFilter", photoFilter);
+}
+
+export function getActiveFilter() {
+  "use strict";
+
+  return getStringFromLocalStorage("activeFilter", "activeFilterAll");
+}
+
+export function setActiveFilter(activeFilter) {
+  "use strict";
+
+  localStorage.setItem("activeFilter", activeFilter);
+}
+
 /**
  * Uses the Google Image Proxy to return a scaled version of the image
  *
