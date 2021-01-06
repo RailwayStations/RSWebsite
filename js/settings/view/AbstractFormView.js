@@ -1,7 +1,7 @@
 import { getI18n } from "../../i18n";
 import { isBlank, isNotBlank } from "../../common";
 
-const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const mailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 class AbstractFormView {
   static updateFieldsOfFormWith(currentUser, requestVerificationMail) {
