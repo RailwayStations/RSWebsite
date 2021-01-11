@@ -37,8 +37,7 @@ navbar();
         <h4>Bearbeitet Ihr unsere Fotos nach?</h4>
         <p>Nein. Wir verkleinern sie lediglich auf die benötigte Größe</p>
         <h4>Wie kann ich ein Foto einreichen?</h4>
-        <p>Du kannst es über unsere Apps hochladen oder per E-Mail an  <strong>bahnhofsfotos at
-                deutschlands-bahnhoefe.de</strong> einreichen. </p>
+        <p>Du kannst es über unsere Apps oder unsere Webseite einreichen. <strong>Bitte schicke uns keine Fotos per E-Mail!</strong></p>
         <p>Wenn Du einen Twitter-Account hast, sende bitte einen öffentlichen Tweet mit <strong>#Bahnhofsfoto
                 NameDerStadt #DBHackathon</strong> oder<strong>#Bahnhofsfoto NameDerStadt #openData</strong>. Bitte auch
             unbedingt die @Bahnhofsoma erwähnen, damit wir sehen, dass etwas gekommen ist.</p>
@@ -103,8 +102,7 @@ navbar();
         <h4>WOULD YOU MAKE SOME CHANGES ON THE QUALITY OF MY PHOTO?</h4>
         <p>No. We only reduce it to the required size.</p>
         <h4>HOW CAN I SUBMIT A PHOTO?</h4>
-        <p>You can submit it via our App, by e-mail to bahnhofsfotos at deutschlands-bahnhoefe.de. If you want to send
-            photos to us more often, we will gladly arrange a folder in the dropbox.<br/>
+        <p>You can submit it via our Apps or Website. <strong>Please don't send us photos via e-mail!</strong><br/>
             If you have a Twitter account, please send a public tweet with <strong>#RailwayStationPhoto [NameOfTheCity]
                 #DBHackathon</strong> or <strong>#RailwayStationPhoto [NameOfTheCity] #openData</strong>. Please also
             mention <strong>@Bahnhofsoma</strong>, so we can see that something was sent.</p>
