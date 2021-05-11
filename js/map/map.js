@@ -1,14 +1,16 @@
 import "../../css/map/map.css";
 import "whatwg-fetch";
 
-import $ from "jquery";
+import jquery from 'jquery';
+window.$ = window.jQuery=jquery;
+
 import "leaflet";
 import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "leaflet-easybutton";
 import "leaflet.locatecontrol";
-import "jquery-autocomplete";
+require("jquery-autocomplete");
 import {
   getQueryParameter,
   getCountryCode,
@@ -26,7 +28,6 @@ import { showHighScorePopup } from "./highscore";
 import { getI18n } from "../i18n";
 import Fuse from 'fuse.js'
 
-window.$ = $;
 window.Spinner = Spinner;
 window.navigate = navigate;
 
