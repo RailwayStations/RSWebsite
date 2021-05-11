@@ -8,7 +8,7 @@ import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "leaflet-easybutton";
 import "leaflet.locatecontrol";
-import "jQuery-Autocomplete";
+import "jquery-autocomplete";
 import {
   getQueryParameter,
   getCountryCode,
