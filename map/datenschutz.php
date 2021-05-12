@@ -45,7 +45,7 @@ navbar();
 
     <p>Wir verwenden in dieser Datenschutzerklärung unter anderem die folgenden Begriffe:</p>
 
-    <ul class="list-unstyled ml-5">
+    <ul class="list-unstyled ms-5">
         <li><h4>a) personenbezogene Daten</h4>
             <p>Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare
                 natürliche Person (im Folgenden „betroffene Person“) beziehen. Als identifizierbar wird eine natürliche
@@ -198,7 +198,7 @@ navbar();
         routinemäßig und entsprechend den gesetzlichen Vorschriften gesperrt oder gelöscht.</p>
 
     <h4>6. Rechte der betroffenen Person</h4>
-    <ul class="list-unstyled ml-5">
+    <ul class="list-unstyled ms-5">
         <li><h4>a)    Recht auf Bestätigung</h4>
             <p>Jede betroffene Person hat das vom Europäischen Richtlinien- und Verordnungsgeber eingeräumte Recht, von
                 dem für die Verarbeitung Verantwortlichen eine Bestätigung darüber zu verlangen, ob sie betreffende

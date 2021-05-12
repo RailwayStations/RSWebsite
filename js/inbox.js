@@ -324,7 +324,7 @@ function fetchAdminInbox(userProfile) {
                 inbox.id
               )}</p>
                 <p class="card-text">
-                  <div class="input-group mb-2 mr-sm-2">
+                  <div class="input-group mb-2 me-sm-2">
                     <div class="input-group-prepend">
                       <div class="input-group-text" onclick="return nextZ(${
                         inbox.id

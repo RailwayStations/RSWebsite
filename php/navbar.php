@@ -13,18 +13,20 @@
                 <img src="images/logo_white.svg" width="30" height="30" class="d-inline-block align-top" alt="">
                 Railway<strong>Stations</strong>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
                     aria-controls="navbar"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbar">
-                <ul class="navbar-nav mr-auto order-sm-1 order-md-0">
+                <?php if ($additionalItems !== null) {
+                    echo $additionalItems;
+                } ?>
+                <ul class="navbar-nav me-auto order-sm-1 order-md-0">
                     <?php if ($prefixNavItems !== null) {
                         echo $prefixNavItems;
                     } ?>
-
                     <li class="nav-item">
                         <a class="nav-link p-2" href="settings.php" rel="noopener"
                            aria-label="<?php echo L::navbar_settings; ?>" title="<?php echo L::navbar_settings; ?>"><em
@@ -64,9 +66,6 @@
                         echo $suffixNavItems;
                     } ?>
                 </ul>
-                <?php if ($additionalItems !== null) {
-                    echo $additionalItems;
-                } ?>
             </div>
         </div>
     </nav>
