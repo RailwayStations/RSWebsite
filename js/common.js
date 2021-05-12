@@ -112,7 +112,7 @@ export function updateInboxCount() {
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
           $("#nav_inbox").append(
-            `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+            `<span class="badge bg-light text-dark">${obj.pendingInboxEntries}</span>`
           );
         }
       },
@@ -125,7 +125,7 @@ export function updateInboxCount() {
       crossDomain: true,
       success: function (obj) {
         $("#nav_inbox").append(
-          `<span class="badge badge-light">${obj.length}</span>`
+          `<span class="badge bg-light text-dark">${obj.length}</span>`
         );
       },
     });
