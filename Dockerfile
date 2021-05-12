@@ -19,7 +19,6 @@ COPY ./i18n ./i18n
 COPY ./scripts ./scripts
 COPY ./webpack.config.js ./webpack.config.js
 COPY ./postcss.config.js ./postcss.config.js
-COPY ./.babelrc ./.babelrc
 COPY ./map-template.ini ./
 
 RUN npm run build

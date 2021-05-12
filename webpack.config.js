@@ -3,6 +3,7 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  mode: "production",
   entry: {
     map: "./js/map/map.js",
     photographer: "./js/photographer.js",
@@ -15,6 +16,9 @@ module.exports = {
     inbox: "./js/inbox.js",
     emailVerification: "./js/emailVerification.js",
   },
+  experiments: {
+    asset: true,
+  },
   module: {
     rules: [
       {
@@ -22,30 +26,27 @@ module.exports = {
         exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
         },
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|mp3)$/i,
-        loader: "file-loader",
-        options: {
-          name: "images/[name].[ext]",
-        },
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[hash][ext][query]'
+        }
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/i,
-        loader: "file-loader",
-        options: {
-          name: "[name].[ext]",
-          outputPath: "fonts",
-          publicPath: "../fonts",
-        },
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[hash][ext][query]',
+          publicPath: "../",
+
+        }
       },
     ],
   },
@@ -59,8 +60,11 @@ module.exports = {
       filename: "css/[name].css",
       chunkFilename: "css/[name].css",
     }),
-    new webpack.EnvironmentPlugin({
-      API_URL: process.env.npm_package_config_api_url,
+    // new webpack.EnvironmentPlugin({
+    //   API_URL: process.env.npm_package_config_api_url, TODO
+    // }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
     }),
   ],
 };
