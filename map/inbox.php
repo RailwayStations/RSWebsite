@@ -12,7 +12,7 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="py-md-3 pl-md-5 bd-content">
+<main role="main" class="py-md-3 pl-md-5 bd-content container">
     <h2 id="title-form"><?php echo L::inbox_title; ?></h2>
     <div id="inboxEntries" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
     </div>

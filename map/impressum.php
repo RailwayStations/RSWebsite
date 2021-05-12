@@ -13,7 +13,7 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <p class="bd-lead">Verantwortlich für den Inhalt der Seiten <a href="http://www.deutschlands-bahnhoefe.de">deutschlands-bahnhoefe.de</a> und <a href="http://railway-stations.org">railway-stations.org</a>:</p>
 

@@ -114,7 +114,7 @@ HTML;
 navbar($suffixNavItems);
 ?>
 
-<main role="main" class="col-12 bd-content station">
+<main role="main" class="col-12 bd-content station container">
 
     <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>

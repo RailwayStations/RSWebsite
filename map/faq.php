@@ -12,7 +12,7 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <ul class="list-inline text-right">
         <li hreflang="de" class="de list-inline-item"><a href="#" onclick="$('#en-faq').hide();$('#de-faq').show();"
