@@ -1,7 +1,7 @@
 import "../../css/map/map.css";
 import "whatwg-fetch";
 
-import $ from 'jquery';
+import $ from "jquery";
 import "leaflet";
 import "leaflet.markercluster";
 import { Spinner } from "spin.js";
@@ -24,7 +24,7 @@ import { showMissingStationPopup, showPopup } from "./popup";
 import { fetchStationDataPromise } from "./stationClient";
 import { showHighScorePopup } from "./highscore";
 import { getI18n } from "../i18n";
-import Fuse from 'fuse.js'
+import Fuse from "fuse.js";
 
 window.Spinner = Spinner;
 window.navigate = navigate;
@@ -35,22 +35,19 @@ let dataBahnhoefe = null,
   specialMarker = null;
 
 const searchOptions = {
-    // isCaseSensitive: false,
-    // includeScore: false,
-    // shouldSort: true,
-    // includeMatches: false,
-    findAllMatches: true,
-    // minMatchCharLength: 1,
-    // location: 0,
-    threshold: 0.2,
-    distance: 0,
-    // useExtendedSearch: false,
-    ignoreLocation: true,
-    // ignoreFieldNorm: false,
-    keys: [
-      "title",
-      "idStr"
-    ]
+  // isCaseSensitive: false,
+  // includeScore: false,
+  // shouldSort: true,
+  // includeMatches: false,
+  findAllMatches: true,
+  // minMatchCharLength: 1,
+  // location: 0,
+  threshold: 0.2,
+  distance: 0,
+  // useExtendedSearch: false,
+  ignoreLocation: true,
+  // ignoreFieldNorm: false,
+  keys: ["title", "idStr"],
 };
 
 function setLastZoomLevel(zoomLevel) {

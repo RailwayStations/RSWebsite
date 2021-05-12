@@ -25,8 +25,8 @@ class PasswordChangeView {
       .getElementById("passwordChangeSubmit")
       .addEventListener("click", () => {
         const newPassword = document.getElementById("newPassword").value;
-        const newPasswordRepeat = document.getElementById("newPasswordRepeat")
-          .value;
+        const newPasswordRepeat =
+          document.getElementById("newPasswordRepeat").value;
         if (newPassword !== newPasswordRepeat) {
           alert(getI18n(s => s.settings.passwordMismatch));
         } else {

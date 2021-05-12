@@ -1,4 +1,8 @@
-import { getBoolFromLocalStorage, getPhotoFilter, getActiveFilter } from "../common";
+import {
+  getBoolFromLocalStorage,
+  getPhotoFilter,
+  getActiveFilter,
+} from "../common";
 import $ from "jquery";
 import { showPopup } from "./popup";
 import { getLastPos, getLastZoomLevel } from "./map";
@@ -45,22 +49,28 @@ function setMapViewport(map, markers) {
 function filterBahnhoefe(dataBahnhoefe) {
   const photoFilter = getPhotoFilter();
   const activeFilter = getActiveFilter();
-  
+
   return dataBahnhoefe.filter((bahnhof, index, arr) => {
-      if (photoFilter === "photoFilterWithPhoto" && bahnhof.photographer === null) {
-        return false;
-      }
-      if (photoFilter === "photoFilterWithoutPhoto" && bahnhof.photographer !== null) {
-        return false;
-      }
-      if (activeFilter === "activeFilterActive" && !bahnhof.active) {
-        return false;
-      }
-      if (activeFilter === "activeFilterInactive" && bahnhof.active) {
-        return false;
-      }
-      return true;
-    });
+    if (
+      photoFilter === "photoFilterWithPhoto" &&
+      bahnhof.photographer === null
+    ) {
+      return false;
+    }
+    if (
+      photoFilter === "photoFilterWithoutPhoto" &&
+      bahnhof.photographer !== null
+    ) {
+      return false;
+    }
+    if (activeFilter === "activeFilterActive" && !bahnhof.active) {
+      return false;
+    }
+    if (activeFilter === "activeFilterInactive" && bahnhof.active) {
+      return false;
+    }
+    return true;
+  });
 }
 
 let markerRadius = function (map) {
@@ -183,7 +193,7 @@ function showClustered(dataBahnhoefe, map) {
         icon: customIcon,
         properties: bahnhof,
       }).addTo(bahnhoefe);
-    });  
+    });
   }
 
   markerCluster.addLayer(bahnhoefe); // add it to the cluster group

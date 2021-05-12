@@ -210,9 +210,11 @@ export function getAPIURI() {
 }
 
 const tileServerMap = {
-  "OpenStreetMap": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  "DBS OSM Railway": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-railway/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
-  "DBS OSM Basic": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-basic/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv"
+  OpenStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "DBS OSM Railway":
+    "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-railway/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
+  "DBS OSM Basic":
+    "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-basic/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
 };
 
 export function getTileServerMap() {

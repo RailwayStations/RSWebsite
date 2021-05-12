@@ -6,7 +6,9 @@ import { RegistrationClient } from "../client/RegistrationClient";
 class RegistrationView extends AbstractFormView {
   static load() {
     document.getElementById("initialPasswordGrp").classList.remove("hidden");
-    document.getElementById("initialPasswordRepeatGrp").classList.remove("hidden");
+    document
+      .getElementById("initialPasswordRepeatGrp")
+      .classList.remove("hidden");
     document.getElementById("loginForm").classList.add("hidden");
     document.getElementById("profileForm").classList.remove("hidden");
     document.getElementById("saveBtnText").innerHTML = getI18n(
@@ -22,7 +24,9 @@ class RegistrationView extends AbstractFormView {
       } else if (password.length < 8) {
         alert(getI18n(s => s.settings.passwordMinLength));
       } else {
-        document.getElementById("saveProfileSpinner").classList.remove("hidden");
+        document
+          .getElementById("saveProfileSpinner")
+          .classList.remove("hidden");
         const newProfile = UserProfile.empty();
         try {
           RegistrationView.updateWithForm(newProfile);
@@ -34,7 +38,7 @@ class RegistrationView extends AbstractFormView {
         RegistrationClient.register(newProfile).then(r => {
           if (r.ok) {
             newProfile.password = newProfile.newPassword;
-            newProfile.newPassword = '';
+            newProfile.newPassword = "";
             newProfile.save();
             alert(getI18n(s => s.settings.registrationSuccessfully));
             location.reload();

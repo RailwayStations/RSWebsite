@@ -7,13 +7,19 @@ import { AbstractFormView } from "./AbstractFormView";
 class EditView extends AbstractFormView {
   static load() {
     const currentUser = UserProfile.currentUser();
-    const authUser = UserProfile.authOnly(currentUser.email, currentUser.password);
+    const authUser = UserProfile.authOnly(
+      currentUser.email,
+      currentUser.password
+    );
     const profileForm = document.getElementById("profileForm");
     profileForm.classList.remove("hidden");
     document
       .getElementById("logout")
       .addEventListener("click", EditView.logout);
-    EditView.updateFieldsOfFormWith(currentUser, EditView.requestVerificationMail);
+    EditView.updateFieldsOfFormWith(
+      currentUser,
+      EditView.requestVerificationMail
+    );
     document.getElementById("saveProfile").addEventListener("click", () => {
       document.getElementById("saveProfileSpinner").classList.remove("hidden");
       try {
@@ -59,13 +65,18 @@ class EditView extends AbstractFormView {
     );
 
     // update user profile
-    UserProfileClient.getProfile(currentUser)
-    .then(userProfile => {
-      userProfile.save();
-      EditView.updateFieldsOfFormWith(userProfile, EditView.requestVerificationMail);
-    }, error => {
+    UserProfileClient.getProfile(currentUser).then(
+      userProfile => {
+        userProfile.save();
+        EditView.updateFieldsOfFormWith(
+          userProfile,
+          EditView.requestVerificationMail
+        );
+      },
+      error => {
         alert(`${getI18n(s => s.settings.loginFailed)}`);
-    });
+      }
+    );
   }
 
   static logout() {
@@ -83,7 +94,6 @@ class EditView extends AbstractFormView {
       }
     });
   }
-
 }
 
 export { EditView };

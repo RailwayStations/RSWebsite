@@ -34,19 +34,18 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|mp3)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'images/[hash][ext][query]'
-        }
+          filename: "images/[hash][ext][query]",
+        },
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'fonts/[hash][ext][query]',
+          filename: "fonts/[hash][ext][query]",
           publicPath: "../",
-
-        }
+        },
       },
     ],
   },
@@ -61,10 +60,12 @@ module.exports = {
       chunkFilename: "css/[name].css",
     }),
     new webpack.EnvironmentPlugin({
-      API_URL: process.env.npm_package_config_api_url || 'https://api.railway-stations.org/', // TODO is this still working as intended?
+      API_URL:
+        process.env.npm_package_config_api_url ||
+        "https://api.railway-stations.org/", // TODO is this still working as intended?
     }),
     new webpack.ProvidePlugin({
-      process: 'process/browser',
+      process: "process/browser",
     }),
   ],
 };

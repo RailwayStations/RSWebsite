@@ -45,7 +45,7 @@ $suffixNavItems = <<<HTML
             title="{$inbox}"><em class="fas fa-inbox"></em></a>
     </li>
 HTML;
-navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
+navbar($suffixNavItems, $prefixNavItems, $additionalItems, "#");
 ?>
 
 <main role="main" class="container-fluid h-100 p-0 m-0">

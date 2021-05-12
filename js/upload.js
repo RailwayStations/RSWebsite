@@ -15,7 +15,8 @@ import { UserProfile } from "./settings/UserProfile";
 function startUpload() {
   "use strict";
 
-  if (isBlank($("#countryCode").val())) { // for missing stations get countryCode from DropDown
+  if (isBlank($("#countryCode").val())) {
+    // for missing stations get countryCode from DropDown
     $("#countryCode").val($("#countrySelect").val());
   }
   $("#upload-process").modal("show");
@@ -73,10 +74,14 @@ function receiveMessage(event) {
 function createCountriesDropDown(countries) {
   "use strict";
 
-  $(`<option value="">${getI18n(s => s.inbox.selectCountry)}</option>`).appendTo("#countrySelect");
+  $(
+    `<option value="">${getI18n(s => s.inbox.selectCountry)}</option>`
+  ).appendTo("#countrySelect");
 
   countries.forEach(country => {
-    $(`<option value="${country.code}">${country.name}</option>`).appendTo("#countrySelect");
+    $(`<option value="${country.code}">${country.name}</option>`).appendTo(
+      "#countrySelect"
+    );
   });
 }
 

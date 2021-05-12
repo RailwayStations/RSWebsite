@@ -26,7 +26,7 @@ export function reportProblem() {
       type: type,
       comment: comment,
       lat: latitude,
-      lon: longitude
+      lon: longitude,
     };
 
     var request = $.ajax({
@@ -70,7 +70,6 @@ export function changeProblemType() {
     $("#inputLatitude").removeAttr("required");
     $("#inputLongitude").removeAttr("required");
   }
-
 }
 
 $(document).ready(function () {

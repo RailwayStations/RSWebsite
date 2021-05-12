@@ -1,20 +1,20 @@
 <?php
 $ini = parse_ini_file("map.ini", true);
-$stationId = trim(filter_input(INPUT_GET, 'stationId', FILTER_SANITIZE_STRING));
+$stationId = trim(filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_STRING));
 $countryCode = trim(
-    filter_input(INPUT_GET, 'countryCode', FILTER_SANITIZE_STRING)
+    filter_input(INPUT_GET, "countryCode", FILTER_SANITIZE_STRING)
 );
-$stationName = 'Station nicht gefunden';
-$stationPhoto = 'images/default.jpg';
+$stationName = "Station nicht gefunden";
+$stationPhoto = "images/default.jpg";
 $photoCaption = $stationName;
 $DS100 = "";
 $lat = 0;
 $lon = 0;
-$photographer = 'n.a.';
-$photographerUrl = '';
-$license = 'n.a.';
-$licenseUrl = '';
-$uploadUrl = '';
+$photographer = "n.a.";
+$photographerUrl = "";
+$license = "n.a.";
+$licenseUrl = "";
+$uploadUrl = "";
 $active = true;
 
 try {
@@ -25,7 +25,7 @@ try {
                 "Accept-language: " .
                 filter_input(
                     INPUT_SERVER,
-                    'SERVER_NAME',
+                    "SERVER_NAME",
                     FILTER_SANITIZE_STRING
                 ),
         ],
@@ -34,40 +34,40 @@ try {
     $context = stream_context_create($opts);
 
     $json = file_get_contents(
-        $ini['general']['API_URL'] . $countryCode . '/stations/' . $stationId,
+        $ini["general"]["API_URL"] . $countryCode . "/stations/" . $stationId,
         false,
         $context
     );
     if ($json !== false) {
         $data = json_decode($json, true);
         if (isset($data)) {
-            $stationName = $data['title'];
-            $photographer = $data['photographer'];
+            $stationName = $data["title"];
+            $photographer = $data["photographer"];
             $photoCaption = $stationName;
-            $DS100 = $data['DS100'];
-            $lat = $data['lat'];
-            $lon = $data['lon'];
-            $active = $data['active'];
+            $DS100 = $data["DS100"];
+            $lat = $data["lat"];
+            $lon = $data["lon"];
+            $active = $data["active"];
             if (isset($photographer)) {
-                $stationPhoto = $data['photoUrl'];
-                $photographerUrl = $data['photographerUrl'];
-                $license = $data['license'];
-                $licenseUrl = $data['licenseUrl'];
+                $stationPhoto = $data["photoUrl"];
+                $photographerUrl = $data["photographerUrl"];
+                $license = $data["license"];
+                $licenseUrl = $data["licenseUrl"];
             } else {
-                $photoCaption = 'Hier fehlt noch ein Foto';
-                $photographer = 'n.a.';
+                $photoCaption = "Hier fehlt noch ein Foto";
+                $photographer = "n.a.";
                 $uploadUrl =
-                    'upload.php?countryCode=' .
+                    "upload.php?countryCode=" .
                     $countryCode .
-                    '&stationId=' .
+                    "&stationId=" .
                     $stationId .
-                    '&title=' .
+                    "&title=" .
                     $stationName;
             }
         }
     }
 } catch (Exception $e) {
-    $photoCaption = 'Fehler beim Laden der Station';
+    $photoCaption = "Fehler beim Laden der Station";
 }
 require_once "../php/i18n.php";
 ?>
@@ -121,7 +121,7 @@ navbar($suffixNavItems);
         <div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
     <?php } ?>
 
-    <?php if ($uploadUrl == '') { ?>
+    <?php if ($uploadUrl == "") { ?>
         <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
     $photographerUrl
 ) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(

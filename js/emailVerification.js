@@ -1,9 +1,6 @@
 import $ from "jquery";
 import "bootstrap";
-import { 
-  getQueryParameter,  
-  getAPIURI,
-} from "./common";
+import { getQueryParameter, getAPIURI } from "./common";
 import { getI18n } from "./i18n";
 
 $(document).ready(function () {
@@ -15,10 +12,14 @@ $(document).ready(function () {
     type: "GET",
     crossDomain: true,
     error: function () {
-      $("#emailVerificationResult").html(getI18n(s => s.emailVerification.error));
+      $("#emailVerificationResult").html(
+        getI18n(s => s.emailVerification.error)
+      );
     },
     success: function (obj) {
-      $("#emailVerificationResult").html(getI18n(s => s.emailVerification.success));
+      $("#emailVerificationResult").html(
+        getI18n(s => s.emailVerification.success)
+      );
     },
-  });  
+  });
 });

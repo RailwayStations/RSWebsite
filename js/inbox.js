@@ -84,7 +84,6 @@ function changeProblemSolving(id) {
     $("#lat-p-" + id).hide();
     $("#lon-p-" + id).hide();
   }
-
 }
 
 function accept(id) {
@@ -151,7 +150,7 @@ function createCountriesDropDown(countries, countryCode, id) {
   countries.forEach(country => {
     var selected = "";
     if (country.code === countryCode) {
-      selected = "selected"
+      selected = "selected";
     }
     countryOptions += `<option value="${country.code}" ${selected}>${country.name}</option>`;
   });
@@ -236,7 +235,9 @@ function fetchAdminInbox(userProfile) {
               }
               problemType = `<p class="card-text">${problemText}</p>`;
               problemSolving = `<p class="card-text"><select class="custom-select" 
-                            onchange="changeProblemSolving(${inbox.id})" id="problemSolving-${inbox.id}">
+                            onchange="changeProblemSolving(${
+                              inbox.id
+                            })" id="problemSolving-${inbox.id}">
                         <option value="" selected>${getI18n(
                           s => s.inbox.chooseProblemSolving
                         )}</option>
@@ -262,12 +263,30 @@ function fetchAdminInbox(userProfile) {
                           s => s.inbox.updateLocation
                         )}</option>
                     </select></p>
-                    <p class="card-text" style="display: none" id="title-p-${inbox.id}"><input id="title-${inbox.id}" class="form-control" 
-                    name="title-${inbox.id}" type="text" placeholder="Title" value="${inbox.title}"/></p>
-                    <p class="card-text" style="display: none" id="lat-p-${inbox.id}"><input id="lat-${inbox.id}" class="form-control"  
-                      name="lat-${inbox.id}" type="text" placeholder="Latitude" value="${inbox.lat}"/></p>
-                    <p class="card-text" style="display: none" id="lon-p-${inbox.id}"><input id="lon-${inbox.id}" class="form-control"  
-                      name="lon-${inbox.id}" type="text" placeholder="Longitude" value="${inbox.lon}"/></p>
+                    <p class="card-text" style="display: none" id="title-p-${
+                      inbox.id
+                    }"><input id="title-${inbox.id}" class="form-control" 
+                    name="title-${
+                      inbox.id
+                    }" type="text" placeholder="Title" value="${
+                inbox.title
+              }"/></p>
+                    <p class="card-text" style="display: none" id="lat-p-${
+                      inbox.id
+                    }"><input id="lat-${inbox.id}" class="form-control"  
+                      name="lat-${
+                        inbox.id
+                      }" type="text" placeholder="Latitude" value="${
+                inbox.lat
+              }"/></p>
+                    <p class="card-text" style="display: none" id="lon-p-${
+                      inbox.id
+                    }"><input id="lon-${inbox.id}" class="form-control"  
+                      name="lon-${
+                        inbox.id
+                      }" type="text" placeholder="Longitude" value="${
+                inbox.lon
+              }"/></p>
                       `;
             }
             var conflictIcon = "";
@@ -311,11 +330,11 @@ function fetchAdminInbox(userProfile) {
               var active_true = "";
               var active_false = "";
               if (inbox.active === undefined) {
-                active_undefined = `selected`
+                active_undefined = `selected`;
               } else if (inbox.active) {
-                active_true = `selected`
+                active_true = `selected`;
               } else {
-                active_false = `selected`
+                active_false = `selected`;
               }
               coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
               newStation = `<p class="card-text">${createCountriesDropDown(
@@ -366,10 +385,18 @@ function fetchAdminInbox(userProfile) {
                   name="ds100-${inbox.id}" type="text" placeholder="DS100"/></p>
                 <p class="card-text" id="active-p-${
                   inbox.id
-                }"><select class="form-control" id="active-${inbox.id}" name="active-${inbox.id}">
-                    <option value="" ${active_undefined}>${getI18n(s => s.upload.pleaseSelectActiveFlag)}</option>
-                    <option value="true" ${active_true}>${getI18n(s => s.inbox.activeStation)}</option>
-                    <option value="false" ${active_false}>${getI18n(s => s.inbox.inactiveStation)}</option>
+                }"><select class="form-control" id="active-${
+                inbox.id
+              }" name="active-${inbox.id}">
+                    <option value="" ${active_undefined}>${getI18n(
+                s => s.upload.pleaseSelectActiveFlag
+              )}</option>
+                    <option value="true" ${active_true}>${getI18n(
+                s => s.inbox.activeStation
+              )}</option>
+                    <option value="false" ${active_false}>${getI18n(
+                s => s.inbox.inactiveStation
+              )}</option>
                   </select></p>`;
             }
             var title = `${inbox.id}: ${inbox.title}`;
@@ -382,7 +409,9 @@ function fetchAdminInbox(userProfile) {
     <div class="card-body">
       <h5 class="card-title">${title}${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
-        ${inbox.photographerNickname} <a href="mailto:${inbox.photographerEmail}?subject=${inbox.title}"><i class="fas fa-envelope"></i></a><br>
+        ${inbox.photographerNickname} <a href="mailto:${
+              inbox.photographerEmail
+            }?subject=${inbox.title}"><i class="fas fa-envelope"></i></a><br>
         ${createdAt.toLocaleString()}
       </p>
       ${problemType}
@@ -487,9 +516,8 @@ function fetchRecentPhotoImports() {
             countryCount = 0;
           }
           countryCount++;
-          statistic[
-            station.photographer + " - " + station.country
-          ] = countryCount;
+          statistic[station.photographer + " - " + station.country] =
+            countryCount;
 
           $("#recentImports").append(`
             <li>
