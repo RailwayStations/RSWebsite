@@ -30,7 +30,7 @@ $prefixNavItems = <<<HTML
 HTML;
 
 $additionalItems = <<<HTML
-    <form class="form-inline my-2 my-lg-0 order-sm-0 order-md-1">
+    <form class="form-inline my-2 my-lg-0 order-sm-0 order-md-1 ms-auto">
         <input class="form-control mr-sm-2" type="text" placeholder="{$findStation}" aria-label="{$search}" id="suche">
     </form>
 HTML;

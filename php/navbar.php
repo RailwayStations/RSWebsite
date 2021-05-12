@@ -20,9 +20,6 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbar">
-                <?php if ($additionalItems !== null) {
-                    echo $additionalItems;
-                } ?>
                 <ul class="navbar-nav mr-auto order-sm-1 order-md-0">
                     <?php if ($prefixNavItems !== null) {
                         echo $prefixNavItems;
@@ -67,6 +64,9 @@
                         echo $suffixNavItems;
                     } ?>
                 </ul>
+                <?php if ($additionalItems !== null) {
+                    echo $additionalItems;
+                } ?>
             </div>
         </div>
     </nav>
