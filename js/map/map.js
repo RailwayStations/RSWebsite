@@ -1,16 +1,14 @@
 import "../../css/map/map.css";
 import "whatwg-fetch";
 
-import jquery from 'jquery';
-window.$ = window.jQuery=jquery;
-
+import $ from 'jquery';
 import "leaflet";
 import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "leaflet-easybutton";
 import "leaflet.locatecontrol";
-require("jquery-autocomplete");
+import "jQuery-Autocomplete";
 import {
   getQueryParameter,
   getCountryCode,
@@ -53,7 +51,7 @@ const searchOptions = {
       "title",
       "idStr"
     ]
-};  
+};
 
 function setLastZoomLevel(zoomLevel) {
   "use strict";
