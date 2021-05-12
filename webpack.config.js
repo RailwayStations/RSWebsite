@@ -60,9 +60,9 @@ module.exports = {
       filename: "css/[name].css",
       chunkFilename: "css/[name].css",
     }),
-    // new webpack.EnvironmentPlugin({
-    //   API_URL: process.env.npm_package_config_api_url, TODO
-    // }),
+    new webpack.EnvironmentPlugin({
+      API_URL: process.env.npm_package_config_api_url || 'https://api.railway-stations.org/', // TODO is this still working as intended?
+    }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
