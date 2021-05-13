@@ -43,7 +43,7 @@ npm ci
 npm run build
 ```
 
-Man kann für lokale Testzwecke die API_URL umkonfigurieren:
+Man kann für lokale Testzwecke die API_URL umkonfigurieren (geht aktuell nicht, siehe https://github.com/RailwayStations/RSWebsite/issues/105):
 ```bash
 npm config set railway-stations-frontend:api_url http://192.168.0.241:8080/
 ```
