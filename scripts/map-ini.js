@@ -14,6 +14,7 @@ const writeToFile = function (iniObj) {
 };
 
 const main = function () {
+  console.log(`API_URL: ${process.env.npm_package_config_api_url}`);
   const iniObj = fs.readFileSync(`map-template.ini`, "utf-8");
   writeToFile(
     iniObj.replace("__API_URL__", process.env.npm_package_config_api_url)

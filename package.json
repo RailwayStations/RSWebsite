@@ -13,7 +13,8 @@
     "webpack": "webpack --mode production",
     "webpack-watch": "webpack --mode development --watch",
     "ini2json": "node ./scripts/inti2Json.js",
-    "map-ini": "node ./scripts/map-ini.js"
+    "map-ini": "node ./scripts/map-ini.js",
+    "echo" : "echo $npm_package_config_api_url"
   },
   "babel": {
     "plugins": [
