@@ -46,7 +46,7 @@ $activeFilterActive = L::settings_activeFilterActive;
 $activeFilterInactive = L::settings_activeFilterInactive;
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <h2 id="title-form"><?php echo $profile; ?></h2>
     <div id="loginForm" class="hidden">
@@ -148,7 +148,7 @@ $activeFilterInactive = L::settings_activeFilterInactive;
     <div id="mapTileServer" class="form-group">
             <label for="tileServer"><?php echo $tileServer; ?></label>
             <select class="form-control" id="tileServer" name="tileServer">
-            </select>     
+            </select>
     </div>
     <div class="form-group">
             <label for="photoFilter"><?php echo $photoFilter; ?></label>
@@ -156,7 +156,7 @@ $activeFilterInactive = L::settings_activeFilterInactive;
                 <option value="photoFilterAll"><?php echo $photoFilterAll; ?></option>
                 <option value="photoFilterWithPhoto"><?php echo $photoFilterWithPhoto; ?></option>
                 <option value="photoFilterWithoutPhoto"><?php echo $photoFilterWithoutPhoto; ?></option>
-            </select>     
+            </select>
     </div>
     <div class="form-group">
             <label for="activeFilter"><?php echo $activeFilter; ?></label>
@@ -164,7 +164,7 @@ $activeFilterInactive = L::settings_activeFilterInactive;
                 <option value="activeFilterAll"><?php echo $activeFilterAll; ?></option>
                 <option value="activeFilterActive"><?php echo $activeFilterActive; ?></option>
                 <option value="activeFilterInactive"><?php echo $activeFilterInactive; ?></option>
-            </select>     
+            </select>
     </div>
 
 </main>

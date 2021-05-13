@@ -112,7 +112,7 @@ export function updateInboxCount() {
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
           $("#nav_inbox").append(
-            `<span class="badge badge-light">${obj.pendingInboxEntries}</span>`
+            `<span class="badge bg-light text-dark">${obj.pendingInboxEntries}</span>`
           );
         }
       },
@@ -125,7 +125,7 @@ export function updateInboxCount() {
       crossDomain: true,
       success: function (obj) {
         $("#nav_inbox").append(
-          `<span class="badge badge-light">${obj.length}</span>`
+          `<span class="badge bg-light text-dark">${obj.length}</span>`
         );
       },
     });
@@ -210,9 +210,11 @@ export function getAPIURI() {
 }
 
 const tileServerMap = {
-  "OpenStreetMap": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  "DBS OSM Railway": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-railway/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
-  "DBS OSM Basic": "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-basic/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv"
+  OpenStreetMap: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  "DBS OSM Railway":
+    "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-railway/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
+  "DBS OSM Basic":
+    "https://osm-prod.noncd.db.de:8100/styles/dbs-osm-basic/{z}/{x}/{y}.png?key=ias7AMiTHZCJo2PB9v6gDvlSdH9nMgYv",
 };
 
 export function getTileServerMap() {

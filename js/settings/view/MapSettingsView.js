@@ -1,12 +1,13 @@
-import { getBoolFromLocalStorage, 
-         getTileServer, 
-         setTileServer, 
-         getTileServerMap,
-         getPhotoFilter,
-         setPhotoFilter,
-         getActiveFilter,
-         setActiveFilter
-       } from "../../common";
+import {
+  getBoolFromLocalStorage,
+  getTileServer,
+  setTileServer,
+  getTileServerMap,
+  getPhotoFilter,
+  setPhotoFilter,
+  getActiveFilter,
+  setActiveFilter,
+} from "../../common";
 import $ from "jquery";
 
 class MapSettingsView {
@@ -28,9 +29,9 @@ class MapSettingsView {
     const tileServerMap = getTileServerMap();
     Object.entries(tileServerMap).forEach(element => {
       const name = element[0];
-      var option = document.createElement("option"); 
-      option.setAttribute("value", name); 
-      option.appendChild(document.createTextNode(name)); 
+      var option = document.createElement("option");
+      option.setAttribute("value", name);
+      option.appendChild(document.createTextNode(name));
       if (name === tileServer) {
         option.setAttribute("selected", "selected");
       }
@@ -50,7 +51,7 @@ class MapSettingsView {
     const activeFilter = document.getElementById("activeFilter");
     activeFilter.value = getActiveFilter();
     activeFilter.addEventListener("change", () => {
-      setActiveFilter(activeFilter.value)
+      setActiveFilter(activeFilter.value);
     });
   }
 

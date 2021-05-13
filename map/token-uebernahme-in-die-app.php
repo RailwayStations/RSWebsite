@@ -18,7 +18,7 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading"><?php echo $info; ?></b></h4>

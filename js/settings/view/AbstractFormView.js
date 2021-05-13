@@ -1,19 +1,26 @@
 import { getI18n } from "../../i18n";
 import { isBlank, isNotBlank } from "../../common";
 
-const mailformat = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const mailformat =
+  /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 class AbstractFormView {
   static updateFieldsOfFormWith(currentUser, requestVerificationMail) {
     document.getElementById("profileNickname").value = currentUser.nickname;
     document.getElementById("profileEmail").value = currentUser.email;
     if (currentUser.emailVerified) {
-      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(s => s.settings.emailVerified);
+      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(
+        s => s.settings.emailVerified
+      );
       document.getElementById("emailVerifiedLabel").style.color = "green";
     } else {
-      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(s => s.settings.emailNotVerified);
+      document.getElementById("emailVerifiedLabel").innerHTML = getI18n(
+        s => s.settings.emailNotVerified
+      );
       document.getElementById("emailVerifiedLabel").style.color = "red";
-      document.getElementById("request-verification-mail").addEventListener("click", requestVerificationMail);
+      document
+        .getElementById("request-verification-mail")
+        .addEventListener("click", requestVerificationMail);
     }
     document.getElementById("profilePhotoOwner").checked =
       currentUser.photoOwner;
@@ -26,9 +33,8 @@ class AbstractFormView {
     AbstractFormView.validateFields();
     currentUser.nickname = document.getElementById("profileNickname").value;
     currentUser.email = document.getElementById("profileEmail").value;
-    currentUser.photoOwner = document.getElementById(
-      "profilePhotoOwner"
-    ).checked;
+    currentUser.photoOwner =
+      document.getElementById("profilePhotoOwner").checked;
     currentUser.cc0 = document.getElementById("profileCc0").checked;
     currentUser.anonymous = document.getElementById("profileAnonymous").checked;
     currentUser.link = document.getElementById("profileLink").value;

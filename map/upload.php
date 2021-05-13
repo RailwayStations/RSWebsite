@@ -39,7 +39,7 @@ require_once "../php/navbar.php";
 navbar();
 ?>
 
-<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content">
+<main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <h2 id="title-form"><?php echo $uploadForMissing; ?></h2>
     <form id="uploadForm" class="needs-validation" novalidate action="https://api.railway-stations.org/photoUpload"
@@ -83,7 +83,7 @@ navbar();
                 <option value="" selected><?php echo $pleaseSelectActiveFlag; ?></option>
                 <option value="true"><?php echo $active_yes; ?></option>
                 <option value="false"><?php echo $active_no; ?></option>
-            </select>                   
+            </select>
             <div class="invalid-feedback">
                 <?php echo $pleaseSelectActiveFlag; ?>
             </div>

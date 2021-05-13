@@ -23,15 +23,15 @@ $inbox = L::navbar_inbox;
 
 $prefixNavItems = <<<HTML
     <li class="nav-item dropdown active">
-        <a class="nav-link dropdown-toggle" href="#" id="country" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$country}</a>
+        <a class="nav-link dropdown-toggle" href="#" id="country" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$country}</a>
         <div class="dropdown-menu" id="countries" aria-labelledby="country">
         </div>
     </li>
 HTML;
 
 $additionalItems = <<<HTML
-    <form class="form-inline my-2 my-lg-0 order-sm-0 order-md-1">
-        <input class="form-control mr-sm-2" type="text" placeholder="{$findStation}" aria-label="{$search}" id="suche">
+    <form class="form-inline my-2 my-lg-0 order-0 order-sm-1">
+        <input class="form-control me-sm-2" type="text" placeholder="{$findStation}" aria-label="{$search}" id="suche">
     </form>
 HTML;
 
@@ -45,7 +45,7 @@ $suffixNavItems = <<<HTML
             title="{$inbox}"><em class="fas fa-inbox"></em></a>
     </li>
 HTML;
-navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
+navbar($suffixNavItems, $prefixNavItems, $additionalItems, "#");
 ?>
 
 <main role="main" class="container-fluid h-100 p-0 m-0">
@@ -59,14 +59,14 @@ navbar($suffixNavItems, $prefixNavItems, $additionalItems, '#');
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="highscoreLabel"><?php echo $highscore; ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="highscoreBody">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
