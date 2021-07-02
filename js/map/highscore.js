@@ -1,6 +1,7 @@
 import { getI18n } from "../i18n";
 import { CountryStats } from "./statsClient";
 import { fetchCountries, getAPIURI, getCountryCode } from "../common";
+import { Modal } from 'bootstrap'
 import $ from "jquery";
 
 export const showHighScorePopup = async selectedCountryCode => {
@@ -45,7 +46,8 @@ export const showHighScorePopup = async selectedCountryCode => {
       ${progressBar}
       ${table}
     `;
-  $("#highscore").modal("show");
+  let highscoreModal = new Modal(document.getElementById('highscore'));
+  highscoreModal.show();
 };
 
 const createTable = function (statistics) {
