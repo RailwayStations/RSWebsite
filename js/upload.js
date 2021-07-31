@@ -11,6 +11,9 @@ import {
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
+import { Modal } from 'bootstrap'
+
+var uploadModal;
 
 function startUpload() {
   "use strict";
@@ -19,7 +22,8 @@ function startUpload() {
     // for missing stations get countryCode from DropDown
     $("#countryCode").val($("#countrySelect").val());
   }
-  $("#upload-process").modal("show");
+  uploadModal = new Modal(document.getElementById('upload-process'));
+  uploadModal.show();  
   return true;
 }
 
@@ -58,7 +62,8 @@ function stopUpload(response) {
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
 
-  $("#upload-process").modal("hide");
+  uploadModal.hide();  
+
   alert(message);
   return true;
 }

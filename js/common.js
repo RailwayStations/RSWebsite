@@ -4,6 +4,7 @@ import Popper from "popper.js";
 import { getI18n } from "./i18n";
 import { CountryClient } from "./countriesClient";
 import { UserProfile } from "./settings/UserProfile";
+import { Modal } from 'bootstrap'
 
 window.Popper = Popper;
 
@@ -166,7 +167,9 @@ export function providerApp(countryCode) {
       '<table class="table table-striped">' + providerAppsTable + "</table>"
     );
 
-    $("#providerApps").modal("show");
+    let appsModal = new Modal(document.getElementById('providerApps'));
+    appsModal.show();  
+  
   });
 }
 
