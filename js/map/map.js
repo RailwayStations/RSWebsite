@@ -17,6 +17,7 @@ import {
   navigate,
   timetable,
   getTileServerUrl,
+  initRSAPI
 } from "../common";
 import "bootstrap";
 import { updateMarker } from "./markers";
@@ -135,7 +136,7 @@ function searchWeight(query, suggestion) {
   return weight;
 }
 
-$(document).ready(function () {
+function initMap() {
   const queryParameter = getQueryParameter();
   if (queryParameter) {
     if (queryParameter.countryCode && queryParameter.countryCode.length > 0) {
@@ -255,5 +256,11 @@ $(document).ready(function () {
       });
       return false;
     },
+  });
+}
+
+$(document).ready(function () {
+  initRSAPI().then(function() {
+    initMap()
   });
 });

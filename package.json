@@ -10,11 +10,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write './map/**.php' './css/**' './js/**' './webpack.config.js' './scripts/*.js' --arrow-parens avoid",
-    "build": "npm run ini2json && npm run map-ini && npm run webpack",
+    "build": "npm run ini2json && npm run configjson && npm run webpack",
     "webpack": "webpack --mode production",
     "webpack-watch": "webpack --mode development --watch",
-    "ini2json": "node ./scripts/inti2Json.js",
-    "map-ini": "node ./scripts/map-ini.js",
+    "ini2json": "node ./scripts/ini2Json.js",
+    "configjson": "node ./scripts/configjson.js",
     "echo": "echo $npm_package_config_api_url"
   },
   "babel": {
@@ -42,6 +42,7 @@
     "@prettier/plugin-php": "^0.16.2",
     "autoprefixer": "^10.2.5",
     "babel-loader": "^8.2.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "core-js": "^3.12.1",
     "css-loader": "^5.2.4",
     "file-loader": "^6.2.0",

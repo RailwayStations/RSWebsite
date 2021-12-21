@@ -1,5 +1,10 @@
 <?php
-$ini = parse_ini_file("map.ini", true);
+// Read config JSON file 
+$configFile = file_get_contents('./json/config.json');
+  
+// Decode the JSON file
+$config = json_decode($configFile,true);
+
 $stationId = trim(filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_STRING));
 $countryCode = trim(
     filter_input(INPUT_GET, "countryCode", FILTER_SANITIZE_STRING)
@@ -34,7 +39,7 @@ try {
     $context = stream_context_create($opts);
 
     $json = file_get_contents(
-        $ini["general"]["API_URL"] . $countryCode . "/stations/" . $stationId,
+        $config["apiurl"] . $countryCode . "/stations/" . $stationId,
         false,
         $context
     );

@@ -1,4 +1,4 @@
-import languages from "../json/lang";
+import languages from "../map/json/lang";
 
 const defaultLang = "en";
 

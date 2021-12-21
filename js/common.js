@@ -8,6 +8,17 @@ import { Modal } from 'bootstrap'
 
 window.Popper = Popper;
 
+let config = null;
+
+export function initRSAPI() {
+  return fetch("../json/config.json")
+    .then(r => r.json())
+    .then(data => {
+      config = data;
+      return data;
+    });
+};
+
 export function getBoolFromLocalStorage(key, defaultVal) {
   const value = localStorage.getItem(key);
   if (value == null) {
@@ -209,7 +220,9 @@ export function getCountryCode() {
 
 export function getAPIURI() {
   "use strict";
-  return process.env.API_URL;
+  let apiUrl = config.apiurl;
+  console.log(apiUrl);
+  return apiUrl;
 }
 
 const tileServerMap = {

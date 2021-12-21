@@ -2,9 +2,9 @@ const fs = require("fs"),
   ini = require("ini");
 
 const writeToFile = function (langObj) {
-  const outputDirectory = "json";
+  const outputDirectory = "map/json";
   if (!fs.existsSync(outputDirectory)) {
-    fs.mkdirSync(outputDirectory);
+    fs.mkdirSync(outputDirectory, true);
   }
 
   const jsonFile = outputDirectory + "/lang.json";
