@@ -7,6 +7,7 @@ import {
   isBlank,
   isNotBlank,
   getCountryByCode,
+  initRSAPI,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -90,7 +91,7 @@ function createCountriesDropDown(countries) {
   });
 }
 
-$(document).ready(function () {
+function initUpload() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
@@ -159,5 +160,11 @@ $(document).ready(function () {
       },
       false
     );
+  });
+};
+
+$(document).ready(function () {
+  initRSAPI().then(function() {
+    initUpload();
   });
 });

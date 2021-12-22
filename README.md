@@ -60,6 +60,22 @@ npm run format
 
 Danach geht es weiter mit der [Umgebung](#umgebung) um die Website in einem Browser anzeigen zu können.
 
+## Docker
+
+Die Webseite kann auch mit Docker (multistage build) gebaut und ausgeführt werden.
+
+```bash
+docker build . -t railwaystations/rs-website:latest
+```
+
+Zum lokalen ausführen und testen dann mit:
+
+```bash
+docker run -it -p 80:80 -e API_URL=http://192.168.0.229:8080/ railwaystations/rs-website
+```
+
+Wobei hier mit `-it` der interaktive Modus verwendet wird. Mit `-d` wird die Website im Hintergrund ausgeführt. Mit setzen der Umgebungsvariable `API_URL` kann man auf eine lokale Testinstanz der RSAPI zugreifen. Ansonsten wird `api.railway-stations.org` als Default gesetzt.
+
 ## Umgebung
 
 Die Seite benötigt eine PHP Umgebung (ab 5.6). Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:

@@ -1,9 +1,9 @@
 import $ from "jquery";
 import "bootstrap";
-import { getQueryParameter, getAPIURI } from "./common";
+import { getQueryParameter, getAPIURI, initRSAPI } from "./common";
 import { getI18n } from "./i18n";
 
-$(document).ready(function () {
+function initEmailVerification() {
   const vars = getQueryParameter();
   const token = vars.token;
 
@@ -21,5 +21,11 @@ $(document).ready(function () {
         getI18n(s => s.emailVerification.success)
       );
     },
+  });
+};
+
+$(function() {
+  initRSAPI().then(function() {
+    initEmailVerification();
   });
 });

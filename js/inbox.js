@@ -4,6 +4,7 @@ import {
   fetchCountries,
   isNotBlank,
   getIntFromLocalStorage,
+  initRSAPI,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -554,7 +555,7 @@ function changeSinceHours() {
   fetchRecentPhotoImports();
 }
 
-$(document).ready(function () {
+function initInbox() {
   const sinceHours = getIntFromLocalStorage("sinceHours", 10);
   $("#sinceHours").val(sinceHours);
 
@@ -566,4 +567,10 @@ $(document).ready(function () {
     fetchPublicInbox();
   }
   fetchRecentPhotoImports();
+};
+
+$(function() {
+  initRSAPI().then(function() {
+    initInbox();
+  });
 });

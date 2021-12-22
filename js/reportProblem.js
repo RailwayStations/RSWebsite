@@ -1,5 +1,5 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, isBlank } from "./common";
+import { getAPIURI, getQueryParameter, isBlank, initRSAPI } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -72,7 +72,7 @@ export function changeProblemType() {
   }
 }
 
-$(document).ready(function () {
+function initReportProblem() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
@@ -110,5 +110,11 @@ $(document).ready(function () {
       },
       false
     );
+  });
+};
+
+$(function() {
+  initRSAPI().then(function() {
+    initReportProblem();
   });
 });

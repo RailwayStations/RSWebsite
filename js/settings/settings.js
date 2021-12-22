@@ -1,10 +1,12 @@
+import $ from "jquery";
 import "../../css/settings.css";
+import { initRSAPI } from "../common";
 import { UserProfile } from "./UserProfile";
 import { LoginView } from "./view/LoginView";
 import { EditView } from "./view/EditView";
 import { MapSettingsView } from "./view/MapSettingsView";
 
-const onPageLoad = () => {
+function initSettings() {
   const currentUser = UserProfile.currentUser();
   if (currentUser.isLoggedIn()) {
     EditView.load();
@@ -14,4 +16,8 @@ const onPageLoad = () => {
   MapSettingsView.load();
 };
 
-onPageLoad();
+$(function() {
+  initRSAPI().then(function() {
+    initSettings();
+  });
+});

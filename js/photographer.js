@@ -1,11 +1,11 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, scaleImage } from "./common";
+import { getAPIURI, getQueryParameter, scaleImage, initRSAPI } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 
 window.$ = $;
 
-$(document).ready(function () {
+function initPhotographer() {
   const vars = getQueryParameter();
   const photographer = vars.photographer;
 
@@ -60,5 +60,11 @@ $(document).ready(function () {
         $("#stations").html(getI18n(s => s.photographer.noStationsFound));
       }
     },
+  });
+};
+
+$(function() {
+  initRSAPI().then(function() {
+    initPhotographer();
   });
 });

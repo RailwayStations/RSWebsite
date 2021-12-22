@@ -1,9 +1,12 @@
 import $ from "jquery";
 import "bootstrap";
-import { getQueryParameter } from "./common";
+import { 
+  getQueryParameter,
+  initRSAPI,
+} from "./common";
 import { UserProfile } from "./settings/UserProfile";
 
-$(document).ready(function () {
+function initUpdatePassword() {
   const vars = getQueryParameter();
   const uploadToken = vars.uploadToken;
   const userProfile = UserProfile.currentUser();
@@ -12,4 +15,10 @@ $(document).ready(function () {
     userProfile.password = uploadToken;
     userProfile.save();
   }
+}
+
+$(function() {
+  initRSAPI().then(function() {
+    initUpdatePassword();
+  });
 });
