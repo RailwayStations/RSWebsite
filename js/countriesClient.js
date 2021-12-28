@@ -1,4 +1,5 @@
 import { getAPIURI } from "./common";
+import { getI18n } from "./i18n";
 
 class CountryClient {
   static async getAllCountries() {
@@ -20,6 +21,12 @@ class CountryClient {
       promise = fetch(getAPIURI() + "countries")
         .then(r => r.json())
         .then(countries => {
+          countries.forEach(country => {
+            let translatedName = getI18n(s => s.common['country_'+country.code]);
+            if (translatedName) {
+              country.name = translatedName;
+            }
+          })    
           sessionStorage.setItem("countries", JSON.stringify(countries));
           return countries;
         });
