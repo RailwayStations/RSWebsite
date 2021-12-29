@@ -1,0 +1,47 @@
+---
+version: '2.1'
+
+services:
+
+  rs-website:
+    depends_on:
+      - rsapi
+    image: railwaystations/rs-website:latest
+    restart: unless-stopped
+    environment:
+      - API_URL=http://localhost:8080/
+    ports:
+      - "8000:80"
+
+  rsapi:
+    image: railwaystations/rsapi:latest
+    container_name: rsapi
+    volumes:
+      - ./rsapi:/var/rsapi
+    restart: unless-stopped
+    environment:
+      - SPRING_PROFILES_ACTIVE=test
+    depends_on:
+      - mariadb
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    labels:
+      org.label-schema.group: "rsapi"
+
+  mariadb:
+    image: mariadb:10.1
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=rsapi
+      - MYSQL_USER=rsapi
+      - MYSQL_PASSWORD=rsapi
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    expose:
+      - 3306
+    labels:
+      org.label-schema.group: "rsapi"

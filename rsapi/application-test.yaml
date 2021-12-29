@@ -1,0 +1,4 @@
+---
+spring:
+  datasource:
+    url: jdbc:mariadb://mariadb:3306/rsapi?useUnicode=yes&characterEncoding=UTF-8
