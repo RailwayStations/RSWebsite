@@ -16,9 +16,6 @@ module.exports = {
     inbox: "./js/inbox.js",
     emailVerification: "./js/emailVerification.js",
   },
-  experiments: {
-    asset: true,
-  },
   module: {
     rules: [
       {
@@ -30,21 +27,23 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader"],
       },
       {
         test: /\.(jpe?g|png|gif|mp3)$/i,
-        type: "asset/resource",
+        type: "asset",
         generator: {
           filename: "images/[hash][ext][query]",
         },
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/i,
-        type: "asset/resource",
+        type: "asset",
         generator: {
           filename: "fonts/[hash][ext][query]",
-          publicPath: "../",
         },
       },
     ],
