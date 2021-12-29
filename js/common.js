@@ -1,12 +1,9 @@
 import $ from "jquery";
 import "bootstrap";
-import Popper from "popper.js";
 import { getI18n } from "./i18n";
 import { CountryClient } from "./countriesClient";
 import { UserProfile } from "./settings/UserProfile";
 import { Modal } from 'bootstrap'
-
-window.Popper = Popper;
 
 let config = null;
 

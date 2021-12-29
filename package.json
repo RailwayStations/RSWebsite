@@ -70,7 +70,6 @@
     "leaflet-spin": "^1.1.2",
     "leaflet.locatecontrol": "^0.76.0",
     "leaflet.markercluster": "^1.5.3",
-    "popper.js": "^1.16.1",
     "spin.js": "^4.1.1",
     "whatwg-fetch": "^3.6.2"
   },
