@@ -259,8 +259,8 @@ function initMap() {
   });
 }
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initMap();
   });
 });

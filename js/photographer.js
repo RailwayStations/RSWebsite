@@ -61,10 +61,10 @@ function initPhotographer() {
       }
     },
   });
-};
+}
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initPhotographer();
   });
 });

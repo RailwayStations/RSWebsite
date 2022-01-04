@@ -1,9 +1,9 @@
 <?php
-// Read config JSON file 
-$configFile = file_get_contents('./json/config.json');
-  
+// Read config JSON file
+$configFile = file_get_contents("./json/config.json");
+
 // Decode the JSON file
-$config = json_decode($configFile,true);
+$config = json_decode($configFile, true);
 
 $stationId = trim(filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_STRING));
 $countryCode = trim(

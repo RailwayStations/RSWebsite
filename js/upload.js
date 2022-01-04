@@ -12,7 +12,7 @@ import {
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
-import { Modal } from 'bootstrap'
+import { Modal } from "bootstrap";
 
 var uploadModal;
 
@@ -23,8 +23,8 @@ function startUpload() {
     // for missing stations get countryCode from DropDown
     $("#countryCode").val($("#countrySelect").val());
   }
-  uploadModal = new Modal(document.getElementById('upload-process'));
-  uploadModal.show();  
+  uploadModal = new Modal(document.getElementById("upload-process"));
+  uploadModal.show();
   return true;
 }
 
@@ -63,7 +63,7 @@ function stopUpload(response) {
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
 
-  uploadModal.hide();  
+  uploadModal.hide();
 
   alert(message);
   return true;
@@ -161,10 +161,10 @@ function initUpload() {
       false
     );
   });
-};
+}
 
 $(document).ready(function () {
-  initRSAPI().then(function() {
+  initRSAPI().then(function () {
     initUpload();
   });
 });

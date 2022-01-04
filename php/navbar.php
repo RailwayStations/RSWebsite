@@ -3,8 +3,7 @@
     $prefixNavItems = null,
     $additionalItems = null,
     $brandkLink = "index.php"
-)
-{
+) {
     ?>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #9F0C35;">
