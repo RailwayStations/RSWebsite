@@ -17,7 +17,7 @@ jobs:
       - name: Run npm build
         run: npm run build
       - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@2.0.0
+        uses: SamKirkland/FTP-Deploy-Action@4.2.0
         env:
           FTP_SERVER: railway-stations.org
           FTP_USERNAME: rswebsitesftp
