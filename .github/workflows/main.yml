@@ -25,4 +25,4 @@ jobs:
           remote_path: map/
           remote_host: railway-stations.org
           remote_user: rswebsitesftp
-          remote_key_pass: ${{ secrets.FTP_PASSWORD }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
