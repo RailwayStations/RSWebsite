@@ -22,10 +22,10 @@ function initEmailVerification() {
       );
     },
   });
-};
+}
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initEmailVerification();
   });
 });

@@ -14,10 +14,10 @@ function initSettings() {
     LoginView.load();
   }
   MapSettingsView.load();
-};
+}
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initSettings();
   });
 });

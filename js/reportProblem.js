@@ -111,10 +111,10 @@ function initReportProblem() {
       false
     );
   });
-};
+}
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initReportProblem();
   });
 });

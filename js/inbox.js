@@ -567,10 +567,10 @@ function initInbox() {
     fetchPublicInbox();
   }
   fetchRecentPhotoImports();
-};
+}
 
-$(function() {
-  initRSAPI().then(function() {
+$(function () {
+  initRSAPI().then(function () {
     initInbox();
   });
 });

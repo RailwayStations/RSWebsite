@@ -1,7 +1,5 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "branchConcurrentLimit": 3,
   "prHourlyLimit": 2
 }

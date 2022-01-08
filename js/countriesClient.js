@@ -22,11 +22,13 @@ class CountryClient {
         .then(r => r.json())
         .then(countries => {
           countries.forEach(country => {
-            let translatedName = getI18n(s => s.common['country_'+country.code]);
+            let translatedName = getI18n(
+              s => s.common["country_" + country.code]
+            );
             if (translatedName) {
               country.name = translatedName;
             }
-          })    
+          });
           sessionStorage.setItem("countries", JSON.stringify(countries));
           return countries;
         });

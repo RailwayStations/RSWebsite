@@ -3,7 +3,7 @@ import "bootstrap";
 import { getI18n } from "./i18n";
 import { CountryClient } from "./countriesClient";
 import { UserProfile } from "./settings/UserProfile";
-import { Modal } from 'bootstrap'
+import { Modal } from "bootstrap";
 
 let config = null;
 
@@ -14,7 +14,7 @@ export function initRSAPI() {
       config = data;
       return data;
     });
-};
+}
 
 export function getBoolFromLocalStorage(key, defaultVal) {
   const value = localStorage.getItem(key);
@@ -175,9 +175,8 @@ export function providerApp(countryCode) {
       '<table class="table table-striped">' + providerAppsTable + "</table>"
     );
 
-    let appsModal = new Modal(document.getElementById('providerApps'));
-    appsModal.show();  
-  
+    let appsModal = new Modal(document.getElementById("providerApps"));
+    appsModal.show();
   });
 }
 
