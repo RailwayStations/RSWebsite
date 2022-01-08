@@ -22,7 +22,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -avzr --delete --exclude=.sonarcloud.properties --exclude=.git*/** --exclude=.git** --exclude=composer* --exclude=package* --exclude=node_modules/**
-          remote_path: map/
+          remote_path: /var/www/map/
           remote_host: railway-stations.org
           remote_user: rswebsitesftp
           remote_key: ${{ secrets.DEPLOY_KEY }}
