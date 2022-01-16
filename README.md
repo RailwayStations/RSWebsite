@@ -63,6 +63,11 @@ Zum ausführen und testen gegen die produktive RSAPI:
 docker run -it -p 8000:80 railwaystations/rs-website
 ```
 
+Alternativ kann das lokale Verzeichnis als Root für den Server im Docker Container gemountet werden:
+```bash
+docker run -d --name rs-website -p 8000:80 -v $(pwd):/var/www/rs-website railwaystations/rs-website
+```
+
 Fullstack Test mit RSAPI und DB mit docker-compose:
 
 ```bash
