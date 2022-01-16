@@ -2,7 +2,6 @@ import { getI18n } from "../i18n";
 import { CountryStats } from "./statsClient";
 import { fetchCountries, getAPIURI, getCountryCode } from "../common";
 import { Modal } from "bootstrap";
-import $ from "jquery";
 
 export const showHighScorePopup = async selectedCountryCode => {
   let currentCountry;
