@@ -27,7 +27,7 @@ function sendInboxCommand(inboxCommand) {
     url: getAPIURI() + "adminInbox",
     contentType: "application/json; charset=utf-8",
     type: "POST",
-    dataType: "text",
+    dataType: "json",
     processData: false,
     headers: {
       Authorization:
@@ -44,7 +44,7 @@ function sendInboxCommand(inboxCommand) {
   request.fail(function (jqXHR, textStatus, errorThrown) {
     if (jqXHR.responseText) {
       var response = JSON.parse(jqXHR.responseText);
-      alert(errorThrown + ": " + response.message);
+      alert(response.status + ": " + response.message);
     } else {
       alert(textStatus + ": " + errorThrown);
     }

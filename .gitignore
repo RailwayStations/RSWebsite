@@ -13,4 +13,4 @@
 /map/fonts
 /map/map.ini
 /map/json
-/inbox
+/rsapi/*
