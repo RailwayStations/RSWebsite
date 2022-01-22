@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/RailwayStations/RSWebsite#readme",
   "devDependencies": {
-    "@babel/core": "7.16.10",
+    "@babel/core": "7.16.12",
     "@babel/plugin-transform-runtime": "7.16.10",
     "@babel/preset-env": "7.16.11",
     "@prettier/plugin-php": "0.17.6",
