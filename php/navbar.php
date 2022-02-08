@@ -64,6 +64,10 @@
                     <?php if ($suffixNavItems !== null) {
                         echo $suffixNavItems;
                     } ?>
+                    <li>
+                        <script src="https://liberapay.com/Railway-Stations.org/widgets/button.js"></script>
+                        <noscript><a href="https://liberapay.com/Railway-Stations.org/donate"><img alt="Donate using Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+                    </li>
                 </ul>
             </div>
         </div>
