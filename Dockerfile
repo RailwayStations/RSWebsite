@@ -28,7 +28,7 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN npm run build
 
-FROM php:7.4-apache
+FROM php:8.1-apache
 
 EXPOSE 80
 
