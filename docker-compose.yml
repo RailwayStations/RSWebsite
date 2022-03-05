@@ -2,7 +2,8 @@
 version: "2.1"
 
 services:
-  rs-website:
+  rswebsite:
+    container_name: rswebsite
     depends_on:
       - rsapi
     image: railwaystations/rs-website:latest
