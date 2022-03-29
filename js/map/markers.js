@@ -53,13 +53,13 @@ function filterBahnhoefe(dataBahnhoefe) {
   return dataBahnhoefe.filter((bahnhof, index, arr) => {
     if (
       photoFilter === "photoFilterWithPhoto" &&
-      bahnhof.photographer === null
+      !bahnhof.photographer
     ) {
       return false;
     }
     if (
       photoFilter === "photoFilterWithoutPhoto" &&
-      bahnhof.photographer !== null
+      bahnhof.photographer
     ) {
       return false;
     }
@@ -99,7 +99,7 @@ function showPoints(dataBahnhoefe, map) {
 
   const rawMarkers = filterBahnhoefe(dataBahnhoefe).map(bahnhof => {
     let color;
-    if (bahnhof.photographer === null) {
+    if (!bahnhof.photographer) {
       color = "#B70E3D";
     } else if (bahnhof.photographer === nickname) {
       color = "#8000FF";
@@ -171,7 +171,7 @@ function showClustered(dataBahnhoefe, map) {
   if (dataBahnhoefe.forEach !== undefined) {
     filterBahnhoefe(dataBahnhoefe).forEach(bahnhof => {
       let color;
-      if (bahnhof.photographer === null) {
+      if (!bahnhof.photographer) {
         color = `red`;
       } else if (bahnhof.photographer === nickname) {
         color = `violet`;
