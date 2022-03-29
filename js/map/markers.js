@@ -51,16 +51,10 @@ function filterBahnhoefe(dataBahnhoefe) {
   const activeFilter = getActiveFilter();
 
   return dataBahnhoefe.filter((bahnhof, index, arr) => {
-    if (
-      photoFilter === "photoFilterWithPhoto" &&
-      !bahnhof.photographer
-    ) {
+    if (photoFilter === "photoFilterWithPhoto" && !bahnhof.photographer) {
       return false;
     }
-    if (
-      photoFilter === "photoFilterWithoutPhoto" &&
-      bahnhof.photographer
-    ) {
+    if (photoFilter === "photoFilterWithoutPhoto" && bahnhof.photographer) {
       return false;
     }
     if (activeFilter === "activeFilterActive" && !bahnhof.active) {
