@@ -4,8 +4,8 @@ version: "2.1"
 services:
   rswebsite:
     container_name: rswebsite
-    depends_on:
-      - rsapi
+#    depends_on:
+#      - rsapi
     image: railwaystations/rs-website:latest
     restart: unless-stopped
     environment:
