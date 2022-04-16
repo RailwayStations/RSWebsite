@@ -1,4 +1,4 @@
-FROM composer:latest AS coposer-installer
+FROM composer:latest AS composer-installer
 
 WORKDIR /var/www/rs-website
 
@@ -45,7 +45,7 @@ COPY ./map ./map
 COPY ./php ./php
 COPY ./config-template.json ./
 COPY ./entrypoint.sh ./
-COPY --from=coposer-installer /var/www/rs-website/vendor ./vendor
+COPY --from=composer-installer /var/www/rs-website/vendor ./vendor
 COPY --from=npm-installer /var/www/rs-website/map/json ./map/json
 COPY --from=npm-installer /var/www/rs-website/map/css ./map/css
 COPY --from=npm-installer /var/www/rs-website/map/fonts ./map/fonts

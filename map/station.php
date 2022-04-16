@@ -53,6 +53,7 @@ try {
             $lat = $data["lat"];
             $lon = $data["lon"];
             $active = $data["active"];
+            $outdated = $data["outdated"];
             if (isset($photographer)) {
                 $stationPhoto = $data["photoUrl"];
                 $photographerUrl = $data["photographerUrl"];
@@ -98,6 +99,7 @@ $showOnMap = L::station_showOnMap;
 $departure = L::station_departure;
 $app = L::station_app;
 $inactive = L::station_inactive;
+$photoOutdated = L::station_photoOutdated;
 $i18nPhotographer = L::station_photographer;
 $i18nLicense = L::station_license;
 $uploadYourOwnPicture = L::station_uploadYourOwnPicture;
@@ -124,6 +126,9 @@ navbar($suffixNavItems);
     <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>
         <div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
+    <?php } ?>
+    <?php if ($outdated) { ?>
+        <div><em class="fas fa-times-circle"></em><?php echo $photoOutdated; ?>!</i></div>
     <?php } ?>
 
     <?php if ($uploadUrl == "") { ?>

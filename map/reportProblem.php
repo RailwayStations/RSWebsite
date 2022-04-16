@@ -19,6 +19,7 @@
     $stationActive = L::reportProblem_stationActive;
     $stationNonExistant = L::reportProblem_stationNonExistant;
     $wrongPhoto = L::reportProblem_wrongPhoto;
+    $photoOutdated = L::reportProblem_photoOutdated;
     $other = L::reportProblem_otherProblem;
     ?>
 
@@ -47,6 +48,7 @@ navbar();
                 <option value="STATION_ACTIVE"><?php echo $stationActive; ?></option>
                 <option value="STATION_NONEXISTENT"><?php echo $stationNonExistant; ?></option>
                 <option value="WRONG_PHOTO"><?php echo $wrongPhoto; ?></option>
+                <option value="PHOTO_OUTDATED"><?php echo $photoOutdated; ?></option>
                 <option value="OTHER"><?php echo $other; ?></option>
             </select>
         </div>

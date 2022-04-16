@@ -37,7 +37,11 @@ function sendInboxCommand(inboxCommand) {
   });
 
   request.done(function (data) {
-    $("#inbox-" + inboxCommand.id).attr("style", "visibility: collapse");
+    $("#buttons-" + inboxCommand.id).attr("style", "visibility: collapse");
+    var alertPlaceholder = document.getElementById('liveAlertPlaceholder-' + inboxCommand.id);
+    var wrapper = document.createElement('div')
+    wrapper.innerHTML = '<div class="alert alert-success alert-dismissible" role="alert">Done</div>'
+    alertPlaceholder.append(wrapper)
     fetchRecentPhotoImports();
   });
 
@@ -233,7 +237,10 @@ function fetchAdminInbox(userProfile) {
                 case "WRONG_PHOTO":
                   problemText = getI18n(s => s.reportProblem.wrongPhoto);
                   break;
-              }
+                case "PHOTO_OUTDATED":
+                  problemText = getI18n(s => s.reportProblem.photoOutdated);
+                  break;
+                }
               problemType = `<p class="card-text">${problemText}</p>`;
               problemSolving = `<p class="card-text"><select class="custom-select" 
                             onchange="changeProblemSolving(${
@@ -262,6 +269,9 @@ function fetchAdminInbox(userProfile) {
                         )}</option>
                         <option value="UPDATE_LOCATION">${getI18n(
                           s => s.inbox.updateLocation
+                        )}</option>
+                        <option value="PHOTO_OUTDATED">${getI18n(
+                          s => s.inbox.photoOutdated
                         )}</option>
                     </select></p>
                     <p class="card-text" style="display: none" id="title-p-${
@@ -421,7 +431,7 @@ function fetchAdminInbox(userProfile) {
       ${newStation}
       ${problemSolving}
       ${ignoreConflict}
-      <p class="card-text">
+      <p class="card-text" id="buttons-${inbox.id}">
         <button class="btn btn-success" name="accept-${inbox.id}"
                     onclick="return accept(${
                       inbox.id
@@ -433,6 +443,7 @@ function fetchAdminInbox(userProfile) {
               s => s.inbox.reject
             )} <i class="fas fa-thumbs-down"></i></button>
       </p>
+      <div id="liveAlertPlaceholder-${inbox.id}"></div>
     </div>
     ${image}
   </div>
