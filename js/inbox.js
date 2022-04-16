@@ -38,10 +38,13 @@ function sendInboxCommand(inboxCommand) {
 
   request.done(function (data) {
     $("#buttons-" + inboxCommand.id).attr("style", "visibility: collapse");
-    var alertPlaceholder = document.getElementById('liveAlertPlaceholder-' + inboxCommand.id);
-    var wrapper = document.createElement('div')
-    wrapper.innerHTML = '<div class="alert alert-success alert-dismissible" role="alert">Done</div>'
-    alertPlaceholder.append(wrapper)
+    var alertPlaceholder = document.getElementById(
+      "liveAlertPlaceholder-" + inboxCommand.id
+    );
+    var wrapper = document.createElement("div");
+    wrapper.innerHTML =
+      '<div class="alert alert-success alert-dismissible" role="alert">Done</div>';
+    alertPlaceholder.append(wrapper);
     fetchRecentPhotoImports();
   });
 
@@ -240,7 +243,7 @@ function fetchAdminInbox(userProfile) {
                 case "PHOTO_OUTDATED":
                   problemText = getI18n(s => s.reportProblem.photoOutdated);
                   break;
-                }
+              }
               problemType = `<p class="card-text">${problemText}</p>`;
               problemSolving = `<p class="card-text"><select class="custom-select" 
                             onchange="changeProblemSolving(${
