@@ -1,6 +1,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
+<meta name="description" content="Railway Station Photos">
+<meta name="theme-color" content="#9F0C35">
 
 <link rel="apple-touch-icon" sizes="57x57" href="./images/apple-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="./images/apple-icon-60x60.png">
