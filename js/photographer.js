@@ -47,7 +47,7 @@ function initPhotographer() {
         </p>
     </div>
     <a href="${detailLink}" data-ajax="false">
-        <img src="${photoURL}" class="card-img-top" style="width:301px;" alt="${
+        <img src="${photoURL}" class="card-img-top" loading="lazy" style="width:301px;" alt="${
               station.title
             }">
     </a>

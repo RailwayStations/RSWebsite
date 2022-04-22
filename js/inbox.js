@@ -207,7 +207,7 @@ function fetchAdminInbox(userProfile) {
                 acceptDisabled = "disabled";
               }
               image = `<a href="${inbox.inboxUrl}" data-ajax="false" target="_blank">
-                       <img src="${inbox.inboxUrl}?width=301" class="card-img-top" alt="${inbox.title}">
+                       <img src="${inbox.inboxUrl}?width=301" loading="lazy" class="card-img-top" alt="${inbox.title}">
                        </a>`;
             }
             var comment = "";
