@@ -16,7 +16,7 @@
     $pleaseInsertFile = L::upload_pleaseInsertFile;
     $pleaseInsertComment = L::upload_pleaseInsertComment;
     $upload = L::upload_upload;
-    $uploadForMissing = L::upload_uploadForMissing;
+    $reportMissingStation = L::upload_reportMissingStation;
     $uploadRunning = L::upload_uploadRunning;
     $loading = L::upload_loading;
     $freedomOfPanorama = L::upload_freedomOfPanorama;
@@ -41,7 +41,7 @@ navbar();
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
-    <h2 id="title-form"><?php echo $uploadForMissing; ?></h2>
+    <h2 id="title-form"><?php echo $reportMissingStation; ?></h2>
     <form id="uploadForm" class="needs-validation" novalidate action="https://api.railway-stations.org/photoUpload"
           method="post" enctype="multipart/form-data" target="upload_target">
         <input id="email" name="email" type="hidden"/>

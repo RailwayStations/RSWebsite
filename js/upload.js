@@ -123,6 +123,7 @@ function initUpload() {
   } else {
     $(".special-license-group").hide();
     $("#specialLicense").removeAttr("required");
+    $("#fileInput").removeAttr("required");
     $("#inputLatitude").val(latitude);
     $("#inputLongitude").val(longitude);
     fetchCountries().then(countries => {

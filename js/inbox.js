@@ -100,13 +100,15 @@ function accept(id) {
   var ignoreConflict = $("#ignoreConflict-" + id).is(":checked");
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
-  var createStation = isNotBlank(stationId);
+  var command = "IMPORT_PHOTO";
+  if (isNotBlank(stationId)) {
+    command = "IMPORT_MISSING_STATION";
+  }
   var title = $("#title-" + id).val();
   var lat = $("#lat-" + id).val();
   var lon = $("#lon-" + id).val();
   var ds100 = $("#ds100-" + id).val();
   var active = $("#active-" + id).val();
-  var command = "IMPORT";
   var problemSolving = $("#problemSolving-" + id).val();
   if (problemSolving !== undefined) {
     if (problemSolving === "") {
@@ -128,7 +130,6 @@ function accept(id) {
     lon: lon,
     command: command,
     ignoreConflict: ignoreConflict,
-    createStation: createStation,
     DS100: ds100,
     active: active,
   };

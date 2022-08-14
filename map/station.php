@@ -9,6 +9,8 @@ $stationId = trim(filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_STRING));
 $countryCode = trim(
     filter_input(INPUT_GET, "countryCode", FILTER_SANITIZE_STRING)
 );
+// TODO: use to select photo if more than one is present
+$photoId = trim(filter_input(INPUT_GET, "photoId", FILTER_SANITIZE_STRING));
 $stationName = "Station nicht gefunden";
 $stationPhoto = "images/default.jpg";
 $photoCaption = $stationName;
@@ -54,7 +56,14 @@ try {
             $lon = $data["lon"];
             $active = $data["active"];
             $outdated = $data["outdated"];
+            $uploadUrl = "upload.php?countryCode=" .
+                $countryCode .
+                "&stationId=" .
+                $stationId .
+                "&title=" .
+                $stationName;
             if (isset($photographer)) {
+                // TODO: select the correct photo here via photoId
                 $stationPhoto = $data["photoUrl"];
                 $photographerUrl = $data["photographerUrl"];
                 $license = $data["license"];
@@ -62,13 +71,6 @@ try {
             } else {
                 $photoCaption = "Hier fehlt noch ein Foto";
                 $photographer = "n.a.";
-                $uploadUrl =
-                    "upload.php?countryCode=" .
-                    $countryCode .
-                    "&stationId=" .
-                    $stationId .
-                    "&title=" .
-                    $stationName;
             }
         }
     }
@@ -125,29 +127,27 @@ navbar($suffixNavItems);
 
     <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>
-        <div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</i></div>
+        <div><em class="fas fa-times-circle"></em><?php echo $inactive; ?>!</div>
     <?php } ?>
     <?php if ($outdated) { ?>
-        <div><em class="fas fa-times-circle"></em><?php echo $photoOutdated; ?>!</i></div>
+        <div><em class="fas fa-times-circle"></em><?php echo $photoOutdated; ?>!</div>
     <?php } ?>
 
-    <?php if ($uploadUrl == "") { ?>
-        <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
-    $photographerUrl
-) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
-    $photographer
-) ?></span></a>,
-                <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
-    $licenseUrl
-) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
-    $license
-) ?></span></a></small></p>
-    <?php } else { ?>
-        <p><a href="<?= htmlspecialchars(
+    <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
+            $photographerUrl
+        ) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
+            $photographer
+        ) ?></span></a>,
+                        <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
+            $licenseUrl
+        ) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
+            $license
+        ) ?></span></a></small></p>
+
+    <p><a href="<?= htmlspecialchars(
             $uploadUrl
         ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
-                        class="fas fa-upload"></em><?php echo $uploadYourOwnPicture; ?></i></a></p>
-    <?php } ?>
+                        class="fas fa-upload"></em> <?php echo $uploadYourOwnPicture; ?></a></p>
 
     <img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
         $stationPhoto

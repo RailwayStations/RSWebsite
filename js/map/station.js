@@ -20,17 +20,17 @@ export let stationHtml = function (feature) {
     <div><a href="${feature.properties.photographerUrl}"><i class="fas fa-user"></i>${feature.properties.photographer}</a></div>
     <div><a href="${feature.properties.licenseUrl}"><i class="fas fa-balance-scale"></i>${feature.properties.license}</a></div>
     `;
-  } else {
-    const uploadUrl = `upload.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
-    details += `
-    <div>
-      <a href="${uploadUrl}"
-         title="${getI18n(s => s.index.uploadYourPhoto)}">
-          <i class="fas fa-upload"></i>${getI18n(s => s.index.uploadYourPhoto)}
-      </a>
-    </div>
-    `;
   }
+
+  const uploadUrl = `upload.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
+  details += `
+  <div>
+    <a href="${uploadUrl}"
+        title="${getI18n(s => s.index.uploadYourPhoto)}">
+        <i class="fas fa-upload"></i>${getI18n(s => s.index.uploadYourPhoto)}
+    </a>
+  </div>
+  `;
 
   let image = "";
   if (feature.properties.photographer) {
