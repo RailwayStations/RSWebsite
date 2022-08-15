@@ -97,7 +97,7 @@ function changeProblemSolving(id) {
 function accept(id) {
   "use strict";
 
-  var ignoreConflict = $("#ignoreConflict-" + id).is(":checked");
+  var conflictResolution = $("#conflictResolution-" + id).val();
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
   var command = "IMPORT_PHOTO";
@@ -129,7 +129,7 @@ function accept(id) {
     lat: lat,
     lon: lon,
     command: command,
-    ignoreConflict: ignoreConflict,
+    conflictResolution: conflictResolution,
     DS100: ds100,
     active: active,
   };
@@ -305,41 +305,33 @@ function fetchAdminInbox(userProfile) {
                       `;
             }
             var conflictIcon = "";
-            var ignoreConflict = "";
+            var conflictResolution = "";
             if (problemType === "") {
               if (inbox.hasConflict) {
-                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
-                  inbox.id
-                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
-                <label for="ignoreConflict-${inbox.id}">${getI18n(
-                  s => s.inbox.ignoreConflict
-                )}</label></p>`;
+                conflictResolution = `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
+                  s => s.inbox.importAsNewPrimaryPhoto
+                )}</option>`;
               }
               if (inbox.hasPhoto) {
-                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
-                  inbox.id
-                }" name="ignoreConflict-${inbox.id}" type="checkbox"/>
-                    <label for="ignoreConflict-${inbox.id}">${getI18n(
+                conflictResolution = `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
+                  s => s.inbox.importAsNewPrimaryPhoto
+                )}</option>`;
+                conflictResolution += `<option value="IMPORT_AS_NEW_SECONDARY_PHOTO">${getI18n(
+                  s => s.inbox.importAsNewSecondaryPhoto
+                )}</option>`;
+                conflictResolution += `<option value="OVERWRITE_EXISTING_PHOTO">${getI18n(
                   s => s.inbox.overwriteExistingPhoto
-                )}</label></p>`;
-              }
-              if (inbox.hasConflict || inbox.hasPhoto) {
-                conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(
-                  s => s.inbox.conflict
-                )}"></i>`;
+                )}</option>`;
               }
             }
+
             var coords = "";
             var newStation = "";
             if (inbox.stationId === undefined) {
               if (inbox.hasConflict) {
-                ignoreConflict = `<p class="card-text"><input id="ignoreConflict-${
-                  inbox.id
-                }" 
-                    name="ignoreConflict-${inbox.id}" type="checkbox"/>
-                    <label for="ignoreConflict-${inbox.id}">${getI18n(
-                  s => s.inbox.ignoreConflict
-                )}</label></p>`;
+                conflictResolution = `<option value="IGNORE_NEARBY_STATION">${getI18n(
+                  s => s.inbox.ignoreNearbyStation
+                )}</option>`;
               }
               var active_undefined = "";
               var active_true = "";
@@ -418,6 +410,14 @@ function fetchAdminInbox(userProfile) {
             if (inbox.stationId !== undefined) {
               title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
             }
+            if (conflictResolution !== "") {
+              conflictResolution = `<p class="card-text"><select class="custom-select" id="conflictResolution-${inbox.id}">
+                <option value="DO_NOTHING">${getI18n(
+                  s => s.inbox.chooseConflictResolution
+                )}</option>
+                ${conflictResolution}
+                </select></p>`;
+            }
             $("#inboxEntries").append(`
 <div class="col mb-4" id="inbox-${inbox.id}">            
   <div class="card" style="max-width: 303px;">
@@ -434,7 +434,7 @@ function fetchAdminInbox(userProfile) {
       ${comment}
       ${newStation}
       ${problemSolving}
-      ${ignoreConflict}
+      ${conflictResolution}
       <p class="card-text" id="buttons-${inbox.id}">
         <button class="btn btn-success" name="accept-${inbox.id}"
                     onclick="return accept(${

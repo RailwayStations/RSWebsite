@@ -63,6 +63,12 @@ Zum ausführen und testen gegen die produktive RSAPI:
 docker run -it -p 8000:80 railwaystations/rs-website
 ```
 
+Zum ausführen und testen gegen eine lokale RSAPI:
+
+```bash
+docker run -it -p 8000:80 -e API_URL=http://192.168.0.229:8080/ railwaystations/rs-website
+```
+
 Alternativ kann das lokale Verzeichnis als Root für den Server im Docker Container gemountet werden:
 
 ```bash
