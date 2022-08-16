@@ -29,9 +29,16 @@ class CountryClient {
               country.name = translatedName;
             }
           });
+
+          console.log(countries);
+          countries.sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+          });
+          console.log(countries);
+
           sessionStorage.setItem("countries", JSON.stringify(countries));
           return countries;
-        });
+        });    
     }
 
     return promise;
