@@ -34,10 +34,6 @@ function initCountry() {
     menu.innerHTML = "";
     const currentCountry = getCountryCode();
 
-    countries.sort(function (a, b) {
-      return a.name.localeCompare(b.name);
-    });
-
     countries.forEach(country => {
       let code = country.code;
       let name = country.name;
