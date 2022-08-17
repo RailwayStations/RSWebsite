@@ -23,7 +23,9 @@ export function showMissingStationPopup(mouseEvent, map) {
 <div>
     <a href="${missingStationUploadUrl}"
         title="${getI18n(s => s.index.uploadPhoto)}">
-        <em class="fas fa-upload"></em> ${getI18n(s => s.index.reportMissingStation)}.
+        <em class="fas fa-upload"></em> ${getI18n(
+          s => s.index.reportMissingStation
+        )}.
     </a>
 </div>
 `;

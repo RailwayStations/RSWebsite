@@ -38,7 +38,7 @@ class CountryClient {
 
           sessionStorage.setItem("countries", JSON.stringify(countries));
           return countries;
-        });    
+        });
     }
 
     return promise;

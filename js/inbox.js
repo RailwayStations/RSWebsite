@@ -411,7 +411,9 @@ function fetchAdminInbox(userProfile) {
               title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
             }
             if (conflictResolution !== "") {
-              conflictResolution = `<p class="card-text"><select class="custom-select" id="conflictResolution-${inbox.id}">
+              conflictResolution = `<p class="card-text"><select class="custom-select" id="conflictResolution-${
+                inbox.id
+              }">
                 <option value="DO_NOTHING">${getI18n(
                   s => s.inbox.chooseConflictResolution
                 )}</option>

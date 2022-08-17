@@ -56,7 +56,8 @@ try {
             $lon = $data["lon"];
             $active = $data["active"];
             $outdated = $data["outdated"];
-            $uploadUrl = "upload.php?countryCode=" .
+            $uploadUrl =
+                "upload.php?countryCode=" .
                 $countryCode .
                 "&stationId=" .
                 $stationId .
@@ -134,19 +135,19 @@ navbar($suffixNavItems);
     <?php } ?>
 
     <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
-            $photographerUrl
-        ) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
-            $photographer
-        ) ?></span></a>,
+    $photographerUrl
+) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
+    $photographer
+) ?></span></a>,
                         <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
-            $licenseUrl
-        ) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
-            $license
-        ) ?></span></a></small></p>
+    $licenseUrl
+) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
+    $license
+) ?></span></a></small></p>
 
     <p><a href="<?= htmlspecialchars(
-            $uploadUrl
-        ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
+        $uploadUrl
+    ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
                         class="fas fa-upload"></em> <?php echo $uploadYourOwnPicture; ?></a></p>
 
     <img id="station-photo" class="img-fluid max-width: 100%;height: auto;" src="<?= htmlspecialchars(
