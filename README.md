@@ -1,6 +1,6 @@
 # Railway-Stations.org Webseite
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RailwayStations_RSWebsite&metric=alert_status)](https://sonarcloud.io/dashboard?id=RailwayStations_RSWebsite)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=RailwayStations_RSWebsite&metric=alert_status)](https://sonarcloud.io/dashboard?id=RailwayStations_RSWebsite) [![Crowdin](https://badges.crowdin.net/railwaystationsorg/localized.svg)](https://crowdin.com/project/railwaystationsorg)
 
 [railway-stations.org](https://railway-stations.org/) (a.k.a Deutschlands Bahnhöfe) ist ein Community-Projekt, um Bilder zu allen Bahnhöfen zu sammeln. Entstanden ist es am 11.12.2015 auf dem DB-Hackathon in Berlin, zunächst nur mit deutschen Bahnhöfen.
 
