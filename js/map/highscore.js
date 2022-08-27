@@ -46,7 +46,9 @@ export const showHighScorePopup = async selectedCountryCode => {
       ${progressBar}
       ${table}
     `;
-  let highscoreModal = new Modal(document.getElementById("highscore"));
+  let highscoreModal = Modal.getOrCreateInstance(
+    document.getElementById("highscore")
+  );
   highscoreModal.show();
 };
 
