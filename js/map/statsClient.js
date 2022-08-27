@@ -10,7 +10,7 @@ class CountryStats {
     if (countryCode === "all") {
       statsUrl = getAPIURI() + "stats";
     } else {
-      statsUrl = getAPIURI() + countryCode + "/stats";
+      statsUrl = getAPIURI() + "stats?country=" + countryCode;
     }
     let result;
     await fetch(statsUrl)

@@ -23,7 +23,7 @@ export const showHighScorePopup = async selectedCountryCode => {
       ).name;
       countryStats = await CountryStats.get(selectedCountryCode);
       statistics = await fetch(
-        getAPIURI() + selectedCountryCode + "/photographers"
+        getAPIURI() + "photographers?country=" + selectedCountryCode
       ).then(r => r.json());
     }
   } else {
@@ -33,7 +33,7 @@ export const showHighScorePopup = async selectedCountryCode => {
     ).name;
     countryStats = await CountryStats.get(resultingCountryCode);
     statistics = await fetch(
-      getAPIURI() + resultingCountryCode + "/photographers"
+      getAPIURI() + "photographers?country=" + resultingCountryCode
     ).then(r => r.json());
   }
 
@@ -108,20 +108,20 @@ const createProgressBar = function (countryStats) {
 };
 const createLabelWithDropDown = function (countries, currentCountry) {
   const allCountries = getI18n(s => s.index.allCountries);
-  const allOption = `<a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${allCountries}">${allCountries}</a>`;
+  const allOption = `<li><a class="dropdown-item" href="javascript:map.showHighScore('all');" title="${allCountries}">${allCountries}</a></li>`;
   let countryOptions = "";
   countries.forEach(country => {
-    countryOptions += `<a class="dropdown-item" href="javascript:map.showHighScore('${country.code}');" title="${country.name}">${country.name}</a>`;
+    countryOptions += `<li><a class="dropdown-item" href="javascript:map.showHighScore('${country.code}');" title="${country.name}">${country.name}</a></li>`;
   });
   const dropDown = `
 <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
     ${currentCountry}
   </button>
-  <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     ${allOption}
     ${countryOptions}
-  </div>
+  </ul>  
 </div>
   `;
 
