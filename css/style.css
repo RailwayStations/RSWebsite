@@ -118,3 +118,15 @@ h6,
 #uploaded-photo-link {
   visibility: hidden;
 }
+
+.carousel-caption {
+  padding-top: 0%;
+  padding-bottom: 0%;
+  bottom: 0%;
+}
+
+.carousel-caption p,
+.carousel-caption p a {
+  color: white !important;
+  text-shadow: 2px 2px 5px black;
+}

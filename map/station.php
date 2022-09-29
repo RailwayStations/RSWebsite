@@ -7,14 +7,14 @@ $departure = L::station_departure;
 $app = L::station_app;
 $inactive = L::station_inactive;
 $photoOutdated = L::station_photoOutdated;
-$i18nPhotographer = L::station_photographer;
-$i18nLicense = L::station_license;
+$photoBy = L::station_photoBy;
 $uploadYourOwnPicture = L::station_uploadYourOwnPicture;
 $stationNotFound = L::station_notFound;
 $photoMissing = L::station_photoMissing;
 $errorLoadingStation = L::station_errorLoadingStation;
 $previousPhoto = L::station_previousPhoto;
 $nextPhoto = L::station_nextPhoto;
+$reportProblem = L::station_reportProblem;
 
 // Read config JSON file
 $configFile = file_get_contents("./json/config.json");
@@ -52,7 +52,11 @@ try {
     $context = stream_context_create($opts);
 
     $json = file_get_contents(
-        $config["apiurl"] . "photoStationById/" . $countryCode . "/" . $stationId,
+        $config["apiurl"] .
+            "photoStationById/" .
+            $countryCode .
+            "/" .
+            $stationId,
         false,
         $context
     );
@@ -77,9 +81,11 @@ try {
                 "&title=" .
                 $stationName;
 
-            foreach ($station->photos as &$photo) {                
-                if ((isset($photoId) && $photoId == $photo->id) 
-                    || (!isset($photoId) && !isset($stationPhoto))) {
+            foreach ($station->photos as &$photo) {
+                if (
+                    (isset($photoId) && $photoId == $photo->id) ||
+                    (!isset($photoId) && !isset($stationPhoto))
+                ) {
                     $stationPhoto = $photoBaseUrl . $photo->path;
                 }
             }
@@ -129,68 +135,104 @@ navbar($suffixNavItems);
 
 <main role="main" class="col-12 bd-content station container">
 
-    <h2><?= htmlspecialchars($stationName) ?> <a href="<?= htmlspecialchars(
-        $uploadUrl
-    ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
-                        class="fas fa-upload"></em></a></h2>
+    <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>
         <div><em class="fas fa-times-circle"></em> <?php echo $inactive; ?>!</div>
     <?php } ?>
-
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner" id="carousel-inner">
             <?php if (!isset($station) || count($station->photos) == 0) { ?>
                 <div class="carousel-item active">
-                    <img src="images/default.jpg" class="d-block w-100" alt="<?= htmlspecialchars($stationName) ?>">
+                    <img src="images/default.jpg" class="d-block w-100" alt="<?= htmlspecialchars(
+                        $stationName
+                    ) ?>">
                     <div class="carousel-caption d-none d-md-block">
                         <h5><?= htmlspecialchars($photoMissing) ?></h5>
                         <p></p>
                     </div>
                 </div>
-            <?php } else {
-                    foreach ($station->photos as &$photo) {                
-                        if ((isset($photoId) && $photoId == $photo->id) 
-                            || (!isset($photoId) && !isset($active))) {
-                            $active = "active";
-                        } else {
-                            $active = "";
+            <?php } else {$found = false;
+                foreach ($station->photos as &$photo) {
+
+                    $active = "";
+                    if (
+                        (isset($photoId) && $photoId == $photo->id) ||
+                        (!isset($photoId) && !$found)
+                    ) {
+                        $active = "active";
+                        $found = true;
+                    }
+
+                    foreach ($photographers as &$photographerMeta) {
+                        if ($photographerMeta->name === $photo->photographer) {
+                            $photographerUrl = $photographerMeta->url;
                         }
-            ?> 
+                    }
+
+                    foreach ($licenses as &$licensesMeta) {
+                        if ($licensesMeta->id === $photo->license) {
+                            $licenseName = $licensesMeta->name;
+                            $licenseUrl = $licensesMeta->url;
+                        }
+                    }
+
+                    $problemUrl =
+                        "reportProblem.php?countryCode=" .
+                        $countryCode .
+                        "&stationId=" .
+                        $stationId .
+                        "&title=" .
+                        $station->title .
+                        "&photoId=" .
+                        $photo->id;
+                    ?> 
                 <div class="carousel-item <?= $active ?>">
-                    <img src="<?= htmlspecialchars($photoBaseUrl . $photo->path) ?>" class="d-block w-100" alt="<?= htmlspecialchars($stationName) ?>">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><?= htmlspecialchars($photo->photographer) ?></h5>
-                        <p><small class="text-muted"><?php echo $i18nPhotographer; ?>: <a href="<?= htmlspecialchars(
+                    <img src="<?= htmlspecialchars(
+                        $photoBaseUrl . $photo->path
+                    ) ?>" class="d-block w-100" alt="<?= htmlspecialchars(
+    $stationName
+) ?>">
+                    <div class="carousel-caption">
+                        <p><?php echo $photoBy; ?>: <a href="<?= htmlspecialchars(
     $photographerUrl
 ) ?>" id="photographer-url"><span id="photographer"><?= htmlspecialchars(
     $photo->photographer
-) ?></span></a>,
-                        <?php echo $i18nLicense; ?>: <a href="<?= htmlspecialchars(
+) ?></span></a> - <a href="<?= htmlspecialchars(
     $licenseUrl
 ) ?>" id="license-url"><span id="license"><?= htmlspecialchars(
-    $photo->license
-) ?></span></a></small>
-    <?php if ($outdated) { ?>
-        <div><em class="fas fa-times-circle"></em> <?php echo $photoOutdated; ?>!</div>
-    <?php } ?>
+    $licenseName
+) ?></span></a>,       
+    <a href="<?php echo $problemUrl; ?>" title="<?= htmlspecialchars(
+    $reportProblem
+) ?>"><i class="fas fa-bullhorn"></i></a>
+    <?php if (
+        $photo->outdated
+    ) { ?> <em class="fas fa-times-circle" title="<?php echo $photoOutdated; ?>!"></em><?php } ?>
 </p>
                     </div>
                 </div>
-            <?php 
-                    }
-                } 
-            ?>
+            <?php
+                }} ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden"><?= htmlspecialchars($previousPhoto) ?></span>
+            <span class="visually-hidden"><?= htmlspecialchars(
+                $previousPhoto
+            ) ?></span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden"><?= htmlspecialchars($nextPhoto) ?></span>
+            <span class="visually-hidden"><?= htmlspecialchars(
+                $nextPhoto
+            ) ?></span>
         </button>
     </div>
+
+    <p><a href="<?= htmlspecialchars(
+        $uploadUrl
+    ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
+                        class="fas fa-upload"></em> <?php echo $uploadYourOwnPicture; ?></a></p>
 
 
 </main>

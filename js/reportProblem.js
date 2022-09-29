@@ -77,6 +77,7 @@ function initReportProblem() {
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
   const title = queryParameters.title;
+  const photoId = queryParameters.photoId;
   const userProfile = UserProfile.currentUser();
 
   if (stationId) {
@@ -85,6 +86,7 @@ function initReportProblem() {
     );
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
+    $("#photoId").val(photoId);
     $(".coords").hide();
   }
 
