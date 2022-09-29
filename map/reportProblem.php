@@ -38,6 +38,7 @@ navbar();
     <form id="reportProblemForm" class="needs-validation" novalidate action="">
         <input id="stationId" name="stationId" type="hidden"/>
         <input id="countryCode" name="countryCode" type="hidden"/>
+        <input id="photoId" name="photoId" type="hidden"/>
         <div class="form-group">
             <label for="inputProblemType"><?php echo $problemType; ?></label>
             <select class="custom-select" id="inputType" onchange="changeProblemType()" required>
