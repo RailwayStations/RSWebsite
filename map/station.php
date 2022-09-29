@@ -81,7 +81,7 @@ try {
                 "&title=" .
                 $stationName;
 
-            foreach ($station->photos as &$photo) {
+            foreach ($station->photos as $photo) {
                 if (
                     (isset($photoId) && $photoId == $photo->id) ||
                     (!isset($photoId) && !isset($stationPhoto))
@@ -153,7 +153,7 @@ navbar($suffixNavItems);
                     </div>
                 </div>
             <?php } else {$found = false;
-                foreach ($station->photos as &$photo) {
+                foreach ($station->photos as $photo) {
 
                     $active = "";
                     if (
@@ -164,13 +164,13 @@ navbar($suffixNavItems);
                         $found = true;
                     }
 
-                    foreach ($photographers as &$photographerMeta) {
+                    foreach ($photographers as $photographerMeta) {
                         if ($photographerMeta->name === $photo->photographer) {
                             $photographerUrl = $photographerMeta->url;
                         }
                     }
 
-                    foreach ($licenses as &$licensesMeta) {
+                    foreach ($licenses as $licensesMeta) {
                         if ($licensesMeta->id === $photo->license) {
                             $licenseName = $licensesMeta->name;
                             $licenseUrl = $licensesMeta->url;
@@ -205,7 +205,7 @@ navbar($suffixNavItems);
 ) ?></span></a>,       
     <a href="<?php echo $problemUrl; ?>" title="<?= htmlspecialchars(
     $reportProblem
-) ?>"><i class="fas fa-bullhorn"></i></a>
+) ?>"><em class="fas fa-bullhorn"></em></a>
     <?php if (
         $photo->outdated
     ) { ?> <em class="fas fa-times-circle" title="<?php echo $photoOutdated; ?>!"></em><?php } ?>
