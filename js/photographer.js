@@ -31,8 +31,10 @@ function initPhotographer() {
 
       if (photographers.length > 0) {
         $("#title-form").html(
-          `${getI18n(s => s.photographer.photosBy)} <a href="${photographers[0].url}">${photographer}</a>`
-        );        
+          `${getI18n(s => s.photographer.photosBy)} <a href="${
+            photographers[0].url
+          }">${photographer}</a>`
+        );
       }
 
       if (photoStations.stations.length > 0) {
@@ -58,7 +60,7 @@ function initPhotographer() {
           <p class="card-text">
               <small class="text-muted">
                   ${getI18n(s => s.photographer.licence)}: <a href="${
-                    license.url
+                license.url
               }">${license.name}</a>
               </small>
           </p>

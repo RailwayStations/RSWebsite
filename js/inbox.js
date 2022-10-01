@@ -541,7 +541,9 @@ function fetchRecentPhotoImports() {
 
             $("#recentImports").append(`
               <li>
-                  <a href="${detailLink}" data-ajax="false">${station.title}</a> 
+                  <a href="${detailLink}" data-ajax="false">${
+              station.title
+            }</a> 
                   - ${stationKey} ${getI18n(
               s => s.inbox.by
             )} <a href="photographer.php?photographer=${photo.photographer}">${
