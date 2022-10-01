@@ -513,39 +513,42 @@ function fetchRecentPhotoImports() {
   const sinceHours = $("#sinceHours").val();
 
   $.ajax({
-    url: `${getAPIURI()}recentPhotoImports?sinceHours=${sinceHours}`,
+    url: `${getAPIURI()}photoStationsByRecentPhotoImports?sinceHours=${sinceHours}`,
     type: "GET",
     dataType: "json",
     crossDomain: true,
     error: function () {
       $("#inboxEntries").html(getI18n(s => s.inbox.errorLoadingRecentImports));
     },
-    success: function (obj) {
-      if (Array.isArray(obj) && obj.length > 0) {
-        var statistic = {};
-        $("#recentImports").html(`<p><ul>`);
-        for (let i = 0; i < obj.length; i++) {
-          let station = obj[i];
-          var detailLink = `station.php?countryCode=${station.country}&stationId=${station.idStr}`;
-          var stationKey = `${station.country}: ${station.idStr}`;
-          var countryCount =
-            statistic[station.photographer + " - " + station.country];
-          if (countryCount === undefined) {
-            countryCount = 0;
-          }
-          countryCount++;
-          statistic[station.photographer + " - " + station.country] =
-            countryCount;
+    success: function (photoStations) {
+      var statistic = {};
+      $("#recentImports").html(`<p><ul>`);
+      if (photoStations.stations.length > 0) {
+        for (let i = 0; i < photoStations.stations.length; i++) {
+          let station = photoStations.stations[i];
+          for (let p = 0; p < station.photos.length; p++) {
+            let photo = station.photos[p];
+            var detailLink = `station.php?countryCode=${station.country}&stationId=${station.id}&photoId=${photo.id}`;
+            var stationKey = `${station.country}: ${station.id}`;
+            var countryCount =
+              statistic[photo.photographer + " - " + station.country];
+            if (countryCount === undefined) {
+              countryCount = 0;
+            }
+            countryCount++;
+            statistic[photo.photographer + " - " + station.country] =
+              countryCount;
 
-          $("#recentImports").append(`
-            <li>
-                <a href="${detailLink}" data-ajax="false">${station.title}</a> 
-                - ${stationKey} ${getI18n(
-            s => s.inbox.by
-          )} <a href="photographer.php?photographer=${station.photographer}">${
-            station.photographer
-          }</a>
-            </li>`);
+            $("#recentImports").append(`
+              <li>
+                  <a href="${detailLink}" data-ajax="false">${station.title}</a> 
+                  - ${stationKey} ${getI18n(
+              s => s.inbox.by
+            )} <a href="photographer.php?photographer=${photo.photographer}">${
+              photo.photographer
+            }</a>
+              </li>`);
+          }
         }
 
         $("#recentImports").append(
@@ -555,8 +558,7 @@ function fetchRecentPhotoImports() {
         );
 
         for (var key in statistic) {
-          $("#recentImports").append(`
-            <li>${key}: ${statistic[key]}</li>`);
+          $("#recentImports").append(`<li>${key}: ${statistic[key]}</li>`);
         }
         $("#recentImports").append(`</ul></p>`);
       } else {
