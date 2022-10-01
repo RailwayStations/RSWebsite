@@ -2,12 +2,12 @@ import "leaflet";
 import { stationHtml } from "./station";
 import { getI18n } from "../i18n";
 
-export function showPopup(feature, map) {
+export function showPopup(feature, map, photoStations) {
   "use strict";
 
   L.popup()
     .setLatLng([feature.properties.lat, feature.properties.lon])
-    .setContent(stationHtml(feature))
+    .setContent(stationHtml(feature, photoStations))
     .openOn(map);
 }
 
@@ -23,7 +23,7 @@ export function showMissingStationPopup(mouseEvent, map) {
 <div>
     <a href="${missingStationUploadUrl}"
         title="${getI18n(s => s.index.uploadPhoto)}">
-        <em class="fas fa-upload"></em> ${getI18n(
+        <i class="fas fa-upload"></i> ${getI18n(
           s => s.index.reportMissingStation
         )}.
     </a>

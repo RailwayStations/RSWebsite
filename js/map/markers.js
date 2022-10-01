@@ -11,7 +11,7 @@ import { UserProfile } from "../settings/UserProfile";
 let _markers = undefined;
 
 export function updateMarker(
-  dataBahnhoefe,
+  photoStations,
   map,
   specialMarker,
   setViewPort = true
@@ -22,8 +22,8 @@ export function updateMarker(
 
   const displayAsPoints = getBoolFromLocalStorage("showPoints", false);
   _markers = displayAsPoints
-    ? showPoints(dataBahnhoefe, map)
-    : showClustered(dataBahnhoefe, map);
+    ? showPoints(photoStations.stations, map, photoStations)
+    : showClustered(photoStations.stations, map, photoStations);
   map.addLayer(_markers);
   if (specialMarker) {
     map.addLayer(specialMarker);
@@ -46,21 +46,24 @@ function setMapViewport(map, markers) {
   }
 }
 
-function filterBahnhoefe(dataBahnhoefe) {
+function filterBahnhoefe(stations) {
   const photoFilter = getPhotoFilter();
   const activeFilter = getActiveFilter();
 
-  return dataBahnhoefe.filter((bahnhof, index, arr) => {
-    if (photoFilter === "photoFilterWithPhoto" && !bahnhof.photographer) {
+  return stations.filter((station, index, arr) => {
+    if (photoFilter === "photoFilterWithPhoto" && station.photos.length == 0) {
       return false;
     }
-    if (photoFilter === "photoFilterWithoutPhoto" && bahnhof.photographer) {
+    if (
+      photoFilter === "photoFilterWithoutPhoto" &&
+      station.photos.length > 0
+    ) {
       return false;
     }
-    if (activeFilter === "activeFilterActive" && !bahnhof.active) {
+    if (activeFilter === "activeFilterActive" && station.inactive) {
       return false;
     }
-    if (activeFilter === "activeFilterInactive" && bahnhof.active) {
+    if (activeFilter === "activeFilterInactive" && !station.inactive) {
       return false;
     }
     return true;
@@ -80,33 +83,33 @@ let markerRadius = function (map) {
   return result;
 };
 
-function showPoints(dataBahnhoefe, map) {
+function showPoints(stations, map, photoStations) {
   const markers = L.featureGroup();
 
   const bahnhoefe = L.featureGroup().on("click", function (event) {
-    showPopup(event.layer.options, map);
+    showPopup(event.layer.options, map, photoStations);
   });
 
   const nickname = UserProfile.currentUser().nickname;
 
   const radius = markerRadius(map);
 
-  const rawMarkers = filterBahnhoefe(dataBahnhoefe).map(bahnhof => {
+  const rawMarkers = filterBahnhoefe(stations).map(station => {
     let color;
-    if (!bahnhof.photographer) {
+    if (station.photos.length == 0) {
       color = "#B70E3D";
-    } else if (bahnhof.photographer === nickname) {
+    } else if (station.photos[0].photographer === nickname) {
       color = "#8000FF";
     } else {
       color = "#3db70e";
     }
 
-    return L.circleMarker([bahnhof.lat, bahnhof.lon], {
+    return L.circleMarker([station.lat, station.lon], {
       fillColor: color,
       fillOpacity: 1,
       radius: radius,
       stroke: false,
-      properties: bahnhof,
+      properties: station,
     }).addTo(bahnhoefe);
   });
 
@@ -119,7 +122,7 @@ function showPoints(dataBahnhoefe, map) {
   return markers;
 }
 
-function showClustered(dataBahnhoefe, map) {
+function showClustered(stations, map, photoStations) {
   $("body").addClass("showCluster");
 
   const markerCluster = L.markerClusterGroup({
@@ -156,24 +159,24 @@ function showClustered(dataBahnhoefe, map) {
     },
   });
 
-  const bahnhoefe = L.featureGroup().on("click", function (event) {
-    showPopup(event.layer.options, map);
+  const stationsLayer = L.featureGroup().on("click", function (event) {
+    showPopup(event.layer.options, map, photoStations);
   });
 
   const nickname = UserProfile.currentUser().nickname;
 
-  if (dataBahnhoefe.forEach !== undefined) {
-    filterBahnhoefe(dataBahnhoefe).forEach(bahnhof => {
+  if (stations.forEach !== undefined) {
+    filterBahnhoefe(stations).forEach(station => {
       let color;
-      if (!bahnhof.photographer) {
+      if (station.photos.length == 0) {
         color = `red`;
-      } else if (bahnhof.photographer === nickname) {
+      } else if (station.photos[0].photographer === nickname) {
         color = `violet`;
       } else {
         color = `green`;
       }
       let inactive = ``;
-      if (!bahnhof.active) {
+      if (station.inactive) {
         inactive = `-inactive`;
       }
       const iconUrl = `./images/pointer-${color}${inactive}.png`;
@@ -183,13 +186,13 @@ function showClustered(dataBahnhoefe, map) {
         iconAnchor: [25, 50],
         popupAnchor: [0, -28],
       });
-      L.marker([bahnhof.lat, bahnhof.lon], {
+      L.marker([station.lat, station.lon], {
         icon: customIcon,
-        properties: bahnhof,
-      }).addTo(bahnhoefe);
+        properties: station,
+      }).addTo(stationsLayer);
     });
   }
 
-  markerCluster.addLayer(bahnhoefe); // add it to the cluster group
+  markerCluster.addLayer(stationsLayer); // add it to the cluster group
   return markerCluster;
 }

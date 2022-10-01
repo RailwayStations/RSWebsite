@@ -5,7 +5,7 @@ import { switchCountryLink } from "./map";
 function getStationsURL() {
   "use strict";
 
-  return getAPIURI() + "/stations?country=" + getCountryCode();
+  return getAPIURI() + "/photoStationsByCountry/" + getCountryCode();
 }
 
 const loadStationDataFromCache = function (cachedData) {
@@ -20,7 +20,7 @@ const fetchStationData = function (countryCode) {
     .then(data => {
       const jsonString = JSON.stringify(data);
       try {
-        localStorage.setItem(`stations-${countryCode}`, jsonString);
+        localStorage.setItem(`photostations-${countryCode}`, jsonString);
       } catch (error) {
         console.log(`Unable to store data for stations-${countryCode}`, error);
       }
@@ -56,7 +56,7 @@ export const fetchStationDataPromise = function (map) {
   initCountry();
   const countryCode = getCountryCode();
 
-  const cachedData = localStorage.getItem(`stations-${countryCode}`);
+  const cachedData = localStorage.getItem(`photostations-${countryCode}`);
   let promise;
   if (!cachedData) {
     promise = fetchStationData(countryCode);
