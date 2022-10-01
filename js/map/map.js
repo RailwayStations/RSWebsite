@@ -30,7 +30,7 @@ import Fuse from "fuse.js";
 window.Spinner = Spinner;
 window.navigate = navigate;
 
-let dataBahnhoefe = null,
+let photoStations = null,
   map = null,
   markers = null,
   specialMarker = null;
@@ -48,7 +48,7 @@ const searchOptions = {
   // useExtendedSearch: false,
   ignoreLocation: true,
   // ignoreFieldNorm: false,
-  keys: ["title", "idStr"],
+  keys: ["title", "id"],
 };
 
 function setLastZoomLevel(zoomLevel) {
@@ -89,10 +89,10 @@ export function getLastPos() {
 export function timetableByStation(stationId) {
   "use strict";
 
-  const station = dataBahnhoefe.filter(
-    station => station.idStr === stationId
+  const station = photoStations.stations.filter(
+    station => station.id === stationId
   )[0];
-  timetable(station.country, station.idStr, station.title, station.DS100);
+  timetable(station.country, station.id, station.title, station.shortCode);
 }
 
 export function switchCountryLink(countryCode) {
@@ -106,11 +106,11 @@ export function switchCountryLink(countryCode) {
   $(".header .mobile-menu:visible .ui-link").click();
 
   fetchStationDataPromise(map).then(data => {
-    dataBahnhoefe = data;
+    photoStations = data;
 
     setLastZoomLevel(null);
     setLastPos(null);
-    markers = updateMarker(dataBahnhoefe, map, specialMarker);
+    markers = updateMarker(photoStations, map, specialMarker);
   });
 }
 
@@ -196,8 +196,8 @@ function initMap() {
 
   fetchStationDataPromise(map)
     .then(data => {
-      dataBahnhoefe = data;
-      markers = updateMarker(dataBahnhoefe, map, specialMarker);
+      photoStations = data;
+      markers = updateMarker(photoStations, map, specialMarker);
     })
     .then(function () {
       map.on("zoomend", function () {
@@ -221,7 +221,7 @@ function initMap() {
 
   $("#suche").autocomplete({
     lookup: function (query, done) {
-      const fuse = new Fuse(dataBahnhoefe, searchOptions);
+      const fuse = new Fuse(photoStations.stations, searchOptions);
       var filtered = fuse.search(query);
       var result = {
         suggestions: [],
@@ -229,7 +229,7 @@ function initMap() {
       result.suggestions = $.map(filtered, function (value, key) {
         return {
           value: value.item.title,
-          data: value.item.idStr,
+          data: value.item.id,
         };
       });
       result.suggestions.sort((a, b) => {
@@ -239,19 +239,19 @@ function initMap() {
     },
     onSelect: function (suggestion) {
       $("#suche").val(suggestion.value);
-      var bahnhof = dataBahnhoefe.filter(function (bahnhof) {
-        return bahnhof.idStr === suggestion.data;
+      var station = photoStations.stations.filter(function (station) {
+        return station.id === suggestion.data;
       });
-      map.panTo(L.latLng(bahnhof[0].lat, bahnhof[0].lon), 14);
+      map.panTo(L.latLng(station[0].lat, station[0].lon), 14);
 
-      let bahnhofMarkers = markers.getLayers();
-      if (!bahnhofMarkers[0].options) {
-        bahnhofMarkers = bahnhofMarkers[0].getLayers();
+      let stationMarkers = markers.getLayers();
+      if (!stationMarkers[0].options) {
+        stationMarkers = stationMarkers[0].getLayers();
       }
-      bahnhofMarkers.forEach(marker => {
-        const markerID = marker.options.properties.idStr;
+      stationMarkers.forEach(marker => {
+        const markerID = marker.options.properties.id;
         if (markerID === suggestion.data) {
-          showPopup(marker.options, map);
+          showPopup(marker.options, map, photoStations);
         }
       });
       return false;

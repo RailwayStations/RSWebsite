@@ -1,24 +1,39 @@
 import { scaleImage } from "../common";
 import { getI18n } from "../i18n";
 
-export let stationHtml = function (feature) {
-  const detailLink = `station.php?countryCode=${feature.properties.country}&stationId=${feature.properties.idStr}`;
-  const photoURL = scaleImage(feature.properties.photoUrl, 301);
-  const country = feature.properties.country;
-  const stationId = feature.properties.idStr;
-  const stationName = feature.properties.title;
+export let stationHtml = function (feature, photoStations) {
+  const station = feature.properties;
+  const detailLink = `station.php?countryCode=${station.country}&stationId=${station.id}`;
+  const country = station.country;
+  const stationId = station.id;
+  const stationName = station.title;
 
   let details = "";
-  if (!feature.properties.active) {
+  if (station.inactive) {
     details = `<div><i class="fas fa-times-circle"></i> ${getI18n(
       s => s.station.inactive
-    )}</i></div>`;
+    )}</div>`;
   }
 
-  if (feature.properties.photographer) {
+  if (station.photos.length > 0) {
+    var photo = station.photos[0];
+    for (let p = 0; p < photoStations.photographers.length; p++) {
+      if (photoStations.photographers[p].name === photo.photographer) {
+        var photographerUrl = photoStations.photographers[p].url;
+        break;
+      }
+    }
+    for (let l = 0; l < photoStations.licenses.length; l++) {
+      if (photoStations.licenses[l].id === photo.license) {
+        var licenseUrl = photoStations.licenses[l].url;
+        var licenseName = photoStations.licenses[l].name;
+        break;
+      }
+    }
+
     details += `
-    <div><a href="${feature.properties.photographerUrl}"><i class="fas fa-user"></i>${feature.properties.photographer}</a></div>
-    <div><a href="${feature.properties.licenseUrl}"><i class="fas fa-balance-scale"></i>${feature.properties.license}</a></div>
+    <div><a href="${photographerUrl}"><i class="fas fa-user"></i> ${photo.photographer}</a></div>
+    <div><a href="${licenseUrl}"><i class="fas fa-balance-scale"></i> ${licenseName}</a></div>
     `;
   }
 
@@ -27,13 +42,15 @@ export let stationHtml = function (feature) {
   <div>
     <a href="${uploadUrl}"
         title="${getI18n(s => s.index.uploadYourPhoto)}">
-        <i class="fas fa-upload"></i>${getI18n(s => s.index.uploadYourPhoto)}
+        <i class="fas fa-upload"></i> ${getI18n(s => s.index.uploadYourPhoto)}
     </a>
   </div>
   `;
 
   let image = "";
-  if (feature.properties.photographer) {
+  if (station.photos.length > 0) {
+    const photoURL = scaleImage(photoStations.photoBaseUrl + photo.path, 301);
+
     image = `
     <a href="${detailLink}">
        <img src="${photoURL}"/>
@@ -49,29 +66,25 @@ export let stationHtml = function (feature) {
 
   const title = `
     <h3>
-      <a href="${detailLink}">${feature.properties.title}</a>
+      <a href="${detailLink}">${station.title}</a>
     </h3>
     `;
 
   const problemUrl = `reportProblem.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
   const links = `
     <div>
-      <a href="#" onclick="navigate(${feature.properties.lat},${
-    feature.properties.lon
-  });">
-        <i class="fas fa-directions"></i>${getI18n(s => s.index.navigation)}
+      <a href="#" onclick="navigate(${station.lat},${station.lon});">
+        <i class="fas fa-directions"></i> ${getI18n(s => s.index.navigation)}
       </a>
     </div>
     <div>
-      <a href="#" onclick="map.timetableByStation('${
-        feature.properties.idStr
-      }');">
-        <i class="fas fa-list"></i>${getI18n(s => s.index.departureTimes)}
+      <a href="#" onclick="map.timetableByStation('${station.id}');">
+        <i class="fas fa-list"></i> ${getI18n(s => s.index.departureTimes)}
       </a>
     </div>
     <div>
       <a href="${problemUrl}" title="${getI18n(s => s.index.reportProblem)}">
-        <i class="fas fa-bullhorn"></i>${getI18n(s => s.index.reportProblem)}
+        <i class="fas fa-bullhorn"></i> ${getI18n(s => s.index.reportProblem)}
       </a>
     </div>    
     `;

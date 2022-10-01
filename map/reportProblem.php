@@ -75,7 +75,7 @@ navbar();
                 <?php echo $pleaseInsertComment; ?>
             </div>
         </div>
-        <button id="reportProblemSubmit" type="submit" class="btn btn-warning mt-1"><?php echo $reportProblem; ?> <em class="fas fa-bullhorn"></em></button>
+        <button id="reportProblemSubmit" type="submit" class="btn btn-warning mt-1"><?php echo $reportProblem; ?> <i class="fas fa-bullhorn"></i></button>
     </form>
 
 </main>

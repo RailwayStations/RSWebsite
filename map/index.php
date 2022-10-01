@@ -37,12 +37,12 @@ HTML;
 
 $suffixNavItems = <<<HTML
     <li class="nav-item">
-        <a class="nav-link p-2" href="javascript:map.showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><em class="fas fa-chart-line"></em></a>
+        <a class="nav-link p-2" href="javascript:map.showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><i class="fas fa-chart-line"></i></a>
     </li>
     <li class="nav-item">
         <a class="nav-link p-2" href="inbox.php" rel="noopener" id="nav_inbox"
             aria-label="{$inbox}"
-            title="{$inbox}"><em class="fas fa-inbox"></em></a>
+            title="{$inbox}"><i class="fas fa-inbox"></i></a>
     </li>
 HTML;
 navbar($suffixNavItems, $prefixNavItems, $additionalItems, "#");

@@ -118,16 +118,16 @@ $ds100Html = htmlspecialchars($DS100);
 
 $suffixNavItems = <<<HTML
     <li class="nav-item">
-        <a class="nav-link p-2" href="index.php?countryCode={$countryCode}&mlat={$lat}&mlon={$lon}&zoom=18&layers=M" rel="noopener" aria-label="{$showOnMap}" title="{$showOnMap}"><em class="fas fa-map"></em></a>
+        <a class="nav-link p-2" href="index.php?countryCode={$countryCode}&mlat={$lat}&mlon={$lon}&zoom=18&layers=M" rel="noopener" aria-label="{$showOnMap}" title="{$showOnMap}"><i class="fas fa-map"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><em class="fas fa-directions"></em></a>
+        <a class="nav-link p-2" href="#" onclick="navigate({$lat},{$lon});" rel="noopener" aria-label="{$navigate}" title="{$navigate}"><i class="fas fa-directions"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="{$departure}" title="{$departure}"><em class="fas fa-list"></em></a>
+        <a class="nav-link p-2" href="#" onclick="timetable('{$countryCode}','{$stationId}','{$stationName}', '{$ds100Html}');" rel="noopener" aria-label="{$departure}" title="{$departure}"><i class="fas fa-list"></i></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="{$app}" title="{$app}"><em class="fas fa-external-link-alt"></em></a>
+        <a class="nav-link p-2" href="#" onclick="providerApp('{$countryCode}');" rel="noopener" aria-label="{$app}" title="{$app}"><i class="fas fa-external-link-alt"></i></a>
     </li>
 HTML;
 navbar($suffixNavItems);
@@ -137,7 +137,7 @@ navbar($suffixNavItems);
 
     <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>
-        <div><em class="fas fa-times-circle"></em> <?php echo $inactive; ?>!</div>
+        <div><i class="fas fa-times-circle"></i> <?php echo $inactive; ?>!</div>
     <?php } ?>
 
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
@@ -205,10 +205,10 @@ navbar($suffixNavItems);
 ) ?></span></a>,
     <a href="<?php echo $problemUrl; ?>" title="<?= htmlspecialchars(
     $reportProblem
-) ?>"><em class="fas fa-bullhorn"></em></a>
+) ?>"><i class="fas fa-bullhorn"></i> </a>
     <?php if (
         $photo->outdated
-    ) { ?> <em class="fas fa-times-circle" title="<?php echo $photoOutdated; ?>!"></em><?php } ?>
+    ) { ?> <i class="fas fa-times-circle" title="<?php echo $photoOutdated; ?>!"></i><?php } ?>
 </p>
                     </div>
                 </div>
@@ -233,8 +233,8 @@ navbar($suffixNavItems);
 
     <p><a href="<?= htmlspecialchars(
         $uploadUrl
-    ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><em
-                        class="fas fa-upload"></em> <?php echo $uploadYourOwnPicture; ?></a></p>
+    ) ?>" title="<?php echo $uploadYourOwnPicture; ?>" data-ajax="false"><i
+                        class="fas fa-upload"></i> <?php echo $uploadYourOwnPicture; ?></a></p>
 
 
 </main>
@@ -245,9 +245,7 @@ navbar($suffixNavItems);
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="providerAppsLabel"><?php echo $app; ?></h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="providerAppsBody">
             </div>
