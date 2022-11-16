@@ -48,7 +48,7 @@
     "css-loader": "6.7.2",
     "file-loader": "6.2.0",
     "ini": "3.0.1",
-    "mini-css-extract-plugin": "2.6.1",
+    "mini-css-extract-plugin": "2.7.0",
     "postcss-loader": "7.0.1",
     "prettier": "2.7.1",
     "process": "0.11.10",
