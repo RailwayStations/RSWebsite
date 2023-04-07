@@ -44,6 +44,8 @@ $activeFilter = L::settings_activeFilter;
 $activeFilterAll = L::settings_activeFilterAll;
 $activeFilterActive = L::settings_activeFilterActive;
 $activeFilterInactive = L::settings_activeFilterInactive;
+$deleteAccount = L::settings_deleteAccount;
+$deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
 ?>
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
@@ -167,6 +169,12 @@ $activeFilterInactive = L::settings_activeFilterInactive;
             </select>
     </div>
 
+    <hr/>
+    <div id="deleteAccount" class="hidden">
+        <div class="form-group profile-form">
+            <button id="deleteAccountSubmit" type="button" class="btn btn-danger"><?php echo $deleteAccount; ?></button>
+        </div>
+    </div>
 </main>
 
 

@@ -44,7 +44,7 @@ class RegistrationView extends AbstractFormView {
             location.reload();
           } else {
             const conflict = getI18n(s => s.settings.conflict);
-            alert(`${conflict}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`);
+            alert(`${conflict}: info@railway-stations.org`);
           }
         });
       }

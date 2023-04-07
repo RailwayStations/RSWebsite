@@ -24,6 +24,16 @@ class UserProfileClient {
     });
   }
 
+  static deleteAccount(userProfile) {
+    return fetch(getAPIURI() + "myProfile", {
+      method: "DELETE",
+      headers: {
+        Authorization:
+          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+      },
+    });
+  }
+
   static getProfile(userProfile) {
     return fetch(getAPIURI() + "myProfile", {
       method: "GET",

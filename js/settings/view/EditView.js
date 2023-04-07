@@ -46,7 +46,7 @@ class EditView extends AbstractFormView {
           alert(
             `${getI18n(
               s => s.settings.conflict
-            )}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
+            )}: info@railway-stations.org`
           );
         } else {
           alert(
@@ -64,6 +64,12 @@ class EditView extends AbstractFormView {
       s => s.settings.save
     );
 
+    const deleteAccount = document.getElementById("deleteAccount");
+    deleteAccount.classList.remove("hidden");
+    document
+      .getElementById("deleteAccountSubmit")
+      .addEventListener("click", EditView.deleteAccount);
+
     // update user profile
     UserProfileClient.getProfile(currentUser).then(
       userProfile => {
@@ -77,6 +83,21 @@ class EditView extends AbstractFormView {
         alert(`${getI18n(s => s.settings.loginFailed)}`);
       }
     );
+  }
+
+  static deleteAccount() {
+    var r = confirm(getI18n(s => s.settings.deleteAccountConfirmation));
+    if (r == true) {
+      const currentUser = UserProfile.currentUser();
+      UserProfileClient.deleteAccount(currentUser).then(r => {
+        if (r.ok) {
+          alert(getI18n(s => s.settings.deleteAccountSuccess));
+          EditView.logout();
+        } else {
+          alert(getI18n(s => s.settings.deleteAccountFailed) + 'info@railway-stations.org');
+        }
+      });    
+    }
   }
 
   static logout() {

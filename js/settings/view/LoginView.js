@@ -26,7 +26,7 @@ class LoginView {
               alert(
                 `${getI18n(
                   s => s.settings.missingEMail
-                )}: Bahnhofsfotos@deutschlands-Bahnhoefe.de`
+                )}: info@railway-stations.org`
               );
             } else if (r.status === 404) {
               alert(getI18n(s => s.settings.noProfileFound));
