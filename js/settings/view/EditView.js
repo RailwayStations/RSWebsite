@@ -44,9 +44,7 @@ class EditView extends AbstractFormView {
           alert(getI18n(s => s.settings.loginFailed));
         } else if (r.status === 409) {
           alert(
-            `${getI18n(
-              s => s.settings.conflict
-            )}: info@railway-stations.org`
+            `${getI18n(s => s.settings.conflict)}: info@railway-stations.org`
           );
         } else {
           alert(
@@ -94,9 +92,12 @@ class EditView extends AbstractFormView {
           alert(getI18n(s => s.settings.deleteAccountSuccess));
           EditView.logout();
         } else {
-          alert(getI18n(s => s.settings.deleteAccountFailed) + 'info@railway-stations.org');
+          alert(
+            getI18n(s => s.settings.deleteAccountFailed) +
+              "info@railway-stations.org"
+          );
         }
-      });    
+      });
     }
   }
 
