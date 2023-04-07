@@ -5,7 +5,7 @@ import { switchCountryLink } from "./map";
 function getStationsURL() {
   "use strict";
 
-  return getAPIURI() + "/photoStationsByCountry/" + getCountryCode();
+  return getAPIURI() + "photoStationsByCountry/" + getCountryCode();
 }
 
 const loadStationDataFromCache = function (cachedData) {
