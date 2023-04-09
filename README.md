@@ -12,8 +12,6 @@ Weitere Domains:
 
 - [map.railway-stations.org](https://map.railway-stations.org/) (wie die Hauptseite)
 - [deutschlands-bahnhoefe.de](http://www.deutschlands-bahnhoefe.de/)
-- [schweizer-bahnhoefe.ch](https://schweizer-bahnhoefe.ch/)
-- [deutschlands-bahnhöfe.de](http://www.xn--deutschlands-bahnhfe-lbc.de/)
 
 Mobile Apps:
 
@@ -43,49 +41,42 @@ Während der Entwicklung kann man mit webpack-watch die Änderungen sofort im Br
 NODE_ENV=development npm run-script webpack-watch
 ```
 
+Zum lokalen Testen kann eine passende Umgbung mit Apache und PHP über Docker gestartet werden:
+
+```sh
+chmod go+w i18n/langcache
+docker run -d -p 8000:80 --name rs-website -v "$PWD":/var/www/html php:8.2-apache
+```
+
+Danach steht die Seite unter http://127.0.0.1:8000/map zur Verfügung.
+
+### Testen mit lokalem RSAPI Backend
+
+Das Backend kann für lokale Tests mit docker-compose gestartet werden:
+
+```sh
+docker-compose up -d
+```
+
+Damit die Website das lokale Backend anspricht, muss im Hauptverzeichnis eine `.env` Datei mit folgenden Werten angelegt werden:
+
+```
+API_URL=http://127.0.0.1:8080/
+CLIENT_ID=RailwayStationsWebsiteLocal
+REDIRECT_URI=http://127.0.0.1:8000/map/settings.php
+```
+
+## Deployment
+
+Der `main` Branch wird bei jedem Commit automatisch durch GitHub Actions gebaut und auf den Server deployed.
+
+### Formatierung
+
 Der Code sollte formatiert gepusht werden:
 
 ```bash
 npm run format
 ```
-
-## Docker
-
-Die Webseite kann auch mit Docker (multistage build) gebaut und ausgeführt werden.
-
-```bash
-docker build . -t railwaystations/rs-website:latest
-```
-
-Zum ausführen und testen gegen die produktive RSAPI:
-
-```bash
-docker run -it -p 8000:80 railwaystations/rs-website
-```
-
-Zum ausführen und testen gegen eine lokale RSAPI:
-
-```bash
-docker run -it -p 8000:80 -e API_URL=http://192.168.0.229:8080/ railwaystations/rs-website
-```
-
-Alternativ kann das lokale Verzeichnis als Root für den Server im Docker Container gemountet werden:
-
-```bash
-docker run -d --name rs-website -p 8000:80 -v $(pwd):/var/www/rs-website railwaystations/rs-website
-```
-
-Fullstack Test mit RSAPI und DB mit docker-compose:
-
-```bash
-docker-compose up -d
-```
-
-Die Webseite ist dann lokal über http://localhost:8000 erreichbar.
-
-## Deployment
-
-Der `main` Branch wird bei jedem Commit automatisch durch GitHub Actions gebaut und auf den Server deployed.
 
 ## Übersetzung
 
@@ -96,5 +87,3 @@ Der `main` Branch wird bei jedem Commit automatisch durch GitHub Actions gebaut 
 ## Lizenz
 
 Die Webseite ist unter MIT lizensiert. Die Bilder sind größtenteils unter CC-0, einige auch unter CC-BY lizensiert.
-
-[![Docker stats](https://dockeri.co/image/railwaystations/rs-website)](https://hub.docker.com/repository/docker/railwaystations/rs-website)

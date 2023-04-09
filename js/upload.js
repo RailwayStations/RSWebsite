@@ -7,7 +7,6 @@ import {
   isBlank,
   isNotBlank,
   getCountryByCode,
-  initRSAPI,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -165,7 +164,5 @@ function initUpload() {
 }
 
 $(document).ready(function () {
-  initRSAPI().then(function () {
-    initUpload();
-  });
+  initUpload();
 });

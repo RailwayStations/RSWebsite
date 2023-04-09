@@ -16,7 +16,7 @@ navbar();
 
 $profile = L::settings_profile;
 $nicknameOrEmail = L::settings_nicknameOrEmail;
-$login = L::settings_login;
+$login = L::settings_loginToRailwayStationsOrg;
 $resetPassword = L::settings_resetPassword;
 $register = L::settings_register;
 $nickname = L::settings_nickname;
@@ -53,27 +53,14 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
 
     <h2 id="title-form"><?php echo $profile; ?></h2>
     <div id="loginForm" class="hidden">
-        <input name="profilePassword" type="hidden" class="form-control" id="profilePassword">
-
-        <div class="form-group login-form">
-            <label for="loginEmail"><?php echo $nicknameOrEmail; ?></label>
-            <input name="loginEmail" type="text" class="form-control" id="loginEmail">
-        </div>
-        <div class="form-group login-form">
-            <label for="loginPassword"><?php echo $password; ?></label>
-            <input name="loginPassword" type="password" class="form-control" id="loginPassword">
-        </div>
         <div class="form-group login-form">
             <button id="loginButton" name="loginBtn" class="btn btn-primary">
                 <?php echo $login; ?>
             </button>
-            <button id="resetPasswordButton" name="resetPasswordBtn" class="btn btn-primary">
-                <?php echo $resetPassword; ?>
-            </button>
-            <button id="registerButton" class="btn btn-primary">
-                <?php echo $register; ?>
-            </button>
         </div>
+        <!-- TODO: for debugging only -->
+        <div id="error"></div>
+        <div id="error_details"></div>
     </div>
     <div id="profileForm" class="hidden">
         <div class="form-group profile-form">

@@ -5,17 +5,6 @@ import { CountryClient } from "./countriesClient";
 import { UserProfile } from "./settings/UserProfile";
 import { Modal } from "bootstrap";
 
-let config = null;
-
-export function initRSAPI() {
-  return fetch("../json/config.json")
-    .then(r => r.json())
-    .then(data => {
-      config = data;
-      return data;
-    });
-}
-
 export function getBoolFromLocalStorage(key, defaultVal) {
   const value = localStorage.getItem(key);
   if (value == null) {
@@ -216,7 +205,7 @@ export function getCountryCode() {
 
 export function getAPIURI() {
   "use strict";
-  let apiUrl = config.apiurl;
+  let apiUrl = process.env.API_URL;
   console.log(apiUrl);
   return apiUrl;
 }

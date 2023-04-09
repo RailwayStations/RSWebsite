@@ -1,6 +1,6 @@
 import $ from "jquery";
 import "bootstrap";
-import { getQueryParameter, initRSAPI } from "./common";
+import { getQueryParameter } from "./common";
 import { UserProfile } from "./settings/UserProfile";
 
 function initUpdatePassword() {
@@ -15,7 +15,5 @@ function initUpdatePassword() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initUpdatePassword();
-  });
+  initUpdatePassword();
 });

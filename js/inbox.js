@@ -4,7 +4,6 @@ import {
   fetchCountries,
   isNotBlank,
   getIntFromLocalStorage,
-  initRSAPI,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -591,7 +590,5 @@ function initInbox() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initInbox();
-  });
+  initInbox();
 });

@@ -2,17 +2,6 @@
 version: "2.1"
 
 services:
-  rswebsite:
-    container_name: rswebsite
-    #    depends_on:
-    #      - rsapi
-    image: railwaystations/rs-website:latest
-    restart: unless-stopped
-    environment:
-      - API_URL=http://localhost:8080/
-    ports:
-      - "8000:80"
-
   rsapi:
     image: railwaystations/rsapi:latest
     container_name: rsapi

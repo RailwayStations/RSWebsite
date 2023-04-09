@@ -17,7 +17,6 @@ import {
   navigate,
   timetable,
   getTileServerUrl,
-  initRSAPI,
 } from "../common";
 import "bootstrap";
 import { updateMarker } from "./markers";
@@ -260,7 +259,5 @@ function initMap() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initMap();
-  });
+  initMap();
 });

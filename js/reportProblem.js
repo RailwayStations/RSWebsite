@@ -1,5 +1,5 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, isBlank, initRSAPI } from "./common";
+import { getAPIURI, getQueryParameter, isBlank } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
@@ -116,7 +116,5 @@ function initReportProblem() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initReportProblem();
-  });
+  initReportProblem();
 });
