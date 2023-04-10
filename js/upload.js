@@ -7,6 +7,7 @@ import {
   isBlank,
   isNotBlank,
   getCountryByCode,
+  getAuthorization,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -27,11 +28,16 @@ function startUpload() {
   return true;
 }
 
-// example message: {"state":"REVIEW","message":"Accepted","uploadId":1,"inboxUrl":"http://inbox.railway-stations.org/1.jpg"}
-function stopUpload(response) {
+function unauthorized() {
   "use strict";
 
-  let result = JSON.parse(response);
+  localStorage.removeItem("access_token");
+  window.location.href = "settings.php?error=" + encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+}
+
+// example message: {"state":"REVIEW","message":"Accepted","uploadId":1,"inboxUrl":"http://inbox.railway-stations.org/1.jpg"}
+function stopUpload(result) {
+  "use strict";
 
   let message =
     getI18n(s => s.upload.unknown) + ": " + result.state + " - " + message;
@@ -43,9 +49,6 @@ function stopUpload(response) {
     message = getI18n(s => s.upload.notEnoughData);
   } else if (result.state === "UNSUPPORTED_CONTENT_TYPE") {
     message = getI18n(s => s.upload.unsupportedContentType);
-  } else if (result.state === "UNAUTHORIZED") {
-    window.location.href = "settings.php";
-    return false;
   } else if (result.state === "CONFLICT") {
     message = getI18n(s => s.upload.conflict);
   } else if (result.state === "PHOTO_TOO_LARGE") {
@@ -62,18 +65,8 @@ function stopUpload(response) {
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
 
-  uploadModal.hide();
-
   alert(message);
   return true;
-}
-
-window.addEventListener("message", receiveMessage, false);
-
-function receiveMessage(event) {
-  "use strict";
-
-  stopUpload(event.data);
 }
 
 function createCountriesDropDown(countries) {
@@ -129,39 +122,54 @@ function initUpload() {
       createCountriesDropDown(countries);
     });
   }
-  $("#uploadForm").attr("action", getAPIURI() + "photoUpload");
-  $("#email").val(userProfile.email);
-  $("#uploadToken").val(userProfile.password);
 
   const uploadDisabled = !userProfile.isLoggedIn();
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
-    window.location.href = "settings.php";
+    window.location.href = "settings.php?error=" + encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
   } else {
     bsCustomFileInput.init();
   }
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.getElementsByClassName("needs-validation");
-  // Loop over them and prevent submission
-  Array.prototype.filter.call(forms, function (form) {
-    form.addEventListener(
-      "submit",
-      function (event) {
+  $("#uploadForm").on( "submit", function( event ) {    
+        event.preventDefault();    
+        var form = $(this)[0];        
         if (form.checkValidity() === false) {
-          event.preventDefault();
           event.stopPropagation();
         } else {
           startUpload();
+          var form = $(this)[0];
+          var postData = new FormData(form);
+          $.ajax({
+              type: "POST",
+              url: getAPIURI() + "photoUploadMultipartFormdata",
+              beforeSend: function(request) {
+                request.setRequestHeader("Authorization", getAuthorization());
+              },
+              data: postData,
+              contentType: false,
+              processData: false,
+              success: function(data){
+                uploadModal.hide();
+                stopUpload(data);
+              },
+              statusCode: {
+                401: function() {
+                  unauthorized();
+                }
+              },              
+              error: function (xhr, textStatus, error) {
+                uploadModal.hide();
+
+                console.log(textStatus + ": " + error);
+              }
+            });          
         }
         form.classList.add("was-validated");
-      },
-      false
-    );
-  });
+      });
 }
 
-$(document).ready(function () {
+$(function () {
   initUpload();
 });

@@ -42,10 +42,8 @@ navbar();
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
     <h2 id="title-form"><?php echo $reportMissingStation; ?></h2>
-    <form id="uploadForm" class="needs-validation" novalidate action="https://api.railway-stations.org/photoUpload"
-          method="post" enctype="multipart/form-data" target="upload_target">
-        <input id="email" name="email" type="hidden"/>
-        <input id="uploadToken" name="uploadToken" type="hidden"/>
+    <form id="uploadForm" class="needs-validation" novalidate
+          method="post" enctype="multipart/form-data">
         <input id="stationId" name="stationId" type="hidden"/>
         <input id="countryCode" name="countryCode" type="hidden"/>
         <div class="form-group missing-station">
@@ -115,8 +113,6 @@ navbar();
         </div>
         <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
     </form>
-
-    <iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
 
     <div id="uploaded-photo-link"></div>
 
