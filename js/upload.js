@@ -32,7 +32,9 @@ function unauthorized() {
   "use strict";
 
   localStorage.removeItem("access_token");
-  window.location.href = "settings.php?error=" + encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+  window.location.href =
+    "settings.php?error=" +
+    encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
 }
 
 // example message: {"state":"REVIEW","message":"Accepted","uploadId":1,"inboxUrl":"http://inbox.railway-stations.org/1.jpg"}
@@ -127,47 +129,49 @@ function initUpload() {
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {
-    window.location.href = "settings.php?error=" + encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+    window.location.href =
+      "settings.php?error=" +
+      encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
   } else {
     bsCustomFileInput.init();
   }
 
-  $("#uploadForm").on( "submit", function( event ) {    
-        event.preventDefault();    
-        var form = $(this)[0];        
-        if (form.checkValidity() === false) {
-          event.stopPropagation();
-        } else {
-          startUpload();
-          var form = $(this)[0];
-          var postData = new FormData(form);
-          $.ajax({
-              type: "POST",
-              url: getAPIURI() + "photoUploadMultipartFormdata",
-              beforeSend: function(request) {
-                request.setRequestHeader("Authorization", getAuthorization());
-              },
-              data: postData,
-              contentType: false,
-              processData: false,
-              success: function(data){
-                uploadModal.hide();
-                stopUpload(data);
-              },
-              statusCode: {
-                401: function() {
-                  unauthorized();
-                }
-              },              
-              error: function (xhr, textStatus, error) {
-                uploadModal.hide();
+  $("#uploadForm").on("submit", function (event) {
+    event.preventDefault();
+    var form = $(this)[0];
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      startUpload();
+      var form = $(this)[0];
+      var postData = new FormData(form);
+      $.ajax({
+        type: "POST",
+        url: getAPIURI() + "photoUploadMultipartFormdata",
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", getAuthorization());
+        },
+        data: postData,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+          uploadModal.hide();
+          stopUpload(data);
+        },
+        statusCode: {
+          401: function () {
+            unauthorized();
+          },
+        },
+        error: function (xhr, textStatus, error) {
+          uploadModal.hide();
 
-                console.log(textStatus + ": " + error);
-              }
-            });          
-        }
-        form.classList.add("was-validated");
+          console.log(textStatus + ": " + error);
+        },
       });
+    }
+    form.classList.add("was-validated");
+  });
 }
 
 $(function () {
