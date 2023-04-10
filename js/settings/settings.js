@@ -7,9 +7,7 @@ import { MapSettingsView } from "./view/MapSettingsView";
 
 function initSettings() {
   const currentUser = UserProfile.currentUser();
-  if (LoginView.handleAuthorizationCallback()) {
-    LoginView.load();
-  } else {
+  if (!LoginView.handleAuthorizationCallback()) {
     if (currentUser.isLoggedIn()) {
       EditView.load();
     } else {

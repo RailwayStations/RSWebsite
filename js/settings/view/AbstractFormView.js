@@ -5,6 +5,22 @@ const mailformat =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 class AbstractFormView {
+  static showError(message) {
+    document.getElementById("error").innerText = message;
+    document.getElementById("error").classList.remove("hidden");
+    setTimeout(function () {
+      document.getElementById("error").classList.add("hidden");
+    }, 3000);
+  }
+
+  static showSuccess(message) {
+    document.getElementById("success").innerText = message;
+    document.getElementById("success").classList.remove("hidden");
+    setTimeout(function () {
+      document.getElementById("success").classList.add("hidden");
+    }, 3000);
+  }
+
   static updateFieldsOfFormWith(currentUser, requestVerificationMail) {
     document.getElementById("profileNickname").value = currentUser.nickname;
     document.getElementById("profileEmail").value = currentUser.email;

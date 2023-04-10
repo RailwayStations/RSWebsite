@@ -8,13 +8,12 @@ class UserProfile {
     this._license = data.license;
     this._photoOwner = data.photoOwner;
     this._anonymous = data.anonymous;
-    this._password = data.password;
     this._admin = data.admin;
     this._emailVerified = data.emailVerified;
   }
 
   isLoggedIn() {
-    return !!this._email;
+    return !!localStorage.getItem("access_token");
   }
 
   save() {
@@ -23,6 +22,7 @@ class UserProfile {
 
   static delete() {
     localStorage.removeItem("userProfile");
+    localStorage.removeItem("access_token");
   }
 
   static authOnly(email, password) {

@@ -35,8 +35,7 @@ export function reportProblem() {
       contentType: "application/json; charset=utf-8",
       processData: false,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       data: JSON.stringify(problemReport),
     });
@@ -90,9 +89,7 @@ function initReportProblem() {
     $(".coords").hide();
   }
 
-  const reportDisabled =
-    isBlank(userProfile.email) || isBlank(userProfile.password);
-  if (reportDisabled) {
+  if (!userProfile.isLoggedIn()) {
     window.location.href = "settings.php";
   }
 

@@ -1,14 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
   entry: {
     map: "./js/map/map.js",
     photographer: "./js/photographer.js",
-    updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",
     reportProblem: "./js/reportProblem.js",
     settings: "./js/settings/settings.js",
@@ -57,7 +56,7 @@ module.exports = {
       chunkFilename: "css/[name].css",
     }),
     new Dotenv({
-      path: './.env',
+      path: "./.env",
       defaults: true, // load '.env.defaults' as the default values if empty.
     }),
     new webpack.ProvidePlugin({

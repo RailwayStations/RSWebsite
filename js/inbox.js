@@ -29,8 +29,7 @@ function sendInboxCommand(inboxCommand) {
     dataType: "json",
     processData: false,
     headers: {
-      Authorization:
-        "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+      Authorization: getAuthorization(),
     },
     data: JSON.stringify(inboxCommand),
   });
@@ -177,8 +176,7 @@ function fetchAdminInbox(userProfile) {
       dataType: "json",
       crossDomain: true,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       error: function () {
         $("#inboxEntries").html(

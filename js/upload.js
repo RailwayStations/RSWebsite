@@ -133,8 +133,7 @@ function initUpload() {
   $("#email").val(userProfile.email);
   $("#uploadToken").val(userProfile.password);
 
-  const uploadDisabled =
-    isBlank(userProfile.email) || isBlank(userProfile.password);
+  const uploadDisabled = !userProfile.isLoggedIn();
   $("#fileInput").attr("disabled", uploadDisabled);
   $("#uploadSubmit").attr("disabled", uploadDisabled);
   if (uploadDisabled) {

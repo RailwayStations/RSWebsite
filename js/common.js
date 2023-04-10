@@ -104,8 +104,7 @@ export function updateInboxCount() {
       dataType: "json",
       crossDomain: true,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
@@ -201,6 +200,16 @@ export function setCountryCode(countryCode) {
 export function getCountryCode() {
   "use strict";
   return getStringFromLocalStorage("countryCode", "de");
+}
+
+export function getAccessToken() {
+  "use strict";
+  return localStorage.getItem("access_token");
+}
+
+export function getAuthorization() {
+  "use strict";
+  return "Bearer " + getAccessToken();
 }
 
 export function getAPIURI() {

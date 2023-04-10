@@ -1,4 +1,4 @@
-import { getAPIURI } from "../../common";
+import { getAPIURI, getAuthorization } from "../../common";
 import { UserProfile } from "../UserProfile";
 
 class UserProfileClient {
@@ -7,8 +7,7 @@ class UserProfileClient {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization:
-          "Basic " + btoa(authUser.email + ":" + authUser.password),
+        Authorization: getAuthorization(),
       },
       body: userProfile.toJson(),
     });
@@ -18,8 +17,7 @@ class UserProfileClient {
     return fetch(getAPIURI() + "resendEmailVerification", {
       method: "POST",
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     });
   }
@@ -28,8 +26,7 @@ class UserProfileClient {
     return fetch(getAPIURI() + "myProfile", {
       method: "DELETE",
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     });
   }
@@ -39,8 +36,7 @@ class UserProfileClient {
       method: "GET",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     })
       .then(

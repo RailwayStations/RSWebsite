@@ -12,16 +12,7 @@ class PasswordClient {
       headers: {
         "Content-Type": "application/text; charset=utf-8",
         "New-Password": encodeURIComponent(newPassword),
-        Authorization: "Basic " + btoa(email + ":" + password),
-      },
-    });
-  }
-
-  static resetPassword(nicknameOrEmail) {
-    return fetch(getAPIURI() + "resetPassword", {
-      method: "POST",
-      headers: {
-        NameOrEmail: nicknameOrEmail,
+        Authorization: getAuthorization(),
       },
     });
   }

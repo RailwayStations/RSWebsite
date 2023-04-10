@@ -51,6 +51,9 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
+    <div id="error" class="alert alert-danger hidden fade show"></div>
+    <div id="success" class="alert alert-success hidden fade show"></div>
+
     <h2 id="title-form"><?php echo $profile; ?></h2>
     <div id="loginForm" class="hidden">
         <div class="form-group login-form">
@@ -58,9 +61,6 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
                 <?php echo $login; ?>
             </button>
         </div>
-        <!-- TODO: for debugging only -->
-        <div id="error"></div>
-        <div id="error_details"></div>
     </div>
     <div id="profileForm" class="hidden">
         <div class="form-group profile-form">
