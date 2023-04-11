@@ -57,7 +57,7 @@ navbar();
             </select>
             <div class="invalid-feedback">
                 <?php echo $pleaseSelectProblemType; ?>
-            </div>            
+            </div>
         </div>
         <div class="form-group coords">
             <label for="inputLatitude"><?php echo $latitude; ?></label>
