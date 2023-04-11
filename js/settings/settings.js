@@ -12,7 +12,6 @@ function initSettings() {
   if (q.error) {
     localStorage.removeItem("access_token");
     LoginView.showError(decodeURIComponent(q.error));
-    return false;
   } else if (q.warning) {
     LoginView.showWarning(decodeURIComponent(q.warning));
   } else if (q.success) {

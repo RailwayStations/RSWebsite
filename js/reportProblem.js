@@ -1,11 +1,32 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, isBlank } from "./common";
+import { getAPIURI, getQueryParameter, getAuthorization } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
+import { UserProfileClient } from "./settings/client/UserProfileClient";
 
 window.reportProblem = reportProblem;
 window.changeProblemType = changeProblemType;
+
+function showError(message) {
+  "use strict";
+
+  document.getElementById("error").innerText = message;
+  document.getElementById("error").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("error").classList.add("hidden");
+  }, 5000);
+}
+
+function showSuccess(message) {
+  "use strict";
+
+  document.getElementById("success").innerText = message;
+  document.getElementById("success").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("success").classList.add("hidden");
+  }, 5000);
+}
 
 export function reportProblem() {
   "use strict";
@@ -41,16 +62,15 @@ export function reportProblem() {
     });
 
     request.done(function (data) {
-      alert(getI18n(s => s.reportProblem.reportProblemSuccess));
-      window.location.href = "index.php";
+      showSuccess(getI18n(s => s.reportProblem.reportProblemSuccess));
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown) {
       if (jqXHR.responseText) {
         var response = JSON.parse(jqXHR.responseText);
-        alert(errorThrown + ": " + response.message);
+        showError(errorThrown + ": " + response.message);
       } else {
-        alert(textStatus + ": " + errorThrown);
+        showError(textStatus + " " + errorThrown);
       }
     });
   } else {
@@ -71,7 +91,7 @@ export function changeProblemType() {
   }
 }
 
-function initReportProblem() {
+function initReportProblemForm() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
@@ -87,10 +107,6 @@ function initReportProblem() {
     $("#countryCode").val(countryCode);
     $("#photoId").val(photoId);
     $(".coords").hide();
-  }
-
-  if (!userProfile.isLoggedIn()) {
-    window.location.href = "settings.php";
   }
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -110,6 +126,37 @@ function initReportProblem() {
       false
     );
   });
+}
+
+function initReportProblem() {
+  if (!UserProfile.isLoggedIn()) {
+    window.location.href =
+      "settings.php?error=" +
+      encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+    return;
+  }
+
+  // get updated user profile
+  UserProfileClient.getProfile(UserProfile.currentUser()).then(
+    userProfile => {
+      userProfile.save();
+      if (!userProfile.isAllowedToReportProblem()) {
+        location.href =
+          "settings.php?warning=" +
+          encodeURIComponent(
+            `${getI18n(s => s.reportProblem.notAllowedToReportProblem)}`
+          );
+      } else {
+        initReportProblemForm();
+      }
+    },
+    error => {
+      localStorage.removeItem("access_token");
+      location.href =
+        "settings.php?error=" +
+        encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
+    }
+  );
 }
 
 $(function () {

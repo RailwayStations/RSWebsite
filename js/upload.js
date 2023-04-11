@@ -183,8 +183,7 @@ function initUploadForm() {
         },
         error: function (xhr, textStatus, error) {
           uploadModal.hide();
-
-          console.log(textStatus + ": " + error);
+          showError(textStatus + " " + error);
         },
       });
     }

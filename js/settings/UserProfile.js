@@ -24,6 +24,10 @@ class UserProfile {
     return this._emailVerified && this.cc0 && this._photoOwner;
   }
 
+  isAllowedToReportProblem() {
+    return this._emailVerified;
+  }
+
   static delete() {
     localStorage.removeItem("userProfile");
     localStorage.removeItem("access_token");
