@@ -4,7 +4,6 @@ import {
   fetchCountries,
   isNotBlank,
   getIntFromLocalStorage,
-  initRSAPI,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -22,7 +21,6 @@ function sendInboxCommand(inboxCommand) {
 
   console.log(inboxCommand);
 
-  const userProfile = UserProfile.currentUser();
   var request = $.ajax({
     url: getAPIURI() + "adminInbox",
     contentType: "application/json; charset=utf-8",
@@ -30,8 +28,7 @@ function sendInboxCommand(inboxCommand) {
     dataType: "json",
     processData: false,
     headers: {
-      Authorization:
-        "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+      Authorization: getAuthorization(),
     },
     data: JSON.stringify(inboxCommand),
   });
@@ -178,8 +175,7 @@ function fetchAdminInbox(userProfile) {
       dataType: "json",
       crossDomain: true,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       error: function () {
         $("#inboxEntries").html(
@@ -591,7 +587,5 @@ function initInbox() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initInbox();
-  });
+  initInbox();
 });

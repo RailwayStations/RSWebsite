@@ -1,6 +1,6 @@
 import $ from "jquery";
 import "bootstrap";
-import { getQueryParameter, getAPIURI, initRSAPI } from "./common";
+import { getQueryParameter, getAPIURI } from "./common";
 import { getI18n } from "./i18n";
 
 function initEmailVerification() {
@@ -25,7 +25,5 @@ function initEmailVerification() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initEmailVerification();
-  });
+  initEmailVerification();
 });

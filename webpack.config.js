@@ -1,13 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "production",
   entry: {
     map: "./js/map/map.js",
     photographer: "./js/photographer.js",
-    updatePassword: "./js/updatePassword.js",
     upload: "./js/upload.js",
     reportProblem: "./js/reportProblem.js",
     settings: "./js/settings/settings.js",
@@ -55,10 +55,9 @@ module.exports = {
       filename: "css/[name].css",
       chunkFilename: "css/[name].css",
     }),
-    new webpack.EnvironmentPlugin({
-      API_URL:
-        process.env.npm_package_config_api_url ||
-        "https://api.railway-stations.org/", // TODO is this still working as intended?
+    new Dotenv({
+      path: "./.env",
+      defaults: true, // load '.env.defaults' as the default values if empty.
     }),
     new webpack.ProvidePlugin({
       process: "process/browser",

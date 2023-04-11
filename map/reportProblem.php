@@ -34,13 +34,16 @@ navbar();
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
+    <div id="error" class="alert alert-danger hidden"></div>
+    <div id="success" class="alert alert-success hidden"></div>
+
     <h2 id="title-form"><?php echo $reportProblem; ?></h2>
     <form id="reportProblemForm" class="needs-validation" novalidate action="">
         <input id="stationId" name="stationId" type="hidden"/>
         <input id="countryCode" name="countryCode" type="hidden"/>
         <input id="photoId" name="photoId" type="hidden"/>
         <div class="form-group">
-            <label for="inputProblemType"><?php echo $problemType; ?></label>
+            <label for="inputProblemType">
             <select class="custom-select" id="inputType" onchange="changeProblemType()" required>
                 <option value="" selected><?php echo $pleaseSelectProblemType; ?></option>
                 <option value="WRONG_LOCATION"><?php echo $wrongLocation; ?></option>
@@ -52,6 +55,9 @@ navbar();
                 <option value="PHOTO_OUTDATED"><?php echo $photoOutdated; ?></option>
                 <option value="OTHER"><?php echo $other; ?></option>
             </select>
+            <div class="invalid-feedback">
+                <?php echo $pleaseSelectProblemType; ?>
+            </div>
         </div>
         <div class="form-group coords">
             <label for="inputLatitude"><?php echo $latitude; ?></label>

@@ -1,5 +1,5 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, scaleImage, initRSAPI } from "./common";
+import { getAPIURI, getQueryParameter, scaleImage } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 
@@ -84,7 +84,5 @@ function initPhotographer() {
 }
 
 $(function () {
-  initRSAPI().then(function () {
-    initPhotographer();
-  });
+  initPhotographer();
 });

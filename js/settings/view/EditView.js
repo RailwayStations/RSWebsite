@@ -7,10 +7,6 @@ import { AbstractFormView } from "./AbstractFormView";
 class EditView extends AbstractFormView {
   static load() {
     const currentUser = UserProfile.currentUser();
-    const authUser = UserProfile.authOnly(
-      currentUser.email,
-      currentUser.password
-    );
     const profileForm = document.getElementById("profileForm");
     profileForm.classList.remove("hidden");
     document
@@ -26,28 +22,28 @@ class EditView extends AbstractFormView {
         EditView.updateWithForm(currentUser);
       } catch (e) {
         document.getElementById("saveProfileSpinner").classList.add("hidden");
-        alert(e);
+        this.showError(e);
         return;
       }
-      UserProfileClient.uploadProfile(currentUser, authUser).then(r => {
+      UserProfileClient.uploadProfile(currentUser).then(r => {
+        document.getElementById("saveProfileSpinner").classList.add("hidden");
         if (r.ok) {
           currentUser.save();
-          alert(getI18n(s => s.settings.profileSaved));
-          location.reload();
+          this.showSuccess(getI18n(s => s.settings.profileSaved));
         } else if (r.status === 400) {
-          alert(
+          this.showError(
             `${getI18n(s => s.settings.invalidData)}: ${r.status} ${
               r.statusText
             }`
           );
         } else if (r.status === 401) {
-          alert(getI18n(s => s.settings.loginFailed));
+          this.showError(getI18n(s => s.settings.loginFailed));
         } else if (r.status === 409) {
-          alert(
+          this.showError(
             `${getI18n(s => s.settings.conflict)}: info@railway-stations.org`
           );
         } else {
-          alert(
+          this.showError(
             `${getI18n(s => s.settings.profileSavedFailed)}: ${r.status} ${
               r.statusText
             }`
@@ -78,7 +74,10 @@ class EditView extends AbstractFormView {
         );
       },
       error => {
-        alert(`${getI18n(s => s.settings.loginFailed)}`);
+        localStorage.removeItem("access_token");
+        location.href =
+          "settings.php?error=" +
+          encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
       }
     );
   }
@@ -89,10 +88,10 @@ class EditView extends AbstractFormView {
       const currentUser = UserProfile.currentUser();
       UserProfileClient.deleteAccount(currentUser).then(r => {
         if (r.ok) {
-          alert(getI18n(s => s.settings.deleteAccountSuccess));
+          this.showSuccess(getI18n(s => s.settings.deleteAccountSuccess));
           EditView.logout();
         } else {
-          alert(
+          this.showError(
             getI18n(s => s.settings.deleteAccountFailed) +
               "info@railway-stations.org"
           );
@@ -110,9 +109,9 @@ class EditView extends AbstractFormView {
     const currentUser = UserProfile.currentUser();
     UserProfileClient.requestVerificationMail(currentUser).then(r => {
       if (r.ok) {
-        alert(getI18n(s => s.settings.verificationMailRequested));
+        this.showSuccess(getI18n(s => s.settings.verificationMailRequested));
       } else {
-        alert(getI18n(s => s.settings.verificationMailRequestFailed));
+        this.showError(getI18n(s => s.settings.verificationMailRequestFailed));
       }
     });
   }

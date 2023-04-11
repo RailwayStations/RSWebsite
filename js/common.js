@@ -5,17 +5,6 @@ import { CountryClient } from "./countriesClient";
 import { UserProfile } from "./settings/UserProfile";
 import { Modal } from "bootstrap";
 
-let config = null;
-
-export function initRSAPI() {
-  return fetch("../json/config.json")
-    .then(r => r.json())
-    .then(data => {
-      config = data;
-      return data;
-    });
-}
-
 export function getBoolFromLocalStorage(key, defaultVal) {
   const value = localStorage.getItem(key);
   if (value == null) {
@@ -115,8 +104,7 @@ export function updateInboxCount() {
       dataType: "json",
       crossDomain: true,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
@@ -214,9 +202,19 @@ export function getCountryCode() {
   return getStringFromLocalStorage("countryCode", "de");
 }
 
+export function getAccessToken() {
+  "use strict";
+  return localStorage.getItem("access_token");
+}
+
+export function getAuthorization() {
+  "use strict";
+  return "Bearer " + getAccessToken();
+}
+
 export function getAPIURI() {
   "use strict";
-  let apiUrl = config.apiurl;
+  let apiUrl = process.env.API_URL;
   console.log(apiUrl);
   return apiUrl;
 }

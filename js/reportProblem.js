@@ -1,11 +1,32 @@
 import $ from "jquery";
-import { getAPIURI, getQueryParameter, isBlank, initRSAPI } from "./common";
+import { getAPIURI, getQueryParameter, getAuthorization } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
+import { UserProfileClient } from "./settings/client/UserProfileClient";
 
 window.reportProblem = reportProblem;
 window.changeProblemType = changeProblemType;
+
+function showError(message) {
+  "use strict";
+
+  document.getElementById("error").innerText = message;
+  document.getElementById("error").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("error").classList.add("hidden");
+  }, 5000);
+}
+
+function showSuccess(message) {
+  "use strict";
+
+  document.getElementById("success").innerText = message;
+  document.getElementById("success").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("success").classList.add("hidden");
+  }, 5000);
+}
 
 export function reportProblem() {
   "use strict";
@@ -17,7 +38,6 @@ export function reportProblem() {
 
   var r = confirm(getI18n(s => s.reportProblem.confirmProblemReport));
   if (r == true) {
-    const userProfile = UserProfile.currentUser();
     var stationId = $("#stationId").val();
     var countryCode = $("#countryCode").val();
     var problemReport = {
@@ -35,23 +55,21 @@ export function reportProblem() {
       contentType: "application/json; charset=utf-8",
       processData: false,
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
       data: JSON.stringify(problemReport),
     });
 
     request.done(function (data) {
-      alert(getI18n(s => s.reportProblem.reportProblemSuccess));
-      window.location.href = "index.php";
+      showSuccess(getI18n(s => s.reportProblem.reportProblemSuccess));
     });
 
     request.fail(function (jqXHR, textStatus, errorThrown) {
       if (jqXHR.responseText) {
         var response = JSON.parse(jqXHR.responseText);
-        alert(errorThrown + ": " + response.message);
+        showError(errorThrown + ": " + response.message);
       } else {
-        alert(textStatus + ": " + errorThrown);
+        showError(textStatus + " " + errorThrown);
       }
     });
   } else {
@@ -72,13 +90,12 @@ export function changeProblemType() {
   }
 }
 
-function initReportProblem() {
+function initReportProblemForm() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
   const title = queryParameters.title;
   const photoId = queryParameters.photoId;
-  const userProfile = UserProfile.currentUser();
 
   if (stationId) {
     $("#title-form").html(
@@ -88,12 +105,6 @@ function initReportProblem() {
     $("#countryCode").val(countryCode);
     $("#photoId").val(photoId);
     $(".coords").hide();
-  }
-
-  const reportDisabled =
-    isBlank(userProfile.email) || isBlank(userProfile.password);
-  if (reportDisabled) {
-    window.location.href = "settings.php";
   }
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -115,8 +126,37 @@ function initReportProblem() {
   });
 }
 
+function initReportProblem() {
+  if (!UserProfile.isLoggedIn()) {
+    window.location.href =
+      "settings.php?error=" +
+      encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+    return;
+  }
+
+  // get updated user profile
+  UserProfileClient.getProfile(UserProfile.currentUser()).then(
+    userProfile => {
+      userProfile.save();
+      if (!userProfile.isAllowedToReportProblem()) {
+        location.href =
+          "settings.php?warning=" +
+          encodeURIComponent(
+            `${getI18n(s => s.reportProblem.notAllowedToReportProblem)}`
+          );
+      } else {
+        initReportProblemForm();
+      }
+    },
+    error => {
+      localStorage.removeItem("access_token");
+      location.href =
+        "settings.php?error=" +
+        encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
+    }
+  );
+}
+
 $(function () {
-  initRSAPI().then(function () {
-    initReportProblem();
-  });
+  initReportProblem();
 });

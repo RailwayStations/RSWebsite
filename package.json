@@ -3,20 +3,14 @@
   "version": "1.0.0",
   "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/078d5d9052634ddcb67b92f3998918c6)](https://www.codacy.com/gh/RailwayStations/RSWebsite?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RailwayStations/RSWebsite&amp;utm_campaign=Badge_Grade)",
   "main": "index.js",
-  "config": {
-    "api_url": "https://api.railway-stations.org/",
-    "__dev_api_url": "http://192.168.0.229:8080/"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"**/**.{js,css,html,json,yml,yaml,md,php}\" --arrow-parens avoid",
     "format-check": "prettier --check \"**/**.{js,css,html,json,yml,yaml,md,php}\" --arrow-parens avoid",
-    "build": "npm run ini2json && npm run configjson && npm run webpack",
+    "build": "npm run ini2json && npm run webpack",
     "webpack": "webpack --mode production",
     "webpack-watch": "webpack --mode development --watch",
-    "ini2json": "node ./scripts/ini2Json.js",
-    "configjson": "node ./scripts/configjson.js",
-    "echo": "echo $npm_package_config_api_url"
+    "ini2json": "node ./scripts/ini2Json.js"
   },
   "babel": {
     "plugins": [
@@ -46,6 +40,7 @@
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "core-js": "3.30.0",
     "css-loader": "6.7.3",
+    "dotenv-webpack": "^8.0.1",
     "file-loader": "6.2.0",
     "ini": "3.0.1",
     "mini-css-extract-plugin": "2.7.5",

@@ -1,14 +1,14 @@
-import { getAPIURI } from "../../common";
+import { getAPIURI, getAuthorization } from "../../common";
 import { UserProfile } from "../UserProfile";
+import { getI18n } from "../../i18n";
 
 class UserProfileClient {
-  static uploadProfile(userProfile, authUser) {
+  static uploadProfile(userProfile) {
     return fetch(getAPIURI() + "myProfile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization:
-          "Basic " + btoa(authUser.email + ":" + authUser.password),
+        Authorization: getAuthorization(),
       },
       body: userProfile.toJson(),
     });
@@ -18,8 +18,7 @@ class UserProfileClient {
     return fetch(getAPIURI() + "resendEmailVerification", {
       method: "POST",
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     });
   }
@@ -28,8 +27,7 @@ class UserProfileClient {
     return fetch(getAPIURI() + "myProfile", {
       method: "DELETE",
       headers: {
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     });
   }
@@ -39,8 +37,7 @@ class UserProfileClient {
       method: "GET",
       headers: {
         "Content-Type": "application/json; charset=utf-8",
-        Authorization:
-          "Basic " + btoa(userProfile.email + ":" + userProfile.password),
+        Authorization: getAuthorization(),
       },
     })
       .then(
@@ -49,7 +46,7 @@ class UserProfileClient {
             if (r.ok) {
               resolve(r.json());
             } else {
-              throw new Error("Login failed");
+              throw new Error(getI18n(s => s.settings.loginFailed));
             }
           })
       )

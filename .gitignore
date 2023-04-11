@@ -14,3 +14,4 @@
 /map/map.ini
 /map/json
 /rsapi/*
+.env
