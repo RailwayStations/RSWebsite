@@ -1,7 +1,7 @@
 import { UserProfileClient } from "../client/UserProfileClient";
 import { UserProfile } from "../UserProfile";
 import { getI18n } from "../../i18n";
-import { getAPIURI } from "../../common";
+import { getAPIURI, getQueryParameter } from "../../common";
 import { AbstractFormView } from "./AbstractFormView";
 
 //////////////////////////////////////////////////////////////////////
@@ -34,17 +34,6 @@ function sendPostRequest(url, params, success, error) {
     .map(key => key + "=" + params[key])
     .join("&");
   request.send(body);
-}
-
-// Parse a query string into an object
-function parseQueryString(string) {
-  if (string == "") {
-    return {};
-  }
-  var segments = string.split("&").map(s => s.split("="));
-  var queryString = {};
-  segments.forEach(s => (queryString[s[0]] = s[1]));
-  return queryString;
 }
 
 function generateRandomString() {
@@ -116,21 +105,13 @@ class LoginView extends AbstractFormView {
   // OAUTH REDIRECT HANDLING
   // Handle the redirect back from the authorization server and
   // get an access token from the token endpoint
-  static handleAuthorizationCallback() {
-    var q = parseQueryString(window.location.search.substring(1));
-
-    // Check if the server returned an error string
-    if (q.error) {
-      localStorage.removeItem("access_token");
-      this.showError(decodeURIComponent(q.error));
-      return false;
-    }
+  static handleAuthorizationCallback(q) {
     // If the server returned an authorization code, attempt to exchange it for an access token
-    else if (q.code) {
+    if (q.code) {
       // Verify state matches what we set at the beginning
       if (localStorage.getItem("pkce_state") != q.state) {
         localStorage.removeItem("access_token");
-        this.showError("Invalid state");
+        this.showError(getI18n(s => s.settings.invalidState));
         return false;
       } else {
         // Exchange the authorization code for an access token
@@ -148,7 +129,6 @@ class LoginView extends AbstractFormView {
             location.href = "settings.php";
           },
           function (request, error) {
-            localStorage.removeItem("access_token");
             location.href = "settings.php?error=" + error.error;
           }
         );

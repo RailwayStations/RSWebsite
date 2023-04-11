@@ -41,6 +41,9 @@ navbar();
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
+    <div id="error" class="alert alert-danger hidden"></div>
+    <div id="success" class="alert alert-success hidden"></div>
+
     <h2 id="title-form"><?php echo $reportMissingStation; ?></h2>
     <form id="uploadForm" class="needs-validation" novalidate
           method="post" enctype="multipart/form-data">
@@ -96,7 +99,7 @@ navbar();
         </div>
         <div class="form-group">
             <div class="custom-file">
-                <input type="file" name="file" class="custom-file-input" id="fileInput" disabled required>
+                <input type="file" name="file" class="custom-file-input" id="fileInput" required>
                 <label class="custom-file-label" for="fileInput"><?php echo $fileChooser; ?></label>
                 <div class="invalid-feedback">
                     <?php echo $pleaseInsertFile; ?>
@@ -111,7 +114,7 @@ navbar();
                 <?php echo $pleaseConfirmSpecialLicense; ?>
             </div>
         </div>
-        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1" disabled><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
+        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1"><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
     </form>
 
     <div id="uploaded-photo-link"></div>

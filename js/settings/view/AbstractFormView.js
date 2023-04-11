@@ -10,7 +10,15 @@ class AbstractFormView {
     document.getElementById("error").classList.remove("hidden");
     setTimeout(function () {
       document.getElementById("error").classList.add("hidden");
-    }, 3000);
+    }, 5000);
+  }
+
+  static showWarning(message) {
+    document.getElementById("warning").innerText = message;
+    document.getElementById("warning").classList.remove("hidden");
+    setTimeout(function () {
+      document.getElementById("warning").classList.add("hidden");
+    }, 5000);
   }
 
   static showSuccess(message) {
@@ -18,7 +26,7 @@ class AbstractFormView {
     document.getElementById("success").classList.remove("hidden");
     setTimeout(function () {
       document.getElementById("success").classList.add("hidden");
-    }, 3000);
+    }, 5000);
   }
 
   static updateFieldsOfFormWith(currentUser, requestVerificationMail) {
@@ -54,7 +62,6 @@ class AbstractFormView {
     currentUser.cc0 = document.getElementById("profileCc0").checked;
     currentUser.anonymous = document.getElementById("profileAnonymous").checked;
     currentUser.link = document.getElementById("profileLink").value;
-    currentUser.newPassword = document.getElementById("password").value;
   }
 
   static isURL(str) {
@@ -67,17 +74,9 @@ class AbstractFormView {
   }
 
   static validateFields() {
-    const cc0 = document.getElementById("profileCc0").checked;
-    const photoOwner = document.getElementById("profilePhotoOwner").checked;
     const nickname = document.getElementById("profileNickname").value;
     const email = document.getElementById("profileEmail").value;
     const link = document.getElementById("profileLink").value;
-    if (!cc0) {
-      throw getI18n(s => s.settings.acceptCC0);
-    }
-    if (!photoOwner) {
-      throw getI18n(s => s.settings.ownPhotos);
-    }
     if (isBlank(nickname)) {
       throw getI18n(s => s.settings.provideNickname);
     }

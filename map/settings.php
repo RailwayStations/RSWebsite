@@ -17,7 +17,6 @@ navbar();
 $profile = L::settings_profile;
 $nicknameOrEmail = L::settings_nicknameOrEmail;
 $login = L::settings_loginToRailwayStationsOrg;
-$resetPassword = L::settings_resetPassword;
 $register = L::settings_register;
 $nickname = L::settings_nickname;
 $email = L::settings_email;
@@ -51,8 +50,9 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
 
 <main role="main" class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 bd-content container">
 
-    <div id="error" class="alert alert-danger hidden fade show"></div>
-    <div id="success" class="alert alert-success hidden fade show"></div>
+    <div id="error" class="alert alert-danger hidden"></div>
+    <div id="warning" class="alert alert-warning hidden"></div>
+    <div id="success" class="alert alert-success hidden"></div>
 
     <h2 id="title-form"><?php echo $profile; ?></h2>
     <div id="loginForm" class="hidden">
@@ -87,14 +87,7 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
             <label for="profileLink"><?php echo $yourLink; ?></label>
             <input id="profileLink" name="link" type="url" class="form-control"/>
         </div>
-        <div class="form-group profile-form hidden" id="initialPasswordGrp">
-            <label for="password"><?php echo $password; ?>:</label>
-            <input id="password" class="form-control" name="password" type="password"/>
-            </div>
-        <div class="form-group profile-form hidden" id="initialPasswordRepeatGrp">
-            <label for="passwordRepeat"><?php echo $passwordRepeat; ?>:</label>
-            <input id="passwordRepeat" class="form-control" name="passwordRepeat" type="password"/>
-        </div>
+        <div>&nbsp;</div>
         <div class="form-group profile-form">
             <button class="btn btn-primary" id="saveProfile" type="button">
                 <span id="saveProfileSpinner" class="spinner-border spinner-border-sm hidden" role="status"
@@ -118,6 +111,7 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
             <label for="newPasswordRepeat"><?php echo $passwordRepeat; ?>:</label>
             <input id="newPasswordRepeat" class="form-control" name="newPasswordRepeat" type="password"/>
         </div>
+        <div>&nbsp;</div>
         <div class="form-group profile-form">
             <button id="passwordChangeCancel" type="button" class="btn btn-secondary"
                     data-dismiss="modal"><?php echo $close; ?></button>

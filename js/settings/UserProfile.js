@@ -12,7 +12,7 @@ class UserProfile {
     this._emailVerified = data.emailVerified;
   }
 
-  isLoggedIn() {
+  static isLoggedIn() {
     return !!localStorage.getItem("access_token");
   }
 
@@ -20,16 +20,13 @@ class UserProfile {
     localStorage.setItem("userProfile", JSON.stringify(this));
   }
 
+  isAllowedToUploadPhoto() {
+    return this._emailVerified && this.cc0 && this._photoOwner;
+  }
+
   static delete() {
     localStorage.removeItem("userProfile");
     localStorage.removeItem("access_token");
-  }
-
-  static authOnly(email, password) {
-    return new UserProfile({
-      email: email,
-      password: password,
-    });
   }
 
   static currentUser() {
@@ -56,7 +53,6 @@ class UserProfile {
       photoOwner: this.photoOwner,
       link: this.link,
       anonymous: this.anonymous,
-      newPassword: this.newPassword,
     };
     return JSON.stringify(result);
   }
@@ -85,14 +81,6 @@ class UserProfile {
     return this._license === cc0LicenceName;
   }
 
-  get password() {
-    return this._password;
-  }
-
-  get newPassword() {
-    return this._newPassword;
-  }
-
   get admin() {
     return this._admin;
   }
@@ -102,7 +90,7 @@ class UserProfile {
   }
 
   set cc0(value) {
-    this._license = value ? cc0LicenceName : "";
+    this._license = value ? cc0LicenceName : null;
   }
 
   set email(value) {
@@ -123,14 +111,6 @@ class UserProfile {
 
   set anonymous(value) {
     this._anonymous = value;
-  }
-
-  set password(value) {
-    this._password = value;
-  }
-
-  set newPassword(value) {
-    this._newPassword = value;
   }
 }
 

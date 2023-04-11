@@ -1,8 +1,9 @@
 import { getAPIURI, getAuthorization } from "../../common";
 import { UserProfile } from "../UserProfile";
+import { getI18n } from "../../i18n";
 
 class UserProfileClient {
-  static uploadProfile(userProfile, authUser) {
+  static uploadProfile(userProfile) {
     return fetch(getAPIURI() + "myProfile", {
       method: "POST",
       headers: {
@@ -45,7 +46,7 @@ class UserProfileClient {
             if (r.ok) {
               resolve(r.json());
             } else {
-              throw new Error("Login failed");
+              throw new Error(getI18n(s => s.settings.loginFailed));
             }
           })
       )

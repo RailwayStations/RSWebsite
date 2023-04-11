@@ -1,12 +1,7 @@
-import { getAPIURI } from "../../common";
-import { UserProfile } from "../UserProfile";
+import { getAPIURI, getAuthorization } from "../../common";
 
 class PasswordClient {
   static updatePassword(newPassword) {
-    const currentUser = UserProfile.currentUser();
-    const email = currentUser.email;
-    const password = currentUser.password;
-
     return fetch(getAPIURI() + "changePassword", {
       method: "POST",
       headers: {

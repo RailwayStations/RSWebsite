@@ -12,9 +12,30 @@ import {
 import "bootstrap";
 import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
+import { UserProfileClient } from "./settings/client/UserProfileClient";
 import { Modal } from "bootstrap";
 
 var uploadModal;
+
+function showError(message) {
+  "use strict";
+
+  document.getElementById("error").innerText = message;
+  document.getElementById("error").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("error").classList.add("hidden");
+  }, 5000);
+}
+
+function showSuccess(message) {
+  "use strict";
+
+  document.getElementById("success").innerText = message;
+  document.getElementById("success").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("success").classList.add("hidden");
+  }, 5000);
+}
 
 function startUpload() {
   "use strict";
@@ -41,9 +62,11 @@ function unauthorized() {
 function stopUpload(result) {
   "use strict";
 
+  let success = false;
   let message =
     getI18n(s => s.upload.unknown) + ": " + result.state + " - " + message;
   if (result.state === "REVIEW") {
+    success = true;
     message = getI18n(s => s.upload.successful);
   } else if (result.state === "LAT_LON_OUT_OF_RANGE") {
     message = getI18n(s => s.upload.latLonOutOfRange);
@@ -52,6 +75,7 @@ function stopUpload(result) {
   } else if (result.state === "UNSUPPORTED_CONTENT_TYPE") {
     message = getI18n(s => s.upload.unsupportedContentType);
   } else if (result.state === "CONFLICT") {
+    success = true;
     message = getI18n(s => s.upload.conflict);
   } else if (result.state === "PHOTO_TOO_LARGE") {
     message = getI18n(s => s.upload.maxSize);
@@ -67,7 +91,11 @@ function stopUpload(result) {
     document.getElementById("uploaded-photo-link").style.visibility = "visible";
   }
 
-  alert(message);
+  if (success) {
+    showSuccess(message);
+  } else {
+    showError(message);
+  }
   return true;
 }
 
@@ -85,14 +113,13 @@ function createCountriesDropDown(countries) {
   });
 }
 
-function initUpload() {
+function initUploadForm() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
   const latitude = queryParameters.latitude;
   const longitude = queryParameters.longitude;
   const title = queryParameters.title;
-  const userProfile = UserProfile.currentUser();
 
   if (stationId) {
     $("#title-form").html(getI18n(s => s.upload.uploadPhotoFor + " " + title));
@@ -125,16 +152,7 @@ function initUpload() {
     });
   }
 
-  const uploadDisabled = !userProfile.isLoggedIn();
-  $("#fileInput").attr("disabled", uploadDisabled);
-  $("#uploadSubmit").attr("disabled", uploadDisabled);
-  if (uploadDisabled) {
-    window.location.href =
-      "settings.php?error=" +
-      encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
-  } else {
-    bsCustomFileInput.init();
-  }
+  bsCustomFileInput.init();
 
   $("#uploadForm").on("submit", function (event) {
     event.preventDefault();
@@ -172,6 +190,37 @@ function initUpload() {
     }
     form.classList.add("was-validated");
   });
+}
+
+function initUpload() {
+  if (!UserProfile.isLoggedIn()) {
+    window.location.href =
+      "settings.php?error=" +
+      encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
+    return;
+  }
+
+  // get updated user profile
+  UserProfileClient.getProfile(UserProfile.currentUser()).then(
+    userProfile => {
+      userProfile.save();
+      if (!userProfile.isAllowedToUploadPhoto()) {
+        location.href =
+          "settings.php?warning=" +
+          encodeURIComponent(
+            `${getI18n(s => s.upload.notAllowedToUploadPhotos)}`
+          );
+      } else {
+        initUploadForm();
+      }
+    },
+    error => {
+      localStorage.removeItem("access_token");
+      location.href =
+        "settings.php?error=" +
+        encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
+    }
+  );
 }
 
 $(function () {

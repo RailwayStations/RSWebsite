@@ -7,10 +7,6 @@ import { AbstractFormView } from "./AbstractFormView";
 class EditView extends AbstractFormView {
   static load() {
     const currentUser = UserProfile.currentUser();
-    const authUser = UserProfile.authOnly(
-      currentUser.email,
-      currentUser.password
-    );
     const profileForm = document.getElementById("profileForm");
     profileForm.classList.remove("hidden");
     document
@@ -29,7 +25,7 @@ class EditView extends AbstractFormView {
         this.showError(e);
         return;
       }
-      UserProfileClient.uploadProfile(currentUser, authUser).then(r => {
+      UserProfileClient.uploadProfile(currentUser).then(r => {
         document.getElementById("saveProfileSpinner").classList.add("hidden");
         if (r.ok) {
           currentUser.save();

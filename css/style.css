@@ -20,6 +20,10 @@ body {
   padding-top: 3.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
 svg.circle {
   border-radius: 50%;
   transform: rotate(-90deg);
