@@ -21,7 +21,6 @@ function sendInboxCommand(inboxCommand) {
 
   console.log(inboxCommand);
 
-  const userProfile = UserProfile.currentUser();
   var request = $.ajax({
     url: getAPIURI() + "adminInbox",
     contentType: "application/json; charset=utf-8",

@@ -156,13 +156,12 @@ function initUploadForm() {
 
   $("#uploadForm").on("submit", function (event) {
     event.preventDefault();
-    var form = $(this)[0];
+    const form = $(this)[0];
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
       startUpload();
-      var form = $(this)[0];
-      var postData = new FormData(form);
+      const postData = new FormData(form);
       $.ajax({
         type: "POST",
         url: getAPIURI() + "photoUploadMultipartFormdata",

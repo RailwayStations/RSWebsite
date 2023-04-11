@@ -1,7 +1,5 @@
-import { UserProfileClient } from "../client/UserProfileClient";
-import { UserProfile } from "../UserProfile";
 import { getI18n } from "../../i18n";
-import { getAPIURI, getQueryParameter } from "../../common";
+import { getAPIURI } from "../../common";
 import { AbstractFormView } from "./AbstractFormView";
 
 //////////////////////////////////////////////////////////////////////
@@ -9,14 +7,14 @@ import { AbstractFormView } from "./AbstractFormView";
 
 // Make a POST request and parse the response as JSON
 function sendPostRequest(url, params, success, error) {
-  var request = new XMLHttpRequest();
+  const request = new XMLHttpRequest();
   request.open("POST", url, true);
   request.setRequestHeader(
     "Content-Type",
     "application/x-www-form-urlencoded; charset=UTF-8"
   );
   request.onload = function () {
-    var body = {};
+    let body = {};
     try {
       body = JSON.parse(request.response);
     } catch (e) {}
@@ -30,16 +28,16 @@ function sendPostRequest(url, params, success, error) {
   request.onerror = function () {
     error(request, {});
   };
-  var body = Object.keys(params)
+  const body = Object.keys(params)
     .map(key => key + "=" + params[key])
     .join("&");
   request.send(body);
 }
 
 function generateRandomString() {
-  var array = new Uint32Array(28);
+  const array = new Uint32Array(28);
   window.crypto.getRandomValues(array);
-  return Array.from(array, dec => ("0" + dec.toString(16)).substr(-2)).join("");
+  return Array.from(array, dec => ("0" + dec.toString(16)).slice(-2)).join("");
 }
 
 // Calculate the SHA256 hash of the input text.
@@ -56,10 +54,11 @@ function base64urlencode(str) {
   // btoa accepts chars only within ascii 0-255 and base64 encodes them.
   // Then convert the base64 encoded to base64url encoded
   //   (replace + with -, replace / with _, trim trailing =)
-  return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+  return window
+    .btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
-    .replace(/=+$/, "");
+    .replace(/=/g, "");
 }
 
 // Return the base64-urlencoded sha256 hash for the PKCE challenge
@@ -78,15 +77,15 @@ class LoginView extends AbstractFormView {
         e.preventDefault();
 
         // Create and store a random "state" value
-        var state = generateRandomString();
+        const state = generateRandomString();
         localStorage.setItem("pkce_state", state);
 
         // Create and store a new PKCE code_verifier (the plaintext random secret)
-        var code_verifier = generateRandomString();
+        const code_verifier = generateRandomString();
         localStorage.setItem("pkce_code_verifier", code_verifier);
 
         // Hash and base64-urlencode the secret to use as the challenge
-        var codeChallenge = await pkceChallengeFromVerifier(code_verifier);
+        const codeChallenge = await pkceChallengeFromVerifier(code_verifier);
 
         location.href =
           getAPIURI() +

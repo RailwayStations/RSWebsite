@@ -38,7 +38,6 @@ export function reportProblem() {
 
   var r = confirm(getI18n(s => s.reportProblem.confirmProblemReport));
   if (r == true) {
-    const userProfile = UserProfile.currentUser();
     var stationId = $("#stationId").val();
     var countryCode = $("#countryCode").val();
     var problemReport = {
@@ -97,7 +96,6 @@ function initReportProblemForm() {
   const countryCode = queryParameters.countryCode;
   const title = queryParameters.title;
   const photoId = queryParameters.photoId;
-  const userProfile = UserProfile.currentUser();
 
   if (stationId) {
     $("#title-form").html(

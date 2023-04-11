@@ -7,7 +7,7 @@ import { EditView } from "./view/EditView";
 import { MapSettingsView } from "./view/MapSettingsView";
 
 function initSettings() {
-  var q = getQueryParameter();
+  let q = getQueryParameter();
 
   if (q.error) {
     localStorage.removeItem("access_token");

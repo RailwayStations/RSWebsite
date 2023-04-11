@@ -114,7 +114,9 @@ navbar();
                 <?php echo $pleaseConfirmSpecialLicense; ?>
             </div>
         </div>
-        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1"><?php echo $upload; ?> <i class="fas fa-upload"></i></button>
+        <button id="uploadSubmit" type="submit" class="btn btn-primary mt-1">
+            <?php echo $upload; ?> <i class="fas fa-upload"></i>
+        </button>
     </form>
 
     <div id="uploaded-photo-link"></div>
