@@ -1,5 +1,5 @@
 const fs = require("fs");
-require("dotenv").config();
+require("dotenv-defaults").config();
 
 const writeToFile = function (iniObj) {
   const outputDirectory = "map/json";
