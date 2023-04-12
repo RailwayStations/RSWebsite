@@ -17,7 +17,6 @@ navbar();
 $profile = L::settings_profile;
 $nicknameOrEmail = L::settings_nicknameOrEmail;
 $login = L::settings_loginToRailwayStationsOrg;
-$register = L::settings_register;
 $nickname = L::settings_nickname;
 $email = L::settings_email;
 $ownPictures = L::settings_ownPictures;
