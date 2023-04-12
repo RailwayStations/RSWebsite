@@ -1,5 +1,5 @@
 const fs = require("fs");
-require('dotenv').config()
+require("dotenv").config();
 
 const writeToFile = function (iniObj) {
   const outputDirectory = "map/json";
@@ -17,8 +17,6 @@ const writeToFile = function (iniObj) {
 const main = function () {
   console.log(`API_URL: ${process.env.API_URL}`);
   const iniObj = fs.readFileSync(`config-template.json`, "utf-8");
-  writeToFile(
-    iniObj.replace("__API_URL__", process.env.API_URL)
-  );
+  writeToFile(iniObj.replace("__API_URL__", process.env.API_URL));
 };
 main();
