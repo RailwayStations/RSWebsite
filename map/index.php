@@ -8,7 +8,9 @@
     <title>RailwayStations</title>
 
     <link rel="stylesheet" href="css/map.css"/>
-
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="og:title" content="Railway-Stations.org"></meta>
+    <meta property="og:image" content="images/og_logo_white_on_red.png"/>
 </head>
 <body>
 
