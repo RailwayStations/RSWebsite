@@ -96,21 +96,10 @@ export function timetableByStation(stationId) {
 
 export function switchCountryLink(countryCode) {
   "use strict";
-  const oldCountryCode = getCountryCode();
-  localStorage.removeItem(`stations-${oldCountryCode}`);
-  setCountryCode(countryCode);
 
-  $("#details").hide();
-  $("#karte").show();
-  $(".header .mobile-menu:visible .ui-link").click();
-
-  fetchStationDataPromise(map).then(data => {
-    photoStations = data;
-
-    setLastZoomLevel(null);
-    setLastPos(null);
-    markers = updateMarker(photoStations, map, specialMarker);
-  });
+  setLastZoomLevel(null);
+  setLastPos(null);
+  location.href = "index.php?countryCode=" + countryCode;
 }
 
 export function showHighScore(selectedCountryCode) {
