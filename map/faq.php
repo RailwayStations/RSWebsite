@@ -48,7 +48,7 @@ alt="Get it on Google Play" height="80"></a>&nbsp;&nbsp;<a href="https://apps.ap
             Panoramafreiheit abgedeckt ist. Fotos, die im Gebäude gemacht worden sind bzw. vom Gleis oder Bahnsteig
             innerhalb eines Bahnhofsgebäudes müssen wir leider zurückweisen, da wir hier die gesetzlichen Regelungen
             beachten müssen. Erläutert haben wir das <a
-                    href="http://www.gaby-becker.de/de/bahnhofsfotos-gesucht-fuer-ein-opendata-projekt.html">hier</a>.
+                    href="https://web.archive.org/web/20161021001015/http://gaby-becker.de/de/bahnhofsfotos-gesucht-fuer-ein-opendata-projekt.html">hier</a>.
         </p>
         <p>Gut wäre in jedem Fall, wenn Ihr Euch beim Fotografieren nicht auf dem Bahngelände aufhaltet.</p>
         <p>Panoramafrei ist ein Foto dann, wenn es von einem öffentlichen Platz, einer öffentlichen Straße oder einem
