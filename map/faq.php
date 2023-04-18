@@ -35,12 +35,14 @@ navbar();
         <h4>Wollt Ihr Hochglanzfotos?</h4>
         <p>Nein. Wir wollen ganz normale Fotos, egal bei welcher Wetterlage.</p>
         <h4>Bearbeitet Ihr unsere Fotos nach?</h4>
-        <p>Nein. Wir verkleinern sie lediglich auf die benötigte Größe</p>
+        <p>Wir werden sie eventuell auf die benötigte Größe verkleinern und Personen sowie Autokennzeichen verpixeln.</p>
         <h4>Wie kann ich ein Foto einreichen?</h4>
-        <p>Du kannst es über unsere Apps oder unsere Webseite einreichen. <strong>Bitte schicke uns keine Fotos per E-Mail!</strong></p>
-        <p>Wenn Du einen Twitter-Account hast, sende bitte einen öffentlichen Tweet mit <strong>#Bahnhofsfoto
-                NameDerStadt #DBHackathon</strong> oder<strong>#Bahnhofsfoto NameDerStadt #openData</strong>. Bitte auch
-            unbedingt die @Bahnhofsoma erwähnen, damit wir sehen, dass etwas gekommen ist.</p>
+        <p>Du kannst es über unsere Webseite oder unsere mobilen Apps einreichen:<br/>
+            <a href="https://f-droid.org/packages/de.bahnhoefe.deutschlands.bahnhofsfotos/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+alt="Get it on F-Droid" height="80"></a><a href="https://play.google.com/store/apps/details?id=de.bahnhoefe.deutschlands.bahnhofsfotos"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+alt="Get it on Google Play" height="80"></a>&nbsp;&nbsp;<a href="https://apps.apple.com/us/app/bahnhofsfotos/id1476038821"><img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
+     alt="Download on the App Store" height="54"></a><br/>
+ <strong>Bitte schicke uns keine Fotos per E-Mail!</strong></p>
         <h4>Was muss ich beim Fotografieren beachten?</h4>
         <p>Wenn ein Bahnhofsgebäude vorhanden ist, bitte dieses nur von Aussen fotografieren, da das von der
             Panoramafreiheit abgedeckt ist. Fotos, die im Gebäude gemacht worden sind bzw. vom Gleis oder Bahnsteig
@@ -53,7 +55,7 @@ navbar();
             solchen Bürgersteig aus aufgenommen worden ist. Benutzt Ihr eine Leiter, ist die Geschichte mit der
             Panoramafreiheit bereits nicht mehr gegeben. Aus dem Zug heraus bitte nicht fotografieren, weil es a) nicht
             mehr panoramafrei wäre und b) wollen wir mit den Fotos eigentlich eine Orientierung für Ortsunkundige
-            liefern. Diese sehen den Bahnsteig aber nicht von Aussen. </p>
+            liefern. Diese sehen den Bahnsteig aber nicht von Aussen.</p>
         <p>Wenn Euch das Thema Panoramafreiheit noch mehr beschäftigt, findet Ihr <a
                     href="http://m.heise.de/ct/ausgabe/2012-21-Juristische-Klippen-bei-der-Veroeffentlichung-von-Bildern-im-Web-2337754.html">hier </a>und
             <a href="https://www.business-best-practice.de/selbststaendige/nutzungsrechte-an-fotografien.php">hier </a>weitere
@@ -67,46 +69,45 @@ navbar();
         <h4>Welche Größe müssen die Fotos haben?</h4>
         <p>Wir benötigen 1920 x 1080 px und verkleinern uns die von Euch eingesandten Fotos gerne.</p>
         <h4>Nehmt Ihr auch verschwommene Fotos?</h4>
-        <p>Nein. Der User soll ja etwas auf den Fotos erkennen können, damit er sich orientieren kann. </p>
+        <p>Nein. Der User soll ja etwas auf den Fotos erkennen können, damit er sich orientieren kann.</p>
         <h4>Wie kann ich als Entwickler an die Fotos bzw. die API kommen?</h4>
         <p>Wir haben all unsere Entwicklungen offen auf <a href="https://github.com/RailwayStations">GitHub</a>
             zugänglich gemacht. Dort solltest Du auch alle Links zu den Schnittstellen finden.</p>
-        <h4>SPEZIELL FÜR FRANKREICH GILT:</h4>
+        <h4>Speziell für Frankreich gilt:</h4>
         <p>Wir haben uns nach Änderung der Gesetzgebung zur Panoramafreiheit in Frankreich dazu entschieden,
-            auch <strong>französische</strong> Bahnhöfe mit aufzunehmen. Hierbei ist jedoch für Entwickler, die die
-            Schnittstelle nutzen wollen, <strong>unbedingt </strong>zu beachten, <strong>dass die Daten nicht
+            auch <strong>französische</strong> Bahnhöfe mit aufzunehmen. Hierbei ist jedoch für Entwickler, die die
+            Schnittstelle nutzen wollen, <strong>unbedingt</strong> zu beachten, <strong>dass die Daten nicht
                 kommerziell genutzt werden dürfen</strong>. Also selbst ein Werbebanner in einer App stellt eine
-            kommerzielle Nutzung dar. Bitte unbedingt darauf achten! Das gilt nur für Frankreich. </p>
+            kommerzielle Nutzung dar. Bitte unbedingt darauf achten! Das gilt nur für Frankreich.</p>
     </div>
 
     <!-- en FAQ -->
-    <div class="info" id="en-faq" style="display:none"><h4>WHY ARE WE DOING THIS PHOTO COLLECTING STUFF OF RAILWAY
-            STATIONS?</h4>
+    <div class="info" id="en-faq" style="display:none">
+        <h4>Why are we doing this photo collecting stuff of railway stations?</h4>
         <p>We would like to create open data, because of the fact, that there are only a few free usable photos of
             Railway Stations. Developer could make definitly nicer applications with photos. So we thought, now is the
             time to give developers the possibility to add nice photos from the crowd for their applications. Our
             communication is mostly on Twitter. We would be happy, if you send you photo into the Timeline.</p>
         <p>We want to say thank you to all photo suppliers. We had not expected so many to participate.</p>
-        <h4>
-            We have to consider a few rules:</h4>
-        <p></p>
-        <h4>COULD MY PHOTO BE SUBSTITUTED BY ANY OTHER PHOTOGRAPHER?</h4>
+        <h4>Could my photo be substituted by any other photographer?</h4>
         <p>No, the first one submitting a photo is in general the owner of this Photo-Place. There are basically no
             photos exchanged by different photographers.</p>
-        <h4>IS IT POSSIBLE TO SUBMIT A NEW PHOTO IN THE CASE E.G. THE WEATHER IS BETTER AND I COULD MAKE A NICER
-            PHOTO?</h4>
+        <h4>Is it possible to submit a new photo in the case e.g. the weather is better and i could make a nicer
+            photo?</h4>
         <p>Yes, you can do this when you are the first to submit a photo for this station. Please limit this to a
             maximum of 2 submissions, as the colleagues, who incorporate your photo, do it in their spare time.</p>
-        <h4>DO YOU WANT ONLY HIGH QUALITY AND PHOTOSHOPED PHOTOS?</h4>
+        <h4>Do you want only high quality and photoshoped photos?</h4>
         <p>No. We want normal photos, regardless of the weather.</p>
-        <h4>WOULD YOU MAKE SOME CHANGES ON THE QUALITY OF MY PHOTO?</h4>
-        <p>No. We only reduce it to the required size.</p>
-        <h4>HOW CAN I SUBMIT A PHOTO?</h4>
-        <p>You can submit it via our Apps or Website. <strong>Please don't send us photos via e-mail!</strong><br/>
-            If you have a Twitter account, please send a public tweet with <strong>#RailwayStationPhoto [NameOfTheCity]
-                #DBHackathon</strong> or <strong>#RailwayStationPhoto [NameOfTheCity] #openData</strong>. Please also
-            mention <strong>@Bahnhofsoma</strong>, so we can see that something was sent.</p>
-        <h4>WHAT DO I HAVE TO CONSIDER WHILE PHOTOGRAPHING?</h4>
+        <h4>Do you make any changes to my photo?</h4>
+        <p>We only reduce it to the required size and pixelate people and license plates.</p>
+        <h4>How can I submit a photo?</h4>
+        <p>You can submit it via our website or our mobile apps:<br/>
+            <a href="https://f-droid.org/packages/de.bahnhoefe.deutschlands.bahnhofsfotos/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+alt="Get it on F-Droid" height="80"></a><a href="https://play.google.com/store/apps/details?id=de.bahnhoefe.deutschlands.bahnhofsfotos"><img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+alt="Get it on Google Play" height="80"></a>&nbsp;&nbsp;<a href="https://apps.apple.com/us/app/bahnhofsfotos/id1476038821"><img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg"
+     alt="Download on the App Store" height="54"></a><br/>
+     <strong>Please don't send us photos via e-mail!</strong></p>
+        <h4>What do I have to consider while taking the photo?</h4>
         <p>If a station building is available, please only take a photo from the outside, as it is covered by the FOP
             (Freedom of panorama). Photos that have been made in the building or from the track or platform within a
             station building, we must unfortunately reject, since we have to consider to the legal regulations. We
@@ -121,19 +122,18 @@ navbar();
             you to be involved into accidents. </p>
         <p>We provide an interface for developers, so that they can pimp their applications with photos.<br/>
             It would be great if they did not have to take care of the legal aspects.</p>
-        <h4>WHAT SIZE MUST THE PHOTOS HAVE?</h4>
+        <h4>What size must the photos have?</h4>
         <p>We need photos with min. 1920 x 1080 px. If your photo is bigger, we minimize the photos for you.</p>
-        <h4>
-            DO YOU ALSO TAKE BLURRED PHOTOS ?</h4>
+        <h4>Do you also take blurred photos?</h4>
         <p>No. Make sure to clean your lens before ;-).</p>
-        <h4>HOW CAN I GET THE PHOTOS OR API AS A DEVELOPER?</h4>
+        <h4>How can I get the photos or API as a developer?</h4>
         <p>We have made all our developments openly available on <a href="https://github.com/RailwayStations">GitHub</a>.
             There you should also find all links to the interfaces.</p>
-        <h4>ESPECIALLY FOR FRANCE:</h4>
+        <h4>Especially for france:</h4>
         <p>After amending the legislation on freedom of panorama in France, we have decided to include French stations
             as well. However, for developers who want to use the interface, it is important to note that the data must
             not be used commercially. So even an advertising banner in an app is a commercial use. Please pay attention
-            to this! This applies only to France. </p>
+            to this! This applies only to France.</p>
     </div>
 
 </main>
