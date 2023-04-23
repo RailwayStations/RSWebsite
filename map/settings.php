@@ -64,11 +64,11 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
     <div id="profileForm" class="hidden">
         <div class="form-group profile-form">
             <label for="profileNickname"><?php echo $nickname; ?></label>
-            <input name="profileNickname" type="text" class="form-control" id="profileNickname">
+            <input name="profileNickname" type="text" class="form-control" id="profileNickname" maxlength="50">
         </div>
         <div class="form-group profile-form">
             <label for="profileEmail"><?php echo $email; ?>&nbsp;<span id="emailVerifiedLabel"></span></label>
-            <input name="profileEmail" type="text" class="form-control" id="profileEmail">
+            <input name="profileEmail" type="text" class="form-control" id="profileEmail" maxlength="100">
         </div>
         <div class="form-group form-check profile-form">
             <input id="profilePhotoOwner" name="photoOwner" type="checkbox"/>
@@ -84,7 +84,7 @@ $deleteAccountConfirmation = L::settings_deleteAccountConfirmation;
         </div>
         <div class="form-group profile-form">
             <label for="profileLink"><?php echo $yourLink; ?></label>
-            <input id="profileLink" name="link" type="url" class="form-control"/>
+            <input id="profileLink" name="link" type="url" class="form-control" maxlength="1024"/>
         </div>
         <div>&nbsp;</div>
         <div class="form-group profile-form">
