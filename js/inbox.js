@@ -302,6 +302,12 @@ function fetchAdminInbox(userProfile) {
                       `;
             }
             var conflictIcon = "";
+            if (inbox.hasConflict) {
+              conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(
+                s => s.inbox.conflict
+              )}"></i>`;
+            }
+
             var conflictResolution = "";
             if (problemType === "") {
               if (inbox.hasConflict) {

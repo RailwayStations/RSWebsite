@@ -22,9 +22,11 @@ $configFile = file_get_contents("./json/config.json");
 // Decode the JSON file
 $config = json_decode($configFile, true);
 
-$stationId = trim(filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_STRING));
+$stationId = trim(
+    filter_input(INPUT_GET, "stationId", FILTER_SANITIZE_FULL_SPECIAL_CHARS)
+);
 $countryCode = trim(
-    filter_input(INPUT_GET, "countryCode", FILTER_SANITIZE_STRING)
+    filter_input(INPUT_GET, "countryCode", FILTER_SANITIZE_FULL_SPECIAL_CHARS)
 );
 $photoId = filter_input(INPUT_GET, "photoId", FILTER_VALIDATE_INT);
 
@@ -44,7 +46,7 @@ try {
                 filter_input(
                     INPUT_SERVER,
                     "SERVER_NAME",
-                    FILTER_SANITIZE_STRING
+                    FILTER_SANITIZE_FULL_SPECIAL_CHARS
                 ),
         ],
     ];
@@ -72,7 +74,8 @@ try {
             $DS100 = $station->shortCode;
             $lat = $station->lat;
             $lon = $station->lon;
-            $active = !$station->inactive;
+            $active =
+                !property_exists($station, "inactive") || !$station->inactive;
             $uploadUrl =
                 "upload.php?countryCode=" .
                 $countryCode .
