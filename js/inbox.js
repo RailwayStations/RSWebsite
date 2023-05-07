@@ -166,7 +166,7 @@ function createCountriesDropDown(countries, countryCode, id) {
   return countryOptions;
 }
 
-function fetchAdminInbox(userProfile) {
+function fetchAdminInbox() {
   "use strict";
 
   fetchCountries().then(countries => {
@@ -586,7 +586,7 @@ function initInbox() {
   const userProfile = UserProfile.currentUser();
 
   if (userProfile.admin === true) {
-    fetchAdminInbox(userProfile);
+    fetchAdminInbox();
   } else {
     fetchPublicInbox();
   }
