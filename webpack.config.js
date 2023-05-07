@@ -14,6 +14,7 @@ module.exports = {
     basic: "./js/basic.js",
     station: "./js/station.js",
     inbox: "./js/inbox.js",
+    outbox: "./js/outbox.js",
     emailVerification: "./js/emailVerification.js",
   },
   module: {

@@ -61,6 +61,16 @@
                            aria-label="<?php echo L::navbar_mastodon; ?>"
                            title="<?php echo L::navbar_mastodon; ?>"><i class="fab fa-mastodon"></i></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2" href="inbox.php" rel="noopener" id="nav_inbox"
+                            aria-label="<?php echo L::navbar_inbox; ?>"
+                            title="<?php echo L::navbar_inbox; ?>"><i class="fas fa-inbox"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-2" href="outbox.php" rel="noopener" id="nav_outbox"
+                            aria-label="<?php echo L::navbar_outbox; ?>"
+                            title="<?php echo L::navbar_outbox; ?>"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+                    </li>                    
                     <?php if ($suffixNavItems !== null) {
                         echo $suffixNavItems;
                     } ?>

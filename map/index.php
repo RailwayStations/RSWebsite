@@ -22,6 +22,7 @@ $search = L::index_search;
 $myLocation = L::index_myLocation;
 $highscore = L::index_highscore;
 $inbox = L::navbar_inbox;
+$outbox = L::navbar_outbox;
 
 $prefixNavItems = <<<HTML
     <li class="nav-item dropdown active">
@@ -40,11 +41,6 @@ HTML;
 $suffixNavItems = <<<HTML
     <li class="nav-item">
         <a class="nav-link p-2" href="javascript:map.showHighScore();" rel="noopener" aria-label="{$highscore}" title="{$highscore}"><i class="fas fa-chart-line"></i></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link p-2" href="inbox.php" rel="noopener" id="nav_inbox"
-            aria-label="{$inbox}"
-            title="{$inbox}"><i class="fas fa-inbox"></i></a>
     </li>
 HTML;
 navbar($suffixNavItems, $prefixNavItems, $additionalItems, "#");
