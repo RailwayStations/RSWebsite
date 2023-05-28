@@ -12,6 +12,7 @@ $uploadYourOwnPicture = L::station_uploadYourOwnPicture;
 $stationNotFound = L::station_notFound;
 $photoMissing = L::station_photoMissing;
 $errorLoadingStation = L::station_errorLoadingStation;
+$errorPhotoNotFound = L::station_errorPhotoNotFound;
 $previousPhoto = L::station_previousPhoto;
 $nextPhoto = L::station_nextPhoto;
 $reportProblem = L::station_reportProblem;
@@ -53,16 +54,19 @@ try {
 
     $context = stream_context_create($opts);
 
-    $json = file_get_contents(
+    $curl = curl_init(
         $config["apiurl"] .
             "photoStationById/" .
             $countryCode .
             "/" .
-            $stationId,
-        false,
-        $context
+            $stationId
     );
-    if ($json !== false) {
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $json = curl_exec($curl);
+    $responseCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+    if ($responseCode == 200 && $json !== false) {
         $data = json_decode($json);
         if (isset($data)) {
             $photoBaseUrl = $data->photoBaseUrl;
@@ -84,12 +88,23 @@ try {
                 "&title=" .
                 $stationName;
 
-            foreach ($station->photos as $photo) {
-                if (
-                    (isset($photoId) && $photoId == $photo->id) ||
-                    (!isset($photoId) && !isset($stationPhoto))
-                ) {
+            if (isset($photoId)) {
+                foreach ($station->photos as $photo) {
+                    if ($photoId == $photo->id) {
+                        $stationPhoto = $photoBaseUrl . $photo->path;
+                        break;
+                    }
+                }
+                if (!isset($stationPhoto)) {
+                    $photoId = null;
+                    $error = $errorPhotoNotFound;
+                }
+            }
+
+            if (!isset($stationPhoto)) {
+                foreach ($station->photos as $photo) {
                     $stationPhoto = $photoBaseUrl . $photo->path;
+                    break;
                 }
             }
 
@@ -97,9 +112,16 @@ try {
                 $stationPhoto = "images/default.jpg";
             }
         }
+    } elseif ($responseCode != 404) {
+        if ($responseCode > 0) {
+            $error = $errorLoadingStation . ": " . $responseCode;
+        } else {
+            $error = $errorLoadingStation . ": " . curl_error($curl);
+        }
     }
+    curl_close($curl);
 } catch (Exception $e) {
-    $error = $errorLoadingStation;
+    $error = $errorLoadingStation . ": " . $e;
 }
 ?>
 <!doctype html>
@@ -137,6 +159,10 @@ navbar($suffixNavItems);
 ?>
 
 <main role="main" class="col-12 bd-content station container">
+
+    <?php if (isset($error)) { ?>
+        <div id="error" class="alert alert-danger"> <?php echo $error; ?></div>
+    <?php } ?>
 
     <h2><?= htmlspecialchars($stationName) ?></h2>
     <?php if (!$active) { ?>
@@ -210,6 +236,7 @@ navbar($suffixNavItems);
     $reportProblem
 ) ?>"><i class="fas fa-bullhorn"></i> </a>
     <?php if (
+        isset($photo->outdated) &&
         $photo->outdated
     ) { ?> <i class="fas fa-times-circle" title="<?php echo $photoOutdated; ?>!"></i><?php } ?>
 </p>

@@ -35,6 +35,7 @@ export function reportProblem() {
   var latitude = $("#inputLatitude").val();
   var longitude = $("#inputLongitude").val();
   var comment = $("#inputComment").val();
+  var photoId = $("#photoId").val();
 
   var r = confirm(getI18n(s => s.reportProblem.confirmProblemReport));
   if (r == true) {
@@ -47,6 +48,7 @@ export function reportProblem() {
       comment: comment,
       lat: latitude,
       lon: longitude,
+      photoId: photoId,
     };
 
     var request = $.ajax({

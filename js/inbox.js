@@ -204,6 +204,9 @@ function fetchAdminInbox() {
                 )}"></i>`;
                 acceptDisabled = "disabled";
               }
+            }
+
+            if (inbox.inboxUrl !== undefined) {
               image = `<a href="${inbox.inboxUrl}" data-ajax="false" target="_blank">
                        <img src="${inbox.inboxUrl}?width=301" loading="lazy" class="card-img-top" alt="${inbox.title}">
                        </a>`;
@@ -411,7 +414,11 @@ function fetchAdminInbox() {
             }
             var title = `${inbox.id}: ${inbox.title}`;
             if (inbox.stationId !== undefined) {
-              title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
+              var photoIdParam = "";
+              if (inbox.photoId !== undefined) {
+                photoIdParam = `&photoId=${inbox.photoId}`;
+              }
+              title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}${photoIdParam}" data-ajax="false">${title}</a>`;
             }
             if (conflictResolution !== "") {
               conflictResolution = `<p class="card-text"><select class="custom-select" id="conflictResolution-${
