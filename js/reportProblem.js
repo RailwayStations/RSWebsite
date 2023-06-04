@@ -114,16 +114,18 @@ export function titleValidation() {
     var newTitle = $("#inputTitle").val();
     if (newTitle === orgTitle) {
       console.log(newTitle + " === " + orgTitle);
-      document.getElementById("inputTitle").classList.add("is-invalid")
-      document.getElementById("inputTitle").classList.remove("is-valid")
-      document.getElementById('inputTitle').setCustomValidity('Title must be different');
+      document.getElementById("inputTitle").classList.add("is-invalid");
+      document.getElementById("inputTitle").classList.remove("is-valid");
+      document
+        .getElementById("inputTitle")
+        .setCustomValidity("Title must be different");
       return false;
     }
     console.log(newTitle + " !== " + orgTitle);
   }
-  document.getElementById("inputTitle").classList.add("is-valid")
-  document.getElementById("inputTitle").classList.remove("is-invalid")
-  document.getElementById('inputTitle').setCustomValidity('');
+  document.getElementById("inputTitle").classList.add("is-valid");
+  document.getElementById("inputTitle").classList.remove("is-invalid");
+  document.getElementById("inputTitle").setCustomValidity("");
   return true;
 }
 
