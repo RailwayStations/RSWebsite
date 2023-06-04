@@ -70,7 +70,7 @@ export let stationHtml = function (feature, photoStations) {
     </h3>
     `;
 
-  const problemUrl = `reportProblem.php?countryCode=${country}&stationId=${stationId}&title=${stationName}`;
+  const problemUrl = `reportProblem.php?countryCode=${country}&stationId=${stationId}&title=${stationName}&lat=${station.lat}&lon=${station.lon}`;
   const links = `
     <div>
       <a href="#" onclick="navigate(${station.lat},${station.lon});">

@@ -215,6 +215,7 @@ function fetchAdminInbox() {
             if (inbox.comment !== undefined) {
               comment = `<p class="card-text"><small class="text-muted">${inbox.comment}</small></p>`;
             }
+            var coords = "";
             var problemIcon = "";
             var problemType = "";
             var problemSolving = "";
@@ -226,6 +227,12 @@ function fetchAdminInbox() {
               switch (inbox.problemReportType) {
                 case "WRONG_LOCATION":
                   problemText = getI18n(s => s.reportProblem.wrongLocation);
+                  coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a> -> <a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.newLat}&mlon=${inbox.newLon}&zoom=18&layers=M" target="_blank">${inbox.newLat},${inbox.newLon}</a></small></p>`;
+                  break;
+                case "WRONG_NAME":
+                  problemText = `${getI18n(
+                    s => s.reportProblem.wrongName
+                  )}: <em>${inbox.newTitle}</em>`;
                   break;
                 case "STATION_INACTIVE":
                   problemText = getI18n(s => s.reportProblem.stationInactive);
@@ -284,7 +291,7 @@ function fetchAdminInbox() {
                     name="title-${
                       inbox.id
                     }" type="text" placeholder="Title" value="${
-                inbox.title
+                inbox.newTitle
               }"/></p>
                     <p class="card-text" style="display: none" id="lat-p-${
                       inbox.id
@@ -292,7 +299,7 @@ function fetchAdminInbox() {
                       name="lat-${
                         inbox.id
                       }" type="text" placeholder="Latitude" value="${
-                inbox.lat
+                inbox.newLat
               }"/></p>
                     <p class="card-text" style="display: none" id="lon-p-${
                       inbox.id
@@ -300,7 +307,7 @@ function fetchAdminInbox() {
                       name="lon-${
                         inbox.id
                       }" type="text" placeholder="Longitude" value="${
-                inbox.lon
+                inbox.newLon
               }"/></p>
                       `;
             }
@@ -331,7 +338,6 @@ function fetchAdminInbox() {
               }
             }
 
-            var coords = "";
             var newStation = "";
             if (inbox.stationId === undefined) {
               if (inbox.hasConflict) {
@@ -349,7 +355,7 @@ function fetchAdminInbox() {
               } else {
                 active_false = `selected`;
               }
-              coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+              coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
               newStation = `<p class="card-text">${createCountriesDropDown(
                 countries,
                 inbox.countryCode,

@@ -35,6 +35,7 @@ export function reportProblem() {
   var latitude = $("#inputLatitude").val();
   var longitude = $("#inputLongitude").val();
   var comment = $("#inputComment").val();
+  var title = $("#inputTitle").val();
   var photoId = $("#photoId").val();
 
   var r = confirm(getI18n(s => s.reportProblem.confirmProblemReport));
@@ -46,6 +47,7 @@ export function reportProblem() {
       stationId: stationId,
       type: type,
       comment: comment,
+      title: title,
       lat: latitude,
       lon: longitude,
       photoId: photoId,
@@ -90,6 +92,14 @@ export function changeProblemType() {
     $("#inputLatitude").removeAttr("required");
     $("#inputLongitude").removeAttr("required");
   }
+
+  if (type === "WRONG_NAME") {
+    $(".title").show();
+    $("#inputTitle").attr("required", "");
+  } else {
+    $(".title").hide();
+    $("#inputTitle").removeAttr("required");
+  }
 }
 
 function initReportProblemForm() {
@@ -97,6 +107,8 @@ function initReportProblemForm() {
   const stationId = queryParameters.stationId;
   const countryCode = queryParameters.countryCode;
   const title = queryParameters.title;
+  const lat = queryParameters.lat;
+  const lon = queryParameters.lon;
   const photoId = queryParameters.photoId;
 
   if (stationId) {
@@ -107,6 +119,10 @@ function initReportProblemForm() {
     $("#countryCode").val(countryCode);
     $("#photoId").val(photoId);
     $(".coords").hide();
+    $("#inputLatitude").val(lat);
+    $("#inputLongitude").val(lon);
+    $(".title").hide();
+    $("#inputTitle").val(title);
   }
 
   // Fetch all the forms we want to apply custom Bootstrap validation styles to

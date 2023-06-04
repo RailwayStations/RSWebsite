@@ -8,6 +8,8 @@
     $comment = L::reportProblem_comment;
     $commentInfo = L::reportProblem_commentInfo;
     $pleaseInsertComment = L::reportProblem_pleaseInsertComment;
+    $title = L::reportProblem_title;
+    $pleaseInsertTitle = L::reportProblem_pleaseInsertTitle;
     $latitude = L::reportProblem_latitude;
     $pleaseInsertLatitude = L::reportProblem_pleaseInsertLatitude;
     $longitude = L::reportProblem_longitude;
@@ -57,6 +59,13 @@ navbar();
             </select>
             <div class="invalid-feedback">
                 <?php echo $pleaseSelectProblemType; ?>
+            </div>
+        </div>
+        <div class="form-group title">
+            <label for="inputTitle"><?php echo $title; ?></label>
+            <input name="title" type="text" class="form-control" id="inputTitle">
+            <div class="invalid-feedback">
+                <?php echo $pleaseInsertTitle; ?>
             </div>
         </div>
         <div class="form-group coords">

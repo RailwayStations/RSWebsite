@@ -49,6 +49,7 @@ function fetchUserOutbox() {
           if (inbox.comment !== undefined) {
             comment = `<p class="card-text"><small class="text-muted">${inbox.comment}</small></p>`;
           }
+          var coords = "";
           var problemIcon = "";
           var problemType = "";
           if (inbox.problemReportType !== undefined) {
@@ -59,6 +60,12 @@ function fetchUserOutbox() {
             switch (inbox.problemReportType) {
               case "WRONG_LOCATION":
                 problemText = getI18n(s => s.reportProblem.wrongLocation);
+                coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a> -> <a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.newLat}&mlon=${inbox.newLon}&zoom=18&layers=M" target="_blank">${inbox.newLat},${inbox.newLon}</a></small></p>`;
+                break;
+              case "WRONG_NAME":
+                problemText = `${getI18n(
+                  s => s.reportProblem.wrongName
+                )}: <em>${inbox.newTitle}</em>`;
                 break;
               case "STATION_INACTIVE":
                 problemText = getI18n(s => s.reportProblem.stationInactive);
@@ -109,9 +116,8 @@ function fetchUserOutbox() {
             rejectedReason = `<p class="card-text"><small class="text-muted">${inbox.rejectedReason}</small></p>`;
           }
 
-          var coords = "";
           if (inbox.stationId === undefined) {
-            coords = `<p class="card-text"><small class="text-muted"><a href="index.php?mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+            coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
           }
           var title = `${inbox.id}: ${inbox.title}`;
           if (inbox.stationId !== undefined) {
