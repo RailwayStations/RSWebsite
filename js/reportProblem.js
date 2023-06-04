@@ -7,6 +7,7 @@ import { UserProfileClient } from "./settings/client/UserProfileClient";
 
 window.reportProblem = reportProblem;
 window.changeProblemType = changeProblemType;
+window.titleValidation = titleValidation;
 
 function showError(message) {
   "use strict";
@@ -82,6 +83,8 @@ export function reportProblem() {
 }
 
 export function changeProblemType() {
+  "use strict";
+
   var type = $("#inputType").val();
   if (type === "WRONG_LOCATION") {
     $(".coords").show();
@@ -102,6 +105,28 @@ export function changeProblemType() {
   }
 }
 
+export function titleValidation() {
+  "use strict";
+
+  var type = $("#inputType").val();
+  if (type === "WRONG_NAME") {
+    var orgTitle = $("#originalTitle").val();
+    var newTitle = $("#inputTitle").val();
+    if (newTitle === orgTitle) {
+      console.log(newTitle + " === " + orgTitle);
+      document.getElementById("inputTitle").classList.add("is-invalid")
+      document.getElementById("inputTitle").classList.remove("is-valid")
+      document.getElementById('inputTitle').setCustomValidity('Title must be different');
+      return false;
+    }
+    console.log(newTitle + " !== " + orgTitle);
+  }
+  document.getElementById("inputTitle").classList.add("is-valid")
+  document.getElementById("inputTitle").classList.remove("is-invalid")
+  document.getElementById('inputTitle').setCustomValidity('');
+  return true;
+}
+
 function initReportProblemForm() {
   const queryParameters = getQueryParameter();
   const stationId = queryParameters.stationId;
@@ -115,6 +140,7 @@ function initReportProblemForm() {
     $("#title-form").html(
       getI18n(s => s.reportProblem.reportProblemFor + " " + title)
     );
+    $("#originalTitle").val(title);
     $("#stationId").val(stationId);
     $("#countryCode").val(countryCode);
     $("#photoId").val(photoId);
@@ -134,7 +160,9 @@ function initReportProblemForm() {
       function (event) {
         event.preventDefault();
         event.stopPropagation();
-        if (form.checkValidity() !== false) {
+        const formValid = form.checkValidity();
+        const titleValid = titleValidation();
+        if (formValid !== false && titleValid !== false) {
           reportProblem();
         }
         form.classList.add("was-validated");

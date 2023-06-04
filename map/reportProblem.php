@@ -8,7 +8,7 @@
     $comment = L::reportProblem_comment;
     $commentInfo = L::reportProblem_commentInfo;
     $pleaseInsertComment = L::reportProblem_pleaseInsertComment;
-    $title = L::reportProblem_title;
+    $correctedTitle = L::reportProblem_correctedTitle;
     $pleaseInsertTitle = L::reportProblem_pleaseInsertTitle;
     $latitude = L::reportProblem_latitude;
     $pleaseInsertLatitude = L::reportProblem_pleaseInsertLatitude;
@@ -44,6 +44,7 @@ navbar();
         <input id="stationId" name="stationId" type="hidden"/>
         <input id="countryCode" name="countryCode" type="hidden"/>
         <input id="photoId" name="photoId" type="hidden"/>
+        <input id="originalTitle" name="originalTitle" type="hidden"/>
         <div class="form-group">
             <label for="inputProblemType">
             <select class="custom-select" id="inputType" onchange="changeProblemType()" required>
@@ -62,7 +63,7 @@ navbar();
             </div>
         </div>
         <div class="form-group title">
-            <label for="inputTitle"><?php echo $title; ?></label>
+            <label for="inputTitle"><?php echo $correctedTitle; ?></label>
             <input name="title" type="text" class="form-control" id="inputTitle">
             <div class="invalid-feedback">
                 <?php echo $pleaseInsertTitle; ?>
