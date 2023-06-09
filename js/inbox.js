@@ -338,8 +338,15 @@ function fetchAdminInbox() {
               }
             }
 
+            var stationTitle = inbox.title;
+            var stationLat = inbox.lat;
+            var stationLon = inbox.lon;
+
             var newStation = "";
             if (inbox.stationId === undefined) {
+              stationTitle = inbox.newTitle;
+              stationLat = inbox.newLat;
+              stationLon = inbox.newLon;
               if (inbox.hasConflict) {
                 conflictResolution = `<option value="IGNORE_NEARBY_STATION">${getI18n(
                   s => s.inbox.ignoreNearbyStation
@@ -355,7 +362,7 @@ function fetchAdminInbox() {
               } else {
                 active_false = `selected`;
               }
-              coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+              coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${stationLat}&mlon=${stationLon}&zoom=18&layers=M" target="_blank">${stationLat},${stationLon}</a></small></p>`;
               newStation = `<p class="card-text">${createCountriesDropDown(
                 countries,
                 inbox.countryCode,
@@ -379,25 +386,19 @@ function fetchAdminInbox() {
                 }" class="form-control" 
                   name="title-${
                     inbox.id
-                  }" type="text" placeholder="Title" value="${
-                inbox.title
-              }"/></p>
+                  }" type="text" placeholder="Title" value="${stationTitle}"/></p>
                 <p class="card-text"><input id="lat-${
                   inbox.id
                 }" class="form-control"  
                   name="lat-${
                     inbox.id
-                  }" type="text" placeholder="Latitude" value="${
-                inbox.lat
-              }"/></p>
+                  }" type="text" placeholder="Latitude" value="${stationLat}"/></p>
                 <p class="card-text"><input id="lon-${
                   inbox.id
                 }" class="form-control"  
                   name="lon-${
                     inbox.id
-                  }" type="text" placeholder="Longitude" value="${
-                inbox.lon
-              }"/></p>
+                  }" type="text" placeholder="Longitude" value="${stationLon}"/></p>
                 <p class="card-text"><input id="ds100-${
                   inbox.id
                 }" class="form-control"  
@@ -418,7 +419,7 @@ function fetchAdminInbox() {
               )}</option>
                   </select></p>`;
             }
-            var title = `${inbox.id}: ${inbox.title}`;
+            var title = `${inbox.id}: ${stationTitle}`;
             if (inbox.stationId !== undefined) {
               var photoIdParam = "";
               if (inbox.photoId !== undefined) {
@@ -444,7 +445,7 @@ function fetchAdminInbox() {
       <p class="card-text">
         ${inbox.photographerNickname} <a href="mailto:${
               inbox.photographerEmail
-            }?subject=${inbox.title}"><i class="fas fa-envelope"></i></a><br>
+            }?subject=${stationTitle}"><i class="fas fa-envelope"></i></a><br>
         ${createdAt.toLocaleString()}
       </p>
       ${problemType}

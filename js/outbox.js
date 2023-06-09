@@ -116,10 +116,17 @@ function fetchUserOutbox() {
             rejectedReason = `<p class="card-text"><small class="text-muted">${inbox.rejectedReason}</small></p>`;
           }
 
+          var stationTitle = inbox.title;
+          var stationLat = inbox.lat;
+          var stationLon = inbox.lon;
+
           if (inbox.stationId === undefined) {
-            coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${inbox.lat}&mlon=${inbox.lon}&zoom=18&layers=M" target="_blank">${inbox.lat},${inbox.lon}</a></small></p>`;
+            stationTitle = inbox.newTitle;
+            stationLat = inbox.newLat;
+            stationLon = inbox.newLon;
+            coords = `<p class="card-text"><small class="text-muted"><a href="index.php?countryCode=${inbox.countryCode}&mlat=${stationLat}&mlon=${stationLon}&zoom=18&layers=M" target="_blank">${stationLat},${stationLon}</a></small></p>`;
           }
-          var title = `${inbox.id}: ${inbox.title}`;
+          var title = `${inbox.id}: ${stationTitle}`;
           if (inbox.stationId !== undefined) {
             title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
           }
