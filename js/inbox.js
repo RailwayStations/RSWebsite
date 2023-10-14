@@ -37,7 +37,7 @@ function sendInboxCommand(inboxCommand) {
   request.done(function (data) {
     $("#buttons-" + inboxCommand.id).attr("style", "visibility: collapse");
     var alertPlaceholder = document.getElementById(
-      "liveAlertPlaceholder-" + inboxCommand.id
+      "liveAlertPlaceholder-" + inboxCommand.id,
     );
     var wrapper = document.createElement("div");
     wrapper.innerHTML =
@@ -180,7 +180,7 @@ function fetchAdminInbox() {
       },
       error: function () {
         $("#inboxEntries").html(
-          getI18n(s => s.inbox.errorLoadingPendingUploads)
+          getI18n(s => s.inbox.errorLoadingPendingUploads),
         );
       },
       success: function (obj) {
@@ -196,11 +196,11 @@ function fetchAdminInbox() {
             if (isNotBlank(inbox.filename)) {
               if (isProcessed) {
                 processedIcon = ` <i class="fas fa-check" title="${getI18n(
-                  s => s.inbox.processed
+                  s => s.inbox.processed,
                 )}"></i>`;
               } else {
                 processedIcon = ` <i class="fas fa-hourglass-start" title="${getI18n(
-                  s => s.inbox.toProcess
+                  s => s.inbox.toProcess,
                 )}"></i>`;
                 acceptDisabled = "disabled";
               }
@@ -221,7 +221,7 @@ function fetchAdminInbox() {
             var problemSolving = "";
             if (inbox.problemReportType !== undefined) {
               problemIcon = ` <i class="fas fa-bullhorn" title="${getI18n(
-                s => s.inbox.problemReport
+                s => s.inbox.problemReport,
               )}"></i>`;
               var problemText = getI18n(s => s.reportProblem.otherProblem);
               switch (inbox.problemReportType) {
@@ -231,7 +231,7 @@ function fetchAdminInbox() {
                   break;
                 case "WRONG_NAME":
                   problemText = `${getI18n(
-                    s => s.reportProblem.wrongName
+                    s => s.reportProblem.wrongName,
                   )}: <em>${inbox.newTitle}</em>`;
                   break;
                 case "STATION_INACTIVE":
@@ -242,7 +242,7 @@ function fetchAdminInbox() {
                   break;
                 case "STATION_NONEXISTENT":
                   problemText = getI18n(
-                    s => s.reportProblem.stationNonExistant
+                    s => s.reportProblem.stationNonExistant,
                   );
                   break;
                 case "WRONG_PHOTO":
@@ -258,31 +258,31 @@ function fetchAdminInbox() {
                               inbox.id
                             })" id="problemSolving-${inbox.id}">
                         <option value="" selected>${getI18n(
-                          s => s.inbox.chooseProblemSolving
+                          s => s.inbox.chooseProblemSolving,
                         )}</option>
                         <option value="ACTIVATE_STATION">${getI18n(
-                          s => s.inbox.activateStation
+                          s => s.inbox.activateStation,
                         )}</option>
                         <option value="DEACTIVATE_STATION">${getI18n(
-                          s => s.inbox.deactivateStation
+                          s => s.inbox.deactivateStation,
                         )}</option>
                         <option value="DELETE_STATION">${getI18n(
-                          s => s.inbox.deleteStation
+                          s => s.inbox.deleteStation,
                         )}</option>
                         <option value="DELETE_PHOTO">${getI18n(
-                          s => s.inbox.deletePhoto
+                          s => s.inbox.deletePhoto,
                         )}</option>
                         <option value="MARK_SOLVED">${getI18n(
-                          s => s.inbox.markSolved
+                          s => s.inbox.markSolved,
                         )}</option>
                         <option value="CHANGE_NAME">${getI18n(
-                          s => s.inbox.changeName
+                          s => s.inbox.changeName,
                         )}</option>
                         <option value="UPDATE_LOCATION">${getI18n(
-                          s => s.inbox.updateLocation
+                          s => s.inbox.updateLocation,
                         )}</option>
                         <option value="PHOTO_OUTDATED">${getI18n(
-                          s => s.inbox.photoOutdated
+                          s => s.inbox.photoOutdated,
                         )}</option>
                     </select></p>
                     <p class="card-text" style="display: none" id="title-p-${
@@ -291,30 +291,30 @@ function fetchAdminInbox() {
                     name="title-${
                       inbox.id
                     }" type="text" placeholder="Title" value="${
-                inbox.newTitle
-              }"/></p>
+                      inbox.newTitle
+                    }"/></p>
                     <p class="card-text" style="display: none" id="lat-p-${
                       inbox.id
                     }"><input id="lat-${inbox.id}" class="form-control"  
                       name="lat-${
                         inbox.id
                       }" type="text" placeholder="Latitude" value="${
-                inbox.newLat
-              }"/></p>
+                        inbox.newLat
+                      }"/></p>
                     <p class="card-text" style="display: none" id="lon-p-${
                       inbox.id
                     }"><input id="lon-${inbox.id}" class="form-control"  
                       name="lon-${
                         inbox.id
                       }" type="text" placeholder="Longitude" value="${
-                inbox.newLon
-              }"/></p>
+                        inbox.newLon
+                      }"/></p>
                       `;
             }
             var conflictIcon = "";
             if (inbox.hasConflict) {
               conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(
-                s => s.inbox.conflict
+                s => s.inbox.conflict,
               )}"></i>`;
             }
 
@@ -322,18 +322,18 @@ function fetchAdminInbox() {
             if (problemType === "") {
               if (inbox.hasConflict) {
                 conflictResolution = `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
-                  s => s.inbox.importAsNewPrimaryPhoto
+                  s => s.inbox.importAsNewPrimaryPhoto,
                 )}</option>`;
               }
               if (inbox.hasPhoto) {
                 conflictResolution = `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
-                  s => s.inbox.importAsNewPrimaryPhoto
+                  s => s.inbox.importAsNewPrimaryPhoto,
                 )}</option>`;
                 conflictResolution += `<option value="IMPORT_AS_NEW_SECONDARY_PHOTO">${getI18n(
-                  s => s.inbox.importAsNewSecondaryPhoto
+                  s => s.inbox.importAsNewSecondaryPhoto,
                 )}</option>`;
                 conflictResolution += `<option value="OVERWRITE_EXISTING_PHOTO">${getI18n(
-                  s => s.inbox.overwriteExistingPhoto
+                  s => s.inbox.overwriteExistingPhoto,
                 )}</option>`;
               }
             }
@@ -349,7 +349,7 @@ function fetchAdminInbox() {
               stationLon = inbox.newLon;
               if (inbox.hasConflict) {
                 conflictResolution = `<option value="IGNORE_NEARBY_STATION">${getI18n(
-                  s => s.inbox.ignoreNearbyStation
+                  s => s.inbox.ignoreNearbyStation,
                 )}</option>`;
               }
               var active_undefined = "";
@@ -366,7 +366,7 @@ function fetchAdminInbox() {
               newStation = `<p class="card-text">${createCountriesDropDown(
                 countries,
                 inbox.countryCode,
-                inbox.id
+                inbox.id,
               )}</p>
                 <p class="card-text">
                   <div class="input-group mb-2 me-sm-2">
@@ -406,17 +406,17 @@ function fetchAdminInbox() {
                 <p class="card-text" id="active-p-${
                   inbox.id
                 }"><select class="form-control" id="active-${
-                inbox.id
-              }" name="active-${inbox.id}">
+                  inbox.id
+                }" name="active-${inbox.id}">
                     <option value="" ${active_undefined}>${getI18n(
-                s => s.upload.pleaseSelectActiveFlag
-              )}</option>
+                      s => s.upload.pleaseSelectActiveFlag,
+                    )}</option>
                     <option value="true" ${active_true}>${getI18n(
-                s => s.inbox.activeStation
-              )}</option>
+                      s => s.inbox.activeStation,
+                    )}</option>
                     <option value="false" ${active_false}>${getI18n(
-                s => s.inbox.inactiveStation
-              )}</option>
+                      s => s.inbox.inactiveStation,
+                    )}</option>
                   </select></p>`;
             }
             var title = `${inbox.id}: ${stationTitle}`;
@@ -432,7 +432,7 @@ function fetchAdminInbox() {
                 inbox.id
               }">
                 <option value="DO_NOTHING">${getI18n(
-                  s => s.inbox.chooseConflictResolution
+                  s => s.inbox.chooseConflictResolution,
                 )}</option>
                 ${conflictResolution}
                 </select></p>`;
@@ -444,8 +444,8 @@ function fetchAdminInbox() {
       <h5 class="card-title">${title}${conflictIcon}${problemIcon}${processedIcon}</h5>
       <p class="card-text">
         ${inbox.photographerNickname} <a href="mailto:${
-              inbox.photographerEmail
-            }?subject=${stationTitle}"><i class="fas fa-envelope"></i></a><br>
+          inbox.photographerEmail
+        }?subject=${stationTitle}"><i class="fas fa-envelope"></i></a><br>
         ${createdAt.toLocaleString()}
       </p>
       ${problemType}
@@ -459,12 +459,12 @@ function fetchAdminInbox() {
                     onclick="return accept(${
                       inbox.id
                     });" ${acceptDisabled}>${getI18n(
-              s => s.inbox.accept
-            )} <i class="fas fa-thumbs-up"></i></button>
+                      s => s.inbox.accept,
+                    )} <i class="fas fa-thumbs-up"></i></button>
         <button class="btn btn-danger" name="reject-${inbox.id}"
                     onclick="return reject(${inbox.id});">${getI18n(
-              s => s.inbox.reject
-            )} <i class="fas fa-thumbs-down"></i></button>
+                      s => s.inbox.reject,
+                    )} <i class="fas fa-thumbs-down"></i></button>
       </p>
       <div id="liveAlertPlaceholder-${inbox.id}"></div>
     </div>
@@ -559,21 +559,21 @@ function fetchRecentPhotoImports() {
             $("#recentImports").append(`
               <li>
                   <a href="${detailLink}" data-ajax="false">${
-              station.title
-            }</a> 
+                    station.title
+                  }</a> 
                   - ${stationKey} ${getI18n(
-              s => s.inbox.by
-            )} <a href="photographer.php?photographer=${photo.photographer}">${
-              photo.photographer
-            }</a>
+                    s => s.inbox.by,
+                  )} <a href="photographer.php?photographer=${
+                    photo.photographer
+                  }">${photo.photographer}</a>
               </li>`);
           }
         }
 
         $("#recentImports").append(
           `</ul></p><p>${getI18n(
-            s => s.inbox.countByPhotographerAndCountry
-          )}:<ul>`
+            s => s.inbox.countByPhotographerAndCountry,
+          )}:<ul>`,
         );
 
         for (var key in statistic) {

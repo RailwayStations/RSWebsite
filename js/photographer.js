@@ -10,7 +10,7 @@ function initPhotographer() {
   const photographer = vars.photographer;
 
   $("#title-form").html(
-    `${getI18n(s => s.photographer.photosBy)} ${photographer}`
+    `${getI18n(s => s.photographer.photosBy)} ${photographer}`,
   );
 
   $.ajax({
@@ -20,8 +20,8 @@ function initPhotographer() {
     error: function () {
       $("#stations").html(
         `${getI18n(
-          s => s.photographer.errorLoadingStationsOfPhotographer
-        )} ${photographer}`
+          s => s.photographer.errorLoadingStationsOfPhotographer,
+        )} ${photographer}`,
       );
     },
     success: function (photoStations) {
@@ -33,7 +33,7 @@ function initPhotographer() {
         $("#title-form").html(
           `${getI18n(s => s.photographer.photosBy)} <a href="${
             photographers[0].url
-          }">${photographer}</a>`
+          }">${photographer}</a>`,
         );
       }
 
@@ -55,24 +55,24 @@ function initPhotographer() {
   <div class="col mb-4">            
   <div class="card" style="max-width: 302px;">
       <div class="card-body"><h5 class="card-title"><a href="${detailLink}" data-ajax="false">${
-                station.title
-              }</a></h5>
+        station.title
+      }</a></h5>
           <p class="card-text">
               <small class="text-muted">
                   ${getI18n(s => s.photographer.licence)}: <a href="${
-                license.url
-              }">${license.name}</a>
+                    license.url
+                  }">${license.name}</a>
               </small>
           </p>
       </div>
       <a href="${detailLink}" data-ajax="false">
           <img src="${photoURL}" class="card-img-top" loading="lazy" style="width:301px;" alt="${
-                station.title
-              }">
+            station.title
+          }">
       </a>
   </div>
   </div>
-  `
+  `,
             );
           }
         }

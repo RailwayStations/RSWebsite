@@ -15,7 +15,7 @@ class CountryClient {
 
     if (sessionStorage.getItem("countries")) {
       promise = new Promise(resolve =>
-        resolve(JSON.parse(sessionStorage.getItem("countries")))
+        resolve(JSON.parse(sessionStorage.getItem("countries"))),
       );
     } else {
       promise = fetch(getAPIURI() + "countries")
@@ -23,7 +23,7 @@ class CountryClient {
         .then(countries => {
           countries.forEach(country => {
             let translatedName = getI18n(
-              s => s.common["country_" + country.code]
+              s => s.common["country_" + country.code],
             );
             if (translatedName) {
               country.name = translatedName;

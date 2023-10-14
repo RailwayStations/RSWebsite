@@ -48,7 +48,7 @@ class UserProfileClient {
             } else {
               throw new Error(getI18n(s => s.settings.loginFailed));
             }
-          })
+          }),
       )
       .then(data => new UserProfile(data))
       .then(newUserProfile => {

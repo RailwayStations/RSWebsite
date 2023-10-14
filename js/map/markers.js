@@ -14,7 +14,7 @@ export function updateMarker(
   photoStations,
   map,
   specialMarker,
-  setViewPort = true
+  setViewPort = true,
 ) {
   if (!!_markers) {
     map.removeLayer(_markers);

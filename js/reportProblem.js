@@ -140,7 +140,7 @@ function initReportProblemForm() {
 
   if (stationId) {
     $("#title-form").html(
-      getI18n(s => s.reportProblem.reportProblemFor + " " + title)
+      getI18n(s => s.reportProblem.reportProblemFor + " " + title),
     );
     $("#originalTitle").val(title);
     $("#stationId").val(stationId);
@@ -169,7 +169,7 @@ function initReportProblemForm() {
         }
         form.classList.add("was-validated");
       },
-      false
+      false,
     );
   });
 }
@@ -190,7 +190,7 @@ function initReportProblem() {
         location.href =
           "settings.php?warning=" +
           encodeURIComponent(
-            `${getI18n(s => s.reportProblem.notAllowedToReportProblem)}`
+            `${getI18n(s => s.reportProblem.notAllowedToReportProblem)}`,
           );
       } else {
         initReportProblemForm();
@@ -201,7 +201,7 @@ function initReportProblem() {
       location.href =
         "settings.php?error=" +
         encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
-    }
+    },
   );
 }
 

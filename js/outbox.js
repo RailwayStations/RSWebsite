@@ -29,7 +29,7 @@ function fetchUserOutbox() {
           encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
       } else {
         $("#outboxEntries").html(
-          getI18n(s => s.outbox.errorLoadingOutbox) + ": " + textStatus
+          getI18n(s => s.outbox.errorLoadingOutbox) + ": " + textStatus,
         );
       }
     },
@@ -54,7 +54,7 @@ function fetchUserOutbox() {
           var problemType = "";
           if (inbox.problemReportType !== undefined) {
             problemIcon = ` <i class="fas fa-bullhorn" title="${getI18n(
-              s => s.inbox.problemReport
+              s => s.inbox.problemReport,
             )}"></i>`;
             var problemText = getI18n(s => s.reportProblem.otherProblem);
             switch (inbox.problemReportType) {
@@ -64,7 +64,7 @@ function fetchUserOutbox() {
                 break;
               case "WRONG_NAME":
                 problemText = `${getI18n(
-                  s => s.reportProblem.wrongName
+                  s => s.reportProblem.wrongName,
                 )}: <em>${inbox.newTitle}</em>`;
                 break;
               case "STATION_INACTIVE":
@@ -88,7 +88,7 @@ function fetchUserOutbox() {
           var conflictIcon = "";
           if (inbox.hasConflict) {
             conflictIcon = ` <i class="fas fa-exclamation-triangle" title="${getI18n(
-              s => s.inbox.conflict
+              s => s.inbox.conflict,
             )}"></i>`;
           }
 
@@ -108,7 +108,7 @@ function fetchUserOutbox() {
               break;
           }
           var state = `<p class="card-text">${getI18n(
-            s => s.outbox.stateLabel
+            s => s.outbox.stateLabel,
           )}${stateText}</p>`;
 
           var rejectedReason = "";

@@ -89,7 +89,7 @@ export function timetableByStation(stationId) {
   "use strict";
 
   const station = photoStations.stations.filter(
-    station => station.id === stationId
+    station => station.id === stationId,
   )[0];
   timetable(station.country, station.id, station.title, station.shortCode);
 }
@@ -171,7 +171,7 @@ function initMap() {
   L.easyButton(
     "fa-globe-europe",
     fitMarkers,
-    getI18n(s => s.index.showAll)
+    getI18n(s => s.index.showAll),
   ).addTo(map);
   L.control
     .locate({

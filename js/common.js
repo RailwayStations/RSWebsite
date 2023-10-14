@@ -33,7 +33,7 @@ export function fetchCountries() {
 
 export function getCountryByCode(countryCode) {
   return fetchCountries().then(countries =>
-    countries.find(country => country.code === countryCode)
+    countries.find(country => country.code === countryCode),
   );
 }
 
@@ -47,11 +47,11 @@ export function navigate(lat, lon) {
     navigator.platform.indexOf("iPad") !== -1
   ) {
     window.open(
-      "maps://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll="
+      "maps://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=",
     );
   } else {
     window.open(
-      "http://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll="
+      "http://maps.google.com/maps?daddr=" + lat + "," + lon + "&amp;ll=",
     );
   }
   return false;
@@ -61,7 +61,7 @@ export function createTimetableUrl(
   country,
   stationId,
   stationTitle,
-  stationDs100
+  stationDs100,
 ) {
   "use strict";
 
@@ -85,7 +85,7 @@ export function timetable(countryCode, stationId, stationTitle, stationDs100) {
       country,
       stationId,
       stationTitle,
-      stationDs100
+      stationDs100,
     );
     if (isNotBlank(timetableUrl)) {
       window.open(timetableUrl);
@@ -109,7 +109,7 @@ export function updateInboxCount() {
       success: function (obj) {
         if (obj.pendingInboxEntries > 0) {
           $("#nav_inbox").append(
-            `<span class="badge bg-light text-dark">${obj.pendingInboxEntries}</span>`
+            `<span class="badge bg-light text-dark">${obj.pendingInboxEntries}</span>`,
           );
         }
       },
@@ -122,7 +122,7 @@ export function updateInboxCount() {
       crossDomain: true,
       success: function (obj) {
         $("#nav_inbox").append(
-          `<span class="badge bg-light text-dark">${obj.length}</span>`
+          `<span class="badge bg-light text-dark">${obj.length}</span>`,
         );
       },
     });
@@ -160,7 +160,7 @@ export function providerApp(countryCode) {
 
     var providerAppsDiv = $("#providerAppsBody");
     providerAppsDiv.html(
-      '<table class="table table-striped">' + providerAppsTable + "</table>"
+      '<table class="table table-striped">' + providerAppsTable + "</table>",
     );
 
     let appsModal = new Modal(document.getElementById("providerApps"));

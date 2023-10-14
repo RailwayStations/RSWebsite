@@ -34,12 +34,12 @@ class AbstractFormView {
     document.getElementById("profileEmail").value = currentUser.email;
     if (currentUser.emailVerified) {
       document.getElementById("emailVerifiedLabel").innerHTML = getI18n(
-        s => s.settings.emailVerified
+        s => s.settings.emailVerified,
       );
       document.getElementById("emailVerifiedLabel").style.color = "green";
     } else {
       document.getElementById("emailVerifiedLabel").innerHTML = getI18n(
-        s => s.settings.emailNotVerified
+        s => s.settings.emailNotVerified,
       );
       document.getElementById("emailVerifiedLabel").style.color = "red";
       document

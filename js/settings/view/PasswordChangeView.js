@@ -30,7 +30,7 @@ class PasswordChangeView extends AbstractFormView {
           document.getElementById("newPasswordRepeat").value;
         if (newPassword !== newPasswordRepeat) {
           PasswordChangeView.showError(
-            getI18n(s => s.settings.passwordMismatch)
+            getI18n(s => s.settings.passwordMismatch),
           );
         } else {
           PasswordClient.updatePassword(newPassword).then(r => {
@@ -42,14 +42,14 @@ class PasswordChangeView extends AbstractFormView {
               location.href =
                 "settings.php?success=" +
                 encodeURIComponent(
-                  getI18n(s => s.settings.passwordChangedLogInAgain)
+                  getI18n(s => s.settings.passwordChangedLogInAgain),
                 );
             } else {
               const unableToChangePassword = getI18n(
-                s => s.settings.unableToChangePassword
+                s => s.settings.unableToChangePassword,
               );
               PasswordChangeView.showError(
-                `${unableToChangePassword}: ${r.status}`
+                `${unableToChangePassword}: ${r.status}`,
               );
             }
           });

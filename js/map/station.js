@@ -11,7 +11,7 @@ export let stationHtml = function (feature, photoStations) {
   let details = "";
   if (station.inactive) {
     details = `<div><i class="fas fa-times-circle"></i> ${getI18n(
-      s => s.station.inactive
+      s => s.station.inactive,
     )}</div>`;
   }
 

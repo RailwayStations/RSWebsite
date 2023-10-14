@@ -103,12 +103,12 @@ function createCountriesDropDown(countries) {
   "use strict";
 
   $(
-    `<option value="">${getI18n(s => s.inbox.selectCountry)}</option>`
+    `<option value="">${getI18n(s => s.inbox.selectCountry)}</option>`,
   ).appendTo("#countrySelect");
 
   countries.forEach(country => {
     $(`<option value="${country.code}">${country.name}</option>`).appendTo(
-      "#countrySelect"
+      "#countrySelect",
     );
   });
 }
@@ -134,7 +134,7 @@ function initUploadForm() {
       var overrideLicense = country.overrideLicense;
       if (isNotBlank(overrideLicense)) {
         $("#special-license-label").html(
-          getI18n(s => s.upload.specialLicenseNeeded) + ": " + overrideLicense
+          getI18n(s => s.upload.specialLicenseNeeded) + ": " + overrideLicense,
         );
       } else {
         $(".special-license-group").hide();
@@ -206,7 +206,7 @@ function initUpload() {
         location.href =
           "settings.php?warning=" +
           encodeURIComponent(
-            `${getI18n(s => s.upload.notAllowedToUploadPhotos)}`
+            `${getI18n(s => s.upload.notAllowedToUploadPhotos)}`,
           );
       } else {
         initUploadForm();
@@ -217,7 +217,7 @@ function initUpload() {
       location.href =
         "settings.php?error=" +
         encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
-    }
+    },
   );
 }
 

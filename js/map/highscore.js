@@ -15,25 +15,25 @@ export const showHighScorePopup = async selectedCountryCode => {
       currentCountry = getI18n(s => s.index.allCountries);
       countryStats = await CountryStats.get("all");
       statistics = await fetch(getAPIURI() + "photographers").then(r =>
-        r.json()
+        r.json(),
       );
     } else {
       currentCountry = countries.find(
-        country => country.code === selectedCountryCode
+        country => country.code === selectedCountryCode,
       ).name;
       countryStats = await CountryStats.get(selectedCountryCode);
       statistics = await fetch(
-        getAPIURI() + "photographers?country=" + selectedCountryCode
+        getAPIURI() + "photographers?country=" + selectedCountryCode,
       ).then(r => r.json());
     }
   } else {
     const resultingCountryCode = getCountryCode();
     currentCountry = countries.find(
-      country => country.code === resultingCountryCode
+      country => country.code === resultingCountryCode,
     ).name;
     countryStats = await CountryStats.get(resultingCountryCode);
     statistics = await fetch(
-      getAPIURI() + "photographers?country=" + resultingCountryCode
+      getAPIURI() + "photographers?country=" + resultingCountryCode,
     ).then(r => r.json());
   }
 
@@ -47,7 +47,7 @@ export const showHighScorePopup = async selectedCountryCode => {
       ${table}
     `;
   let highscoreModal = Modal.getOrCreateInstance(
-    document.getElementById("highscore")
+    document.getElementById("highscore"),
   );
   highscoreModal.show();
 };

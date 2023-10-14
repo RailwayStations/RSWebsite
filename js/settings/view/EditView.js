@@ -14,7 +14,7 @@ class EditView extends AbstractFormView {
       .addEventListener("click", EditView.logout);
     EditView.updateFieldsOfFormWith(
       currentUser,
-      EditView.requestVerificationMail
+      EditView.requestVerificationMail,
     );
     document.getElementById("saveProfile").addEventListener("click", () => {
       document.getElementById("saveProfileSpinner").classList.remove("hidden");
@@ -34,19 +34,19 @@ class EditView extends AbstractFormView {
           this.showError(
             `${getI18n(s => s.settings.invalidData)}: ${r.status} ${
               r.statusText
-            }`
+            }`,
           );
         } else if (r.status === 401) {
           this.showError(getI18n(s => s.settings.loginFailed));
         } else if (r.status === 409) {
           this.showError(
-            `${getI18n(s => s.settings.conflict)}: info@railway-stations.org`
+            `${getI18n(s => s.settings.conflict)}: info@railway-stations.org`,
           );
         } else {
           this.showError(
             `${getI18n(s => s.settings.profileSavedFailed)}: ${r.status} ${
               r.statusText
-            }`
+            }`,
           );
         }
       });
@@ -55,7 +55,7 @@ class EditView extends AbstractFormView {
       .getElementById("changePassword")
       .addEventListener("click", PasswordChangeView.load);
     document.getElementById("saveBtnText").innerHTML = getI18n(
-      s => s.settings.save
+      s => s.settings.save,
     );
 
     const deleteAccount = document.getElementById("deleteAccount");
@@ -70,7 +70,7 @@ class EditView extends AbstractFormView {
         userProfile.save();
         EditView.updateFieldsOfFormWith(
           userProfile,
-          EditView.requestVerificationMail
+          EditView.requestVerificationMail,
         );
       },
       error => {
@@ -78,7 +78,7 @@ class EditView extends AbstractFormView {
         location.href =
           "settings.php?error=" +
           encodeURIComponent(`${getI18n(s => s.settings.loginFailed)}`);
-      }
+      },
     );
   }
 
@@ -93,7 +93,7 @@ class EditView extends AbstractFormView {
         } else {
           this.showError(
             getI18n(s => s.settings.deleteAccountFailed) +
-              "info@railway-stations.org"
+              "info@railway-stations.org",
           );
         }
       });

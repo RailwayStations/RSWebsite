@@ -11,7 +11,7 @@ function sendPostRequest(url, params, success, error) {
   request.open("POST", url, true);
   request.setRequestHeader(
     "Content-Type",
-    "application/x-www-form-urlencoded; charset=UTF-8"
+    "application/x-www-form-urlencoded; charset=UTF-8",
   );
   request.onload = function () {
     let body = {};
@@ -129,7 +129,7 @@ class LoginView extends AbstractFormView {
           },
           function (request, error) {
             location.href = "settings.php?error=" + error.error;
-          }
+          },
         );
       }
 

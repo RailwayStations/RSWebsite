@@ -13,12 +13,12 @@ function initEmailVerification() {
     crossDomain: true,
     error: function () {
       $("#emailVerificationResult").html(
-        getI18n(s => s.emailVerification.error)
+        getI18n(s => s.emailVerification.error),
       );
     },
     success: function (obj) {
       $("#emailVerificationResult").html(
-        getI18n(s => s.emailVerification.success)
+        getI18n(s => s.emailVerification.success),
       );
     },
   });
