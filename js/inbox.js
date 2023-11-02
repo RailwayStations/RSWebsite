@@ -245,6 +245,9 @@ function fetchAdminInbox() {
                     s => s.reportProblem.stationNonExistant,
                   );
                   break;
+                case "DUPLICATE":
+                  problemText = getI18n(s => s.reportProblem.duplicate);
+                  break;
                 case "WRONG_PHOTO":
                   problemText = getI18n(s => s.reportProblem.wrongPhoto);
                   break;
