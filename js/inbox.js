@@ -3,6 +3,7 @@ import {
   getAPIURI,
   fetchCountries,
   isNotBlank,
+  isBlank,
   getIntFromLocalStorage,
   getAuthorization,
 } from "./common";
@@ -13,7 +14,6 @@ import { UserProfile } from "./settings/UserProfile";
 window.$ = $;
 window.accept = accept;
 window.reject = reject;
-window.nextZ = nextZ;
 window.changeSinceHours = changeSinceHours;
 window.changeProblemSolving = changeProblemSolving;
 
@@ -49,27 +49,15 @@ function sendInboxCommand(inboxCommand) {
   request.fail(function (jqXHR, textStatus, errorThrown) {
     if (jqXHR.responseText) {
       var response = JSON.parse(jqXHR.responseText);
-      alert(response.status + ": " + response.message);
+      var message = response.message ? response.message : "";
+      if (response.status === 400) {
+        alert(getI18n(s => s.inbox.badRequest) + ": " + message);
+      } else {
+        alert(response.status + ": " + message);
+      }
     } else {
       alert(textStatus + ": " + errorThrown);
     }
-  });
-}
-
-function nextZ(id) {
-  "use strict";
-
-  $.ajax({
-    url: `${getAPIURI()}nextZ`,
-    type: "GET",
-    dataType: "json",
-    crossDomain: true,
-    error: function () {
-      $("#stationId-" + id).val("error");
-    },
-    success: function (obj) {
-      $("#stationId-" + id).val(obj.nextZ);
-    },
   });
 }
 
@@ -99,9 +87,19 @@ function accept(id) {
   var countryCode = $("#country-" + id).val();
   var stationId = $("#stationId-" + id).val();
   var command = "IMPORT_PHOTO";
-  if (isNotBlank(stationId)) {
+
+  if ($("#stationId-" + id).length) {
+    console.log("Station: " + stationId + ", countryCode: " + countryCode);
     command = "IMPORT_MISSING_STATION";
+    if (isBlank(countryCode)) {
+      alert(getI18n(s => s.inbox.selectCountry));
+      return;
+    }
+    if (isBlank(stationId)) {
+      stationId = "Z";
+    }
   }
+
   var title = $("#title-" + id).val();
   var lat = $("#lat-" + id).val();
   var lon = $("#lon-" + id).val();
@@ -122,7 +120,7 @@ function accept(id) {
   var inboxCommand = {
     id: id,
     countryCode: countryCode,
-    stationId: stationId,
+    stationId: stationId ? stationId : "Z",
     title: title,
     lat: lat,
     lon: lon,
@@ -372,17 +370,10 @@ function fetchAdminInbox() {
                 inbox.id,
               )}</p>
                 <p class="card-text">
-                  <div class="input-group mb-2 me-sm-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text" onclick="return nextZ(${
-                        inbox.id
-                      })" style="cursor: pointer;">Z</div>
-                    </div>
                     <input id="stationId-${inbox.id}" class="form-control" 
                       name="stationId-${
                         inbox.id
-                      }" type="text" placeholder="Station ID"/>
-                  </div>
+                      }" type="text" placeholder="${getI18n(s => s.inbox.stationIdPlaceholder)}"/>
                 </p>
                 <p class="card-text"><input id="title-${
                   inbox.id

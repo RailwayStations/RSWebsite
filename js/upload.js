@@ -64,7 +64,11 @@ function stopUpload(result) {
 
   let success = false;
   let message =
-    getI18n(s => s.upload.unknown) + ": " + result.state + " - " + message;
+    getI18n(s => s.upload.unknown) +
+    ": " +
+    result.state +
+    " - " +
+    result.message;
   if (result.state === "REVIEW") {
     success = true;
     message = getI18n(s => s.upload.successful);
