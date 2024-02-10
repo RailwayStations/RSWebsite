@@ -13,7 +13,11 @@ navbar();
 ?>
 
 <main role="main" class="py-md-3 pl-md-5 bd-content container">
+    <div id="error" class="alert alert-danger hidden"></div>
+    <div id="success" class="alert alert-success hidden"></div>
+
     <h2 id="title-form"><?php echo L::outbox_title; ?></h2>
+
     <div id="outboxEntries" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
     </div>
 

@@ -10,6 +10,53 @@ import { getI18n } from "./i18n";
 import { UserProfile } from "./settings/UserProfile";
 
 window.$ = $;
+window.withdraw = withdraw;
+
+function showError(message) {
+  "use strict";
+
+  document.getElementById("error").innerText = message;
+  document.getElementById("error").classList.remove("hidden");
+  setTimeout(function () {
+    document.getElementById("error").classList.add("hidden");
+  }, 5000);
+}
+
+function showSuccess(message) {
+  "use strict";
+
+  document.getElementById("success").innerText = message;
+  document.getElementById("success").classList.remove("hidden");
+  setTimeout(function () {
+    location.reload()
+  }, 3000);
+}
+
+export function withdraw(id) {
+  "use strict";
+
+  var r = confirm(getI18n(s => s.outbox.confirmWithdraw));
+  if (r == true) {
+    var request = $.ajax({
+      url: getAPIURI() + "userInbox/" + id,
+      type: "DELETE",
+      processData: false,
+      headers: {
+        Authorization: getAuthorization(),
+      },
+    });
+
+    request.done(function () {
+      showSuccess(getI18n(s => s.outbox.withdrawSuccess));
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+      showError(textStatus + " " + jqXHR.responseText);
+    });
+  } else {
+    return false;
+  }
+}
 
 function fetchUserOutbox() {
   "use strict";
@@ -130,6 +177,11 @@ function fetchUserOutbox() {
           if (inbox.stationId !== undefined) {
             title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
           }
+          var withdrawButton = '';
+          if (inbox.state === "REVIEW") {
+            withdrawButton = `<button class="btn btn-danger" name="withdraw-${inbox.id}" onclick="return withdraw(${inbox.id});">${getI18n(s => s.outbox.withdraw)} <i class="fas fa-thumbs-down"></i></button>`
+          }
+
           $("#outboxEntries").append(`
 <div class="col mb-4" id="inbox-${inbox.id}">            
   <div class="card" style="max-width: 303px;">
@@ -143,6 +195,7 @@ function fetchUserOutbox() {
       ${comment}
       ${state}
       ${rejectedReason}
+      ${withdrawButton}
     </div>
     ${image}
   </div>
