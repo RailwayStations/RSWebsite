@@ -28,7 +28,7 @@ function showSuccess(message) {
   document.getElementById("success").innerText = message;
   document.getElementById("success").classList.remove("hidden");
   setTimeout(function () {
-    location.reload()
+    location.reload();
   }, 3000);
 }
 
@@ -177,9 +177,9 @@ function fetchUserOutbox() {
           if (inbox.stationId !== undefined) {
             title = `<a href="station.php?countryCode=${inbox.countryCode}&stationId=${inbox.stationId}" data-ajax="false">${title}</a>`;
           }
-          var withdrawButton = '';
+          var withdrawButton = "";
           if (inbox.state === "REVIEW") {
-            withdrawButton = `<button class="btn btn-danger" name="withdraw-${inbox.id}" onclick="return withdraw(${inbox.id});">${getI18n(s => s.outbox.withdraw)} <i class="fas fa-thumbs-down"></i></button>`
+            withdrawButton = `<button class="btn btn-danger" name="withdraw-${inbox.id}" onclick="return withdraw(${inbox.id});">${getI18n(s => s.outbox.withdraw)} <i class="fas fa-thumbs-down"></i></button>`;
           }
 
           $("#outboxEntries").append(`
