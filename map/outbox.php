@@ -17,6 +17,10 @@ navbar();
     <div id="success" class="alert alert-success hidden"></div>
 
     <h2 id="title-form"><?php echo L::outbox_title; ?></h2>
+    <div>
+        <input type="checkbox" name="showCompletedEntries" id="showCompletedEntries" value="false" onchange="javascript:fetchUserOutbox();">
+        <label for="showCompletedEntries"><?php echo L::outbox_showCompletedEntries; ?></label>
+    </div>
 
     <div id="outboxEntries" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
     </div>

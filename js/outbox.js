@@ -1,9 +1,9 @@
 import $ from "jquery";
 import {
   getAPIURI,
-  fetchCountries,
   isNotBlank,
   getAuthorization,
+  getBoolFromLocalStorage,
 } from "./common";
 import "bootstrap";
 import { getI18n } from "./i18n";
@@ -11,6 +11,7 @@ import { UserProfile } from "./settings/UserProfile";
 
 window.$ = $;
 window.withdraw = withdraw;
+window.fetchUserOutbox = fetchUserOutbox;
 
 function showError(message) {
   "use strict";
@@ -61,8 +62,13 @@ export function withdraw(id) {
 function fetchUserOutbox() {
   "use strict";
 
+  showCompletedEntries = document.getElementById(
+    "showCompletedEntries",
+  ).checked;
+  localStorage.setItem(`outboxShowCompletedEntries`, showCompletedEntries);
+
   $.ajax({
-    url: `${getAPIURI()}userInbox`,
+    url: `${getAPIURI()}userInbox?showCompletedEntries=${showCompletedEntries}`,
     type: "GET",
     dataType: "json",
     crossDomain: true,
@@ -81,6 +87,7 @@ function fetchUserOutbox() {
       }
     },
     success: function (obj) {
+      $("#outboxEntries").html("");
       if (Array.isArray(obj) && obj.length > 0) {
         for (let i = 0; i < obj.length; i++) {
           let inbox = obj[i];
@@ -215,6 +222,13 @@ function initOutbox() {
       encodeURIComponent(getI18n(s => s.settings.pleaseLogIn));
     return;
   }
+
+  showCompletedEntries = getBoolFromLocalStorage(
+    "outboxShowCompletedEntries",
+    false,
+  );
+  document.getElementById("showCompletedEntries").checked =
+    showCompletedEntries;
 
   fetchUserOutbox();
 }
