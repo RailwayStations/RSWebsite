@@ -360,7 +360,7 @@ function fetchAdminInbox() {
                 )}</option>`;
                 conflictResolution += `<option value="OVERWRITE_EXISTING_PHOTO">${getI18n(
                   s => s.inbox.overwriteExistingPhoto,
-                )}</option>`;                
+                )}</option>`;
               }
               var active_undefined = "";
               var active_true = "";
