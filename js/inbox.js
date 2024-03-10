@@ -352,7 +352,7 @@ function fetchAdminInbox() {
                 conflictResolution = `<option value="IGNORE_NEARBY_STATION">${getI18n(
                   s => s.inbox.ignoreNearbyStation,
                 )}</option>`;
-                conflictResolution = `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
+                conflictResolution += `<option value="IMPORT_AS_NEW_PRIMARY_PHOTO">${getI18n(
                   s => s.inbox.importAsNewPrimaryPhoto,
                 )}</option>`;
                 conflictResolution += `<option value="IMPORT_AS_NEW_SECONDARY_PHOTO">${getI18n(
