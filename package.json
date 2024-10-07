@@ -40,7 +40,7 @@
     "babel-loader": "9.2.1",
     "babel-plugin-syntax-dynamic-import": "6.18.0",
     "core-js": "3.38.1",
-    "css-loader": "6.11.0",
+    "css-loader": "7.1.2",
     "dotenv-webpack": "^8.0.1",
     "file-loader": "6.2.0",
     "ini": "4.1.3",
