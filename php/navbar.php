@@ -52,12 +52,7 @@
                            title="<?php echo L::navbar_privacyPolicy; ?>"><i class="fas fa-shield-alt"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link p-2" href="https://twitter.com/search?q=%23bahnhofsfoto" rel="noopener"
-                           aria-label="<?php echo L::navbar_twitter; ?>"
-                           title="<?php echo L::navbar_twitter; ?>"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link p-2" href="https://botsin.space/@railwaystations" rel="noopener"
+                        <a class="nav-link p-2" href="https://zug.network/@railwaystations" rel="me" rel="noopener"
                            aria-label="<?php echo L::navbar_mastodon; ?>"
                            title="<?php echo L::navbar_mastodon; ?>"><i class="fab fa-mastodon"></i></a>
                     </li>
