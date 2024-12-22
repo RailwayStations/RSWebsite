@@ -117,13 +117,16 @@ function accept(id) {
     return;
   }
 
+  console.log("lat: " + lat);
+  console.log("lon: " + lon);
+
   var inboxCommand = {
     id: id,
     countryCode: countryCode,
     stationId: stationId ? stationId : "Z",
     title: title,
-    lat: lat,
-    lon: lon,
+    lat: lat ? lat : null,
+    lon: lon ? lon : null,
     command: command,
     conflictResolution: conflictResolution,
     DS100: ds100,
