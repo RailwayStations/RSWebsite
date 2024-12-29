@@ -7,7 +7,8 @@ import "leaflet.markercluster";
 import { Spinner } from "spin.js";
 import "leaflet-spin/leaflet.spin";
 import "leaflet-easybutton";
-import "leaflet.locatecontrol";
+import { LocateControl } from "leaflet.locatecontrol";
+import "leaflet.locatecontrol/dist/L.Control.Locate.min.css";
 import "jQuery-Autocomplete";
 import {
   getQueryParameter,
@@ -173,8 +174,7 @@ function initMap() {
     fitMarkers,
     getI18n(s => s.index.showAll),
   ).addTo(map);
-  L.control
-    .locate({
+  new LocateControl({
       showPopup: false,
       strings: {
         title: getI18n(s => s.index.myLocation),
