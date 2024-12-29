@@ -67,7 +67,7 @@
     "leaflet": "^1.7.1",
     "leaflet-easybutton": "^2.4.0",
     "leaflet-spin": "^1.1.2",
-    "leaflet.locatecontrol": "^0.82.0",
+    "leaflet.locatecontrol": "^0.83.0",
     "leaflet.markercluster": "^1.5.3",
     "spin.js": "^4.1.1",
     "whatwg-fetch": "^3.6.2"

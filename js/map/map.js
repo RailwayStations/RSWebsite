@@ -175,12 +175,11 @@ function initMap() {
     getI18n(s => s.index.showAll),
   ).addTo(map);
   new LocateControl({
-      showPopup: false,
-      strings: {
-        title: getI18n(s => s.index.myLocation),
-      },
-    })
-    .addTo(map);
+    showPopup: false,
+    strings: {
+      title: getI18n(s => s.index.myLocation),
+    },
+  }).addTo(map);
 
   fetchStationDataPromise(map)
     .then(data => {
