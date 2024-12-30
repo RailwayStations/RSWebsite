@@ -95,9 +95,10 @@ const createProgressBar = function (countryStats) {
 
   const of = getI18n(s => s.index.of);
   const photos = getI18n(s => s.index.photos);
+  const stations = getI18n(s => s.index.stations);
   const photographers = getI18n(s => s.index.photographers);
 
-  const countryStatistics = `${countPhotos} ${of} ${countStations} ${photos}`;
+  const countryStatistics = `${countPhotos} ${photos} ${of} ${countStations} ${stations}`;
   const countPhotographersString = `${countPhotographers} ${photographers}`;
 
   return `
